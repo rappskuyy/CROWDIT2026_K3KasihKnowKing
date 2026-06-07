@@ -96,8 +96,6 @@ tailwind.config = {
   @media(max-width:480px){.glass-grid{grid-template-columns:repeat(4,1fr);gap:7px;}}
 
   .cup-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;user-select:none;}
-  .cup-label{font-size:.6rem;font-weight:700;color:var(--on-surface-variant);letter-spacing:.03em;}
-
   .cup-svg{transition:filter .2s;}
   .cup-wrap:hover .cup-svg{filter:drop-shadow(0 4px 8px rgba(16,99,153,.35));}
   .cup-wrap.filled .cup-svg{filter:drop-shadow(0 2px 6px rgba(16,99,153,.2));}
@@ -467,10 +465,70 @@ function showToast(msg, type='info'){
 }
 
 /* ===== STATE ===== */
-let cups = 0;
 const TARGET = 8;
 const ML_PER_CUP = 250;
+
+/* ===== LOCALSTORAGE PERSISTENCE ===== */
+function getTodayKey() {
+  const d = new Date();
+  return `hyd_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+}
+
+function saveState() {
+  const today = getTodayKey();
+  const data = {
+    cups: cups,
+    logTimes: logTimes.map(t => t.toISOString()),
+    date: today
+  };
+  localStorage.setItem('hydration_today', JSON.stringify(data));
+}
+
+function loadState() {
+  const today = getTodayKey();
+  try {
+    const raw = localStorage.getItem('hydration_today');
+    if (!raw) return 0;
+    const data = JSON.parse(raw);
+    if (data.date !== today) {
+      // Hari baru: simpan data kemarin ke histori, reset hari ini
+      savePreviousDayToHistory(data);
+      localStorage.removeItem('hydration_today');
+      return 0;
+    }
+    // Hari sama: restore logTimes
+    if (Array.isArray(data.logTimes)) {
+      data.logTimes.forEach(t => logTimes.push(new Date(t)));
+    }
+    return data.cups || 0;
+  } catch(e) { return 0; }
+}
+
+function savePreviousDayToHistory(data) {
+  try {
+    const prev = JSON.parse(localStorage.getItem('hydration_history') || '{}');
+    prev[data.date] = data.cups;
+    localStorage.setItem('hydration_history', JSON.stringify(prev));
+  } catch(e) {}
+}
+
+function getHistoryCups(dateKey) {
+  try {
+    const prev = JSON.parse(localStorage.getItem('hydration_history') || '{}');
+    return prev[dateKey] !== undefined ? prev[dateKey] : null;
+  } catch(e) { return null; }
+}
+
+// Ambil key untuk N hari yang lalu
+function getDayKey(daysAgo) {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  return `hyd_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+}
+
+let cups = 0;
 const logTimes = [];
+cups = loadState(); // restore dari localStorage
 
 /* ===== CUP GRID BUILD ===== */
 function buildGrid(){
@@ -491,11 +549,6 @@ function buildGrid(){
     const filled = i < cups;
     svg.innerHTML = buildCupSVG(filled, i);
     wrap.appendChild(svg);
-
-    const lbl = document.createElement('div');
-    lbl.className = 'cup-label';
-    lbl.textContent = `${(i+1)*ML_PER_CUP}ml`;
-    wrap.appendChild(lbl);
 
     grid.appendChild(wrap);
   }
@@ -563,6 +616,7 @@ function changeCup(delta, silent=false){
     logTimes.pop();
   }
 
+  saveState(); // simpan ke localStorage
   renderHyd(delta);
   if(!silent) showToast(delta > 0 ? '💧 Cup added!' : 'Cup removed', delta > 0 ? 'success' : 'info');
 }
@@ -607,6 +661,10 @@ function renderHyd(delta=1){
 
   // Status message
   updateStatus();
+
+  // Refresh weekly chart (today's bar)
+  const activeTab = document.querySelector('#hydWeekTabs button.active');
+  if(activeTab && activeTab.dataset.w === 'current') drawHydWeek('current');
 
   // Rebuild grid
   buildGrid();
@@ -725,8 +783,10 @@ function updateTimeLogged(){
 function resetCups(){
   cups = 0;
   logTimes.length = 0;
+  saveState();
   document.getElementById('timeLogged').textContent = '';
   renderHyd(0);
+  drawHydWeek('current');
   showToast('Reset to 0 cups', 'info');
 }
 
@@ -753,12 +813,51 @@ function toggleAccordion(id){
 }
 
 /* ===== WEEKLY CHART ===== */
-const weekData={
-  current:[3,5,4,6,8,5,4],
-  last:[4,6,5,7,6,4,3]
-};
+function getWeekData(isCurrentWeek) {
+  const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const data = [];
+  const today = new Date();
+  const todayDayOfWeek = today.getDay(); // 0=Sun..6=Sat
+
+  for (let i = 0; i < 7; i++) {
+    // i = index hari dalam seminggu (0=Sun, 6=Sat)
+    // Hitung berapa hari yang lalu hari ini berada relatif ke hari i
+    let daysAgo;
+    if (isCurrentWeek) {
+      daysAgo = todayDayOfWeek - i;
+    } else {
+      // minggu lalu: hari i minggu lalu
+      daysAgo = todayDayOfWeek - i + 7;
+    }
+    const key = getDayKey(daysAgo);
+    if (!isCurrentWeek) {
+      // minggu lalu: dari history
+      const v = getHistoryCups(key);
+      data.push(v !== null ? v : 0);
+    } else {
+      if (daysAgo === 0) {
+        // Hari ini: gunakan cups live
+        data.push(cups);
+      } else if (daysAgo < 0) {
+        // Hari yang belum terjadi minggu ini (masa depan)
+        data.push(0);
+      } else {
+        // Hari sebelumnya di minggu ini: dari history
+        const v = getHistoryCups(key);
+        data.push(v !== null ? v : 0);
+      }
+    }
+  }
+  return data;
+}
+
+// Always sync today's current data with live cups count
+function syncTodayToChart(){
+  // now handled dynamically via getWeekData()
+}
 function drawHydWeek(key='current'){
-  const data=weekData[key];
+  const isCurrentWeek = key === 'current';
+  const data = getWeekData(isCurrentWeek);
   const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   let svg='';
   data.forEach((v,i)=>{
@@ -812,6 +911,7 @@ buildGrid();
 renderHyd(0);
 drawHydWeek('current');
 updateNextReminder();
+if(logTimes.length > 0) updateTimeLogged();
 </script>
 </body>
 </html>
