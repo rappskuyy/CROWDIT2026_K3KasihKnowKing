@@ -209,14 +209,18 @@ tailwind.config = {
         <div class="card p-5 lg:col-span-4">
           <div class="flex items-center justify-between mb-2">
             <h3 class="font-bold text-lg">Gadget Time</h3>
-            <span class="stat-pill-red pill px-2 py-1 text-xs font-bold">BURUK</span>
+            <span id="gtDashPill" class="stat-pill-yellow pill px-2 py-1 text-xs font-bold">—</span>
           </div>
-          <div class="text-3xl font-extrabold mb-2">6h 30m</div>
-          <div class="h-2 rounded-full bg-surface-container overflow-hidden mb-4"><div class="h-full bg-error" style="width:85%"></div></div>
-          <div class="font-bold">Lakukan Peregangan</div>
-          <div class="text-sm text-on-surface-variant mb-3">You've been screen-active for 2 hours straight.</div>
-          <div class="h-24 rounded-xl mb-3" style="background:linear-gradient(135deg,#5eead4,#3b82f6);"></div>
-          <button class="w-full py-2.5 rounded-full font-bold text-white" style="background:#003151" onclick="navigate('gadget-time')">Start Stretching</button>
+          <div class="text-3xl font-extrabold mb-2" id="gtDashTime">0h 00m</div>
+          <div class="h-2 rounded-full bg-surface-container overflow-hidden mb-4">
+            <div class="h-full rounded-full transition-all duration-700" id="gtDashBar" style="width:0%;background:#22c55e"></div>
+          </div>
+          <div class="font-bold" id="gtDashTitle">Mulai Tracking</div>
+          <div class="text-sm text-on-surface-variant mb-3" id="gtDashMsg">Buka Gadget Time untuk mulai memantau screen time hari ini.</div>
+          <div class="h-24 rounded-xl mb-3 flex items-center justify-center" style="background:linear-gradient(135deg,#5eead4,#3b82f6)">
+            <div class="text-white text-center"><div class="text-2xl">🧘</div><div class="text-xs font-bold mt-1">Seated Twist</div></div>
+          </div>
+          <button class="w-full py-2.5 rounded-full font-bold text-white" style="background:#003151" onclick="location.href='gadget-time.html'">Buka Gadget Time →</button>
         </div>
 
         <div class="card p-5 lg:col-span-4 hidden lg:block">
@@ -346,6 +350,7 @@ function initPage(){
     drawMoodChart();
     drawDonut();
     renderHyd();
+    renderGadgetDash();
     setTimeout(()=>{ updateStressFromMood(currentMood); }, 50);
   }
   if(r==='sleep'){drawSleepArch();}
@@ -631,7 +636,45 @@ function renderHyd(){
 // Auto-refresh hidrasi setiap 10 detik jika user buka tab hydration di background
 setInterval(renderHyd, 10000);
 
-/* ============== GADGET TIME ============== */
+/* ============== GADGET TIME DASHBOARD CARD ============== */
+function gtDayKey(daysAgo=0){
+  const d=new Date();d.setDate(d.getDate()-daysAgo);
+  return `gt_${d.getFullYear()}_${String(d.getMonth()).padStart(2,'0')}_${String(d.getDate()).padStart(2,'0')}`;
+}
+function fmtHMGt(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60);return h>0?`${h}h ${String(m).padStart(2,'0')}m`:`${m}m`;}
+function renderGadgetDash(){
+  try {
+    const raw=localStorage.getItem('gadget_today');
+    let totalSec=0;
+    if(raw){const data=JSON.parse(raw);if(data.date===gtDayKey())totalSec=data.totalSec||0;}
+    const timeEl=document.getElementById('gtDashTime');
+    const barEl=document.getElementById('gtDashBar');
+    const pillEl=document.getElementById('gtDashPill');
+    const titleEl=document.getElementById('gtDashTitle');
+    const msgEl=document.getElementById('gtDashMsg');
+    if(!timeEl)return;
+    timeEl.textContent=fmtHMGt(totalSec);
+    const hours=totalSec/3600;
+    const pct=Math.min(100,(hours/8)*100);
+    if(barEl){barEl.style.width=pct+'%';barEl.style.background=hours>=5?'#ef4444':hours>=3?'#f59e0b':'#22c55e';}
+    if(pillEl){
+      if(hours>=5){pillEl.textContent='BURUK';pillEl.className='stat-pill-red pill px-2 py-1 text-xs font-bold';}
+      else if(hours>=3){pillEl.textContent='SEDANG';pillEl.className='stat-pill-yellow pill px-2 py-1 text-xs font-bold';}
+      else if(totalSec>0){pillEl.textContent='BAIK';pillEl.className='stat-pill-green pill px-2 py-1 text-xs font-bold';}
+      else{pillEl.textContent='—';pillEl.className='bg-surface-container text-on-surface-variant pill px-2 py-1 text-xs font-bold';}
+    }
+    if(titleEl)titleEl.textContent=hours>=5?'⚠️ Perlu Istirahat':hours>=3?'Lakukan Peregangan':totalSec>0?'Tracking Aktif ✓':'Mulai Tracking';
+    if(msgEl){
+      if(totalSec===0)msgEl.textContent='Buka Gadget Time untuk mulai memantau screen time hari ini.';
+      else if(hours>=5)msgEl.textContent=`${fmtHMGt(totalSec)} screen time hari ini. Istirahat sekarang!`;
+      else if(hours>=3)msgEl.textContent=`${fmtHMGt(totalSec)} — di zona sedang. Peregangan sangat disarankan.`;
+      else msgEl.textContent=`${fmtHMGt(totalSec)} screen time hari ini. Tetap pantau ya!`;
+    }
+  } catch(e){}
+}
+setInterval(renderGadgetDash, 5000);
+
+/* ============== GADGET TIME (stretch countdown di dashboard jika ada) ============== */
 let stretchSec=15*60;
 function tickStretch(){
   stretchSec=stretchSec<=0?15*60:stretchSec-1;
