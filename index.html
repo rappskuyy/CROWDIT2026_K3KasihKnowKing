@@ -179,13 +179,19 @@ tailwind.config = {
         </div>
 
         <div class="card p-5 lg:col-span-4">
-          <h3 class="font-bold text-lg mb-2">Hydration</h3>
-          <div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">6</span> / 8 Glasses</div>
-          <div class="flex gap-1 mb-3" id="hydSegments">
-            </div>
-          <div class="flex items-center gap-2">
-            <span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">check_circle</span>MET 6 - BAIK</span>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-lg">Hydration</h3>
+            <a href="hydration.html" class="text-xs text-primary font-bold hover:underline">Lihat Detail →</a>
           </div>
+          <div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">0</span> / 8 Glasses</div>
+          <div class="flex gap-1 mb-3" id="hydSegments"></div>
+          <div class="flex items-center gap-2">
+            <span id="hydStatusPill" class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1">
+              <span class="material-symbols-outlined" style="font-size:14px">water_drop</span>
+              <span id="hydStatusText">Mulai minum!</span>
+            </span>
+          </div>
+          <div class="mt-2 text-xs text-on-surface-variant" id="hydDashMsg">Minum gelas pertama untuk memulai hari hidrasimu.</div>
         </div>
 
         <div class="card p-5 lg:col-span-4">
@@ -326,7 +332,26 @@ tailwind.config = {
 const ROUTE_FILES={"overview": "index.html", "safety": "safety.html", "gadget-time": "gadget-time.html", "hydration": "hydration.html", "sleep": "sleep.html", "breathing": "breathing.html", "reports": "reports.html", "counseling": "counseling.html", "settings": "settings.html"};
 const CURRENT_ROUTE='overview';
 function navigate(r){if(r==='dashboard')r='overview';if(ROUTE_FILES[r]&&r!==CURRENT_ROUTE){location.href=ROUTE_FILES[r];return;}document.querySelectorAll('.nav-link').forEach(n=>n.classList.toggle('active',n.dataset.route===r));window.scrollTo({top:0,behavior:'smooth'});initPage();}
-function initPage(){const r=CURRENT_ROUTE;if(r==='overview'){drawMoodChart();drawDonut();setTimeout(()=>{const sb=document.getElementById('stressBar');if(sb)sb.style.width='30%';},50);}if(r==='hydration'){drawHydWeek();}if(r==='sleep'){drawSleepArch();}if(r==='breathing'){drawWeeklyMood();}if(r==='reports'){renderReports();}}
+function initPage(){
+  const r=CURRENT_ROUTE;
+  if(r==='overview'){
+    // Restore mood dari localStorage
+    const savedMood = loadMoodToday();
+    if(savedMood !== null){
+      currentMood = savedMood;
+      document.querySelectorAll('#moodSelectors button').forEach(x=>x.classList.remove('selected'));
+      const btn = document.querySelector(`#moodSelectors button[data-mood="${savedMood}"]`);
+      if(btn) btn.classList.add('selected');
+    }
+    drawMoodChart();
+    drawDonut();
+    renderHyd();
+    setTimeout(()=>{ updateStressFromMood(currentMood); }, 50);
+  }
+  if(r==='sleep'){drawSleepArch();}
+  if(r==='breathing'){drawWeeklyMood();}
+  if(r==='reports'){renderReports();}
+}
 document.querySelectorAll('[data-route]').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.route)));
 
 /* ============== TOAST ============== */
@@ -347,8 +372,6 @@ document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('clic
 
 function openCheckin(){openModal('checkinModal');}
 let checkinMood=null;
-document.querySelectorAll('#checkinMoods button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#checkinMoods button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');checkinMood=b.dataset.cmood;}));
-function submitCheckin(){closeModal('checkinModal');showToast('Check-in submitted'+(checkinMood?': '+checkinMood:''),'success');document.getElementById('checkinNote').value='';}
 
 function confirmLogout(){
   document.getElementById('confirmTitle').textContent='Log out?';
@@ -358,28 +381,183 @@ function confirmLogout(){
 }
 document.getElementById('sidebar-logout').addEventListener('click',confirmLogout);
 
-/* ============== MOOD CHART ============== */
-const moodData={0:[1,2,1,2,1,2,1],1:[2,3,2,3,2,3,2],2:[3,4,3,5,4,4,3],3:[4,5,4,5,4,5,4],4:[5,5,5,5,5,5,5]};
-let currentMood=2;
+/* ============== MOOD TRACKER (dengan localStorage) ============== */
+const MOOD_LABELS = ['Stressed','Low','Neutral','Good','Great'];
+const MOOD_ICONS  = ['😠','😔','😐','🙂','🤩'];
+const STRESS_LEVELS = [90, 65, 30, 15, 5]; // % stress bar per mood
+const STRESS_TEXTS  = ['High Stress','Moderate','Low Stress','Calm','Excellent'];
+const STRESS_COLORS = ['bg-error','bg-error','bg-secondary','bg-secondary','bg-secondary'];
+
+function getMoodStorageKey(){
+  const d=new Date();
+  return `mood_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+}
+function getDayMoodKey(daysAgo){
+  const d=new Date(); d.setDate(d.getDate()-daysAgo);
+  return `mood_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+}
+function saveMoodToday(moodIdx){
+  localStorage.setItem('mood_today', JSON.stringify({ date: getMoodStorageKey(), mood: moodIdx }));
+  // juga simpan ke histori mingguan
+  const history = getMoodHistory();
+  history[getMoodStorageKey()] = moodIdx;
+  localStorage.setItem('mood_history', JSON.stringify(history));
+}
+function loadMoodToday(){
+  try {
+    const raw = localStorage.getItem('mood_today');
+    if(!raw) return null;
+    const data = JSON.parse(raw);
+    if(data.date !== getMoodStorageKey()) return null;
+    return data.mood;
+  } catch(e){ return null; }
+}
+function getMoodHistory(){
+  try { return JSON.parse(localStorage.getItem('mood_history') || '{}'); }
+  catch(e){ return {}; }
+}
+// Data chart minggu ini (0-4 = mood index, null = belum diisi)
+function getWeekMoodData(){
+  const history = getMoodHistory();
+  const data = [];
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const today = new Date().getDay();
+  for(let i=0;i<7;i++){
+    const key = getDayMoodKey(today - i > 0 ? today - i : today - i + 7 - 7 + (today-i < 0 ? 7 : 0));
+    // Hitung berapa hari lalu hari i (0=Sun..6=Sat) dari hari ini
+    let daysAgo = today - i;
+    if(daysAgo < 0) daysAgo += 7;
+    const k = getDayMoodKey(daysAgo);
+    data[i] = history[k] !== undefined ? history[k] : null;
+  }
+  return data;
+}
+
+let currentMood = loadMoodToday();
+if(currentMood === null) currentMood = 2; // default neutral
+
 function drawMoodChart(){
-  const data=moodData[currentMood], w=420, h=180, pad=24;
-  const xs=data.map((_,i)=>pad+i*(w-2*pad)/6);
-  const ys=data.map(v=>h-pad-(v-1)*(h-2*pad)/4);
-  let d='M'+xs[0]+','+ys[0];
-  for(let i=1;i<xs.length;i++){const cx=(xs[i-1]+xs[i])/2;d+=' Q'+cx+','+ys[i-1]+' '+cx+','+(ys[i-1]+ys[i])/2+' T'+xs[i]+','+ys[i];}
-  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  let svg=`<svg viewBox="0 0 ${w} ${h}" class="w-full h-44">`;
-  for(let i=1;i<=4;i++){const y=pad+i*(h-2*pad)/5;svg+=`<line x1="${pad}" y1="${y}" x2="${w-pad}" y2="${y}" stroke="#e5eeff" stroke-width="1"/>`;}
-  svg+=`<path d="${d}" fill="none" stroke="#106399" stroke-width="3" stroke-linecap="round" stroke-dasharray="800" stroke-dashoffset="800"><animate attributeName="stroke-dashoffset" to="0" dur="0.8s" fill="freeze"/></path>`;
-  xs.forEach((x,i)=>{svg+=`<circle cx="${x}" cy="${ys[i]}" r="4" fill="#106399"><title>${days[i]}: ${data[i]}</title></circle>`;});
-  xs.forEach((x,i)=>{svg+=`<text x="${x}" y="${h-4}" text-anchor="middle" font-size="10" fill="#41474f">${days[i]}</text>`;});
+  const weekData = getWeekMoodData();
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const w=420, h=180, pad=28;
+  const todayIdx = new Date().getDay();
+
+  // Buat titik: hanya hari yang sudah ada data
+  const pts = [];
+  for(let i=0;i<7;i++){
+    if(weekData[i] !== null){
+      const x = pad + i*(w-2*pad)/6;
+      const y = h - pad - (weekData[i])*(h-2*pad)/4;
+      pts.push({x, y, i, v: weekData[i]});
+    }
+  }
+
+  const xs = days.map((_,i)=> pad + i*(w-2*pad)/6);
+
+  let svg = `<svg viewBox="0 0 ${w} ${h}" class="w-full h-44">`;
+
+  // Grid lines
+  for(let i=0;i<=4;i++){
+    const y=pad+i*(h-2*pad)/4;
+    svg+=`<line x1="${pad}" y1="${y}" x2="${w-pad}" y2="${y}" stroke="#e5eeff" stroke-width="1"/>`;
+    const moodLabel=['Great','Good','Neutral','Low','Stressed'][i];
+    svg+=`<text x="${pad-4}" y="${y+4}" text-anchor="end" font-size="8" fill="#c1c7d1">${moodLabel}</text>`;
+  }
+
+  // Line jika ada ≥2 titik
+  if(pts.length>=2){
+    let d='M'+pts[0].x+','+pts[0].y;
+    for(let i=1;i<pts.length;i++){
+      const cx=(pts[i-1].x+pts[i].x)/2;
+      d+=` Q${cx},${pts[i-1].y} ${cx},${(pts[i-1].y+pts[i].y)/2} T${pts[i].x},${pts[i].y}`;
+    }
+    // Area fill di bawah garis
+    const areaD = d + ` L${pts[pts.length-1].x},${h-pad} L${pts[0].x},${h-pad} Z`;
+    svg+=`<path d="${areaD}" fill="url(#moodGradFill)" opacity="0.15"/>`;
+    svg+=`<defs><linearGradient id="moodGradFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#106399"/><stop offset="100%" stop-color="#106399" stop-opacity="0"/></linearGradient></defs>`;
+    svg+=`<path d="${d}" fill="none" stroke="#106399" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="800" stroke-dashoffset="800"><animate attributeName="stroke-dashoffset" to="0" dur="0.8s" fill="freeze"/></path>`;
+  }
+
+  // Titik-titik hari
+  xs.forEach((x,i)=>{
+    const isToday = i===todayIdx;
+    const v = weekData[i];
+    const hasMood = v !== null;
+    const y = hasMood ? h-pad-(v)*(h-2*pad)/4 : h-pad;
+
+    if(hasMood){
+      svg+=`<circle cx="${x}" cy="${y}" r="${isToday?6:4}" fill="${isToday?'#106399':'#5a9bd5'}" stroke="white" stroke-width="2"><title>${days[i]}: ${MOOD_LABELS[v]}</title></circle>`;
+      if(isToday){
+        svg+=`<text x="${x}" y="${y-12}" text-anchor="middle" font-size="13">${MOOD_ICONS[v]}</text>`;
+      }
+    } else {
+      // Titik abu-abu jika belum ada data (hari mendatang atau belum log)
+      if(i<=todayIdx){
+        svg+=`<circle cx="${x}" cy="${h-pad-10}" r="3" fill="#e5eeff"><title>${days[i]}: belum dilog</title></circle>`;
+      }
+    }
+    svg+=`<text x="${x}" y="${h-4}" text-anchor="middle" font-size="10" fill="${isToday?'#106399':'#41474f'}" font-weight="${isToday?'700':'500'}">${days[i].substring(0,1)}</text>`;
+  });
+
   svg+=`</svg>`;
   document.getElementById('moodChart').innerHTML=svg;
 }
+
+function updateStressFromMood(moodIdx){
+  const bar = document.getElementById('stressBar');
+  const stressCard = document.querySelector('#page-overview .card:has(#stressBar)') || document.getElementById('stressBar')?.closest('.card');
+  const stressTitle = document.querySelector('[id^="stressLabel"]') || document.querySelector('.card .text-secondary.font-bold.text-xl');
+  const stressSubtitle = document.querySelector('.italic.text-sm.text-on-surface-variant');
+
+  if(bar){
+    bar.style.transition='width 1s ease';
+    bar.style.width = STRESS_LEVELS[moodIdx]+'%';
+    // Warna bar
+    bar.className = 'h-full rounded-full transition-all duration-1000 '+(moodIdx<=1?'bg-error':moodIdx===2?'bg-primary-container':'bg-secondary');
+  }
+  if(stressTitle) stressTitle.textContent = STRESS_TEXTS[moodIdx];
+  if(stressSubtitle) stressSubtitle.textContent = `Reflecting '${MOOD_LABELS[moodIdx]}'`;
+}
+
+// Init mood selectors
 document.querySelectorAll('#moodSelectors button').forEach(b=>b.addEventListener('click',()=>{
   document.querySelectorAll('#moodSelectors button').forEach(x=>x.classList.remove('selected'));
-  b.classList.add('selected');currentMood=+b.dataset.mood;drawMoodChart();showToast('Mood updated','success');
+  b.classList.add('selected');
+  currentMood = +b.dataset.mood;
+  saveMoodToday(currentMood);
+  drawMoodChart();
+  updateStressFromMood(currentMood);
+  showToast('Mood tersimpan: '+MOOD_LABELS[currentMood]+' '+MOOD_ICONS[currentMood],'success');
 }));
+
+// Init checkin moods
+document.querySelectorAll('#checkinMoods button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#checkinMoods button').forEach(x=>x.classList.remove('selected'));
+  b.classList.add('selected');
+  checkinMood=b.dataset.cmood;
+}));
+
+function submitCheckin(){
+  // Simpan mood dari checkin juga
+  const selectedCheckin = document.querySelector('#checkinMoods button.selected');
+  if(selectedCheckin){
+    const moodMap={'Stressed':0,'Low':1,'Neutral':2,'Good':3,'Great':4};
+    const mIdx = moodMap[selectedCheckin.dataset.cmood];
+    if(mIdx !== undefined){
+      currentMood = mIdx;
+      saveMoodToday(mIdx);
+      // sync selector di dashboard
+      document.querySelectorAll('#moodSelectors button').forEach(x=>x.classList.remove('selected'));
+      const dashBtn = document.querySelector(`#moodSelectors button[data-mood="${mIdx}"]`);
+      if(dashBtn) dashBtn.classList.add('selected');
+      drawMoodChart();
+      updateStressFromMood(mIdx);
+    }
+  }
+  closeModal('checkinModal');
+  showToast('Check-in tersimpan'+(checkinMood?' : '+checkinMood:''),'success');
+  document.getElementById('checkinNote').value='';
+}
 
 /* ============== DONUT ============== */
 function drawDonut(){
@@ -401,39 +579,57 @@ document.querySelectorAll('#sleepTabs button').forEach(b=>b.addEventListener('cl
   document.getElementById('sleepSegD').style.width=m[2]+'%';
 }));
 
-/* ============== HYDRATION ============== */
-let cups=6;
+/* ============== HYDRATION (baca dari localStorage hydration.html) ============== */
+function getTodayKey() {
+  const d = new Date();
+  return `hyd_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+}
+function getHydrationCups() {
+  try {
+    const raw = localStorage.getItem('hydration_today');
+    if (!raw) return 0;
+    const data = JSON.parse(raw);
+    if (data.date !== getTodayKey()) return 0;
+    return data.cups || 0;
+  } catch(e) { return 0; }
+}
+let cups = getHydrationCups();
 function renderHyd(){
-  document.getElementById('cupCount')?.textContent&& (document.getElementById('cupCount').textContent=cups);
-  document.getElementById('hydDashCount').textContent=cups;
-  const pct=cups/8*100;
-  if(document.getElementById('cupBar')) document.getElementById('cupBar').style.width=pct+'%';
-  if(document.getElementById('bottleFill')){
-    document.getElementById('bottleFill').setAttribute('y',12+(116*(1-pct/100)));
-    document.getElementById('bottleFill').setAttribute('height',116*pct/100);
-    document.getElementById('bottlePct').textContent=Math.round(pct)+'%';
+  cups = getHydrationCups();
+  document.getElementById('hydDashCount').textContent = cups;
+  const seg = document.getElementById('hydSegments');
+  if(seg){
+    seg.innerHTML='';
+    for(let i=0;i<8;i++){
+      const d=document.createElement('div');
+      d.className='flex-1 h-3 rounded-full transition-all duration-300 '+(i<cups?'bg-primary':'bg-surface-container');
+      seg.appendChild(d);
+    }
   }
-  const seg=document.getElementById('hydSegments');
-  if(seg){seg.innerHTML='';for(let i=0;i<8;i++){const d=document.createElement('div');d.className='flex-1 h-3 rounded-full '+(i<cups?'bg-primary':'bg-surface-container');seg.appendChild(d);}}
-  if(document.getElementById('hydMsg')) document.getElementById('hydMsg').textContent=cups>=8?'Goal reached! Stay hydrated.':cups>=6?`You're doing great! Just ${8-cups} more cups to reach your optimal energy levels.`:'Keep drinking — you can do it!';
+  // Status pill & message
+  const pill = document.getElementById('hydStatusPill');
+  const txt = document.getElementById('hydStatusText');
+  const msg = document.getElementById('hydDashMsg');
+  if(cups >= 8){
+    pill.className='stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1';
+    txt.textContent=`Goal tercapai! 🎉 (${cups}/8)`;
+    if(msg) msg.textContent='Luar biasa! Kamu sudah mencapai target hidrasi hari ini.';
+  } else if(cups >= 5){
+    pill.className='stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1';
+    txt.textContent=`${cups}/8 - Hampir!`;
+    if(msg) msg.textContent=`Tinggal ${8-cups} gelas lagi untuk mencapai target harianmu.`;
+  } else if(cups >= 1){
+    pill.className='stat-pill-yellow pill px-3 py-1 text-xs font-bold flex items-center gap-1';
+    txt.textContent=`${cups}/8 - Terus minum`;
+    if(msg) msg.textContent=`Kamu sudah minum ${cups} gelas. Terus semangat!`;
+  } else {
+    pill.className='bg-surface-container text-on-surface-variant pill px-3 py-1 text-xs font-bold flex items-center gap-1';
+    txt.textContent='Belum minum';
+    if(msg) msg.textContent='Minum gelas pertama untuk memulai hari hidrasimu.';
+  }
 }
-function changeCup(d){
-  cups=Math.max(0,Math.min(8,cups+d));renderHyd();
-  const bf=document.getElementById('bottleFill');if(bf){bf.style.transition='all .5s ease';}
-  showToast(d>0?'Cup added':'Cup removed','success');
-}
-const FACTS=['Just a 2% drop in hydration can cause significant fatigue and reduced alertness.','Your brain is ~75% water — staying hydrated improves memory.','Drinking water before meals can improve digestion and energy.'];
-let factIdx=0;
-function cycleFact(){factIdx=(factIdx+1)%FACTS.length;document.getElementById('factText').textContent=FACTS[factIdx];}
-function toggleAccordion(id){document.getElementById(id).classList.toggle('hidden');}
-function drawHydWeek(){
-  const data=[3,5,4,6,8,5,4],days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  let svg='';
-  data.forEach((v,i)=>{const x=20+i*42,h=v*12,y=120-h;const color=i===4?'#106399':'#dce9ff';svg+=`<rect x="${x}" y="${y}" width="28" height="${h}" rx="6" fill="${color}"><title>${days[i]}: ${v}</title></rect><text x="${x+14}" y="135" text-anchor="middle" font-size="10" fill="#41474f">${days[i]}</text>`;});
-  if(document.getElementById('hydWeekChart')) document.getElementById('hydWeekChart').innerHTML=svg;
-}
-document.querySelectorAll('#hydWeekTabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#hydWeekTabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');drawHydWeek();}));
-function downloadReport(){const blob=new Blob(['Hydration Report\nCups today: '+cups],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hydration_report.txt';a.click();showToast('Report downloaded','success');}
+// Auto-refresh hidrasi setiap 10 detik jika user buka tab hydration di background
+setInterval(renderHyd, 10000);
 
 /* ============== GADGET TIME ============== */
 let stretchSec=15*60;
@@ -478,7 +674,7 @@ function drawSleepArch(){
 }
 function toggleTrendLine(){drawSleepArch();}
 document.querySelectorAll('#sleepRangeTabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#sleepRangeTabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');drawSleepArch();showToast('Range: '+b.textContent,'info');}));
-document.querySelectorAll('#morningMoods button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#morningMoods button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('morningMoodMsg').textContent='Mood logged: '+b.dataset.mm;moodHistory.push(b.dataset.mm);}));
+document.querySelectorAll('#morningMoods button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#morningMoods button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('morningMoodMsg').textContent='Mood logged: '+b.dataset.mm;}));
 function openScheduleModal(){openModal('scheduleModal');}
 let medPlaying=false,medT=0,medInt=null;
 function startMeditationPlayer(){document.getElementById('medPlayer').classList.remove('hidden');if(medInt)clearInterval(medInt);medPlaying=true;medT=0;document.getElementById('medPlayIcon').textContent='pause';medInt=setInterval(medTick,1000);}
@@ -568,15 +764,38 @@ function renderNotifs(){
     c.appendChild(row);
   });
 }
-let moodHistory=[];
-function downloadData(){const blob=new Blob([JSON.stringify({profile:{name:'Alex Johnson',grade:'11-A'},cups,moodHistory,feelHistory,notifSettings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my_data.json';a.click();showToast('Data downloaded','success');}
-function clearMoodHistory(){document.getElementById('confirmTitle').textContent='Clear mood history?';document.getElementById('confirmMsg').textContent='This cannot be undone.';document.getElementById('confirmOk').onclick=()=>{moodHistory=[];feelHistory=[];closeModal('confirmModal');showToast('Mood history cleared','success');};openModal('confirmModal');}
+function downloadData(){
+  const blob=new Blob([JSON.stringify({
+    profile:{name:'Alex Johnson',grade:'11-A'},
+    hydration:{cups, date: getTodayKey()},
+    mood:{today: MOOD_LABELS[currentMood], history: getMoodHistory()},
+    notifSettings
+  },null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my_data.json';a.click();
+  showToast('Data downloaded','success');
+}
+function clearMoodHistory(){
+  document.getElementById('confirmTitle').textContent='Hapus riwayat mood?';
+  document.getElementById('confirmMsg').textContent='Tindakan ini tidak dapat dibatalkan.';
+  document.getElementById('confirmOk').onclick=()=>{
+    localStorage.removeItem('mood_history');
+    localStorage.removeItem('mood_today');
+    currentMood=2;
+    document.querySelectorAll('#moodSelectors button').forEach(x=>x.classList.remove('selected'));
+    document.querySelector('#moodSelectors button[data-mood="2"]')?.classList.add('selected');
+    drawMoodChart();
+    updateStressFromMood(2);
+    closeModal('confirmModal');
+    showToast('Riwayat mood dihapus','success');
+  };
+  openModal('confirmModal');
+}
 
 const I18N={en:{brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Settings'},id:{brand:'SafeSchoolHub',dashTitle:'Kesejahteraan Siswa',settings:'Pengaturan'}};
 function setLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[l][el.dataset.i18n];if(v)el.textContent=v;});showToast('Language: '+l.toUpperCase(),'info');}
 
 /* ============== INIT ============== */
-renderHyd();renderNotifs();
+renderNotifs();
 initPage();
 </script>
 </body>
