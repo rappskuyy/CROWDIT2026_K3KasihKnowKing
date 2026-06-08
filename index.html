@@ -49,6 +49,14 @@ tailwind.config = {
 };
 </script>
 <link href="css/index.css" rel="stylesheet"/>
+<style>
+  /* Menyembunyikan body sebelum semuanya siap */
+  body {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>
 </head>
 <body class="min-h-screen">
 <div class="toast" id="toast"></div>
@@ -948,5 +956,12 @@ function saveProfile(){
 }
 </script>
 <script src="profile.js"></script>
+<script>
+  // Menampilkan body dengan animasi halus setelah halaman dan Tailwind termuat
+  window.addEventListener('load', function() {
+    document.body.style.visibility = 'visible';
+    document.body.style.opacity = '1';
+  });
+</script>
 </body>
 </html>
