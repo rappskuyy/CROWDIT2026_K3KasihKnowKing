@@ -47,6 +47,7 @@ tailwind.config = {
 };
 </script>
 <link rel="stylesheet" href="css/breathing.css">
+<script src="js/theme-lang.js"></script>
 </head>
 <body class="min-h-screen">
 
@@ -138,9 +139,13 @@ tailwind.config = {
         </div>
 
         <div class="card p-5 mb-5 text-white" style="background:#0b1c30">
-          <div class="font-bold mb-3">Weekly Mood Progress</div>
-          <svg viewBox="0 0 320 120" class="w-full h-32" id="weeklyMoodChart"></svg>
-          <div class="text-sm opacity-90 mt-2">You're more calm this week compared to last! Keep it up, Alex.</div>
+          <div class="font-bold mb-3">Weekly Mood Summary</div>
+          <div class="text-sm opacity-90">This section now focuses on your weekly breathing experience in simple, easy-to-read guidance.</div>
+          <ul class="text-sm opacity-90 mt-4 space-y-2 list-disc list-inside">
+            <li>Latihan teratur membantu menurunkan stres dan meningkatkan fokus.</li>
+            <li>Lakukan napas perut selama 5 menit setiap hari untuk menenangkan sistem saraf.</li>
+            <li>Gunakan teknik pernapasan sebelum belajar untuk memperbaiki konsentrasi.</li>
+          </ul>
         </div>
 
         <div class="card p-5">
@@ -250,7 +255,7 @@ tailwind.config = {
 const ROUTE_FILES={"overview": "index.html", "safety": "safety.html", "gadget-time": "gadget-time.html", "hydration": "hydration.html", "sleep": "sleep.html", "breathing": "breathing.html", "reports": "reports.html", "counseling": "counseling.html", "settings": "settings.html"};
 const CURRENT_ROUTE='breathing';
 function navigate(r){if(r==='dashboard')r='overview';if(ROUTE_FILES[r]&&r!==CURRENT_ROUTE){location.href=ROUTE_FILES[r];return;}document.querySelectorAll('.nav-link').forEach(n=>n.classList.toggle('active',n.dataset.route===r));window.scrollTo({top:0,behavior:'smooth'});initPage();}
-function initPage(){const r=CURRENT_ROUTE;if(r==='overview'){drawMoodChart();drawDonut();setTimeout(()=>{const sb=document.getElementById('stressBar');if(sb)sb.style.width='30%';},50);}if(r==='hydration'){drawHydWeek();}if(r==='sleep'){drawSleepArch();}if(r==='breathing'){drawWeeklyMood();}if(r==='reports'){renderReports();}}
+function initPage(){const r=CURRENT_ROUTE;if(r==='overview'){drawMoodChart();drawDonut();setTimeout(()=>{const sb=document.getElementById('stressBar');if(sb)sb.style.width='30%';},50);}if(r==='hydration'){drawHydWeek();}if(r==='sleep'){drawSleepArch();}if(r==='reports'){renderReports();}}
 document.querySelectorAll('[data-route]').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.route)));
 
 /* ============== TOAST ============== */
@@ -442,10 +447,43 @@ function openBreathCustomize(){
 }
 function changePhase(k,d){breathTimings[k]=Math.max(1,Math.min(10,breathTimings[k]+d));document.getElementById('ph-'+k).textContent=breathTimings[k]+'s';}
 function startRoutine(min){navigate('breathing');if(!breathRunning){toggleBreath();}showToast('Routine started — '+min+' min','info');}
+const weeklyMoodData=[
+  {day:'M',score:3,minutes:5,summary:'Light breathing after school to reset your focus.'},
+  {day:'T',score:4,minutes:7,summary:'Morning calm breathing before classes.'},
+  {day:'W',score:3,minutes:6,summary:'Midday breathing to ease tension.'},
+  {day:'T',score:5,minutes:8,summary:'Focused breathing session before exams.'},
+  {day:'F',score:4,minutes:6,summary:'Relaxed breathing after a busy day.'},
+  {day:'S',score:6,minutes:10,summary:'Weekend stretch breath for deeper rest.'},
+  {day:'S',score:7,minutes:12,summary:'Evening wind-down with slow breathing.'}
+];
 function drawWeeklyMood(){
-  const data=[3,4,3,5,4,6,7],days=['M','T','W','T','F','S','S'];let svg='';
-  data.forEach((v,i)=>{const x=20+i*40,h=v*12,y=110-h;const c=i===6?'#fff':'#5a9bd5';svg+=`<rect x="${x}" y="${y}" width="24" height="${h}" rx="6" fill="${c}"/><text x="${x+12}" y="125" text-anchor="middle" font-size="10" fill="#fff">${days[i]}</text>`;});
+  const maxMinutes = Math.max(...weeklyMoodData.map(d=>d.minutes),1);
+  let svg='';
+  weeklyMoodData.forEach((d,i)=>{
+    const x=20+i*40;
+    const h=Math.round(d.minutes/maxMinutes*90);
+    const y=110-h;
+    const fill = d.score >= 6 ? '#ffffff' : d.score >= 4 ? '#93c5fd' : '#5a9bd5';
+    svg+=`<g onclick="selectWeeklyMood(${i})" style="cursor:pointer">
+      <rect x="${x}" y="${y}" width="24" height="${h}" rx="6" fill="${fill}" stroke="rgba(255,255,255,0.4)" stroke-width="1"></rect>
+      <text x="${x+12}" y="125" text-anchor="middle" font-size="10" fill="#fff">${d.day}</text>
+    </g>`;
+  });
   document.getElementById('weeklyMoodChart').innerHTML=svg;
+  selectWeeklyMood(weeklyMoodData.length-1);
+}
+function selectWeeklyMood(idx){
+  const data = weeklyMoodData[idx];
+  if(!data) return;
+  document.getElementById('weeklyMoodDetails').innerHTML = `
+    <div class="font-semibold">${data.day} — ${data.minutes} min breathing</div>
+    <div class="text-xs mt-1">${data.summary}</div>
+    <div class="text-xs mt-1">Mood score: ${data.score} / 7</div>
+  `;
+  document.querySelectorAll('#weeklyMoodChart rect').forEach((rect,i)=>{
+    rect.setAttribute('stroke-width', i===idx ? 2 : 0);
+    rect.setAttribute('stroke', i===idx ? '#ffffff' : 'none');
+  });
 }
 let feelHistory=[];
 document.querySelectorAll('#feelChips button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#feelChips button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('feelMsg').textContent='Feeling logged ✓ — '+b.dataset.feel;feelHistory.push(b.dataset.feel);document.getElementById('feelTimeline').innerHTML=feelHistory.map(()=>'<span class="w-2 h-2 rounded-full bg-primary"></span>').join('');}));

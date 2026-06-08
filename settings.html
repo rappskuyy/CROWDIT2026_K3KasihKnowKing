@@ -47,6 +47,7 @@ tailwind.config = {
 };
 </script>
 <link rel="stylesheet" href="css/settings.css">
+<script src="js/theme-lang.js"></script>
 </head>
 <body class="min-h-screen">
 
@@ -117,36 +118,42 @@ tailwind.config = {
       </div>
 
       <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Notifications</h3>
+        <h3 class="font-bold mb-3" data-i18n="notifications">Notifications</h3>
         <div id="notifList" class="flex flex-col gap-3"></div>
       </div>
 
       <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Appearance</h3>
-        <div class="flex items-center justify-between mb-3"><span class="text-sm">Language</span>
+        <h3 class="font-bold mb-3" data-i18n="appearance">Appearance</h3>
+        <div class="flex items-center justify-between mb-4"><span class="text-sm" data-i18n="language">Language</span>
           <select id="langSel" class="rounded-lg border border-outline-variant p-2 text-sm" onchange="setLang(this.value)">
-            <option value="en">English</option><option value="id">Bahasa</option>
+            <option value="en">English</option><option value="id">Bahasa Indonesia</option>
           </select>
         </div>
-        <div class="flex items-center justify-between"><span class="text-sm">Theme</span><span class="stat-pill-green pill px-3 py-1 text-xs font-bold">Light</span></div>
-      </div>
-
-      <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Privacy & Data</h3>
-        <div class="flex flex-wrap gap-2">
-          <button class="btn-ghost text-sm" onclick="downloadData()">Download My Data</button>
-          <button class="btn-ghost text-sm" onclick="clearMoodHistory()">Clear Mood History</button>
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm" data-i18n="theme">Theme</span>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-bold" id="themeLabel">Light</span>
+            <div class="toggle" id="themeSwitcher" onclick="toggleTheme()"></div>
+          </div>
         </div>
       </div>
 
       <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Account</h3>
-        <button class="btn-ghost text-sm mr-2" onclick="document.getElementById('pwForm').classList.toggle('hidden')">Change Password</button>
-        <button class="btn-ghost text-sm" onclick="confirmLogout()">Log Out</button>
-        <form id="pwForm" class="hidden mt-3 grid gap-2 max-w-sm" onsubmit="event.preventDefault();this.reset();this.classList.add('hidden');showToast('Password updated','success')">
-          <input type="password" placeholder="Current password" class="rounded-lg border border-outline-variant p-2 text-sm"/>
-          <input type="password" placeholder="New password" class="rounded-lg border border-outline-variant p-2 text-sm"/>
-          <button class="btn-primary text-sm">Update Password</button>
+        <h3 class="font-bold mb-3" data-i18n="privacy">Privacy & Data</h3>
+        <div class="flex flex-wrap gap-2">
+          <button class="btn-ghost text-sm" data-i18n="downloadData" onclick="downloadData()">Download My Data</button>
+          <button class="btn-ghost text-sm" data-i18n="clearMoodHistory" onclick="clearMoodHistory()">Clear Mood History</button>
+        </div>
+      </div>
+
+      <div class="card p-5 mb-5">
+        <h3 class="font-bold mb-3" data-i18n="account">Account</h3>
+        <button class="btn-ghost text-sm mr-2" data-i18n="changePassword" onclick="document.getElementById('pwForm').classList.toggle('hidden')">Change Password</button>
+        <button class="btn-ghost text-sm" data-i18n="logout" onclick="confirmLogout()">Log Out</button>
+        <form id="pwForm" class="hidden mt-3 grid gap-2 max-w-sm" onsubmit="event.preventDefault();this.reset();this.classList.add('hidden');showToast(I18N[getCurrentLang()]['passwordUpdated'],'success')">
+          <input type="password" placeholder="Current password" class="rounded-lg border border-outline-variant p-2 text-sm" data-placeholder="currentPassword"/>
+          <input type="password" placeholder="New password" class="rounded-lg border border-outline-variant p-2 text-sm" data-placeholder="newPassword"/>
+          <button class="btn-primary text-sm" data-i18n="updatePassword">Update Password</button>
         </form>
       </div>
     </section>
@@ -470,26 +477,146 @@ function resolveReport(id){const r=REPORTS_ALL.find(x=>x.id===id);if(r){r.status
 function exportCSV(){const rows=[['ID','Date','Type','Location','Status'],...REPORTS_ALL.map(r=>[r.id,r.date,r.type,r.loc,r.status])];const csv=rows.map(r=>r.join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='reports.csv';a.click();showToast('CSV exported','success');}
 
 /* ============== SETTINGS ============== */
-const notifSettings={'Push Notifications':true,'Email Reminders':true,'Hydration Reminders':true,'Sleep Alerts':false,'Stress Check-ins':true};
+const notifSettingsData={'pushNotif':true,'emailReminder':true,'hydrationReminder':true,'sleepAlert':false,'stressCheckIn':true};
+const I18N_NOTIF={
+  en:{'pushNotif':'Push Notifications','emailReminder':'Email Reminders','hydrationReminder':'Hydration Reminders','sleepAlert':'Sleep Alerts','stressCheckIn':'Stress Check-ins'},
+  id:{'pushNotif':'Pemberitahuan Push','emailReminder':'Pengingat Email','hydrationReminder':'Pengingat Hidrasi','sleepAlert':'Peringatan Tidur','stressCheckIn':'Pemeriksaan Stres'}
+};
 function renderNotifs(){
   const c=document.getElementById('notifList');c.innerHTML='';
-  Object.entries(notifSettings).forEach(([k,v])=>{
+  const lang=getCurrentLang();
+  Object.entries(notifSettingsData).forEach(([k,v])=>{
     const row=document.createElement('div');row.className='flex items-center justify-between';
-    row.innerHTML=`<span class="text-sm">${k}</span><div class="toggle ${v?'on':''}"></div>`;
-    row.querySelector('.toggle').addEventListener('click',e=>{notifSettings[k]=!notifSettings[k];e.target.classList.toggle('on');showToast(k+': '+(notifSettings[k]?'ON':'OFF'),'info');});
+    const label=I18N_NOTIF[lang][k]||k;
+    row.innerHTML=`<span class="text-sm">${label}</span><div class="toggle ${v?'on':''}"></div>`;
+    row.querySelector('.toggle').addEventListener('click',e=>{notifSettingsData[k]=!notifSettingsData[k];e.target.classList.toggle('on');const onOff=notifSettingsData[k]?'ON':'OFF';const msg=`${label}: ${onOff}`;showToast(msg,'info');});
     c.appendChild(row);
   });
 }
 let moodHistory=[];
-function downloadData(){const blob=new Blob([JSON.stringify({profile:{name:'Alex Johnson',grade:'11-A'},cups,moodHistory,feelHistory,notifSettings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my_data.json';a.click();showToast('Data downloaded','success');}
+function downloadData(){const blob=new Blob([JSON.stringify({profile:{name:'Alex Johnson',grade:'11-A'},cups,moodHistory,feelHistory,notifSettingsData},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my_data.json';a.click();showToast('Data downloaded','success');}
 function clearMoodHistory(){document.getElementById('confirmTitle').textContent='Clear mood history?';document.getElementById('confirmMsg').textContent='This cannot be undone.';document.getElementById('confirmOk').onclick=()=>{moodHistory=[];feelHistory=[];closeModal('confirmModal');showToast('Mood history cleared','success');};openModal('confirmModal');}
 
-const I18N={en:{brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Settings'},id:{brand:'SafeSchoolHub',dashTitle:'Kesejahteraan Siswa',settings:'Pengaturan'}};
-function setLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[l][el.dataset.i18n];if(v)el.textContent=v;});showToast('Language: '+l.toUpperCase(),'info');}
+const I18N={
+  en:{
+    brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Settings',
+    appearance:'Appearance',language:'Language',theme:'Theme',notifications:'Notifications',
+    privacy:'Privacy & Data',downloadData:'Download My Data',clearMoodHistory:'Clear Mood History',
+    account:'Account',changePassword:'Change Password',logout:'Log Out',updatePassword:'Update Password',
+    currentPassword:'Current password',newPassword:'New password',passwordUpdated:'Password updated',
+    lightTheme:'Light',darkTheme:'Dark',languageChanged:'Language: English',themeChanged:'Theme: {0}'
+  },
+  id:{
+    brand:'SafeSchoolHub',dashTitle:'Kesejahteraan Siswa',settings:'Pengaturan',
+    appearance:'Tampilan',language:'Bahasa',theme:'Tema',notifications:'Notifikasi',
+    privacy:'Privasi & Data',downloadData:'Unduh Data Saya',clearMoodHistory:'Hapus Riwayat Suasana Hati',
+    account:'Akun',changePassword:'Ubah Kata Sandi',logout:'Keluar',updatePassword:'Perbarui Kata Sandi',
+    currentPassword:'Kata sandi saat ini',newPassword:'Kata sandi baru',passwordUpdated:'Kata sandi diperbarui',
+    lightTheme:'Terang',darkTheme:'Gelap',languageChanged:'Bahasa: Indonesia',themeChanged:'Tema: {0}'
+  }
+};
+
+let currentTheme='light';
+
+function getCurrentLang(){return localStorage.getItem('appLang')||'en';}
+function getCurrentTheme(){return localStorage.getItem('appTheme')||'light';}
+
+function initTheme(){
+  currentTheme=getCurrentTheme();
+  applyTheme(currentTheme);
+  updateThemeUI();
+}
+
+function applyTheme(theme){
+  currentTheme=theme;
+  localStorage.setItem('appTheme',theme);
+  if(theme==='dark'){
+    document.documentElement.style.colorScheme='dark';
+    document.body.style.backgroundColor='#0f1419';
+    document.body.style.color='#e3e7ee';
+    document.querySelectorAll('.card,.glass-card').forEach(el=>{
+      el.style.backgroundColor='#1a1f2e';
+      el.style.borderColor='#3a4550';
+    });
+    document.querySelectorAll('.sidebar-desktop').forEach(el=>{
+      el.style.backgroundColor='#1a1f2e';
+      el.style.borderColor='#3a4550';
+    });
+    document.querySelectorAll('.btn-ghost').forEach(el=>el.style.color='#e3e7ee');
+  } else {
+    document.documentElement.style.colorScheme='light';
+    document.body.style.backgroundColor='#f8f9ff';
+    document.body.style.color='#0b1c30';
+    document.querySelectorAll('.card,.glass-card').forEach(el=>{
+      el.style.backgroundColor='';
+      el.style.borderColor='';
+    });
+    document.querySelectorAll('.sidebar-desktop').forEach(el=>{
+      el.style.backgroundColor='';
+      el.style.borderColor='';
+    });
+  }
+  updateThemeUI();
+}
+
+function updateThemeUI(){
+  const switcher=document.getElementById('themeSwitcher');
+  const label=document.getElementById('themeLabel');
+  if(switcher){
+    switcher.classList.toggle('on',currentTheme==='dark');
+  }
+  if(label){
+    const lang=getCurrentLang();
+    label.textContent=currentTheme==='dark'?I18N[lang].darkTheme:I18N[lang].lightTheme;
+  }
+}
+
+function toggleTheme(){
+  const newTheme=currentTheme==='light'?'dark':'light';
+  applyTheme(newTheme);
+  const lang=getCurrentLang();
+  const themeName=newTheme==='dark'?I18N[lang].darkTheme:I18N[lang].lightTheme;
+  showToast(I18N[lang].themeChanged.replace('{0}',themeName),'success');
+}
+
+function setLang(l){
+  localStorage.setItem('appLang',l);
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v=I18N[l][el.dataset.i18n];
+    if(v)el.textContent=v;
+  });
+  document.querySelectorAll('[data-placeholder]').forEach(el=>{
+    el.placeholder=I18N[l][el.dataset.placeholder]||el.placeholder;
+  });
+  renderNotifs();
+  const msg=l==='id'?I18N[l].languageChanged:I18N[l].languageChanged;
+  showToast(msg,'info');
+}
 
 /* ============== INIT ============== */
-renderHyd();renderNotifs();
-initPage();
+function initSettings(){
+  const lang=getCurrentLang();
+  document.getElementById('langSel').value=lang;
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const v=I18N[lang][el.dataset.i18n];
+    if(v)el.textContent=v;
+  });
+  renderHyd();
+  renderNotifs();
+  initTheme();
+  initPage();
+}
+
+function updatePageLanguage(lang){
+  renderNotifs();
+  const buttons=document.querySelectorAll('[data-i18n]');
+  buttons.forEach(btn=>{
+    const key=btn.dataset.i18n;
+    if(I18N[lang][key])btn.textContent=I18N[lang][key];
+  });
+}
+
+initSettings();
 </script>
 </body>
 </html>

@@ -47,6 +47,7 @@ tailwind.config = {
 };
 </script>
 <link rel="stylesheet" href="css/sleep.css">
+<script src="js/theme-lang.js"></script>
 </head>
 <body class="min-h-screen">
 
@@ -265,32 +266,23 @@ tailwind.config = {
           </div>
         </div>
 
-        <!-- ===== MEDITATION ===== -->
-        <div class="card overflow-hidden mb-5">
-          <div class="h-36 flex items-center justify-center" style="background:linear-gradient(135deg,#1e1b4b,#7c3aed)">
-            <div class="text-white text-center">
-              <div class="text-4xl mb-1">🌙</div>
-              <div class="font-bold">Sleep Meditation</div>
-              <div class="text-xs opacity-75">10 menit guided session</div>
+        <!-- ===== SMARTWATCH ===== -->
+        <div class="card p-5 mb-5">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <div class="font-bold">Smartwatch Pairing</div>
+              <div class="text-xs text-on-surface-variant">Connect sleep data from your wearable.</div>
             </div>
+            <span class="text-xs text-secondary font-semibold">Bluetooth</span>
           </div>
-          <div class="p-4">
-            <div class="font-bold">Direkomendasikan: Sleep Meditation</div>
-            <div class="text-sm text-on-surface-variant mb-3">Sesi 10 menit untuk membantu kamu rileks setelah hari yang panjang.</div>
-            <button class="btn-primary w-full" onclick="startMeditationPlayer()">Mulai Sesi</button>
-            <div id="medPlayer" class="hidden mt-3">
-              <div class="flex items-center gap-3">
-                <button onclick="toggleMedPlay()" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0">
-                  <span class="material-symbols-outlined" id="medPlayIcon">pause</span>
-                </button>
-                <div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden">
-                  <div id="medProg" class="h-full bg-primary transition-all duration-1000" style="width:0%"></div>
-                </div>
-                <span class="text-xs font-bold tabular-nums" id="medTime">0:00</span>
-              </div>
-              <div class="text-xs text-center text-on-surface-variant mt-2" id="medPhaseLabel">Tarik napas perlahan...</div>
+          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-center">
+            <div>
+              <div class="text-sm font-semibold">Device status</div>
+              <div class="text-on-surface-variant mt-1" id="watchStatus">No smartwatch connected.</div>
             </div>
+            <button class="btn-primary" id="connectWatchBtn" onclick="toggleWatchConnection()">Connect</button>
           </div>
+          <div class="text-xs text-on-surface-variant mt-4">Syncs dummy sleep metrics, heart rate, and rest periods for illustrative purposes.</div>
         </div>
 
         <!-- ===== CONCENTRATION ===== -->
@@ -822,6 +814,23 @@ function medTick(){
   document.getElementById('medTime').textContent=Math.floor(medT/60)+':'+String(medT%60).padStart(2,'0');
   const phaseEl=document.getElementById('medPhaseLabel');
   if(phaseEl)phaseEl.textContent=MED_PHASES[Math.floor(medT/10)%4];
+}
+
+let watchConnected=false;
+function toggleWatchConnection(){
+  const btn=document.getElementById('connectWatchBtn');
+  const status=document.getElementById('watchStatus');
+  if(!btn||!status) return;
+  watchConnected=!watchConnected;
+  if(watchConnected){
+    btn.textContent='Disconnect';
+    status.textContent='Smartwatch “FitTrack 2.0” connected.';
+    showToast('Smartwatch connected','success');
+  } else {
+    btn.textContent='Connect';
+    status.textContent='No smartwatch connected.';
+    showToast('Smartwatch disconnected','info');
+  }
 }
 
 /* ============== INIT SLEEP PAGE ============== */

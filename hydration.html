@@ -175,6 +175,7 @@ tailwind.config = {
   .acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
   .acc-body.open{max-height:200px;}
 </style>
+<script src="js/theme-lang.js"></script>
 </head>
 <body class="min-h-screen">
 
@@ -328,23 +329,21 @@ tailwind.config = {
         </div>
       </div>
 
-      <!-- CUP GRID -->
       <div class="mb-6">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-sm font-bold text-on-surface-variant">Tap a cup to log or remove</span>
+          <span class="text-sm font-bold text-on-surface-variant">Adjust hydration intake</span>
           <span class="text-xs text-on-surface-variant" id="timeLogged"></span>
         </div>
-        <div class="glass-grid" id="cupGrid"></div>
-      </div>
-
-      <!-- Action Buttons -->
-      <div class="flex gap-3">
-        <button class="btn-ghost flex-1 flex items-center justify-center gap-2 text-sm" onclick="changeCup(-1)">
-          <span class="material-symbols-outlined" style="font-size:18px">remove</span> Remove Cup
-        </button>
-        <button class="btn-primary flex-1 flex items-center justify-center gap-2 text-sm" onclick="changeCup(1)">
-          <span class="material-symbols-outlined" style="font-size:18px">add</span> Add Cup
-        </button>
+        <div class="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] gap-3 items-center">
+          <button class="btn-ghost flex items-center justify-center gap-2 text-sm" onclick="changeCup(-1)">
+            <span class="material-symbols-outlined" style="font-size:18px">remove</span>
+          </button>
+          <input id="cupInput" type="number" min="0" max="8" value="0" class="w-full rounded-xl border border-outline-variant p-3 text-center" aria-label="Cups consumed" />
+          <button class="btn-primary flex items-center justify-center gap-2 text-sm" onclick="changeCup(1)">
+            <span class="material-symbols-outlined" style="font-size:18px">add</span>
+          </button>
+        </div>
+        <button class="btn-ghost mt-3 w-full text-sm" onclick="setCupsFromInput()">Set exact cups</button>
       </div>
 
       <!-- Reset -->
@@ -532,26 +531,8 @@ cups = loadState(); // restore dari localStorage
 
 /* ===== CUP GRID BUILD ===== */
 function buildGrid(){
-  const grid = document.getElementById('cupGrid');
-  grid.innerHTML = '';
-  for(let i=0;i<TARGET;i++){
-    const wrap = document.createElement('div');
-    wrap.className = 'cup-wrap' + (i < cups ? ' filled' : '');
-    wrap.dataset.idx = i;
-    wrap.title = i < cups ? `Cup ${i+1} — tap to remove` : `Tap to add cup ${i+1}`;
-    wrap.onclick = () => tapCup(i);
-
-    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('viewBox','0 0 40 52');
-    svg.setAttribute('class','cup-svg w-full');
-    svg.style.width='100%';
-
-    const filled = i < cups;
-    svg.innerHTML = buildCupSVG(filled, i);
-    wrap.appendChild(svg);
-
-    grid.appendChild(wrap);
-  }
+  const input = document.getElementById('cupInput');
+  if(input) input.value = cups;
 }
 
 function buildCupSVG(filled, idx){
@@ -621,6 +602,25 @@ function changeCup(delta, silent=false){
   if(!silent) showToast(delta > 0 ? '💧 Cup added!' : 'Cup removed', delta > 0 ? 'success' : 'info');
 }
 
+function setCupsFromInput(){
+  const input = document.getElementById('cupInput');
+  if(!input) return;
+  let value = parseInt(input.value, 10);
+  if(Number.isNaN(value)) value = cups;
+  value = Math.max(0, Math.min(TARGET, value));
+  const prev = cups;
+  cups = value;
+  if(cups > prev){
+    for(let i=0;i<cups-prev;i++) logTimes.push(new Date());
+    updateTimeLogged();
+  } else if(cups < prev){
+    logTimes.splice(cups);
+  }
+  saveState();
+  renderHyd(0);
+  showToast('Hydration count updated','success');
+}
+
 /* ===== RENDER ===== */
 function renderHyd(delta=1){
   const pct = cups / TARGET;
@@ -666,18 +666,8 @@ function renderHyd(delta=1){
   const activeTab = document.querySelector('#hydWeekTabs button.active');
   if(activeTab && activeTab.dataset.w === 'current') drawHydWeek('current');
 
-  // Rebuild grid
+  // Update input control
   buildGrid();
-
-  // Bounce animation on last added/removed cup
-  setTimeout(()=>{
-    const wrap = document.querySelector(`.cup-wrap[data-idx="${cups - (delta > 0 ? 1 : 0)}"]`);
-    if(wrap){
-      const cls = delta > 0 ? 'bounce' : 'shake';
-      wrap.classList.add(cls);
-      wrap.addEventListener('animationend', ()=>wrap.classList.remove(cls), {once:true});
-    }
-  }, 10);
 
   // Ripple on bottle if adding
   if(delta > 0) rippleBottle();
