@@ -47,7 +47,7 @@ tailwind.config = {
 };
 </script>
 <link rel="stylesheet" href="css/gadget-time.css">
-<script src="js/theme-lang.js"></script>
+<script src="js/lang.js"></script>
 </head>
 <body class="min-h-screen">
 
@@ -116,8 +116,8 @@ tailwind.config = {
           <div class="text-sm font-semibold">Total Screen Time</div>
           <div class="text-xs text-on-surface-variant">Active device monitoring for today</div>
           <div class="flex items-end gap-3 mt-2">
-            <div class="text-4xl font-extrabold" id="gtTotalTime" style="color:#ba1a1a">0h 00m</div>
-            <span class="pill px-2 py-1 text-xs font-bold mb-1" id="gtChangePill" style="background:#ffdad6;color:#93000a">Belum dimulai</span>
+            <div class="text-4xl font-extrabold" id="gtTotalTime" style="color:#41474f">0m</div>
+            <span class="pill px-2 py-1 text-xs font-bold mb-1" id="gtChangePill" style="background:#e5eeff;color:#106399">Belum dimulai</span>
           </div>
           <div class="mt-5 relative">
             <div class="h-3 rounded-full flex overflow-hidden">
@@ -125,22 +125,64 @@ tailwind.config = {
               <div style="width:30%;background:#f59e0b"></div>
               <div style="width:40%;background:#ef4444"></div>
             </div>
-            <div class="absolute -top-5" style="left:78%;transform:translateX(-50%)">
+            <div class="absolute -top-5" id="gtCursorWrap" style="left:0%;transform:translateX(-50%)">
               <div class="text-[10px] font-bold text-error">CURRENT</div>
               <div class="text-error text-center -mt-1">▼</div>
             </div>
             <div class="flex justify-between text-[10px] text-on-surface-variant mt-2"><span>Safe (0-3h)</span><span>Moderate (3-5h)</span><span>High (5h+)</span></div>
           </div>
-          <div class="flex items-center justify-between mt-6 mb-2">
+
+          <!-- Tambah waktu per perangkat -->
+          <div class="mt-6 mb-3">
+            <div class="text-xs font-bold tracking-widest text-on-surface-variant mb-3">TAMBAH WAKTU (+15 MENIT)</div>
+            <div class="grid grid-cols-2 gap-2" id="deviceInputs">
+              <button onclick="addDeviceTime(0)" class="flex items-center gap-2 p-3 rounded-xl border-2 border-outline-variant hover:border-primary hover:bg-surface-container-low transition-all text-left">
+                <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#106399"></span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-xs font-bold">Laptop</div>
+                  <div class="text-[10px] text-on-surface-variant" id="dev-label-0">0m</div>
+                </div>
+                <span class="material-symbols-outlined text-primary" style="font-size:18px">add_circle</span>
+              </button>
+              <button onclick="addDeviceTime(1)" class="flex items-center gap-2 p-3 rounded-xl border-2 border-outline-variant hover:border-primary hover:bg-surface-container-low transition-all text-left">
+                <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#5a9bd5"></span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-xs font-bold">Mobile</div>
+                  <div class="text-[10px] text-on-surface-variant" id="dev-label-1">0m</div>
+                </div>
+                <span class="material-symbols-outlined text-primary" style="font-size:18px">add_circle</span>
+              </button>
+              <button onclick="addDeviceTime(2)" class="flex items-center gap-2 p-3 rounded-xl border-2 border-outline-variant hover:border-primary hover:bg-surface-container-low transition-all text-left">
+                <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#a5d8ff"></span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-xs font-bold">Tablet</div>
+                  <div class="text-[10px] text-on-surface-variant" id="dev-label-2">0m</div>
+                </div>
+                <span class="material-symbols-outlined text-primary" style="font-size:18px">add_circle</span>
+              </button>
+              <button onclick="addDeviceTime(3)" class="flex items-center gap-2 p-3 rounded-xl border-2 border-outline-variant hover:border-primary hover:bg-surface-container-low transition-all text-left">
+                <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#c4b5fd"></span>
+                <div class="flex-1 min-w-0">
+                  <div class="text-xs font-bold">Other</div>
+                  <div class="text-[10px] text-on-surface-variant" id="dev-label-3">0m</div>
+                </div>
+                <span class="material-symbols-outlined text-primary" style="font-size:18px">add_circle</span>
+              </button>
+            </div>
+            <button onclick="resetGadgetTime()" class="mt-2 w-full btn-ghost text-xs py-2 text-error" style="border-color:#ffdad6;color:#ba1a1a">
+              <span class="material-symbols-outlined" style="font-size:14px;vertical-align:middle">restart_alt</span> Reset Semua
+            </button>
+          </div>
+
+          <div class="flex items-center justify-between mb-2">
             <div class="text-xs font-bold tracking-widest text-on-surface-variant">DEVICE BREAKDOWN</div>
+            <div class="flex gap-1" id="chartTypeTabs">
+              <button class="tab-btn active" data-ct="bar" onclick="switchChartType('bar')">Bar</button>
+              <button class="tab-btn" data-ct="donut" onclick="switchChartType('donut')">Donut</button>
+            </div>
           </div>
           <div id="screenTimeChart" class="w-full"></div>
-          <div class="mt-3 grid grid-cols-2 gap-2" id="deviceLegend">
-            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#106399"></span><span>Laptop: —</span></div>
-            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#5a9bd5"></span><span>Mobile: —</span></div>
-            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#a5d8ff"></span><span>Tablet: —</span></div>
-            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#dce9ff"></span><span>Other: —</span></div>
-          </div>
+          <div class="mt-3 grid grid-cols-2 gap-2" id="deviceLegend"></div>
         </div>
 
         <div class="card p-5 mb-5">
@@ -388,14 +430,14 @@ document.querySelectorAll('#moodSelectors button').forEach(b=>b.addEventListener
 }));
 
 /* ============== DEVICE BREAKDOWN CHART (localStorage-aware) ============== */
-const DEVICE_COLORS=['#106399','#5a9bd5','#a5d8ff','#dce9ff'];
+const DEVICE_COLORS=['#106399','#5a9bd5','#a5d8ff','#c4b5fd'];
 const DEVICE_LABELS=['Laptop','Mobile','Tablet','Other'];
 
 function gtDayKey(daysAgo=0){
   const d=new Date();d.setDate(d.getDate()-daysAgo);
   return `gt_${d.getFullYear()}_${String(d.getMonth()).padStart(2,'0')}_${String(d.getDate()).padStart(2,'0')}`;
 }
-function fmtHMGt(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60);return h>0?`${h}h ${String(m).padStart(2,'0')}m`:`${m}m`;}
+function fmtHMGt(min){const h=Math.floor(min/60),m=min%60;return h>0?`${h}h ${String(m).padStart(2,'0')}m`:`${m}m`;}
 
 function loadGadgetDataFromLS(){
   try{
@@ -407,50 +449,92 @@ function loadGadgetDataFromLS(){
   }catch(e){return null;}
 }
 
+function getDefaultGadgetData(){
+  return {date:gtDayKey(),devices:[0,0,0,0],totalMin:0};
+}
+
+function saveGadgetData(data){
+  // Simpan juga sebagai gadget_yesterday sebelum hari ini
+  try{
+    const raw=localStorage.getItem('gadget_today');
+    if(raw){
+      const old=JSON.parse(raw);
+      if(old.date&&old.date!==data.date) localStorage.setItem('gadget_yesterday',raw);
+    }
+    // totalSec untuk kompatibilitas index.html
+    data.totalSec=(data.totalMin||0)*60;
+    localStorage.setItem('gadget_today',JSON.stringify(data));
+  }catch(e){}
+}
+
 function loadGadgetDataYesterday(){
   try{
     const raw=localStorage.getItem('gadget_yesterday');
     if(!raw) return null;
-    const data=JSON.parse(raw);
-    return data;
+    return JSON.parse(raw);
   }catch(e){return null;}
 }
 
 function getDeviceData(){
-  const ls=loadGadgetDataFromLS();
-  const totalSec=ls?ls.totalSec||0:0;
-  const totalMin=Math.round(totalSec/60);
-  // If we have device breakdown in LS use it, else estimate with fixed ratios
-  if(ls&&ls.devices){
-    return ls.devices.map((m,i)=>({label:DEVICE_LABELS[i],minutes:m,color:DEVICE_COLORS[i]}));
-  }
-  // Estimated split: Laptop 50%, Mobile 30%, Tablet 13%, Other 7%
-  const ratios=[0.50,0.30,0.13,0.07];
-  return DEVICE_LABELS.map((label,i)=>({label,minutes:Math.round(totalMin*ratios[i]),color:DEVICE_COLORS[i]}));
+  const ls=loadGadgetDataFromLS()||getDefaultGadgetData();
+  return DEVICE_LABELS.map((label,i)=>({label,minutes:ls.devices[i]||0,color:DEVICE_COLORS[i]}));
+}
+
+/* === TAMBAH +15 MENIT PER PERANGKAT === */
+function addDeviceTime(idx){
+  const ls=loadGadgetDataFromLS()||getDefaultGadgetData();
+  ls.devices[idx]=(ls.devices[idx]||0)+15;
+  ls.totalMin=ls.devices.reduce((a,b)=>a+b,0);
+  saveGadgetData(ls);
+  renderScreenTimeChart();
+  updateDeviceInputLabels();
+  showToast(`+15 menit ditambahkan ke ${DEVICE_LABELS[idx]}`,'success');
+}
+
+function resetGadgetTime(){
+  document.getElementById('confirmTitle').textContent='Reset waktu gadget?';
+  document.getElementById('confirmMsg').textContent='Semua data waktu hari ini akan dihapus dan dimulai dari nol.';
+  document.getElementById('confirmOk').onclick=()=>{
+    const fresh=getDefaultGadgetData();
+    saveGadgetData(fresh);
+    closeModal('confirmModal');
+    renderScreenTimeChart();
+    updateDeviceInputLabels();
+    showToast('Data direset ke nol','info');
+  };
+  openModal('confirmModal');
+}
+
+function updateDeviceInputLabels(){
+  const ls=loadGadgetDataFromLS()||getDefaultGadgetData();
+  DEVICE_LABELS.forEach((_,i)=>{
+    const el=document.getElementById('dev-label-'+i);
+    if(el) el.textContent=fmtHMGt(ls.devices[i]||0);
+  });
 }
 
 function updateGtHeader(){
-  const ls=loadGadgetDataFromLS();
-  const totalSec=ls?ls.totalSec||0:0;
-  const hours=totalSec/3600;
+  const ls=loadGadgetDataFromLS()||getDefaultGadgetData();
+  const totalMin=ls.totalMin||0;
+  const hours=totalMin/60;
   const timeEl=document.getElementById('gtTotalTime');
   const pillEl=document.getElementById('gtChangePill');
-  if(timeEl) timeEl.textContent=fmtHMGt(totalSec);
   if(timeEl){
-    if(hours>=5) timeEl.style.color='#ba1a1a';
+    timeEl.textContent=fmtHMGt(totalMin);
+    if(totalMin===0) timeEl.style.color='#41474f';
+    else if(hours>=5) timeEl.style.color='#ba1a1a';
     else if(hours>=3) timeEl.style.color='#d97706';
-    else if(totalSec>0) timeEl.style.color='#1c6c3f';
-    else timeEl.style.color='#41474f';
+    else timeEl.style.color='#1c6c3f';
   }
   // Perbandingan kemarin
   const yday=loadGadgetDataYesterday();
   if(pillEl){
-    if(!ls||totalSec===0){
+    if(totalMin===0){
       pillEl.textContent='Belum dimulai';
       pillEl.style.cssText='background:#e5eeff;color:#106399';
-    } else if(yday&&yday.totalSec>0){
-      const diff=totalSec-yday.totalSec;
-      const pct=Math.round(Math.abs(diff)/yday.totalSec*100);
+    } else if(yday&&yday.totalMin>0){
+      const diff=totalMin-yday.totalMin;
+      const pct=Math.round(Math.abs(diff)/yday.totalMin*100);
       if(diff>0){
         pillEl.textContent=`+${pct}% dari kemarin`;
         pillEl.style.cssText='background:#ffdad6;color:#93000a';
@@ -465,15 +549,13 @@ function updateGtHeader(){
       else pillEl.style.cssText='background:#d1fae5;color:#1c6c3f';
     }
   }
-  // Update progress bar on the gauage
-  const barPct=Math.min(100,(hours/8)*100);
-  const cursorEl=document.getElementById('gtCursor');
-  if(cursorEl) cursorEl.style.left=Math.min(96,barPct)+'%';
   // Update 3-color bar cursor
-  const cursorWrap=document.querySelector('.absolute.-top-5');
-  if(cursorWrap) cursorWrap.style.left=Math.min(96,barPct)+'%';
+  const barPct=Math.min(96,(hours/8)*100);
+  const cursorWrap=document.getElementById('gtCursorWrap');
+  if(cursorWrap) cursorWrap.style.left=barPct+'%';
   // Update legend
   updateLegend();
+  updateDeviceInputLabels();
 }
 
 function updateLegend(){
@@ -481,8 +563,7 @@ function updateLegend(){
   const legend=document.getElementById('deviceLegend');
   if(!legend) return;
   legend.innerHTML=data.map(d=>{
-    const h=Math.floor(d.minutes/60),m=d.minutes%60;
-    const label=h>0?`${h}h ${m}m`:`${m}m`;
+    const label=fmtHMGt(d.minutes);
     return `<div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:${d.color}"></span><span>${d.label}: ${label}</span></div>`;
   }).join('');
 }
@@ -502,13 +583,17 @@ function renderScreenTimeChart(){
 
 function drawDonut(){
   const DEVICE_DATA=getDeviceData();
-  const TOTAL_MIN=DEVICE_DATA.reduce((s,d)=>s+d.minutes,0)||1;
+  const realTotal=DEVICE_DATA.reduce((s,d)=>s+d.minutes,0);
+  const TOTAL_MIN=realTotal||1;
   const w=280,h=220,cx=140,cy=110,r=80,strokeW=22;
   const circ=2*Math.PI*r;
   let offset=0;
   let slices='';
-  // Animation: each slice animates in
+  if(realTotal===0){
+    slices=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e5eeff" stroke-width="${strokeW}"/>`;
+  } else {
   DEVICE_DATA.forEach((d,idx)=>{
+    if(d.minutes===0) return;
     const pct=d.minutes/TOTAL_MIN;
     const dash=circ*pct;
     const gap=circ*(1-pct);
@@ -518,12 +603,12 @@ function drawDonut(){
       stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${dash}" 
       transform="rotate(${rotate} ${cx} ${cy})" stroke-linecap="butt"
       style="transition:stroke-dashoffset 0.8s ease ${animDelay}s">
-      <title>${d.label}: ${Math.floor(d.minutes/60)}h ${d.minutes%60}m</title>
+      <title>${d.label}: ${fmtHMGt(d.minutes)}</title>
     </circle>`;
     offset+=d.minutes;
   });
-  const totalH=Math.floor(TOTAL_MIN/60),totalM=TOTAL_MIN%60;
-  const timeText=TOTAL_MIN===1?'—':(totalH>0?`${totalH}h ${totalM}m`:`${totalM}m`);
+  }
+  const timeText=realTotal===0?'0m':fmtHMGt(realTotal);
   const svgHTML=`<div class="flex flex-col items-center gap-4 py-2">
     <svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" style="max-width:100%">
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e5eeff" stroke-width="${strokeW}"/>
@@ -532,7 +617,7 @@ function drawDonut(){
       <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="12" fill="#41474f">Total Hari Ini</text>
     </svg>
     <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm w-full max-w-xs">
-      ${DEVICE_DATA.map(d=>{const h=Math.floor(d.minutes/60),m=d.minutes%60;const lbl=h>0?`${h}h ${m}m`:`${m}m`;return `
+      ${DEVICE_DATA.map(d=>{const lbl=fmtHMGt(d.minutes);return `
         <div class="flex items-center gap-2">
           <span style="width:12px;height:12px;border-radius:50%;background:${d.color};display:inline-block;flex-shrink:0"></span>
           <span class="font-semibold">${d.label}</span>
@@ -555,8 +640,7 @@ function drawBarChart(){
   const maxMin=Math.max(...DEVICE_DATA.map(d=>d.minutes),1);
   const bars=DEVICE_DATA.map(d=>{
     const pct=(d.minutes/maxMin*100).toFixed(1);
-    const h=Math.floor(d.minutes/60),m=d.minutes%60;
-    const label=h>0?`${h}h ${m}m`:`${m}m`;
+    const label=fmtHMGt(d.minutes);
     return `<div class="flex items-center gap-3 text-sm">
       <span class="w-14 text-right font-semibold text-on-surface-variant text-xs">${d.label}</span>
       <div class="flex-1 bg-surface-container rounded-full h-5 overflow-hidden">
@@ -778,8 +862,9 @@ renderHyd();
 initPage();
 if(CURRENT_ROUTE==='gadget-time'){
   renderScreenTimeChart();
+  updateDeviceInputLabels();
   // Auto-refresh donut chart every 10 seconds to pick up new localStorage data
-  setInterval(renderScreenTimeChart,10000);
+  setInterval(()=>{renderScreenTimeChart();updateDeviceInputLabels();},10000);
 }
 </script>
 </body>

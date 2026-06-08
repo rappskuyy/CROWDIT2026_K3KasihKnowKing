@@ -1,466 +1,438 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SafeSchoolHub — Admin Dashboard</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <script>
 tailwind.config={theme:{extend:{colors:{primary:'#106399','on-primary':'#ffffff','primary-container':'#5a9bd5','on-primary-container':'#003151',secondary:'#1c6c3f','on-secondary':'#ffffff','secondary-container':'#a5f4bb','on-secondary-container':'#247245',tertiary:'#5f45c3','tertiary-container':'#ede8ff',surface:'#f0f4f8','surface-container-lowest':'#ffffff','surface-container-low':'#e8f0fa','surface-container':'#dce9ff','surface-container-high':'#c8d9f5','surface-container-highest':'#b8ccee','on-surface':'#0b1c30','on-surface-variant':'#41474f',outline:'#717880','outline-variant':'#c1c7d1',error:'#ba1a1a','error-container':'#ffdad6','inverse-surface':'#1a2d42',background:'#f0f4f8'},fontFamily:{sans:['Plus Jakarta Sans','system-ui','sans-serif']}}}};
 </script>
-<link rel="stylesheet" href="css/admin.css">
+<link href="css/admin.css" rel="stylesheet"/>
 <script src="js/theme-lang.js"></script>
 </head>
 <body class="min-h-screen bg-background text-on-surface">
-
 <!-- =================== LOGIN SCREEN =================== -->
 <div id="loginScreen">
-  <div class="login-card">
-    <div class="flex items-center gap-3 mb-6">
-      <div class="login-logo">
-        <span class="material-symbols-outlined text-white icon-fill" style="font-size:28px">admin_panel_settings</span>
-      </div>
-      <div>
-        <div class="font-extrabold text-on-surface text-lg leading-none">SafeSchoolHub</div>
-        <div class="text-xs tracking-widest text-on-surface-variant font-semibold mt-1">ADMIN PORTAL</div>
-      </div>
-    </div>
-    <h2 class="text-2xl font-extrabold mb-1">Admin Sign In</h2>
-    <p class="text-on-surface-variant text-sm mb-6">Access restricted to authorized personnel.</p>
-    <div class="space-y-3">
-      <div>
-        <label class="text-sm font-semibold block mb-1">Username</label>
-        <input id="loginUser" type="text" placeholder="admin" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all"/>
-      </div>
-      <div>
-        <label class="text-sm font-semibold block mb-1">Password</label>
-        <div class="relative">
-          <input id="loginPass" type="password" placeholder="••••••••" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all pr-10"/>
-          <button onclick="togglePassVis()" class="absolute right-3 top-3 text-on-surface-variant"><span class="material-symbols-outlined" style="font-size:18px" id="eyeIcon">visibility</span></button>
-        </div>
-      </div>
-      <div id="loginErr" class="hidden text-error text-sm font-semibold flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px">error</span>Invalid credentials. Try again.</div>
-      <button onclick="doLogin()" class="btn-primary w-full justify-center py-3 mt-2 text-base">Sign In<span class="material-symbols-outlined">arrow_forward</span></button>
-    </div>
-    <p class="text-xs text-on-surface-variant mt-5 text-center">Authorized use only. All activities are monitored.</p>
-  </div>
+<div class="login-card">
+<div class="flex items-center gap-3 mb-6">
+<div class="login-logo">
+<span class="material-symbols-outlined text-white icon-fill" style="font-size:28px">admin_panel_settings</span>
 </div>
-
-<div id="appShell" class="hidden">
-
+<div>
+<div class="font-extrabold text-on-surface text-lg leading-none" data-i18n="brand">SafeSchoolHub</div>
+<div class="text-xs tracking-widest text-on-surface-variant font-semibold mt-1">ADMIN PORTAL</div>
+</div>
+</div>
+<h2 class="text-2xl font-extrabold mb-1" data-i18n="adminSignIn">Admin Sign In</h2>
+<p class="text-on-surface-variant text-sm mb-6">Access restricted to authorized personnel.</p>
+<div class="space-y-3">
+<div>
+<label class="text-sm font-semibold block mb-1" data-i18n="username">Username</label>
+<input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all" id="loginUser" placeholder="admin" type="text"/>
+</div>
+<div>
+<label class="text-sm font-semibold block mb-1" data-i18n="password">Password</label>
+<div class="relative">
+<input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm focus:ring-2 focus:ring-primary focus:bg-white transition-all pr-10" id="loginPass" placeholder="••••••••" type="password"/>
+<button class="absolute right-3 top-3 text-on-surface-variant" onclick="togglePassVis()"><span class="material-symbols-outlined" id="eyeIcon" style="font-size:18px">visibility</span></button>
+</div>
+</div>
+<div class="hidden text-error text-sm font-semibold flex items-center gap-1" id="loginErr"><span class="material-symbols-outlined" style="font-size:16px">error</span>Invalid credentials. Try again.</div>
+<button class="btn-primary w-full justify-center py-3 mt-2 text-base" onclick="doLogin()"><span data-i18n="signIn">Sign In</span><span class="material-symbols-outlined">arrow_forward</span></button>
+</div>
+<p class="text-xs text-on-surface-variant mt-5 text-center" data-i18n="authorizedOnly">Authorized use only. All activities are monitored.</p>
+</div>
+</div>
+<div class="hidden" id="appShell">
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
-
 <!-- =================== SIDEBAR =================== -->
 <aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40">
-  <div class="px-5 py-5 border-b border-outline-variant flex items-center gap-3">
-    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
-      <span class="material-symbols-outlined text-white icon-fill" style="font-size:22px">admin_panel_settings</span>
-    </div>
-    <div>
-      <div class="font-extrabold text-on-surface leading-none text-sm">SafeSchoolHub</div>
-      <div class="text-[10px] tracking-widest text-primary mt-0.5 font-bold bg-primary/10 px-2 py-0.5 rounded-full w-fit">ADMIN</div>
-    </div>
-  </div>
-  <nav class="px-3 mt-3 flex flex-col gap-1 flex-1 overflow-y-auto">
-    <a class="nav-link active" onclick="navigate('overview')" data-route="overview"><span class="material-symbols-outlined">dashboard</span>Overview</a>
-    <a class="nav-link" onclick="navigate('reports')" data-route="reports"><span class="material-symbols-outlined">report_problem</span>Incident Reports</a>
-    <a class="nav-link" onclick="navigate('wellness')" data-route="wellness"><span class="material-symbols-outlined">monitor_heart</span>Student Wellness</a>
-    <a class="nav-link" onclick="navigate('counseling')" data-route="counseling"><span class="material-symbols-outlined">support_agent</span>Counseling Log</a>
-    <a class="nav-link" onclick="navigate('activity')" data-route="activity"><span class="material-symbols-outlined">history</span>Activity Log</a>
-    <a class="nav-link" onclick="navigate('settings')" data-route="settings"><span class="material-symbols-outlined">settings</span>Settings</a>
-  </nav>
-  <div class="px-3 pb-2">
-    <a class="nav-link" onclick="confirmLogout()"><span class="material-symbols-outlined">logout</span>Log Out</a>
-  </div>
-  <div class="m-3 p-3 rounded-2xl bg-primary/5 border border-primary/10 flex items-center gap-3">
-    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">AD</div>
-    <div>
-      <div class="font-bold text-sm">Administrator</div>
-      <div class="text-xs text-on-surface-variant">admin@safeschool.edu</div>
-    </div>
-  </div>
+<div class="px-5 py-5 border-b border-outline-variant flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white icon-fill" style="font-size:22px">admin_panel_settings</span>
+</div>
+<div>
+<div class="font-extrabold text-on-surface leading-none text-sm" data-i18n="brand">SafeSchoolHub</div>
+<div class="text-[10px] tracking-widest text-primary mt-0.5 font-bold bg-primary/10 px-2 py-0.5 rounded-full w-fit">ADMIN</div>
+</div>
+</div>
+<nav class="px-3 mt-3 flex flex-col gap-1 flex-1 overflow-y-auto">
+<a class="nav-link active" data-route="overview" onclick="navigate('overview')"><span class="material-symbols-outlined">dashboard</span><span data-i18n="overview">Overview</span></a>
+<a class="nav-link" data-route="reports" onclick="navigate('reports')"><span class="material-symbols-outlined">report_problem</span><span data-i18n="reportsTitle">Incident Reports</span></a>
+<a class="nav-link" data-route="wellness" onclick="navigate('wellness')"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="dashTitle">Student Wellness</span></a>
+<a class="nav-link" data-route="counseling" onclick="navigate('counseling')"><span class="material-symbols-outlined">support_agent</span>Counseling Log</a>
+<a class="nav-link" data-route="activity" onclick="navigate('activity')"><span class="material-symbols-outlined">history</span>Activity Log</a>
+<a class="nav-link" data-route="settings" onclick="navigate('settings')"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+</nav>
+<div class="px-3 pb-2">
+<a class="nav-link" onclick="confirmLogout()"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+</div>
+<div class="m-3 p-3 rounded-2xl bg-primary/5 border border-primary/10 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm">AD</div>
+<div>
+<div class="font-bold text-sm">Administrator</div>
+<div class="text-xs text-on-surface-variant">admin@safeschool.edu</div>
+</div>
+</div>
 </aside>
-
 <!-- MOBILE TOP BAR -->
 <header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
-  <div class="flex items-center gap-2">
-    <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-      <span class="material-symbols-outlined text-white icon-fill" style="font-size:18px">admin_panel_settings</span>
-    </div>
-    <span class="font-extrabold text-sm">Admin Dashboard</span>
-  </div>
-  <span class="text-xs font-bold bg-primary text-white px-3 py-1 rounded-full">ADMIN</span>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white icon-fill" style="font-size:18px">admin_panel_settings</span>
+</div>
+<span class="font-extrabold text-sm" data-i18n="adminDashboard">Admin Dashboard</span>
+</div>
+<span class="text-xs font-bold bg-primary text-white px-3 py-1 rounded-full">ADMIN</span>
 </header>
-
 <!-- =================== MAIN CONTENT =================== -->
 <main class="main-content lg:ml-64 min-h-screen">
-  <div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
-
-    <!-- ====== OVERVIEW PAGE ====== -->
-    <section id="page-overview" class="page active">
-      <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 class="text-2xl lg:text-3xl font-extrabold">School Overview</h1>
-          <p class="text-on-surface-variant text-sm mt-1">Welcome back, Administrator. Here's today's summary.</p>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <button class="btn-ghost text-sm" onclick="exportAllCSV()"><span class="material-symbols-outlined" style="font-size:16px">download</span>Export Report</button>
-          <button class="btn-primary text-sm" onclick="navigate('reports')"><span class="material-symbols-outlined" style="font-size:16px">add_circle</span>View Incidents</button>
-        </div>
-      </div>
-
-      <!-- Stat Cards -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="stat-card">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide">Total Incidents</span>
-            <span class="w-9 h-9 rounded-xl bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-error" style="font-size:18px">report_problem</span></span>
-          </div>
-          <div class="text-3xl font-extrabold">24</div>
-          <div class="text-xs text-error font-semibold mt-1 flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">arrow_upward</span>+3 this week</div>
-        </div>
-        <div class="stat-card">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide">Open Cases</span>
-            <span class="w-9 h-9 rounded-xl bg-yellow-100 flex items-center justify-center"><span class="material-symbols-outlined text-yellow-600" style="font-size:18px">pending</span></span>
-          </div>
-          <div class="text-3xl font-extrabold">8</div>
-          <div class="text-xs text-yellow-600 font-semibold mt-1">Needs attention</div>
-        </div>
-        <div class="stat-card">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide">Active Students</span>
-            <span class="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary" style="font-size:18px">group</span></span>
-          </div>
-          <div class="text-3xl font-extrabold">312</div>
-          <div class="text-xs text-secondary font-semibold mt-1 flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">check_circle</span>All verified</div>
-        </div>
-        <div class="stat-card">
-          <div class="flex items-center justify-between mb-3">
-            <span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide">Counseling Sessions</span>
-            <span class="w-9 h-9 rounded-xl bg-secondary/10 flex items-center justify-center"><span class="material-symbols-outlined text-secondary" style="font-size:18px">support_agent</span></span>
-          </div>
-          <div class="text-3xl font-extrabold">47</div>
-          <div class="text-xs text-secondary font-semibold mt-1 flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">arrow_upward</span>+12 this month</div>
-        </div>
-      </div>
-
-      <!-- Chart + Recent Incidents -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
-        <div class="card p-5 lg:col-span-2">
-          <div class="flex items-center justify-between mb-4">
-            <h3 class="font-bold">Incidents This Month</h3>
-            <div class="flex gap-2" id="chartTabs">
-              <button class="tab-btn active" data-ct="week" onclick="switchChart('week',this)">Week</button>
-              <button class="tab-btn" data-ct="month" onclick="switchChart('month',this)">Month</button>
-            </div>
-          </div>
-          <div id="incidentChart" class="flex items-end gap-2 h-32"></div>
-          <div id="incidentChartLabels" class="flex gap-2 mt-2"></div>
-        </div>
-        <div class="card p-5">
-          <h3 class="font-bold mb-4">Incident Types</h3>
-          <div class="space-y-3" id="typeBreakdown"></div>
-        </div>
-      </div>
-
-      <!-- Recent Reports Quick View -->
-      <div class="card p-5">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-bold">Recent Incident Reports</h3>
-          <button class="btn-ghost text-sm" onclick="navigate('reports')">View All</button>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="data-table" id="overviewReportsTable">
-            <thead><tr>
-              <th>ID</th><th>Date</th><th>Type</th><th>Location</th><th>Status</th><th>Action</th>
-            </tr></thead>
-            <tbody id="overviewReportsBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== INCIDENT REPORTS PAGE ====== -->
-    <section id="page-reports" class="page">
-      <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 class="text-2xl lg:text-3xl font-extrabold">Incident Reports</h1>
-          <p class="text-on-surface-variant text-sm mt-1">All anonymous student-submitted incident reports.</p>
-        </div>
-        <div class="flex flex-wrap gap-2">
-          <button class="btn-ghost text-sm" onclick="exportCSV()"><span class="material-symbols-outlined" style="font-size:16px">download</span>Export CSV</button>
-          <button class="btn-primary text-sm" onclick="openAddReport()"><span class="material-symbols-outlined" style="font-size:16px">add</span>Add Manual</button>
-        </div>
-      </div>
-
-      <!-- Filters -->
-      <div class="card p-4 mb-5">
-        <div class="flex flex-wrap gap-3 items-center">
-          <div class="flex items-center gap-2">
-            <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">filter_list</span>
-            <span class="text-sm font-semibold">Filter:</span>
-          </div>
-          <select id="reportStatusFilter" onchange="renderFullReports()" class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm font-semibold">
-            <option value="all">All Status</option>
-            <option value="Open">Open</option>
-            <option value="Pending">Pending</option>
-            <option value="Resolved">Resolved</option>
-          </select>
-          <select id="reportTypeFilter" onchange="renderFullReports()" class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm font-semibold">
-            <option value="all">All Types</option>
-            <option value="Bullying">Bullying</option>
-            <option value="Cyberbullying">Cyberbullying</option>
-            <option value="Physical Threat">Physical Threat</option>
-            <option value="Other">Other</option>
-          </select>
-          <input id="reportSearch" type="text" placeholder="Search by ID or location…" onkeyup="renderFullReports()" class="bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 text-sm flex-1 min-w-[160px]"/>
-        </div>
-      </div>
-
-      <div class="card p-5">
-        <div class="overflow-x-auto">
-          <table class="data-table">
-            <thead><tr>
-              <th>ID</th><th>Date</th><th>Type</th><th>Location</th><th>Status</th><th>Priority</th><th>Actions</th>
-            </tr></thead>
-            <tbody id="fullReportsBody"></tbody>
-          </table>
-        </div>
-        <div class="flex items-center justify-between mt-4 pt-4 border-t border-outline-variant">
-          <button class="btn-ghost text-sm" onclick="prevReportPage()">← Prev</button>
-          <span class="text-sm font-semibold text-on-surface-variant" id="reportPager">1 / 3</span>
-          <button class="btn-ghost text-sm" onclick="nextReportPage()">Next →</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== WELLNESS PAGE ====== -->
-    <section id="page-wellness" class="page">
-      <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 class="text-2xl lg:text-3xl font-extrabold">Student Wellness Log</h1>
-          <p class="text-on-surface-variant text-sm mt-1">Aggregated wellness data from all students.</p>
-        </div>
-        <button class="btn-ghost text-sm" onclick="exportWellnessCSV()"><span class="material-symbols-outlined" style="font-size:16px">download</span>Export</button>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div class="stat-card border-l-4 border-primary">
-          <div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Avg Mood Score</div>
-          <div class="text-3xl font-extrabold">3.4 <span class="text-base font-normal text-on-surface-variant">/ 5</span></div>
-          <div class="text-xs text-secondary font-semibold mt-1">↑ Good this week</div>
-        </div>
-        <div class="stat-card border-l-4 border-secondary">
-          <div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Avg Sleep</div>
-          <div class="text-3xl font-extrabold">7.2 <span class="text-base font-normal text-on-surface-variant">hrs</span></div>
-          <div class="text-xs text-on-surface-variant font-semibold mt-1">Recommended: 8–10 hrs</div>
-        </div>
-        <div class="stat-card border-l-4 border-tertiary">
-          <div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">High Stress</div>
-          <div class="text-3xl font-extrabold">18 <span class="text-base font-normal text-on-surface-variant">students</span></div>
-          <div class="text-xs text-error font-semibold mt-1">Requires counselor review</div>
-        </div>
-      </div>
-
-      <div class="card p-5">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="font-bold">Student Wellness Overview</h3>
-          <input type="text" placeholder="Search student…" id="wellnessSearch" onkeyup="renderWellness()" class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm w-48"/>
-        </div>
-        <div class="overflow-x-auto">
-          <table class="data-table">
-            <thead><tr>
-              <th>Student</th><th>Grade</th><th>Mood</th><th>Sleep (hrs)</th><th>Stress</th><th>Hydration</th><th>Last Active</th>
-            </tr></thead>
-            <tbody id="wellnessBody"></tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== COUNSELING LOG PAGE ====== -->
-    <section id="page-counseling" class="page">
-      <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 class="text-2xl lg:text-3xl font-extrabold">Counseling Log</h1>
-          <p class="text-on-surface-variant text-sm mt-1">All digital counseling sessions and outcomes.</p>
-        </div>
-        <button class="btn-primary text-sm" onclick="openAddSession()"><span class="material-symbols-outlined" style="font-size:16px">add</span>Add Session</button>
-      </div>
-
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Total Sessions</div><div class="text-3xl font-extrabold">47</div></div>
-        <div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">This Week</div><div class="text-3xl font-extrabold">9</div></div>
-        <div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Resolved</div><div class="text-3xl font-extrabold text-secondary">31</div></div>
-        <div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Pending Follow-up</div><div class="text-3xl font-extrabold text-yellow-600">16</div></div>
-      </div>
-
-      <div class="card p-5">
-        <div class="overflow-x-auto">
-          <table class="data-table">
-            <thead><tr>
-              <th>Session ID</th><th>Date</th><th>Student (Anon)</th><th>Topic</th><th>Counselor</th><th>Status</th><th>Action</th>
-            </tr></thead>
-            <tbody id="counselingBody"></tbody>
-          </table>
-        </div>
-        <div class="flex items-center justify-between mt-4 pt-4 border-t border-outline-variant">
-          <button class="btn-ghost text-sm" onclick="prevCounselingPage()">← Prev</button>
-          <span class="text-sm font-semibold text-on-surface-variant" id="counselingPager">1 / 2</span>
-          <button class="btn-ghost text-sm" onclick="nextCounselingPage()">Next →</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ====== ACTIVITY LOG PAGE ====== -->
-    <section id="page-activity" class="page">
-      <div class="mb-6">
-        <h1 class="text-2xl lg:text-3xl font-extrabold">Activity Log</h1>
-        <p class="text-on-surface-variant text-sm mt-1">Full audit trail of admin actions and system events.</p>
-      </div>
-      <div class="card p-5">
-        <div class="flex flex-wrap gap-3 mb-4">
-          <select id="activityFilter" onchange="renderActivity()" class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm font-semibold">
-            <option value="all">All Events</option>
-            <option value="report">Report Actions</option>
-            <option value="login">Login Events</option>
-            <option value="system">System</option>
-          </select>
-        </div>
-        <div class="space-y-2" id="activityList"></div>
-      </div>
-    </section>
-
-    <!-- ====== SETTINGS PAGE ====== -->
-    <section id="page-settings" class="page">
-      <div class="mb-6">
-        <h1 class="text-2xl lg:text-3xl font-extrabold">Admin Settings</h1>
-        <p class="text-on-surface-variant text-sm mt-1">Configure school safety system settings.</p>
-      </div>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div class="card p-5">
-          <h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary">notifications</span>Notification Settings</h3>
-          <div class="space-y-4" id="adminNotifList"></div>
-        </div>
-        <div class="card p-5">
-          <h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary">lock</span>Account Security</h3>
-          <div class="space-y-3">
-            <div class="p-3 rounded-xl bg-surface-container-low">
-              <div class="font-semibold text-sm">Administrator</div>
-              <div class="text-xs text-on-surface-variant">admin@safeschool.edu</div>
-            </div>
-            <button class="btn-ghost w-full justify-center text-sm" onclick="document.getElementById('changePwForm').classList.toggle('hidden')">Change Password</button>
-            <div id="changePwForm" class="hidden space-y-2">
-              <input type="password" placeholder="Current password" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm"/>
-              <input type="password" placeholder="New password" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm"/>
-              <input type="password" placeholder="Confirm new password" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm"/>
-              <button class="btn-primary w-full justify-center text-sm" onclick="showToast('Password updated successfully','success');document.getElementById('changePwForm').classList.add('hidden')">Update Password</button>
-            </div>
-          </div>
-        </div>
-        <div class="card p-5">
-          <h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary">school</span>School Info</h3>
-          <div class="space-y-3">
-            <div><label class="text-xs font-semibold text-on-surface-variant block mb-1">School Name</label><input type="text" value="SafeSchool Academy" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm"/></div>
-            <div><label class="text-xs font-semibold text-on-surface-variant block mb-1">Crisis Helpline</label><input type="text" value="988" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm"/></div>
-            <button class="btn-primary text-sm" onclick="showToast('Settings saved','success')">Save Changes</button>
-          </div>
-        </div>
-        <div class="card p-5">
-          <h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-error">warning</span>Danger Zone</h3>
-          <div class="space-y-3">
-            <p class="text-sm text-on-surface-variant">These actions are irreversible. Proceed with caution.</p>
-            <button class="btn-ghost w-full justify-center text-sm text-error border-error/30" onclick="showToast('Feature restricted in demo mode','error')">Clear All Report Logs</button>
-            <button class="btn-ghost w-full justify-center text-sm text-error border-error/30" onclick="showToast('Feature restricted in demo mode','error')">Reset Student Data</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
+<div class="max-w-[1320px] mx-auto px-4 lg:px-8 py-6 lg:py-8">
+<!-- ====== OVERVIEW PAGE ====== -->
+<section class="page active" id="page-overview">
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+<div>
+<h1 class="text-2xl lg:text-3xl font-extrabold" data-i18n="schoolOverview">School Overview</h1>
+<p class="text-on-surface-variant text-sm mt-1">Welcome back, Administrator. Here's today's summary.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="btn-ghost text-sm" onclick="exportAllCSV()"><span class="material-symbols-outlined" style="font-size:16px">download</span><span data-i18n="exportReport">Export Report</span></button>
+<button class="btn-primary text-sm" onclick="navigate('reports')"><span class="material-symbols-outlined" style="font-size:16px">add_circle</span><span data-i18n="viewIncidents">View Incidents</span></button>
+</div>
+</div>
+<!-- Stat Cards -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div class="stat-card">
+<div class="flex items-center justify-between mb-3">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide" data-i18n="totalIncidents">Total Incidents</span>
+<span class="w-9 h-9 rounded-xl bg-error/10 flex items-center justify-center"><span class="material-symbols-outlined text-error" style="font-size:18px">report_problem</span></span>
+</div>
+<div class="text-3xl font-extrabold">24</div>
+<div class="text-xs text-error font-semibold mt-1 flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">arrow_upward</span>+3 this week</div>
+</div>
+<div class="stat-card">
+<div class="flex items-center justify-between mb-3">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide" data-i18n="openCases">Open Cases</span>
+<span class="w-9 h-9 rounded-xl bg-yellow-100 flex items-center justify-center"><span class="material-symbols-outlined text-yellow-600" style="font-size:18px">pending</span></span>
+</div>
+<div class="text-3xl font-extrabold">8</div>
+<div class="text-xs text-yellow-600 font-semibold mt-1">Needs attention</div>
+</div>
+<div class="stat-card">
+<div class="flex items-center justify-between mb-3">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide" data-i18n="activeStudents">Active Students</span>
+<span class="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary" style="font-size:18px">group</span></span>
+</div>
+<div class="text-3xl font-extrabold">312</div>
+<div class="text-xs text-secondary font-semibold mt-1 flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">check_circle</span>All verified</div>
+</div>
+<div class="stat-card">
+<div class="flex items-center justify-between mb-3">
+<span class="text-on-surface-variant text-xs font-semibold uppercase tracking-wide">Counseling Sessions</span>
+<span class="w-9 h-9 rounded-xl bg-secondary/10 flex items-center justify-center"><span class="material-symbols-outlined text-secondary" style="font-size:18px">support_agent</span></span>
+</div>
+<div class="text-3xl font-extrabold">47</div>
+<div class="text-xs text-secondary font-semibold mt-1 flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">arrow_upward</span>+12 this month</div>
+</div>
+</div>
+<!-- Chart + Recent Incidents -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
+<div class="card p-5 lg:col-span-2">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold">Incidents This Month</h3>
+<div class="flex gap-2" id="chartTabs">
+<button class="tab-btn active" data-ct="week" data-i18n="week" onclick="switchChart('week',this)">Week</button>
+<button class="tab-btn" data-ct="month" data-i18n="month" onclick="switchChart('month',this)">Month</button>
+</div>
+</div>
+<div class="flex items-end gap-2 h-32" id="incidentChart"></div>
+<div class="flex gap-2 mt-2" id="incidentChartLabels"></div>
+</div>
+<div class="card p-5">
+<h3 class="font-bold mb-4">Incident Types</h3>
+<div class="space-y-3" id="typeBreakdown"></div>
+</div>
+</div>
+<!-- Recent Reports Quick View -->
+<div class="card p-5">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold">Recent Incident Reports</h3>
+<button class="btn-ghost text-sm" data-i18n="viewAll" onclick="navigate('reports')">View All</button>
+</div>
+<div class="overflow-x-auto">
+<table class="data-table" id="overviewReportsTable">
+<thead><tr>
+<th>ID</th><th data-i18n="date">Date</th><th data-i18n="type">Type</th><th data-i18n="location">Location</th><th data-i18n="status">Status</th><th data-i18n="action">Action</th>
+</tr></thead>
+<tbody id="overviewReportsBody"></tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- ====== INCIDENT REPORTS PAGE ====== -->
+<section class="page" id="page-reports">
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+<div>
+<h1 class="text-2xl lg:text-3xl font-extrabold" data-i18n="reportsTitle">Incident Reports</h1>
+<p class="text-on-surface-variant text-sm mt-1">All anonymous student-submitted incident reports.</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<button class="btn-ghost text-sm" onclick="exportCSV()"><span class="material-symbols-outlined" style="font-size:16px">download</span><span data-i18n="exportCSV">Export CSV</span></button>
+<button class="btn-primary text-sm" onclick="openAddReport()"><span class="material-symbols-outlined" style="font-size:16px">add</span>Add Manual</button>
+</div>
+</div>
+<!-- Filters -->
+<div class="card p-4 mb-5">
+<div class="flex flex-wrap gap-3 items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">filter_list</span>
+<span class="text-sm font-semibold" data-i18n="filter">Filter:</span>
+</div>
+<select class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm font-semibold" id="reportStatusFilter" onchange="renderFullReports()">
+<option value="all">All Status</option>
+<option value="Open">Open</option>
+<option value="Pending">Pending</option>
+<option value="Resolved">Resolved</option>
+</select>
+<select class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm font-semibold" id="reportTypeFilter" onchange="renderFullReports()">
+<option value="all">All Types</option>
+<option value="Bullying">Bullying</option>
+<option value="Cyberbullying">Cyberbullying</option>
+<option value="Physical Threat">Physical Threat</option>
+<option value="Other">Other</option>
+</select>
+<input class="bg-surface-container-low border border-outline-variant rounded-full px-4 py-2 text-sm flex-1 min-w-[160px]" id="reportSearch" onkeyup="renderFullReports()" placeholder="Search by ID or location…" type="text"/>
+</div>
+</div>
+<div class="card p-5">
+<div class="overflow-x-auto">
+<table class="data-table">
+<thead><tr>
+<th>ID</th><th data-i18n="date">Date</th><th data-i18n="type">Type</th><th data-i18n="location">Location</th><th data-i18n="status">Status</th><th data-i18n="priority">Priority</th><th data-i18n="actions">Actions</th>
+</tr></thead>
+<tbody id="fullReportsBody"></tbody>
+</table>
+</div>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-outline-variant">
+<button class="btn-ghost text-sm" data-i18n="prevBtn" onclick="prevReportPage()">← Prev</button>
+<span class="text-sm font-semibold text-on-surface-variant" id="reportPager">1 / 3</span>
+<button class="btn-ghost text-sm" data-i18n="nextBtnArrow" onclick="nextReportPage()">Next →</button>
+</div>
+</div>
+</section>
+<!-- ====== WELLNESS PAGE ====== -->
+<section class="page" id="page-wellness">
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+<div>
+<h1 class="text-2xl lg:text-3xl font-extrabold">Student Wellness Log</h1>
+<p class="text-on-surface-variant text-sm mt-1">Aggregated wellness data from all students.</p>
+</div>
+<button class="btn-ghost text-sm" onclick="exportWellnessCSV()"><span class="material-symbols-outlined" style="font-size:16px">download</span>Export</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+<div class="stat-card border-l-4 border-primary">
+<div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Avg Mood Score</div>
+<div class="text-3xl font-extrabold">3.4 <span class="text-base font-normal text-on-surface-variant">/ 5</span></div>
+<div class="text-xs text-secondary font-semibold mt-1">↑ Good this week</div>
+</div>
+<div class="stat-card border-l-4 border-secondary">
+<div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Avg Sleep</div>
+<div class="text-3xl font-extrabold">7.2 <span class="text-base font-normal text-on-surface-variant">hrs</span></div>
+<div class="text-xs text-on-surface-variant font-semibold mt-1" data-i18n="sleepRecommended">Recommended: 8–10 hrs</div>
+</div>
+<div class="stat-card border-l-4 border-tertiary">
+<div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">High Stress</div>
+<div class="text-3xl font-extrabold">18 <span class="text-base font-normal text-on-surface-variant">students</span></div>
+<div class="text-xs text-error font-semibold mt-1">Requires counselor review</div>
+</div>
+</div>
+<div class="card p-5">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold">Student Wellness Overview</h3>
+<input class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm w-48" id="wellnessSearch" onkeyup="renderWellness()" placeholder="Search student…" type="text"/>
+</div>
+<div class="overflow-x-auto">
+<table class="data-table">
+<thead><tr>
+<th>Student</th><th>Grade</th><th>Mood</th><th>Sleep (hrs)</th><th>Stress</th><th data-i18n="navHydration">Hydration</th><th>Last Active</th>
+</tr></thead>
+<tbody id="wellnessBody"></tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- ====== COUNSELING LOG PAGE ====== -->
+<section class="page" id="page-counseling">
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+<div>
+<h1 class="text-2xl lg:text-3xl font-extrabold">Counseling Log</h1>
+<p class="text-on-surface-variant text-sm mt-1">All digital counseling sessions and outcomes.</p>
+</div>
+<button class="btn-primary text-sm" onclick="openAddSession()"><span class="material-symbols-outlined" style="font-size:16px">add</span>Add Session</button>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+<div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2">Total Sessions</div><div class="text-3xl font-extrabold">47</div></div>
+<div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2" data-i18n="thisWeek">This Week</div><div class="text-3xl font-extrabold">9</div></div>
+<div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2" data-i18n="statusResolved">Resolved</div><div class="text-3xl font-extrabold text-secondary">31</div></div>
+<div class="stat-card"><div class="text-xs text-on-surface-variant font-semibold uppercase mb-2" data-i18n="statusPending">Pending Follow-up</div><div class="text-3xl font-extrabold text-yellow-600">16</div></div>
+</div>
+<div class="card p-5">
+<div class="overflow-x-auto">
+<table class="data-table">
+<thead><tr>
+<th>Session ID</th><th data-i18n="date">Date</th><th>Student (Anon)</th><th>Topic</th><th>Counselor</th><th data-i18n="status">Status</th><th data-i18n="action">Action</th>
+</tr></thead>
+<tbody id="counselingBody"></tbody>
+</table>
+</div>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-outline-variant">
+<button class="btn-ghost text-sm" data-i18n="prevBtn" onclick="prevCounselingPage()">← Prev</button>
+<span class="text-sm font-semibold text-on-surface-variant" id="counselingPager">1 / 2</span>
+<button class="btn-ghost text-sm" data-i18n="nextBtnArrow" onclick="nextCounselingPage()">Next →</button>
+</div>
+</div>
+</section>
+<!-- ====== ACTIVITY LOG PAGE ====== -->
+<section class="page" id="page-activity">
+<div class="mb-6">
+<h1 class="text-2xl lg:text-3xl font-extrabold">Activity Log</h1>
+<p class="text-on-surface-variant text-sm mt-1">Full audit trail of admin actions and system events.</p>
+</div>
+<div class="card p-5">
+<div class="flex flex-wrap gap-3 mb-4">
+<select class="bg-surface-container-low border border-outline-variant rounded-full px-3 py-2 text-sm font-semibold" id="activityFilter" onchange="renderActivity()">
+<option value="all">All Events</option>
+<option value="report">Report Actions</option>
+<option value="login">Login Events</option>
+<option value="system">System</option>
+</select>
+</div>
+<div class="space-y-2" id="activityList"></div>
+</div>
+</section>
+<!-- ====== SETTINGS PAGE ====== -->
+<section class="page" id="page-settings">
+<div class="mb-6">
+<h1 class="text-2xl lg:text-3xl font-extrabold">Admin Settings</h1>
+<p class="text-on-surface-variant text-sm mt-1" data-i18n="configSchoolSafety">Configure school safety system settings.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+<div class="card p-5">
+<h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary">notifications</span>Notification Settings</h3>
+<div class="space-y-4" id="adminNotifList"></div>
+</div>
+<div class="card p-5">
+<h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary">lock</span>Account Security</h3>
+<div class="space-y-3">
+<div class="p-3 rounded-xl bg-surface-container-low">
+<div class="font-semibold text-sm">Administrator</div>
+<div class="text-xs text-on-surface-variant">admin@safeschool.edu</div>
+</div>
+<button class="btn-ghost w-full justify-center text-sm" data-i18n="changePassword" onclick="document.getElementById('changePwForm').classList.toggle('hidden')">Change Password</button>
+<div class="hidden space-y-2" id="changePwForm">
+<input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm" placeholder="Current password" type="password"/>
+<input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm" placeholder="New password" type="password"/>
+<input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-3 text-sm" placeholder="Confirm new password" type="password"/>
+<button class="btn-primary w-full justify-center text-sm" data-i18n="updatePassword" onclick="showToast('Password updated successfully','success');document.getElementById('changePwForm').classList.add('hidden')">Update Password</button>
+</div>
+</div>
+</div>
+<div class="card p-5">
+<h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary">school</span>School Info</h3>
+<div class="space-y-3">
+<div><label class="text-xs font-semibold text-on-surface-variant block mb-1">School Name</label><input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" type="text" value="SafeSchool Academy"/></div>
+<div><label class="text-xs font-semibold text-on-surface-variant block mb-1">Crisis Helpline</label><input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" type="text" value="988"/></div>
+<button class="btn-primary text-sm" onclick="showToast('Settings saved','success')">Save Changes</button>
+</div>
+</div>
+<div class="card p-5">
+<h3 class="font-bold mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-error">warning</span><span data-i18n="dangerZone">Danger Zone</span></h3>
+<div class="space-y-3">
+<p class="text-sm text-on-surface-variant" data-i18n="irreversibleWarning">These actions are irreversible. Proceed with caution.</p>
+<button class="btn-ghost w-full justify-center text-sm text-error border-error/30" onclick="showToast('Feature restricted in demo mode','error')">Clear All Report Logs</button>
+<button class="btn-ghost w-full justify-center text-sm text-error border-error/30" data-i18n="resetStudentData" onclick="showToast('Feature restricted in demo mode','error')">Reset Student Data</button>
+</div>
+</div>
+</div>
+</section>
+</div>
 </main>
-
 <!-- BOTTOM NAV (mobile) -->
 <nav class="bottom-nav mobile-only">
-  <div class="bn-item active" onclick="navigate('overview')" data-brt="overview"><span class="material-symbols-outlined">dashboard</span>Overview</div>
-  <div class="bn-item" onclick="navigate('reports')" data-brt="reports"><span class="material-symbols-outlined">report_problem</span>Reports</div>
-  <div class="bn-item" onclick="navigate('wellness')" data-brt="wellness"><span class="material-symbols-outlined">monitor_heart</span>Wellness</div>
-  <div class="bn-item" onclick="navigate('activity')" data-brt="activity"><span class="material-symbols-outlined">history</span>Activity</div>
-  <div class="bn-item" onclick="navigate('settings')" data-brt="settings"><span class="material-symbols-outlined">settings</span>Settings</div>
+<div class="bn-item active" data-brt="overview" onclick="navigate('overview')"><span class="material-symbols-outlined">dashboard</span><span data-i18n="overview">Overview</span></div>
+<div class="bn-item" data-brt="reports" onclick="navigate('reports')"><span class="material-symbols-outlined">report_problem</span>Reports</div>
+<div class="bn-item" data-brt="wellness" onclick="navigate('wellness')"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-item" data-brt="activity" onclick="navigate('activity')"><span class="material-symbols-outlined">history</span>Activity</div>
+<div class="bn-item" data-brt="settings" onclick="navigate('settings')"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
 </nav>
-
 </div><!-- end appShell -->
-
 <!-- =================== MODALS =================== -->
 <div class="modal-backdrop" id="reportDetailModal">
-  <div class="modal-card">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="font-bold text-lg">Incident Detail</h3>
-      <button onclick="closeModal('reportDetailModal')" class="p-1 rounded-full hover:bg-surface-container"><span class="material-symbols-outlined">close</span></button>
-    </div>
-    <div id="reportDetailBody" class="space-y-3 text-sm mb-4"></div>
-    <div class="flex flex-wrap gap-2">
-      <button class="btn-primary text-sm flex-1 justify-center" onclick="resolveFromModal()">Mark Resolved</button>
-      <button class="btn-ghost text-sm flex-1 justify-center" onclick="closeModal('reportDetailModal')">Close</button>
-    </div>
-  </div>
+<div class="modal-card">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-lg">Incident Detail</h3>
+<button class="p-1 rounded-full hover:bg-surface-container" onclick="closeModal('reportDetailModal')"><span class="material-symbols-outlined">close</span></button>
 </div>
-
+<div class="space-y-3 text-sm mb-4" id="reportDetailBody"></div>
+<div class="flex flex-wrap gap-2">
+<button class="btn-primary text-sm flex-1 justify-center" data-i18n="markResolved" onclick="resolveFromModal()">Mark Resolved</button>
+<button class="btn-ghost text-sm flex-1 justify-center" data-i18n="closeBtn" onclick="closeModal('reportDetailModal')">Close</button>
+</div>
+</div>
+</div>
 <div class="modal-backdrop" id="addReportModal">
-  <div class="modal-card">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="font-bold text-lg">Add Manual Report</h3>
-      <button onclick="closeModal('addReportModal')"><span class="material-symbols-outlined">close</span></button>
-    </div>
-    <div class="space-y-3">
-      <div><label class="text-xs font-semibold block mb-1">Type</label><select class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newReportType"><option>Bullying</option><option>Cyberbullying</option><option>Physical Threat</option><option>Other</option></select></div>
-      <div><label class="text-xs font-semibold block mb-1">Location</label><input type="text" id="newReportLoc" placeholder="e.g. Cafeteria" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm"/></div>
-      <div><label class="text-xs font-semibold block mb-1">Description</label><textarea id="newReportDesc" rows="3" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm"></textarea></div>
-      <div><label class="text-xs font-semibold block mb-1">Priority</label><select class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newReportPriority"><option>Normal</option><option>High</option><option>Urgent</option></select></div>
-    </div>
-    <div class="flex gap-2 mt-4">
-      <button class="btn-ghost flex-1 justify-center" onclick="closeModal('addReportModal')">Cancel</button>
-      <button class="btn-primary flex-1 justify-center" onclick="saveNewReport()">Add Report</button>
-    </div>
-  </div>
+<div class="modal-card">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-lg">Add Manual Report</h3>
+<button onclick="closeModal('addReportModal')"><span class="material-symbols-outlined">close</span></button>
 </div>
-
+<div class="space-y-3">
+<div><label class="text-xs font-semibold block mb-1" data-i18n="type">Type</label><select class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newReportType"><option>Bullying</option><option>Cyberbullying</option><option>Physical Threat</option><option>Other</option></select></div>
+<div><label class="text-xs font-semibold block mb-1" data-i18n="location">Location</label><input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newReportLoc" placeholder="e.g. Cafeteria" type="text"/></div>
+<div><label class="text-xs font-semibold block mb-1" data-i18n="description">Description</label><textarea class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newReportDesc" rows="3"></textarea></div>
+<div><label class="text-xs font-semibold block mb-1" data-i18n="priority">Priority</label><select class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newReportPriority"><option>Normal</option><option>High</option><option>Urgent</option></select></div>
+</div>
+<div class="flex gap-2 mt-4">
+<button class="btn-ghost flex-1 justify-center" data-i18n="cancelBtn" onclick="closeModal('addReportModal')">Cancel</button>
+<button class="btn-primary flex-1 justify-center" onclick="saveNewReport()">Add Report</button>
+</div>
+</div>
+</div>
 <div class="modal-backdrop" id="addSessionModal">
-  <div class="modal-card">
-    <div class="flex items-center justify-between mb-4">
-      <h3 class="font-bold text-lg">Add Counseling Session</h3>
-      <button onclick="closeModal('addSessionModal')"><span class="material-symbols-outlined">close</span></button>
-    </div>
-    <div class="space-y-3">
-      <div><label class="text-xs font-semibold block mb-1">Student (Anonymous)</label><input type="text" id="newSessionStudent" placeholder="e.g. STU-042" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm"/></div>
-      <div><label class="text-xs font-semibold block mb-1">Topic</label><select class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newSessionTopic"><option>Anxiety</option><option>Bullying</option><option>Academic Stress</option><option>Family Issues</option><option>Grief</option><option>Other</option></select></div>
-      <div><label class="text-xs font-semibold block mb-1">Counselor</label><input type="text" id="newSessionCounselor" placeholder="Counselor name" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm"/></div>
-      <div><label class="text-xs font-semibold block mb-1">Notes</label><textarea id="newSessionNotes" rows="3" class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm"></textarea></div>
-    </div>
-    <div class="flex gap-2 mt-4">
-      <button class="btn-ghost flex-1 justify-center" onclick="closeModal('addSessionModal')">Cancel</button>
-      <button class="btn-primary flex-1 justify-center" onclick="saveNewSession()">Add Session</button>
-    </div>
-  </div>
+<div class="modal-card">
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-bold text-lg">Add Counseling Session</h3>
+<button onclick="closeModal('addSessionModal')"><span class="material-symbols-outlined">close</span></button>
 </div>
-
+<div class="space-y-3">
+<div><label class="text-xs font-semibold block mb-1">Student (Anonymous)</label><input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newSessionStudent" placeholder="e.g. STU-042" type="text"/></div>
+<div><label class="text-xs font-semibold block mb-1">Topic</label><select class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newSessionTopic"><option>Anxiety</option><option>Bullying</option><option>Academic Stress</option><option>Family Issues</option><option>Grief</option><option>Other</option></select></div>
+<div><label class="text-xs font-semibold block mb-1">Counselor</label><input class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newSessionCounselor" placeholder="Counselor name" type="text"/></div>
+<div><label class="text-xs font-semibold block mb-1" data-i18n="notes">Notes</label><textarea class="w-full rounded-xl border border-outline-variant bg-surface-container-low p-2.5 text-sm" id="newSessionNotes" rows="3"></textarea></div>
+</div>
+<div class="flex gap-2 mt-4">
+<button class="btn-ghost flex-1 justify-center" data-i18n="cancelBtn" onclick="closeModal('addSessionModal')">Cancel</button>
+<button class="btn-primary flex-1 justify-center" onclick="saveNewSession()">Add Session</button>
+</div>
+</div>
+</div>
 <div class="modal-backdrop" id="confirmModal">
-  <div class="modal-card">
-    <h3 class="font-bold text-lg mb-2" id="confirmTitle">Confirm</h3>
-    <p class="text-sm text-on-surface-variant mb-5" id="confirmMsg"></p>
-    <div class="flex gap-2">
-      <button class="btn-ghost flex-1 justify-center" onclick="closeModal('confirmModal')">Cancel</button>
-      <button class="btn-primary flex-1 justify-center" id="confirmOk">Confirm</button>
-    </div>
-  </div>
+<div class="modal-card">
+<h3 class="font-bold text-lg mb-2" data-i18n="confirmBtn" id="confirmTitle">Confirm</h3>
+<p class="text-sm text-on-surface-variant mb-5" id="confirmMsg"></p>
+<div class="flex gap-2">
+<button class="btn-ghost flex-1 justify-center" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button>
+<button class="btn-primary flex-1 justify-center" data-i18n="confirmBtn" id="confirmOk">Confirm</button>
 </div>
-
+</div>
+</div>
 <script>
 /* ====== LOGIN ====== */
 const CREDS = { user: 'admin', pass: 'ADMIN123' };

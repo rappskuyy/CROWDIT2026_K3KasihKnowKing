@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SafeSchoolHub — Student Wellness Dashboard</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <script>
 tailwind.config = {
   theme: {
@@ -106,690 +107,627 @@ tailwind.config = {
   .bn-item.active .material-symbols-outlined{font-variation-settings:'FILL' 1,'wght' 600;}
   .bn-fab{flex:none;width:56px;height:56px;border-radius:50%;background:var(--inverse-surface);color:#fff;display:flex;align-items:center;justify-content:center;margin-top:-32px;box-shadow:0 6px 16px rgba(0,0,0,.2);cursor:pointer;}
 </style>
+<script src="js/lang.js"></script>
 </head>
 <body class="min-h-screen">
-
 <!-- Toast container -->
 <div class="toast" id="toast"></div>
-
 <!-- ============== SIDEBAR (DESKTOP) ============== -->
 <aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40">
-  <div class="px-5 py-6 flex items-center gap-3">
-    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
-      <span class="material-symbols-outlined icon-fill">shield</span>
-    </div>
-    <div>
-      <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
-      <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
-    </div>
-  </div>
-  <nav class="px-3 mt-2 flex flex-col gap-1">
-    <a class="nav-link" data-route="overview"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
-        <a class="nav-link active" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
-    <a class="nav-link" data-route="gadget-time"><span class="material-symbols-outlined">monitor_heart</span>Wellness Tracking</a>
-    <a class="nav-link" data-route="hydration"><span class="material-symbols-outlined">water_drop</span>Hydration</a>
-    <a class="nav-link" data-route="sleep"><span class="material-symbols-outlined">bedtime</span>Sleep</a>
-    <a class="nav-link" data-route="breathing"><span class="material-symbols-outlined">self_improvement</span>Breathing</a>
-    <a class="nav-link" data-route="reports"><span class="material-symbols-outlined">report_problem</span>Reports</a>
-    <a class="nav-link" data-route="settings"><span class="material-symbols-outlined">settings</span>Settings</a>
-  </nav>
-  <div class="flex-grow"></div>
-  <div class="px-3 pb-2 flex flex-col gap-1">
-    <a class="nav-link"><span class="material-symbols-outlined">help_outline</span>Help Center</a>
-    <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span>Log Out</a>
-  </div>
-  <div class="m-3 p-3 rounded-2xl bg-surface-container-low flex items-center gap-3">
-    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">AJ</div>
-    <div>
-      <div class="font-bold text-sm">Alex Johnson</div>
-      <div class="text-xs text-on-surface-variant">Grade 11-A</div>
-    </div>
-  </div>
+<div class="px-5 py-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined icon-fill">shield</span>
+</div>
+<div>
+<div class="font-extrabold text-on-surface leading-none" data-i18n="brand">SafeSchoolHub</div>
+<div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold" data-i18n="studentWellness">STUDENT WELLNESS</div>
+</div>
+</div>
+<nav class="px-3 mt-2 flex flex-col gap-1">
+<a class="nav-link" data-route="overview"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+    <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
+<a class="nav-link" data-route="gadget-time"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+<a class="nav-link" data-route="hydration"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+<a class="nav-link" data-route="sleep"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+<a class="nav-link" data-route="breathing"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+<a class="nav-link" data-route="reports"><span class="material-symbols-outlined">report_problem</span>Reports</a>
+<a class="nav-link" data-route="settings"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+</nav>
+<div class="flex-grow"></div>
+<div class="px-3 pb-2 flex flex-col gap-1">
+<a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+<a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+</div>
+<div class="m-3 p-3 rounded-2xl bg-surface-container-low flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">AJ</div>
+<div>
+<div class="font-bold text-sm" data-i18n="userName">Alex Johnson</div>
+<div class="text-xs text-on-surface-variant" data-i18n="userGrade">Grade 11-A</div>
+</div>
+</div>
 </aside>
-
 <!-- ============== MOBILE TOP BAR ============== -->
 <header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
-  <div class="flex items-center gap-2">
-    <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
-      <span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
-    </div>
-    <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
-  </div>
-  <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
+</div>
+<span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
 </header>
-
 <!-- ============== MAIN CONTENT ============== -->
 <main class="main-content lg:ml-64 min-h-screen">
-  <div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
-
-    <!-- ==================== PAGE: OVERVIEW ==================== -->
-    <section id="page-overview" class="page">
-      <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
-        <div>
-          <h1 class="text-3xl lg:text-4xl font-extrabold" data-i18n="dashTitle">Student Wellness</h1>
-          <p class="text-on-surface-variant mt-1">Hello, Alex. Let's take a look at your well-being journey this week.</p>
-        </div>
-        <button class="btn-primary flex items-center gap-2" onclick="openCheckin()">
-          <span class="material-symbols-outlined" style="font-size:18px">add_circle</span>Check-in Now
-        </button>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <!-- Mood Tracker -->
-        <div class="card p-5 lg:col-span-5">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-bold text-lg">Mood Tracker</h3>
-            <span class="text-xs text-on-surface-variant">This Week</span>
-          </div>
-          <div class="flex justify-between gap-2 mb-4" id="moodSelectors">
-            <button class="mood-chip" data-mood="0">😣 Stressed</button>
-            <button class="mood-chip" data-mood="1">😟 Low</button>
-            <button class="mood-chip selected" data-mood="2">😐 Neutral</button>
-            <button class="mood-chip" data-mood="3">🙂 Good</button>
-            <button class="mood-chip" data-mood="4">😄 Great</button>
-          </div>
-          <div id="moodChart" class="relative"></div>
-        </div>
-
-        <!-- Stress -->
-        <div class="card p-5 lg:col-span-4">
-          <h3 class="font-bold text-lg mb-2">Stress Level</h3>
-          <div class="text-secondary font-bold text-xl">Low Stress</div>
-          <div class="italic text-sm text-on-surface-variant mb-3">Reflecting 'Calm'</div>
-          <div class="h-3 rounded-full bg-surface-container overflow-hidden">
-            <div class="h-full bg-secondary rounded-full transition-all duration-1000" style="width:0" id="stressBar"></div>
-          </div>
-          <div class="mt-4 p-3 rounded-2xl bg-surface-container-low flex items-start gap-3">
-            <span class="material-symbols-outlined text-primary">self_improvement</span>
-            <div class="flex-1">
-              <div class="text-sm">Try a 5-minute guided meditation to maintain your calm streak.</div>
-              <a class="text-primary text-sm font-bold cursor-pointer" onclick="navigate('breathing')">Start Meditation →</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Sleep Quality -->
-        <div class="card p-5 lg:col-span-3">
-          <h3 class="font-bold text-lg mb-2">Sleep Quality</h3>
-          <div class="flex items-end gap-2 mb-3">
-            <div class="text-4xl font-extrabold">85</div>
-            <span class="stat-pill-green pill px-2 py-1 text-xs font-bold mb-1">BAIK</span>
-          </div>
-          <div class="flex gap-1 mb-3" id="sleepTabs">
-            <button class="tab-btn active" data-st="awake">AWAKE</button>
-            <button class="tab-btn" data-st="rem">REM</button>
-            <button class="tab-btn" data-st="deep">DEEP</button>
-          </div>
-          <div class="h-3 rounded-full bg-surface-container overflow-hidden flex">
-            <div id="sleepSegA" class="h-full bg-primary-container transition-all duration-500" style="width:20%"></div>
-            <div id="sleepSegR" class="h-full bg-primary transition-all duration-500" style="width:30%"></div>
-            <div id="sleepSegD" class="h-full bg-on-primary-container transition-all duration-500" style="width:50%"></div>
-          </div>
-        </div>
-
-        <!-- Hydration -->
-        <div class="card p-5 lg:col-span-4">
-          <h3 class="font-bold text-lg mb-2">Hydration</h3>
-          <div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">6</span> / 8 Glasses</div>
-          <div class="flex gap-1 mb-3" id="hydSegments">
-            <!-- generated -->
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">check_circle</span>MET 6 - BAIK</span>
-          </div>
-        </div>
-
-        <!-- Breathing -->
-        <div class="card p-5 lg:col-span-4">
-          <h3 class="font-bold text-lg mb-3">Olah Nafas</h3>
-          <div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container mb-2" onclick="navigate('breathing')">
-            <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">crop_square</span><span class="font-semibold">Box Breathing</span></div>
-            <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
-          </div>
-          <div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container" onclick="navigate('breathing')">
-            <div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">bedtime</span><span class="font-semibold">Sleep Breath</span></div>
-            <span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
-          </div>
-        </div>
-
-        <!-- Gadget Time -->
-        <div class="card p-5 lg:col-span-4">
-          <div class="flex items-center justify-between mb-2">
-            <h3 class="font-bold text-lg">Gadget Time</h3>
-            <span class="stat-pill-red pill px-2 py-1 text-xs font-bold">BURUK</span>
-          </div>
-          <div class="text-3xl font-extrabold mb-2">6h 30m</div>
-          <div class="h-2 rounded-full bg-surface-container overflow-hidden mb-4"><div class="h-full bg-error" style="width:85%"></div></div>
-          <div class="font-bold">Lakukan Peregangan</div>
-          <div class="text-sm text-on-surface-variant mb-3">You've been screen-active for 2 hours straight.</div>
-          <div class="h-24 rounded-xl mb-3" style="background:linear-gradient(135deg,#5eead4,#3b82f6);"></div>
-          <button class="w-full py-2.5 rounded-full font-bold text-white" style="background:#003151" onclick="navigate('gadget-time')">Start Stretching</button>
-        </div>
-
-        <!-- Weekly Score Donut -->
-        <div class="card p-5 lg:col-span-4 hidden lg:block">
-          <h3 class="font-bold text-lg mb-3">Weekly Score</h3>
-          <div class="flex items-center justify-center" id="donutWrap"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PAGE: GADGET TIME ==================== -->
-    <section id="page-gadget-time" class="page">
-      <div class="max-w-2xl mx-auto">
-        <span class="stat-pill-red pill px-3 py-1 text-xs font-bold inline-block mb-3">High Usage Alert</span>
-        <h1 class="text-3xl font-extrabold">Gadget Time & Posture Monitor</h1>
-        <p class="text-on-surface-variant mt-1 mb-6">Personalized insights to maintain your physical well-being.</p>
-
-        <div class="card p-5 mb-5">
-          <div class="text-sm font-semibold">Total Screen Time</div>
-          <div class="text-xs text-on-surface-variant">Active device monitoring for today</div>
-          <div class="flex items-end gap-3 mt-2">
-            <div class="text-4xl font-extrabold text-error">6h 15m</div>
-            <span class="stat-pill-red pill px-2 py-1 text-xs font-bold mb-1">+12% from yesterday</span>
-          </div>
-          <div class="mt-5 relative">
-            <div class="h-3 rounded-full flex overflow-hidden">
-              <div style="width:30%;background:#22c55e"></div>
-              <div style="width:30%;background:#f59e0b"></div>
-              <div style="width:40%;background:#ef4444"></div>
-            </div>
-            <div class="absolute -top-5" style="left:78%;transform:translateX(-50%)">
-              <div class="text-[10px] font-bold text-error">CURRENT</div>
-              <div class="text-error text-center -mt-1">▼</div>
-            </div>
-            <div class="flex justify-between text-[10px] text-on-surface-variant mt-2"><span>Safe (0-3h)</span><span>Moderate (3-5h)</span><span>High (5h+)</span></div>
-          </div>
-          <div class="text-xs font-bold tracking-widest text-on-surface-variant mt-6 mb-2">DEVICE BREAKDOWN</div>
-          <svg viewBox="0 0 320 140" class="w-full h-36">
-            <text x="40" y="40" text-anchor="middle" font-size="11" font-weight="700" fill="#41474f">1h 20m</text>
-            <rect x="20" y="50" width="40" height="70" rx="6" fill="#dce9ff"/>
-            <text x="40" y="135" text-anchor="middle" font-size="10" fill="#41474f">Mobile</text>
-            <text x="110" y="55" text-anchor="middle" font-size="11" font-weight="700" fill="#41474f">50m</text>
-            <rect x="90" y="65" width="40" height="55" rx="6" fill="#dce9ff"/>
-            <text x="110" y="135" text-anchor="middle" font-size="10" fill="#41474f">Tablet</text>
-            <text x="180" y="20" text-anchor="middle" font-size="12" font-weight="800" fill="#106399">3h 05m</text>
-            <rect x="160" y="30" width="40" height="90" rx="6" fill="#106399"/>
-            <text x="180" y="135" text-anchor="middle" font-size="10" fill="#41474f">Laptop</text>
-            <text x="250" y="80" text-anchor="middle" font-size="11" font-weight="700" fill="#41474f">25m</text>
-            <rect x="230" y="90" width="40" height="30" rx="6" fill="#dce9ff"/>
-            <text x="250" y="135" text-anchor="middle" font-size="10" fill="#41474f">Other</text>
-          </svg>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-primary">accessibility_new</span></div>
-            <div>
-              <div class="font-bold">Stretch Break</div>
-              <div class="text-xs text-on-surface-variant">Next stretch in 15 minutes</div>
-            </div>
-          </div>
-          <div class="text-5xl font-extrabold text-center my-4 tabular-nums" id="stretchCountdown" style="font-family:ui-monospace,monospace">00:14:54</div>
-          <div class="rounded-2xl overflow-hidden mb-3">
-            <div class="h-32" style="background:linear-gradient(135deg,#5eead4,#0891b2)"></div>
-            <div class="p-3 bg-surface-container-low">
-              <div class="text-[10px] font-bold tracking-widest text-on-surface-variant">RECOMMENDED</div>
-              <div class="text-sm mt-1">The 'Seated Twist' - Good for lower back relief during long study sessions.</div>
-            </div>
-          </div>
-          <button class="btn-primary w-full" onclick="startStretchSession()">Start a 5-minute Stretch Session</button>
-        </div>
-
-        <div class="card p-5 mb-5" style="background:#d1fae5">
-          <div class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-secondary">lightbulb</span>
-            <div>
-              <div class="font-bold">Posture Tip</div>
-              <div class="text-sm">Keep your screen at eye level to reduce neck strain. Try raising your laptop by 5 inches.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-3">
-          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">visibility</span><div class="text-xs font-bold mt-1">Eye Strain Level</div><div class="text-xs text-on-surface-variant">Moderate Risk</div></div>
-          <div class="card p-4 text-center cursor-pointer" onclick="incStretch()"><span class="material-symbols-outlined text-primary">accessibility_new</span><div class="text-xs font-bold mt-1">Daily Stretches</div><div class="text-xs text-on-surface-variant"><span id="stretchCount">4</span> / 6 Completed</div></div>
-          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">history</span><div class="text-xs font-bold mt-1">Weekly Average</div><div class="text-xs text-on-surface-variant">5h 42m / day</div></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PAGE: HYDRATION ==================== -->
-    <section id="page-hydration" class="page">
-      <div class="max-w-2xl mx-auto">
-        <div class="text-sm text-on-surface-variant mb-3">Wellness Tracking <span class="material-symbols-outlined align-middle" style="font-size:14px">chevron_right</span> Hydration Tracker</div>
-
-        <div class="card p-6 mb-5 text-center">
-          <div class="mx-auto mb-3 relative" style="width:90px;height:140px">
-            <svg viewBox="0 0 90 140" class="w-full h-full">
-              <rect x="20" y="10" width="50" height="120" rx="20" fill="#eff4ff" stroke="#5a9bd5" stroke-width="2"/>
-              <clipPath id="bottleClip"><rect x="22" y="12" width="46" height="116" rx="18"/></clipPath>
-              <rect id="bottleFill" x="22" y="12" width="46" height="116" fill="#5a9bd5" clip-path="url(#bottleClip)"/>
-            </svg>
-            <div class="absolute inset-0 flex items-center justify-center font-extrabold text-white text-lg" id="bottlePct">75%</div>
-          </div>
-          <h2 class="text-2xl font-extrabold">Hydration Tracker</h2>
-          <p class="text-sm text-on-surface-variant mt-1 mb-4">Maintaining proper hydration is key to focus and energy throughout the school day.</p>
-          <div class="flex justify-between text-sm mb-2"><span class="font-semibold">Cups of Water: <span id="cupCount">6</span> / 8 Target</span><span class="text-on-surface-variant">Daily Goal: 2L</span></div>
-          <div class="h-3 rounded-full bg-surface-container overflow-hidden mb-4"><div id="cupBar" class="h-full bg-primary transition-all duration-500" style="width:75%"></div></div>
-          <div class="flex gap-2 justify-center">
-            <button class="btn-ghost" onclick="changeCup(-1)">− Remove Cup</button>
-            <button class="btn-primary" onclick="changeCup(1)">+ Add Cup</button>
-          </div>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="flex items-center gap-3">
-            <span class="material-symbols-outlined text-primary">water_drop</span>
-            <div class="font-bold text-secondary flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:18px">check_circle</span>Good</div>
-          </div>
-          <div class="text-sm mt-2" id="hydMsg">You're doing great! Just 2 more cups to reach your optimal energy levels.</div>
-          <div class="text-xs text-on-surface-variant mt-2"><b>Pro Tip:</b> Drink 500ml before lunch for better concentration.</div>
-        </div>
-
-        <div class="card p-5 mb-5 text-white" style="background:#003151">
-          <div class="flex items-center gap-2 text-sm opacity-80"><span class="material-symbols-outlined" style="font-size:18px">schedule</span>Next Reminder</div>
-          <div class="text-3xl font-extrabold mt-1">10:45 AM</div>
-          <div class="text-sm opacity-80">Recess Break Hydration</div>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex gap-1" id="hydWeekTabs">
-              <button class="tab-btn" data-w="last">Last Week</button>
-              <button class="tab-btn active" data-w="current">Current</button>
-            </div>
-            <button class="btn-ghost text-xs" onclick="downloadReport()">Download Report</button>
-          </div>
-          <svg viewBox="0 0 320 140" class="w-full h-36" id="hydWeekChart"></svg>
-        </div>
-
-        <div class="card overflow-hidden mb-5 cursor-pointer" onclick="toggleAccordion('art1')">
-          <div class="h-40" style="background:linear-gradient(135deg,#5eead4,#3b82f6)"></div>
-          <div class="p-4">
-            <div class="font-bold">Water & Cognitive Function</div>
-            <div class="text-sm text-on-surface-variant">Learn how staying hydrated directly impacts your focus and memory performance.</div>
-            <div class="hidden mt-3 text-sm" id="art1">Studies show even 1-2% dehydration impairs short-term memory, attention span, and reaction time. Aim for steady sips throughout the day rather than chugging large amounts.</div>
-          </div>
-        </div>
-
-        <div class="card overflow-hidden mb-5 cursor-pointer" onclick="toggleAccordion('art2')">
-          <div class="h-40" style="background:linear-gradient(135deg,#fb923c,#f59e0b)"></div>
-          <div class="p-4">
-            <div class="font-bold">Hydration for PE Classes</div>
-            <div class="text-sm text-on-surface-variant">Optimal intake strategies for sports days and high-activity periods.</div>
-            <div class="hidden mt-3 text-sm" id="art2">Drink ~500ml two hours before activity and 200ml every 15 minutes during exertion. Add a pinch of salt for sessions over 60 minutes.</div>
-          </div>
-        </div>
-
-        <div class="card p-5 flex items-start gap-3">
-          <span class="material-symbols-outlined text-primary">water_drop</span>
-          <div class="flex-1">
-            <div class="font-bold text-sm" id="factText">Just a 2% drop in hydration can cause significant fatigue and reduced alertness.</div>
-            <a class="text-primary text-sm font-bold cursor-pointer" onclick="cycleFact()">See More Facts</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PAGE: SLEEP ==================== -->
-    <section id="page-sleep" class="page">
-      <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-extrabold">Nightly Sleep Insights</h1>
-        <p class="text-on-surface-variant mt-1 mb-5">Monitor your circadian rhythm and sleep stages to improve academic focus and mental clarity.</p>
-        <div class="flex gap-2 mb-5" id="sleepRangeTabs">
-          <button class="tab-btn active" data-sr="daily">Daily</button>
-          <button class="tab-btn" data-sr="weekly">Weekly</button>
-          <button class="tab-btn" data-sr="monthly">Monthly</button>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <div class="font-bold">Sleep Architecture Detail</div>
-            <label class="flex items-center gap-2 text-xs"><span>Nightly Trends</span><div class="toggle on" id="trendToggle" onclick="this.classList.toggle('on');toggleTrendLine()"></div></label>
-          </div>
-          <svg viewBox="0 0 320 180" class="w-full h-44" id="sleepArchChart"></svg>
-          <div class="flex flex-wrap gap-3 text-[10px] mt-2">
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#003151"></span>Deep</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#106399"></span>Light</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#c4b5fd"></span>REM</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#fb7185"></span>Awake</span>
-          </div>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="flex justify-between items-center">
-            <div class="font-bold">Sleep Score: 85</div>
-            <a class="text-primary text-sm font-bold cursor-pointer" onclick="document.getElementById('fullAnalysis').classList.toggle('hidden')">Full Analysis →</a>
-          </div>
-          <div class="text-xs text-on-surface-variant mb-2">Good Optimal Range</div>
-          <div class="h-3 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary" style="width:85%"></div></div>
-          <div id="fullAnalysis" class="hidden mt-3 text-sm text-on-surface-variant">Latency: 12 min · Awakenings: 1 · Deep sleep %: 22% · REM cycles: 5</div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-3 mb-5">
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Total Sleep</div><div class="text-2xl font-extrabold">7h 15m</div></div>
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Efficiency</div><div class="text-2xl font-extrabold">91%</div></div>
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Refreshed</div><div class="text-2xl font-extrabold text-secondary">✓ Yes</div></div>
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Heart Rate</div><div class="text-2xl font-extrabold">54 BPM</div></div>
-        </div>
-
-        <div class="card p-5 mb-5 text-white" style="background:#0b1c30">
-          <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined">lightbulb</span><div class="font-bold">Smart Routine Suggestion</div></div>
-          <div class="text-sm opacity-90">Your Deep Sleep was 15% higher last night. We noticed you avoided screens 1 hour before bed. Try maintaining this habit for your midterm week!</div>
-          <button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" onclick="openScheduleModal()">Adjust My Schedule</button>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="flex justify-between py-2 border-b border-outline-variant"><span>Concentration Level</span><span class="font-bold">Peak</span></div>
-          <div class="flex justify-between py-2"><span>Retention Rate</span><span class="stat-pill-green pill px-2 py-0.5 text-xs font-bold">+12%</span></div>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="font-bold mb-3">How do you feel this morning?</div>
-          <div class="grid grid-cols-2 gap-2" id="morningMoods">
-            <button class="mood-chip" data-mm="Energized">⚡ Energized</button>
-            <button class="mood-chip" data-mm="Calm">😊 Calm</button>
-            <button class="mood-chip" data-mm="Sleepy">😪 Sleepy</button>
-            <button class="mood-chip" data-mm="Anxious">😟 Anxious</button>
-          </div>
-          <div class="text-xs text-on-surface-variant mt-2" id="morningMoodMsg"></div>
-        </div>
-
-        <div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background:#eef2f6">"Your mood tracking helps our counselors provide better support. This data is private and encrypted."</div>
-
-        <div class="card overflow-hidden mb-5">
-          <div class="h-44" style="background:linear-gradient(135deg,#1e1b4b,#7c3aed)"></div>
-          <div class="p-4">
-            <div class="font-bold">Recommended: Sleep Meditation</div>
-            <div class="text-sm text-on-surface-variant">A 10-minute guided session to help you wind down after a long day of classes.</div>
-            <button class="btn-primary w-full mt-3" onclick="startMeditationPlayer()">Start Session</button>
-            <div id="medPlayer" class="hidden mt-3">
-              <div class="flex items-center gap-3">
-                <button onclick="toggleMedPlay()" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center"><span class="material-symbols-outlined" id="medPlayIcon">pause</span></button>
-                <div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden"><div id="medProg" class="h-full bg-primary" style="width:0%"></div></div>
-                <span class="text-xs" id="medTime">0:00</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PAGE: BREATHING ==================== -->
-    <section id="page-breathing" class="page">
-      <div class="max-w-2xl mx-auto">
-        <div class="flex items-center justify-between mb-3">
-          <span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1">⚡ Streak: <span id="streakCount">5</span> Days</span>
-        </div>
-        <h1 class="text-3xl font-extrabold">Mindfulness & Breathing</h1>
-        <p class="text-on-surface-variant mt-1 mb-5">Take a moment to ground yourself and find your center.</p>
-
-        <div class="card p-6 mb-5 text-center">
-          <div class="text-xs font-bold tracking-widest text-primary" id="breathPhase">INHALE</div>
-          <div class="text-sm text-on-surface-variant" id="breathInstruction">Press start when you're ready.</div>
-          <div class="flex items-center justify-center my-6" style="height:240px">
-            <div id="breathCircle" class="breathing-circle rounded-full flex items-center justify-center" style="width:160px;height:160px;background:radial-gradient(circle,#5a9bd5,#106399);color:#fff">
-              <span class="material-symbols-outlined" style="font-size:48px">air</span>
-            </div>
-          </div>
-          <div class="flex gap-2 justify-center">
-            <button class="btn-primary" id="breathBtn" onclick="toggleBreath()">Start Session</button>
-            <button class="btn-ghost" onclick="openBreathCustomize()">Customize</button>
-          </div>
-          <div class="text-xs text-on-surface-variant mt-3">Session <span id="sessionNum">1</span> of 5</div>
-        </div>
-
-        <div class="mb-5">
-          <div class="flex items-center gap-2 font-bold mb-3">Daily Routines ✨</div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <div class="card p-4"><span class="material-symbols-outlined text-primary">water_drop</span><div class="flex items-center justify-between mt-1"><div class="font-bold">Deep Calm</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">5 MIN</span></div><div class="text-xs text-on-surface-variant mt-1">Slow, diaphragmatic breathing to lower heart rate.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" onclick="startRoutine(5)">Start Timer →</a></div>
-            <div class="card p-4"><span class="material-symbols-outlined text-primary">bolt</span><div class="flex items-center justify-between mt-1"><div class="font-bold">Focus Breath</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">3 MIN</span></div><div class="text-xs text-on-surface-variant mt-1">Sharpen your mind for studying or exams.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" onclick="startRoutine(3)">Start Timer →</a></div>
-            <div class="card p-4"><span class="material-symbols-outlined text-primary">crop_square</span><div class="flex items-center justify-between mt-1"><div class="font-bold">Box Breathing</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">4 MIN</span></div><div class="text-xs text-on-surface-variant mt-1">Military-grade technique for instant composure.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" onclick="startRoutine(4)">Start Timer →</a></div>
-          </div>
-        </div>
-
-        <div class="card p-5 mb-5 text-white" style="background:#0b1c30">
-          <div class="font-bold mb-3">Weekly Mood Progress</div>
-          <svg viewBox="0 0 320 120" class="w-full h-32" id="weeklyMoodChart"></svg>
-          <div class="text-sm opacity-90 mt-2">You're more calm this week compared to last! Keep it up, Alex.</div>
-        </div>
-
-        <div class="card p-5">
-          <div class="font-bold mb-3">How are you feeling right now?</div>
-          <div class="flex flex-col gap-2" id="feelChips">
-            <button class="mood-chip text-left" data-feel="Calm">🎯 Calm</button>
-            <button class="mood-chip text-left" data-feel="Anxious">😰 Anxious</button>
-            <button class="mood-chip text-left" data-feel="Tired">🌙 Tired</button>
-            <button class="mood-chip text-left" data-feel="Energetic">⚡ Energetic</button>
-            <button class="mood-chip text-left" data-feel="Focused">🔮 Focused</button>
-          </div>
-          <div id="feelMsg" class="text-xs text-on-surface-variant mt-2"></div>
-          <div id="feelTimeline" class="flex gap-1 mt-2"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PAGE: SAFETY ==================== -->
-    <section id="page-safety" class="page">
-      <div class="flex items-center justify-between mb-4">
-        <div>
-          <h1 class="text-3xl font-extrabold">Student Safety</h1>
-          <p class="text-on-surface-variant mt-1">Monitor and manage student safety incidents and alerts.</p>
-        </div>
-        <span class="stat-pill-red pill px-3 py-1 text-xs font-bold">Active Alerts: 2</span>
-      </div>
-
-      <div class="grid lg:grid-cols-2 gap-4 mb-5">
-        <div class="card p-5 border-l-4 border-error">
-          <div class="flex items-center gap-2 font-bold">🔴 High Risk — Anonymous Report</div>
-          <div class="text-sm text-on-surface-variant mt-1">A student reported feeling unsafe near the east corridor. Submitted 10 min ago.</div>
-          <button class="btn-ghost mt-3 text-sm" onclick="showToast('Alert details opened','info')">View Details</button>
-        </div>
-        <div class="card p-5 border-l-4" style="border-color:#f59e0b">
-          <div class="flex items-center gap-2 font-bold">🟡 Medium Risk — Bullying Report</div>
-          <div class="text-sm text-on-surface-variant mt-1">Verbal altercation reported during lunch break. Submitted 1 hour ago.</div>
-          <button class="btn-ghost mt-3 text-sm" onclick="showToast('Alert details opened','info')">View Details</button>
-        </div>
-      </div>
-
-      <div class="card p-5 mb-5">
-        <h3 class="font-bold text-lg mb-3">Submit Anonymous Report</h3>
-        <form onsubmit="submitReport(event)" class="grid gap-3">
-          <select required class="rounded-lg border border-outline-variant p-2.5 bg-white">
-            <option value="">Incident type</option><option>Bullying</option><option>Physical Threat</option><option>Cyberbullying</option><option>Other</option>
-          </select>
-          <input required placeholder="Location" class="rounded-lg border border-outline-variant p-2.5"/>
-          <textarea required rows="3" placeholder="Description" class="rounded-lg border border-outline-variant p-2.5"></textarea>
-          <button class="btn-primary">Submit Report</button>
-        </form>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-3 mb-5">
-        <div class="card p-4"><span class="material-symbols-outlined text-primary">menu_book</span><div class="font-bold mt-1">Safety Handbook</div><div class="text-xs text-on-surface-variant">School-wide policies and guidelines.</div></div>
-        <div class="card p-4"><span class="material-symbols-outlined text-primary">groups</span><div class="font-bold mt-1">Counseling Services</div><div class="text-xs text-on-surface-variant">Reach out to trained counselors.</div></div>
-        <div class="card p-4"><span class="material-symbols-outlined text-primary">verified_user</span><div class="font-bold mt-1">Online Safety</div><div class="text-xs text-on-surface-variant">Protect your digital identity.</div></div>
-      </div>
-
-      <div class="card p-5">
-        <h3 class="font-bold text-lg mb-3">Emergency Contacts</h3>
-        <div class="grid md:grid-cols-2 gap-3">
-          <a href="tel:911" class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low hover:bg-surface-container"><span class="material-symbols-outlined text-error">emergency</span><div><div class="font-bold">Emergency</div><div class="text-xs text-on-surface-variant">911</div></div></a>
-          <a href="tel:+15551234567" class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low hover:bg-surface-container"><span class="material-symbols-outlined text-primary">phone</span><div><div class="font-bold">School Counselor</div><div class="text-xs text-on-surface-variant">+1 555 123 4567</div></div></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PAGE: REPORTS ==================== -->
-    <section id="page-reports" class="page">
-      <h1 class="text-3xl font-extrabold">Incident Reports</h1>
-      <p class="text-on-surface-variant mt-1 mb-5">Review, filter and resolve submitted incident reports.</p>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
-        <div class="card p-4"><div class="text-xs text-on-surface-variant">Total Reports</div><div class="text-2xl font-extrabold">24</div></div>
-        <div class="card p-4"><div class="text-xs text-on-surface-variant">Open</div><div class="text-2xl font-extrabold text-error">8</div></div>
-        <div class="card p-4"><div class="text-xs text-on-surface-variant">Resolved</div><div class="text-2xl font-extrabold text-secondary">16</div></div>
-        <div class="card p-4"><div class="text-xs text-on-surface-variant">This Week</div><div class="text-2xl font-extrabold">3</div></div>
-      </div>
-
-      <div class="card p-4 mb-4 flex flex-wrap items-center gap-3">
-        <select id="reportFilter" class="rounded-lg border border-outline-variant p-2 text-sm" onchange="renderReports()">
-          <option value="all">All</option><option value="Open">Open</option><option value="Resolved">Resolved</option><option value="Pending">Pending</option>
-        </select>
-        <input type="date" class="rounded-lg border border-outline-variant p-2 text-sm"/>
-        <button class="btn-ghost text-sm ml-auto" onclick="exportCSV()">Export CSV</button>
-      </div>
-
-      <div class="card overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead class="bg-surface-container-low text-left text-xs text-on-surface-variant"><tr><th class="p-3">ID</th><th class="p-3">Date</th><th class="p-3">Type</th><th class="p-3">Location</th><th class="p-3">Status</th><th class="p-3">Actions</th></tr></thead>
-            <tbody id="reportsBody"></tbody>
-          </table>
-        </div>
-        <div class="flex items-center justify-center gap-2 p-3 border-t border-outline-variant">
-          <button class="btn-ghost text-xs" onclick="reportPage=Math.max(1,reportPage-1);renderReports()">Prev</button>
-          <span id="reportPager" class="text-sm font-semibold">1</span>
-          <button class="btn-ghost text-xs" onclick="reportPage=Math.min(3,reportPage+1);renderReports()">Next</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PAGE: SETTINGS ==================== -->
-    <section id="page-settings" class="page">
-      <h1 class="text-3xl font-extrabold mb-5" data-i18n="settings">Settings</h1>
-
-      <div class="card p-5 mb-5 flex items-center gap-4">
-        <div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center font-extrabold text-xl">AJ</div>
-        <div class="flex-1">
-          <div class="font-bold text-lg" contenteditable="true" id="profileName" onblur="showToast('Profile updated','success')">Alex Johnson</div>
-          <div class="text-sm text-on-surface-variant">Grade 11-A</div>
-        </div>
-        <button class="btn-ghost text-sm" onclick="document.getElementById('profileName').focus()">Edit Profile</button>
-      </div>
-
-      <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Notifications</h3>
-        <div id="notifList" class="flex flex-col gap-3"></div>
-      </div>
-
-      <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Appearance</h3>
-        <div class="flex items-center justify-between mb-3"><span class="text-sm">Language</span>
-          <select id="langSel" class="rounded-lg border border-outline-variant p-2 text-sm" onchange="setLang(this.value)">
-            <option value="en">English</option><option value="id">Bahasa</option>
-          </select>
-        </div>
-        <div class="flex items-center justify-between"><span class="text-sm">Theme</span><span class="stat-pill-green pill px-3 py-1 text-xs font-bold">Light</span></div>
-      </div>
-
-      <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Privacy & Data</h3>
-        <div class="flex flex-wrap gap-2">
-          <button class="btn-ghost text-sm" onclick="downloadData()">Download My Data</button>
-          <button class="btn-ghost text-sm" onclick="clearMoodHistory()">Clear Mood History</button>
-        </div>
-      </div>
-
-      <div class="card p-5 mb-5">
-        <h3 class="font-bold mb-3">Account</h3>
-        <button class="btn-ghost text-sm mr-2" onclick="document.getElementById('pwForm').classList.toggle('hidden')">Change Password</button>
-        <button class="btn-ghost text-sm" onclick="confirmLogout()">Log Out</button>
-        <form id="pwForm" class="hidden mt-3 grid gap-2 max-w-sm" onsubmit="event.preventDefault();this.reset();this.classList.add('hidden');showToast('Password updated','success')">
-          <input type="password" placeholder="Current password" class="rounded-lg border border-outline-variant p-2 text-sm"/>
-          <input type="password" placeholder="New password" class="rounded-lg border border-outline-variant p-2 text-sm"/>
-          <button class="btn-primary text-sm">Update Password</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
-      <div class="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 font-extrabold text-on-surface"><span class="material-symbols-outlined icon-fill text-primary">shield</span>SafeSchoolHub</div>
-          <div class="mt-1 max-w-sm">Promoting digital well-being for the next generation of learners.</div>
-        </div>
-        <div class="flex flex-wrap gap-4">
-          <a class="hover:text-primary cursor-pointer">Privacy Policy</a>
-          <a class="hover:text-primary cursor-pointer">Terms of Service</a>
-          <a class="hover:text-primary cursor-pointer">Accessibility</a>
-          <a class="hover:text-primary cursor-pointer">Contact Support</a>
-        </div>
-      </div>
-      <div class="mt-6 text-xs">© 2024 SafeSchoolHub. All rights reserved.</div>
-    </footer>
-  </div>
+<div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
+<!-- ==================== PAGE: OVERVIEW ==================== -->
+<section class="page" id="page-overview">
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+<div>
+<h1 class="text-3xl lg:text-4xl font-extrabold" data-i18n="dashTitle">Student Wellness</h1>
+<p class="text-on-surface-variant mt-1" data-i18n="dashSubtitle">Hello, Alex. Let's take a look at your well-being journey this week.</p>
+</div>
+<button class="btn-primary flex items-center gap-2" onclick="openCheckin()">
+<span class="material-symbols-outlined" style="font-size:18px">add_circle</span><span data-i18n="checkinNow">Check-in Now</span></button>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+<!-- Mood Tracker -->
+<div class="card p-5 lg:col-span-5">
+<div class="flex items-center justify-between mb-3">
+<h3 class="font-bold text-lg" data-i18n="moodTracker">Mood Tracker</h3>
+<span class="text-xs text-on-surface-variant" data-i18n="thisWeek">This Week</span>
+</div>
+<div class="flex justify-between gap-2 mb-4" id="moodSelectors">
+<button class="mood-chip" data-mood="0">😣 Stressed</button>
+<button class="mood-chip" data-mood="1">😟 Low</button>
+<button class="mood-chip selected" data-mood="2">😐 Neutral</button>
+<button class="mood-chip" data-mood="3">🙂 Good</button>
+<button class="mood-chip" data-mood="4">😄 Great</button>
+</div>
+<div class="relative" id="moodChart"></div>
+</div>
+<!-- Stress -->
+<div class="card p-5 lg:col-span-4">
+<h3 class="font-bold text-lg mb-2" data-i18n="stressLevel">Stress Level</h3>
+<div class="text-secondary font-bold text-xl" data-i18n="stressLow">Low Stress</div>
+<div class="italic text-sm text-on-surface-variant mb-3">Reflecting 'Calm'</div>
+<div class="h-3 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full transition-all duration-1000" id="stressBar" style="width:0"></div>
+</div>
+<div class="mt-4 p-3 rounded-2xl bg-surface-container-low flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">self_improvement</span>
+<div class="flex-1">
+<div class="text-sm" data-i18n="meditationTip">Try a 5-minute guided meditation to maintain your calm streak.</div>
+<a class="text-primary text-sm font-bold cursor-pointer" data-i18n="startMeditation" onclick="navigate('breathing')">Start Meditation →</a>
+</div>
+</div>
+</div>
+<!-- Sleep Quality -->
+<div class="card p-5 lg:col-span-3">
+<h3 class="font-bold text-lg mb-2" data-i18n="sleepQuality">Sleep Quality</h3>
+<div class="flex items-end gap-2 mb-3">
+<div class="text-4xl font-extrabold">85</div>
+<span class="stat-pill-green pill px-2 py-1 text-xs font-bold mb-1">BAIK</span>
+</div>
+<div class="flex gap-1 mb-3" id="sleepTabs">
+<button class="tab-btn active" data-st="awake">AWAKE</button>
+<button class="tab-btn" data-st="rem">REM</button>
+<button class="tab-btn" data-st="deep">DEEP</button>
+</div>
+<div class="h-3 rounded-full bg-surface-container overflow-hidden flex">
+<div class="h-full bg-primary-container transition-all duration-500" id="sleepSegA" style="width:20%"></div>
+<div class="h-full bg-primary transition-all duration-500" id="sleepSegR" style="width:30%"></div>
+<div class="h-full bg-on-primary-container transition-all duration-500" id="sleepSegD" style="width:50%"></div>
+</div>
+</div>
+<!-- Hydration -->
+<div class="card p-5 lg:col-span-4">
+<h3 class="font-bold text-lg mb-2" data-i18n="navHydration">Hydration</h3>
+<div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">6</span> / 8 Glasses</div>
+<div class="flex gap-1 mb-3" id="hydSegments">
+<!-- generated -->
+</div>
+<div class="flex items-center gap-2">
+<span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">check_circle</span>MET 6 - BAIK</span>
+</div>
+</div>
+<!-- Breathing -->
+<div class="card p-5 lg:col-span-4">
+<h3 class="font-bold text-lg mb-3" data-i18n="breathingCard">Olah Nafas</h3>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container mb-2" onclick="navigate('breathing')">
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">crop_square</span><span class="font-semibold" data-i18n="boxBreathing">Box Breathing</span></div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container" onclick="navigate('breathing')">
+<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">bedtime</span><span class="font-semibold" data-i18n="sleepBreath">Sleep Breath</span></div>
+<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
+</div>
+</div>
+<!-- Gadget Time -->
+<div class="card p-5 lg:col-span-4">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-bold text-lg" data-i18n="gadgetTime">Gadget Time</h3>
+<span class="stat-pill-red pill px-2 py-1 text-xs font-bold">BURUK</span>
+</div>
+<div class="text-3xl font-extrabold mb-2">6h 30m</div>
+<div class="h-2 rounded-full bg-surface-container overflow-hidden mb-4"><div class="h-full bg-error" style="width:85%"></div></div>
+<div class="font-bold">Lakukan Peregangan</div>
+<div class="text-sm text-on-surface-variant mb-3" data-i18n="screenActiveAlert">You've been screen-active for 2 hours straight.</div>
+<div class="h-24 rounded-xl mb-3" style="background:linear-gradient(135deg,#5eead4,#3b82f6);"></div>
+<button class="w-full py-2.5 rounded-full font-bold text-white" onclick="navigate('gadget-time')" style="background:#003151">Start Stretching</button>
+</div>
+<!-- Weekly Score Donut -->
+<div class="card p-5 lg:col-span-4 hidden lg:block">
+<h3 class="font-bold text-lg mb-3" data-i18n="weeklyScore">Weekly Score</h3>
+<div class="flex items-center justify-center" id="donutWrap"></div>
+</div>
+</div>
+</section>
+<!-- ==================== PAGE: GADGET TIME ==================== -->
+<section class="page" id="page-gadget-time">
+<div class="max-w-2xl mx-auto">
+<span class="stat-pill-red pill px-3 py-1 text-xs font-bold inline-block mb-3" data-i18n="highUsageAlert">High Usage Alert</span>
+<h1 class="text-3xl font-extrabold" data-i18n="gadgetTitle">Gadget Time &amp; Posture Monitor</h1>
+<p class="text-on-surface-variant mt-1 mb-6">Personalized insights to maintain your physical well-being.</p>
+<div class="card p-5 mb-5">
+<div class="text-sm font-semibold" data-i18n="totalScreenTime">Total Screen Time</div>
+<div class="text-xs text-on-surface-variant">Active device monitoring for today</div>
+<div class="flex items-end gap-3 mt-2">
+<div class="text-4xl font-extrabold text-error">6h 15m</div>
+<span class="stat-pill-red pill px-2 py-1 text-xs font-bold mb-1">+12% from yesterday</span>
+</div>
+<div class="mt-5 relative">
+<div class="h-3 rounded-full flex overflow-hidden">
+<div style="width:30%;background:#22c55e"></div>
+<div style="width:30%;background:#f59e0b"></div>
+<div style="width:40%;background:#ef4444"></div>
+</div>
+<div class="absolute -top-5" style="left:78%;transform:translateX(-50%)">
+<div class="text-[10px] font-bold text-error">CURRENT</div>
+<div class="text-error text-center -mt-1">▼</div>
+</div>
+<div class="flex justify-between text-[10px] text-on-surface-variant mt-2"><span>Safe (0-3h)</span><span>Moderate (3-5h)</span><span>High (5h+)</span></div>
+</div>
+<div class="text-xs font-bold tracking-widest text-on-surface-variant mt-6 mb-2">DEVICE BREAKDOWN</div>
+<svg class="w-full h-36" viewbox="0 0 320 140">
+<text fill="#41474f" font-size="11" font-weight="700" text-anchor="middle" x="40" y="40">1h 20m</text>
+<rect fill="#dce9ff" height="70" rx="6" width="40" x="20" y="50"></rect>
+<text fill="#41474f" font-size="10" text-anchor="middle" x="40" y="135">Mobile</text>
+<text fill="#41474f" font-size="11" font-weight="700" text-anchor="middle" x="110" y="55">50m</text>
+<rect fill="#dce9ff" height="55" rx="6" width="40" x="90" y="65"></rect>
+<text fill="#41474f" font-size="10" text-anchor="middle" x="110" y="135">Tablet</text>
+<text fill="#106399" font-size="12" font-weight="800" text-anchor="middle" x="180" y="20">3h 05m</text>
+<rect fill="#106399" height="90" rx="6" width="40" x="160" y="30"></rect>
+<text fill="#41474f" font-size="10" text-anchor="middle" x="180" y="135">Laptop</text>
+<text fill="#41474f" font-size="11" font-weight="700" text-anchor="middle" x="250" y="80">25m</text>
+<rect fill="#dce9ff" height="30" rx="6" width="40" x="230" y="90"></rect>
+<text fill="#41474f" font-size="10" text-anchor="middle" x="250" y="135">Other</text>
+</svg>
+</div>
+<div class="card p-5 mb-5">
+<div class="flex items-center gap-3 mb-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-primary">accessibility_new</span></div>
+<div>
+<div class="font-bold">Stretch Break</div>
+<div class="text-xs text-on-surface-variant" data-i18n="nextStretch">Next stretch in 15 minutes</div>
+</div>
+</div>
+<div class="text-5xl font-extrabold text-center my-4 tabular-nums" id="stretchCountdown" style="font-family:ui-monospace,monospace">00:14:54</div>
+<div class="rounded-2xl overflow-hidden mb-3">
+<div class="h-32" style="background:linear-gradient(135deg,#5eead4,#0891b2)"></div>
+<div class="p-3 bg-surface-container-low">
+<div class="text-[10px] font-bold tracking-widest text-on-surface-variant">RECOMMENDED</div>
+<div class="text-sm mt-1">The 'Seated Twist' - Good for lower back relief during long study sessions.</div>
+</div>
+</div>
+<button class="btn-primary w-full" data-i18n="startStretch" onclick="startStretchSession()">Start a 5-minute Stretch Session</button>
+</div>
+<div class="card p-5 mb-5" style="background:#d1fae5">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">lightbulb</span>
+<div>
+<div class="font-bold">Posture Tip</div>
+<div class="text-sm" data-i18n="screenTip">Keep your screen at eye level to reduce neck strain. Try raising your laptop by 5 inches.</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-3">
+<div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">visibility</span><div class="text-xs font-bold mt-1">Eye Strain Level</div><div class="text-xs text-on-surface-variant">Moderate Risk</div></div>
+<div class="card p-4 text-center cursor-pointer" onclick="incStretch()"><span class="material-symbols-outlined text-primary">accessibility_new</span><div class="text-xs font-bold mt-1" data-i18n="dailyStretches">Daily Stretches</div><div class="text-xs text-on-surface-variant"><span id="stretchCount">4</span> / 6 Completed</div></div>
+<div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">history</span><div class="text-xs font-bold mt-1" data-i18n="weeklyAverage">Weekly Average</div><div class="text-xs text-on-surface-variant">5h 42m / day</div></div>
+</div>
+</div>
+</section>
+<!-- ==================== PAGE: HYDRATION ==================== -->
+<section class="page" id="page-hydration">
+<div class="max-w-2xl mx-auto">
+<div class="text-sm text-on-surface-variant mb-3">Wellness Tracking <span class="material-symbols-outlined align-middle" style="font-size:14px">chevron_right</span> Hydration Tracker</div>
+<div class="card p-6 mb-5 text-center">
+<div class="mx-auto mb-3 relative" style="width:90px;height:140px">
+<svg class="w-full h-full" viewbox="0 0 90 140">
+<rect fill="#eff4ff" height="120" rx="20" stroke="#5a9bd5" stroke-width="2" width="50" x="20" y="10"></rect>
+<clippath id="bottleClip"><rect height="116" rx="18" width="46" x="22" y="12"></rect></clippath>
+<rect clip-path="url(#bottleClip)" fill="#5a9bd5" height="116" id="bottleFill" width="46" x="22" y="12"></rect>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center font-extrabold text-white text-lg" id="bottlePct">75%</div>
+</div>
+<h2 class="text-2xl font-extrabold" data-i18n="hydTitle">Hydration Tracker</h2>
+<p class="text-sm text-on-surface-variant mt-1 mb-4" data-i18n="hydFact2">Maintaining proper hydration is key to focus and energy throughout the school day.</p>
+<div class="flex justify-between text-sm mb-2"><span class="font-semibold">Cups of Water: <span id="cupCount">6</span> / 8 Target</span><span class="text-on-surface-variant" data-i18n="dailyGoal2L">Daily Goal: 2L</span></div>
+<div class="h-3 rounded-full bg-surface-container overflow-hidden mb-4"><div class="h-full bg-primary transition-all duration-500" id="cupBar" style="width:75%"></div></div>
+<div class="flex gap-2 justify-center">
+<button class="btn-ghost" data-i18n="removeCup" onclick="changeCup(-1)">− Remove Cup</button>
+<button class="btn-primary" data-i18n="addCup" onclick="changeCup(1)">+ Add Cup</button>
+</div>
+</div>
+<div class="card p-5 mb-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">water_drop</span>
+<div class="font-bold text-secondary flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:18px">check_circle</span><span data-i18n="moodGood">Good</span></div>
+</div>
+<div class="text-sm mt-2" id="hydMsg">You're doing great! Just 2 more cups to reach your optimal energy levels.</div>
+<div class="text-xs text-on-surface-variant mt-2"><b data-i18n="proTip">Pro Tip:</b><span data-i18n="hydTip1">Drink 500ml before lunch for better concentration.</span></div>
+</div>
+<div class="card p-5 mb-5 text-white" style="background:#003151">
+<div class="flex items-center gap-2 text-sm opacity-80"><span class="material-symbols-outlined" style="font-size:18px">schedule</span>Next Reminder</div>
+<div class="text-3xl font-extrabold mt-1">10:45 AM</div>
+<div class="text-sm opacity-80" data-i18n="recessHydration">Recess Break Hydration</div>
+</div>
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div class="flex gap-1" id="hydWeekTabs">
+<button class="tab-btn" data-i18n="lastWeek" data-w="last">Last Week</button>
+<button class="tab-btn active" data-w="current">Current</button>
+</div>
+<button class="btn-ghost text-xs" data-i18n="downloadReport" onclick="downloadReport()">Download Report</button>
+</div>
+<svg class="w-full h-36" id="hydWeekChart" viewbox="0 0 320 140"></svg>
+</div>
+<div class="card overflow-hidden mb-5 cursor-pointer" onclick="toggleAccordion('art1')">
+<div class="h-40" style="background:linear-gradient(135deg,#5eead4,#3b82f6)"></div>
+<div class="p-4">
+<div class="font-bold" data-i18n="waterCognitive">Water &amp; Cognitive Function</div>
+<div class="text-sm text-on-surface-variant" data-i18n="hydLearnDesc">Learn how staying hydrated directly impacts your focus and memory performance.</div>
+<div class="hidden mt-3 text-sm" data-i18n="hydStudy1" id="art1">Studies show even 1-2% dehydration impairs short-term memory, attention span, and reaction time. Aim for steady sips throughout the day rather than chugging large amounts.</div>
+</div>
+</div>
+<div class="card overflow-hidden mb-5 cursor-pointer" onclick="toggleAccordion('art2')">
+<div class="h-40" style="background:linear-gradient(135deg,#fb923c,#f59e0b)"></div>
+<div class="p-4">
+<div class="font-bold" data-i18n="peHydration">Hydration for PE Classes</div>
+<div class="text-sm text-on-surface-variant" data-i18n="peHydDesc">Optimal intake strategies for sports days and high-activity periods.</div>
+<div class="hidden mt-3 text-sm" id="art2">Drink ~500ml two hours before activity and 200ml every 15 minutes during exertion. Add a pinch of salt for sessions over 60 minutes.</div>
+</div>
+</div>
+<div class="card p-5 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">water_drop</span>
+<div class="flex-1">
+<div class="font-bold text-sm" data-i18n="hydFact1" id="factText">Just a 2% drop in hydration can cause significant fatigue and reduced alertness.</div>
+<a class="text-primary text-sm font-bold cursor-pointer" onclick="cycleFact()">See More Facts</a>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== PAGE: SLEEP ==================== -->
+<section class="page" id="page-sleep">
+<div class="max-w-2xl mx-auto">
+<h1 class="text-3xl font-extrabold" data-i18n="nightlyInsights">Nightly Sleep Insights</h1>
+<p class="text-on-surface-variant mt-1 mb-5" data-i18n="sleepSubtitle">Monitor your circadian rhythm and sleep stages to improve academic focus and mental clarity.</p>
+<div class="flex gap-2 mb-5" id="sleepRangeTabs">
+<button class="tab-btn active" data-i18n="daily" data-sr="daily">Daily</button>
+<button class="tab-btn" data-i18n="weekly" data-sr="weekly">Weekly</button>
+<button class="tab-btn" data-i18n="monthly" data-sr="monthly">Monthly</button>
+</div>
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold">Sleep Architecture Detail</div>
+<label class="flex items-center gap-2 text-xs"><span data-i18n="nightlyTrends">Nightly Trends</span><div class="toggle on" id="trendToggle" onclick="this.classList.toggle('on');toggleTrendLine()"></div></label>
+</div>
+<svg class="w-full h-44" id="sleepArchChart" viewbox="0 0 320 180"></svg>
+<div class="flex flex-wrap gap-3 text-[10px] mt-2">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#003151"></span>Deep</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#106399"></span><span data-i18n="themeLight">Light</span></span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#c4b5fd"></span>REM</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#fb7185"></span>Awake</span>
+</div>
+</div>
+<div class="card p-5 mb-5">
+<div class="flex justify-between items-center">
+<div class="font-bold">Sleep Score: 85</div>
+<a class="text-primary text-sm font-bold cursor-pointer" onclick="document.getElementById('fullAnalysis').classList.toggle('hidden')">Full Analysis →</a>
+</div>
+<div class="text-xs text-on-surface-variant mb-2">Good Optimal Range</div>
+<div class="h-3 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary" style="width:85%"></div></div>
+<div class="hidden mt-3 text-sm text-on-surface-variant" id="fullAnalysis">Latency: 12 min · Awakenings: 1 · Deep sleep %: 22% · REM cycles: 5</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div class="card p-4"><div class="text-xs text-on-surface-variant" data-i18n="totalSleep">Total Sleep</div><div class="text-2xl font-extrabold">7h 15m</div></div>
+<div class="card p-4"><div class="text-xs text-on-surface-variant">Efficiency</div><div class="text-2xl font-extrabold">91%</div></div>
+<div class="card p-4"><div class="text-xs text-on-surface-variant">Refreshed</div><div class="text-2xl font-extrabold text-secondary">✓ Yes</div></div>
+<div class="card p-4"><div class="text-xs text-on-surface-variant">Heart Rate</div><div class="text-2xl font-extrabold">54 BPM</div></div>
+</div>
+<div class="card p-5 mb-5 text-white" style="background:#0b1c30">
+<div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined">lightbulb</span><div class="font-bold">Smart Routine Suggestion</div></div>
+<div class="text-sm opacity-90">Your Deep Sleep was 15% higher last night. We noticed you avoided screens 1 hour before bed. Try maintaining this habit for your midterm week!</div>
+<button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" onclick="openScheduleModal()">Adjust My Schedule</button>
+</div>
+<div class="card p-5 mb-5">
+<div class="flex justify-between py-2 border-b border-outline-variant"><span>Concentration Level</span><span class="font-bold">Peak</span></div>
+<div class="flex justify-between py-2"><span>Retention Rate</span><span class="stat-pill-green pill px-2 py-0.5 text-xs font-bold">+12%</span></div>
+</div>
+<div class="card p-5 mb-5">
+<div class="font-bold mb-3">How do you feel this morning?</div>
+<div class="grid grid-cols-2 gap-2" id="morningMoods">
+<button class="mood-chip" data-mm="Energized">⚡ Energized</button>
+<button class="mood-chip" data-mm="Calm">😊 Calm</button>
+<button class="mood-chip" data-mm="Sleepy">😪 Sleepy</button>
+<button class="mood-chip" data-mm="Anxious">😟 Anxious</button>
+</div>
+<div class="text-xs text-on-surface-variant mt-2" id="morningMoodMsg"></div>
+</div>
+<div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background:#eef2f6">"Your mood tracking helps our counselors provide better support. This data is private and encrypted."</div>
+<div class="card overflow-hidden mb-5">
+<div class="h-44" style="background:linear-gradient(135deg,#1e1b4b,#7c3aed)"></div>
+<div class="p-4">
+<div class="font-bold">Recommended: Sleep Meditation</div>
+<div class="text-sm text-on-surface-variant" data-i18n="mindfulnessDesc">A 10-minute guided session to help you wind down after a long day of classes.</div>
+<button class="btn-primary w-full mt-3" data-i18n="startSession" onclick="startMeditationPlayer()">Start Session</button>
+<div class="hidden mt-3" id="medPlayer">
+<div class="flex items-center gap-3">
+<button class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center" onclick="toggleMedPlay()"><span class="material-symbols-outlined" id="medPlayIcon">pause</span></button>
+<div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-primary" id="medProg" style="width:0%"></div></div>
+<span class="text-xs" id="medTime">0:00</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ==================== PAGE: BREATHING ==================== -->
+<section class="page" id="page-breathing">
+<div class="max-w-2xl mx-auto">
+<div class="flex items-center justify-between mb-3">
+<span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1">⚡ Streak: <span id="streakCount">5</span> Days</span>
+</div>
+<h1 class="text-3xl font-extrabold" data-i18n="breathTitle">Mindfulness &amp; Breathing</h1>
+<p class="text-on-surface-variant mt-1 mb-5" data-i18n="breathSubtitle">Take a moment to ground yourself and find your center.</p>
+<div class="card p-6 mb-5 text-center">
+<div class="text-xs font-bold tracking-widest text-primary" data-i18n="breathPhaseInhale" id="breathPhase">INHALE</div>
+<div class="text-sm text-on-surface-variant" data-i18n="breathReady" id="breathInstruction">Press start when you're ready.</div>
+<div class="flex items-center justify-center my-6" style="height:240px">
+<div class="breathing-circle rounded-full flex items-center justify-center" id="breathCircle" style="width:160px;height:160px;background:radial-gradient(circle,#5a9bd5,#106399);color:#fff">
+<span class="material-symbols-outlined" style="font-size:48px">air</span>
+</div>
+</div>
+<div class="flex gap-2 justify-center">
+<button class="btn-primary" data-i18n="startSession" id="breathBtn" onclick="toggleBreath()">Start Session</button>
+<button class="btn-ghost" data-i18n="customizeBtn" onclick="openBreathCustomize()">Customize</button>
+</div>
+<div class="text-xs text-on-surface-variant mt-3">Session <span id="sessionNum">1</span> of 5</div>
+</div>
+<div class="mb-5">
+<div class="flex items-center gap-2 font-bold mb-3" data-i18n="dailyRoutines">Daily Routines ✨</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+<div class="card p-4"><span class="material-symbols-outlined text-primary">water_drop</span><div class="flex items-center justify-between mt-1"><div class="font-bold" data-i18n="deepCalm">Deep Calm</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">5 MIN</span></div><div class="text-xs text-on-surface-variant mt-1" data-i18n="deepCalmDesc">Slow, diaphragmatic breathing to lower heart rate.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" data-i18n="startTimer" onclick="startRoutine(5)">Start Timer →</a></div>
+<div class="card p-4"><span class="material-symbols-outlined text-primary">bolt</span><div class="flex items-center justify-between mt-1"><div class="font-bold" data-i18n="focusBreath">Focus Breath</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">3 MIN</span></div><div class="text-xs text-on-surface-variant mt-1" data-i18n="focusBreathDesc">Sharpen your mind for studying or exams.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" data-i18n="startTimer" onclick="startRoutine(3)">Start Timer →</a></div>
+<div class="card p-4"><span class="material-symbols-outlined text-primary">crop_square</span><div class="flex items-center justify-between mt-1"><div class="font-bold" data-i18n="boxBreathing">Box Breathing</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">4 MIN</span></div><div class="text-xs text-on-surface-variant mt-1" data-i18n="boxBreathingDesc">Military-grade technique for instant composure.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" data-i18n="startTimer" onclick="startRoutine(4)">Start Timer →</a></div>
+</div>
+</div>
+<div class="card p-5 mb-5 text-white" style="background:#0b1c30">
+<div class="font-bold mb-3">Weekly Mood Progress</div>
+<svg class="w-full h-32" id="weeklyMoodChart" viewbox="0 0 320 120"></svg>
+<div class="text-sm opacity-90 mt-2">You're more calm this week compared to last! Keep it up, Alex.</div>
+</div>
+<div class="card p-5">
+<div class="font-bold mb-3" data-i18n="feelingNow">How are you feeling right now?</div>
+<div class="flex flex-col gap-2" id="feelChips">
+<button class="mood-chip text-left" data-feel="Calm">🎯 Calm</button>
+<button class="mood-chip text-left" data-feel="Anxious">😰 Anxious</button>
+<button class="mood-chip text-left" data-feel="Tired">🌙 Tired</button>
+<button class="mood-chip text-left" data-feel="Energetic">⚡ Energetic</button>
+<button class="mood-chip text-left" data-feel="Focused">🔮 Focused</button>
+</div>
+<div class="text-xs text-on-surface-variant mt-2" id="feelMsg"></div>
+<div class="flex gap-1 mt-2" id="feelTimeline"></div>
+</div>
+</div>
+</section>
+<!-- ==================== PAGE: SAFETY ==================== -->
+<section class="page" id="page-safety">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h1 class="text-3xl font-extrabold">Student Safety</h1>
+<p class="text-on-surface-variant mt-1">Monitor and manage student safety incidents and alerts.</p>
+</div>
+<span class="stat-pill-red pill px-3 py-1 text-xs font-bold" data-i18n="activeAlerts">Active Alerts: 2</span>
+</div>
+<div class="grid lg:grid-cols-2 gap-4 mb-5">
+<div class="card p-5 border-l-4 border-error">
+<div class="flex items-center gap-2 font-bold">🔴 High Risk — Anonymous Report</div>
+<div class="text-sm text-on-surface-variant mt-1">A student reported feeling unsafe near the east corridor. Submitted 10 min ago.</div>
+<button class="btn-ghost mt-3 text-sm" data-i18n="viewDetails" onclick="showToast('Alert details opened','info')">View Details</button>
+</div>
+<div class="card p-5 border-l-4" style="border-color:#f59e0b">
+<div class="flex items-center gap-2 font-bold">🟡 Medium Risk — Bullying Report</div>
+<div class="text-sm text-on-surface-variant mt-1">Verbal altercation reported during lunch break. Submitted 1 hour ago.</div>
+<button class="btn-ghost mt-3 text-sm" data-i18n="viewDetails" onclick="showToast('Alert details opened','info')">View Details</button>
+</div>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold text-lg mb-3" data-i18n="submitAnonReport">Submit Anonymous Report</h3>
+<form class="grid gap-3" onsubmit="submitReport(event)">
+<select class="rounded-lg border border-outline-variant p-2.5 bg-white" required="">
+<option value="">Incident type</option><option>Bullying</option><option>Physical Threat</option><option>Cyberbullying</option><option>Other</option>
+</select>
+<input class="rounded-lg border border-outline-variant p-2.5" placeholder="Location" required=""/>
+<textarea class="rounded-lg border border-outline-variant p-2.5" placeholder="Description" required="" rows="3"></textarea>
+<button class="btn-primary" data-i18n="submitReport">Submit Report</button>
+</form>
+</div>
+<div class="grid md:grid-cols-3 gap-3 mb-5">
+<div class="card p-4"><span class="material-symbols-outlined text-primary">menu_book</span><div class="font-bold mt-1">Safety Handbook</div><div class="text-xs text-on-surface-variant">School-wide policies and guidelines.</div></div>
+<div class="card p-4"><span class="material-symbols-outlined text-primary">groups</span><div class="font-bold mt-1" data-i18n="counselingServices">Counseling Services</div><div class="text-xs text-on-surface-variant">Reach out to trained counselors.</div></div>
+<div class="card p-4"><span class="material-symbols-outlined text-primary">verified_user</span><div class="font-bold mt-1">Online Safety</div><div class="text-xs text-on-surface-variant">Protect your digital identity.</div></div>
+</div>
+<div class="card p-5">
+<h3 class="font-bold text-lg mb-3">Emergency Contacts</h3>
+<div class="grid md:grid-cols-2 gap-3">
+<a class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low hover:bg-surface-container" href="tel:911"><span class="material-symbols-outlined text-error">emergency</span><div><div class="font-bold">Emergency</div><div class="text-xs text-on-surface-variant">911</div></div></a>
+<a class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-low hover:bg-surface-container" href="tel:+15551234567"><span class="material-symbols-outlined text-primary">phone</span><div><div class="font-bold">School Counselor</div><div class="text-xs text-on-surface-variant">+1 555 123 4567</div></div></a>
+</div>
+</div>
+</section>
+<!-- ==================== PAGE: REPORTS ==================== -->
+<section class="page" id="page-reports">
+<h1 class="text-3xl font-extrabold" data-i18n="reportsTitle">Incident Reports</h1>
+<p class="text-on-surface-variant mt-1 mb-5">Review, filter and resolve submitted incident reports.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+<div class="card p-4"><div class="text-xs text-on-surface-variant">Total Reports</div><div class="text-2xl font-extrabold">24</div></div>
+<div class="card p-4"><div class="text-xs text-on-surface-variant" data-i18n="statusOpen">Open</div><div class="text-2xl font-extrabold text-error">8</div></div>
+<div class="card p-4"><div class="text-xs text-on-surface-variant" data-i18n="statusResolved">Resolved</div><div class="text-2xl font-extrabold text-secondary">16</div></div>
+<div class="card p-4"><div class="text-xs text-on-surface-variant" data-i18n="thisWeek">This Week</div><div class="text-2xl font-extrabold">3</div></div>
+</div>
+<div class="card p-4 mb-4 flex flex-wrap items-center gap-3">
+<select class="rounded-lg border border-outline-variant p-2 text-sm" id="reportFilter" onchange="renderReports()">
+<option value="all">All</option><option value="Open">Open</option><option value="Resolved">Resolved</option><option value="Pending">Pending</option>
+</select>
+<input class="rounded-lg border border-outline-variant p-2 text-sm" type="date"/>
+<button class="btn-ghost text-sm ml-auto" data-i18n="exportCSV" onclick="exportCSV()">Export CSV</button>
+</div>
+<div class="card overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-sm">
+<thead class="bg-surface-container-low text-left text-xs text-on-surface-variant"><tr><th class="p-3">ID</th><th class="p-3" data-i18n="date">Date</th><th class="p-3" data-i18n="type">Type</th><th class="p-3" data-i18n="location">Location</th><th class="p-3" data-i18n="status">Status</th><th class="p-3" data-i18n="actions">Actions</th></tr></thead>
+<tbody id="reportsBody"></tbody>
+</table>
+</div>
+<div class="flex items-center justify-center gap-2 p-3 border-t border-outline-variant">
+<button class="btn-ghost text-xs" onclick="reportPage=Math.max(1,reportPage-1);renderReports()">Prev</button>
+<span class="text-sm font-semibold" id="reportPager">1</span>
+<button class="btn-ghost text-xs" data-i18n="nextBtn" onclick="reportPage=Math.min(3,reportPage+1);renderReports()">Next</button>
+</div>
+</div>
+</section>
+<!-- ==================== PAGE: SETTINGS ==================== -->
+<section class="page" id="page-settings">
+<h1 class="text-3xl font-extrabold mb-5" data-i18n="settings">Settings</h1>
+<div class="card p-5 mb-5 flex items-center gap-4">
+<div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center font-extrabold text-xl">AJ</div>
+<div class="flex-1">
+<div class="font-bold text-lg" contenteditable="true" data-i18n="userName" id="profileName" onblur="showToast('Profile updated','success')">Alex Johnson</div>
+<div class="text-sm text-on-surface-variant" data-i18n="userGrade">Grade 11-A</div>
+</div>
+<button class="btn-ghost text-sm" data-i18n="editProfile" onclick="document.getElementById('profileName').focus()">Edit Profile</button>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="notifications">Notifications</h3>
+<div class="flex flex-col gap-3" id="notifList"></div>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="appearance">Appearance</h3>
+<div class="flex items-center justify-between mb-3"><span class="text-sm" data-i18n="language">Language</span>
+<select class="rounded-lg border border-outline-variant p-2 text-sm" id="langSel" onchange="setLang(this.value)">
+<option value="en">English</option><option value="id">Bahasa</option>
+</select>
+</div>
+<div class="flex items-center justify-between"><span class="text-sm" data-i18n="theme">Theme</span><span class="stat-pill-green pill px-3 py-1 text-xs font-bold" data-i18n="themeLight">Light</span></div>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="privacyData">Privacy &amp; Data</h3>
+<div class="flex flex-wrap gap-2">
+<button class="btn-ghost text-sm" data-i18n="downloadData" onclick="downloadData()">Download My Data</button>
+<button class="btn-ghost text-sm" data-i18n="clearMoodHistory" onclick="clearMoodHistory()">Clear Mood History</button>
+</div>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="account">Account</h3>
+<button class="btn-ghost text-sm mr-2" data-i18n="changePassword" onclick="document.getElementById('pwForm').classList.toggle('hidden')">Change Password</button>
+<button class="btn-ghost text-sm" data-i18n="navLogout" onclick="confirmLogout()">Log Out</button>
+<form class="hidden mt-3 grid gap-2 max-w-sm" id="pwForm" onsubmit="event.preventDefault();this.reset();this.classList.add('hidden');showToast('Password updated','success')">
+<input class="rounded-lg border border-outline-variant p-2 text-sm" placeholder="Current password" type="password"/>
+<input class="rounded-lg border border-outline-variant p-2 text-sm" placeholder="New password" type="password"/>
+<button class="btn-primary text-sm" data-i18n="updatePassword">Update Password</button>
+</form>
+</div>
+</section>
+<!-- ==================== FOOTER ==================== -->
+<footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
+<div class="flex flex-wrap items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 font-extrabold text-on-surface"><span class="material-symbols-outlined icon-fill text-primary">shield</span><span data-i18n="brand">SafeSchoolHub</span></div>
+<div class="mt-1 max-w-sm" data-i18n="footerTagline">Promoting digital well-being for the next generation of learners.</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<a class="hover:text-primary cursor-pointer" data-i18n="footerPrivacy">Privacy Policy</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerTerms">Terms of Service</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerAccessibility">Accessibility</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerContact">Contact Support</a>
+</div>
+</div>
+<div class="mt-6 text-xs" data-i18n="footerCopyright">© 2024 SafeSchoolHub. All rights reserved.</div>
+</footer>
+</div>
 </main>
-
 <!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
-  <div class="bn-item active" data-route="overview"><span class="material-symbols-outlined">dashboard</span>Home</div>
-  <div class="bn-item" data-route="gadget-time"><span class="material-symbols-outlined">monitor_heart</span>Wellness</div>
-  <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
-  <div class="bn-item" data-route="reports"><span class="material-symbols-outlined">report_problem</span>Reports</div>
-  <div class="bn-item" data-route="settings"><span class="material-symbols-outlined">settings</span>Settings</div>
+<div class="bn-item active" data-route="overview"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item" data-route="gadget-time"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
+<div class="bn-item" data-route="reports"><span class="material-symbols-outlined">report_problem</span>Reports</div>
+<div class="bn-item" data-route="settings"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
 </nav>
-
 <!-- ============== MODALS ============== -->
 <div class="modal-backdrop" id="checkinModal">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
-    <div class="flex justify-between gap-2 mb-3" id="checkinMoods">
-      <button class="mood-chip" data-cmood="Stressed">😣</button>
-      <button class="mood-chip" data-cmood="Low">😟</button>
-      <button class="mood-chip" data-cmood="Neutral">😐</button>
-      <button class="mood-chip" data-cmood="Good">🙂</button>
-      <button class="mood-chip" data-cmood="Great">😄</button>
-    </div>
-    <textarea rows="3" placeholder="Any thoughts you'd like to share?" class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote"></textarea>
-    <button class="btn-primary w-full" onclick="submitCheckin()">Submit Check-in</button>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="checkinModalTitle">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="flex justify-between gap-2 mb-3" id="checkinMoods">
+<button class="mood-chip" data-cmood="Stressed">😣</button>
+<button class="mood-chip" data-cmood="Low">😟</button>
+<button class="mood-chip" data-cmood="Neutral">😐</button>
+<button class="mood-chip" data-cmood="Good">🙂</button>
+<button class="mood-chip" data-cmood="Great">😄</button>
 </div>
-
+<textarea class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote" placeholder="Any thoughts you'd like to share?" rows="3"></textarea>
+<button class="btn-primary w-full" data-i18n="submitCheckin" onclick="submitCheckin()">Submit Check-in</button>
+</div>
+</div>
 <div class="modal-backdrop" id="breathCustomize">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Customize Breathing</h3><button onclick="closeModal('breathCustomize')"><span class="material-symbols-outlined">close</span></button></div>
-    <div id="phaseControls" class="grid gap-3"></div>
-    <button class="btn-primary w-full mt-3" onclick="closeModal('breathCustomize');showToast('Breathing timings updated','success')">Apply</button>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="customizeBreathing">Customize Breathing</h3><button onclick="closeModal('breathCustomize')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="grid gap-3" id="phaseControls"></div>
+<button class="btn-primary w-full mt-3" data-i18n="applyBtn" onclick="closeModal('breathCustomize');showToast('Breathing timings updated','success')">Apply</button>
 </div>
-
+</div>
 <div class="modal-backdrop" id="stretchModal">
-  <div class="modal-card text-center">
-    <div class="flex justify-end"><button onclick="closeModal('stretchModal');clearInterval(window._stretchSession)"><span class="material-symbols-outlined">close</span></button></div>
-    <h3 class="font-extrabold text-lg mb-2">Stretch Session</h3>
-    <div class="text-5xl font-extrabold tabular-nums my-4" id="stretchSessionTime" style="font-family:ui-monospace,monospace">05:00</div>
-    <div class="text-sm text-on-surface-variant">Follow the seated twist on screen.</div>
-  </div>
+<div class="modal-card text-center">
+<div class="flex justify-end"><button onclick="closeModal('stretchModal');clearInterval(window._stretchSession)"><span class="material-symbols-outlined">close</span></button></div>
+<h3 class="font-extrabold text-lg mb-2" data-i18n="stretchSession">Stretch Session</h3>
+<div class="text-5xl font-extrabold tabular-nums my-4" id="stretchSessionTime" style="font-family:ui-monospace,monospace">05:00</div>
+<div class="text-sm text-on-surface-variant" data-i18n="stretchInstruction">Follow the seated twist on screen.</div>
 </div>
-
+</div>
 <div class="modal-backdrop" id="scheduleModal">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Adjust Sleep Schedule</h3><button onclick="closeModal('scheduleModal')"><span class="material-symbols-outlined">close</span></button></div>
-    <label class="text-sm">Bedtime</label>
-    <input type="time" value="22:30" class="w-full rounded-lg border border-outline-variant p-2 mb-3"/>
-    <label class="text-sm">Wake time</label>
-    <input type="time" value="06:30" class="w-full rounded-lg border border-outline-variant p-2 mb-3"/>
-    <button class="btn-primary w-full" onclick="closeModal('scheduleModal');showToast('Schedule saved','success')">Save</button>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="adjustSleepSchedule">Adjust Sleep Schedule</h3><button onclick="closeModal('scheduleModal')"><span class="material-symbols-outlined">close</span></button></div>
+<label class="text-sm" data-i18n="bedtime">Bedtime</label>
+<input class="w-full rounded-lg border border-outline-variant p-2 mb-3" type="time" value="22:30"/>
+<label class="text-sm" data-i18n="wakeTime">Wake time</label>
+<input class="w-full rounded-lg border border-outline-variant p-2 mb-3" type="time" value="06:30"/>
+<button class="btn-primary w-full" data-i18n="saveBtn" onclick="closeModal('scheduleModal');showToast('Schedule saved','success')">Save</button>
 </div>
-
+</div>
 <div class="modal-backdrop" id="reportDetail">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Report Details</h3><button onclick="closeModal('reportDetail')"><span class="material-symbols-outlined">close</span></button></div>
-    <div id="reportDetailBody" class="text-sm"></div>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="reportDetails">Report Details</h3><button onclick="closeModal('reportDetail')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="text-sm" id="reportDetailBody"></div>
 </div>
-
+</div>
 <div class="modal-backdrop" id="confirmModal">
-  <div class="modal-card">
-    <h3 class="font-extrabold text-lg mb-2" id="confirmTitle">Confirm</h3>
-    <div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
-    <div class="flex gap-2 justify-end"><button class="btn-ghost" onclick="closeModal('confirmModal')">Cancel</button><button class="btn-primary" id="confirmOk">Confirm</button></div>
-  </div>
+<div class="modal-card">
+<h3 class="font-extrabold text-lg mb-2" data-i18n="confirmBtn" id="confirmTitle">Confirm</h3>
+<div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
+<div class="flex gap-2 justify-end"><button class="btn-ghost" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button><button class="btn-primary" data-i18n="confirmBtn" id="confirmOk">Confirm</button></div>
 </div>
-
+</div>
 <script>
 /* ============== ROUTER ============== */
 const ROUTES=['overview','safety','gadget-time','hydration','sleep','breathing','reports','settings'];

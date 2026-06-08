@@ -1,14 +1,15 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SafeSchoolHub — Student Wellness Dashboard</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
 <script>
 tailwind.config = {
   theme: {
@@ -46,351 +47,322 @@ tailwind.config = {
   },
 };
 </script>
-<link rel="stylesheet" href="css/sleep.css">
-<script src="js/theme-lang.js"></script>
+<link href="css/sleep.css" rel="stylesheet"/>
+<script src="lang.js"></script>
 </head>
 <body class="min-h-screen">
-
 <!-- Toast container -->
 <div class="toast" id="toast"></div>
-
 <!-- ============== SIDEBAR (DESKTOP) ============== -->
 <aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40">
-  <div class="px-5 py-6 flex items-center gap-3">
-    <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
-      <span class="material-symbols-outlined icon-fill">shield</span>
-    </div>
-    <div>
-      <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
-      <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
-    </div>
-  </div>
-  <nav class="px-3 mt-2 flex flex-col gap-1">
-    <a class="nav-link" href="index.html" data-route="overview"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
-        <a class="nav-link active" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
-    <a class="nav-link" href="gadget-time.html" data-route="gadget-time"><span class="material-symbols-outlined">monitor_heart</span>Wellness Tracking</a>
-    <a class="nav-link" href="hydration.html" data-route="hydration"><span class="material-symbols-outlined">water_drop</span>Hydration</a>
-    <a class="nav-link active" href="sleep.html" data-route="sleep"><span class="material-symbols-outlined">bedtime</span>Sleep</a>
-    <a class="nav-link" href="breathing.html" data-route="breathing"><span class="material-symbols-outlined">self_improvement</span>Breathing</a>
-    <a class="nav-link" href="reports.html" data-route="reports"><span class="material-symbols-outlined">report_problem</span>Report Incident</a>
-    <a class="nav-link" href="counseling.html" data-route="counseling"><span class="material-symbols-outlined">support_agent</span>Digital Counseling</a>
-    <a class="nav-link" href="settings.html" data-route="settings"><span class="material-symbols-outlined">settings</span>Settings</a>
-  </nav>
-  <div class="flex-grow"></div>
-  <div class="px-3 pb-2 flex flex-col gap-1">
-    <a class="nav-link"><span class="material-symbols-outlined">help_outline</span>Help Center</a>
-    <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span>Log Out</a>
-  </div>
-  <div class="m-3 p-3 rounded-2xl bg-surface-container-low flex items-center gap-3">
-    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">AJ</div>
-    <div>
-      <div class="font-bold text-sm">Alex Johnson</div>
-      <div class="text-xs text-on-surface-variant">Grade 11-A</div>
-    </div>
-  </div>
+<div class="px-5 py-6 flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined icon-fill">shield</span>
+</div>
+<div>
+<div class="font-extrabold text-on-surface leading-none" data-i18n="brand">SafeSchoolHub</div>
+<div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold" data-i18n="studentWellness">STUDENT WELLNESS</div>
+</div>
+</div>
+<nav class="px-3 mt-2 flex flex-col gap-1">
+<a class="nav-link" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+    <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
+<a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+<a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+<a class="nav-link active" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+<a class="nav-link" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+<a class="nav-link" data-route="reports" href="reports.html"><span class="material-symbols-outlined">report_problem</span><span data-i18n="navReportIncident">Report Incident</span></a>
+<a class="nav-link" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+<a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+</nav>
+<div class="flex-grow"></div>
+<div class="px-3 pb-2 flex flex-col gap-1">
+<a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+<a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+</div>
+<div class="m-3 p-3 rounded-2xl bg-surface-container-low flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">AJ</div>
+<div>
+<div class="font-bold text-sm" data-i18n="userName">Alex Johnson</div>
+<div class="text-xs text-on-surface-variant" data-i18n="userGrade">Grade 11-A</div>
+</div>
+</div>
 </aside>
-
 <!-- ============== MOBILE TOP BAR ============== -->
 <header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
-  <div class="flex items-center gap-2">
-    <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
-      <span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
-    </div>
-    <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
-  </div>
-  <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
+</div>
+<span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
 </header>
-
 <!-- ============== MAIN CONTENT ============== -->
 <main class="main-content lg:ml-64 min-h-screen">
-  <div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
-
-    <!-- ==================== PAGE: SLEEP ==================== -->
-    <section id="page-sleep" class="page active">
-      <div class="max-w-2xl mx-auto">
-
-        <!-- Header -->
-        <div class="flex items-start justify-between mb-2">
-          <div>
-            <span id="sleepScorePill" class="stat-pill-green pill px-3 py-1 text-xs font-bold inline-block mb-2">Tidur Baik</span>
-            <h1 class="text-3xl font-extrabold">Nightly Sleep Insights</h1>
-            <p class="text-on-surface-variant mt-1 mb-4">Monitor ritme sirkadian dan tahap tidurmu untuk meningkatkan fokus akademis.</p>
-          </div>
-        </div>
-
-        <!-- Range tabs -->
-        <div class="flex gap-2 mb-5" id="sleepRangeTabs">
-          <button class="tab-btn active" data-sr="daily">Harian</button>
-          <button class="tab-btn" data-sr="weekly">Mingguan</button>
-          <button class="tab-btn" data-sr="monthly">Bulanan</button>
-        </div>
-
-        <!-- ===== LOG TIDUR MALAM INI ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <div class="font-bold text-lg">Catat Tidur Malam Ini</div>
-            <span class="text-xs text-on-surface-variant" id="sleepDateLabel"></span>
-          </div>
-          <div class="grid grid-cols-2 gap-3 mb-4">
-            <div>
-              <label class="text-xs text-on-surface-variant font-semibold">Jam Tidur</label>
-              <input type="time" id="sleepStart" value="22:00" class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary"/>
-            </div>
-            <div>
-              <label class="text-xs text-on-surface-variant font-semibold">Jam Bangun</label>
-              <input type="time" id="sleepEnd" value="06:00" class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary"/>
-            </div>
-          </div>
-          <div class="mb-4">
-            <label class="text-xs text-on-surface-variant font-semibold block mb-2">Kualitas Tidur</label>
-            <div class="flex gap-2" id="sleepQualityBtns">
-              <button data-q="1" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(1)">😴</button>
-              <button data-q="2" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(2)">😐</button>
-              <button data-q="3" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(3)">🙂</button>
-              <button data-q="4" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(4)">😊</button>
-              <button data-q="5" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(5)">🤩</button>
-            </div>
-            <div class="text-xs text-center text-on-surface-variant mt-1" id="qualityLabel">Pilih kualitas tidur</div>
-          </div>
-          <div class="mb-4">
-            <label class="text-xs text-on-surface-variant font-semibold block mb-2">Catatan (opsional)</label>
-            <textarea id="sleepNote" rows="2" placeholder="Mimpi, gangguan tidur, dll..." class="w-full rounded-xl border border-outline-variant px-3 py-2 text-sm resize-none focus:outline-none focus:border-primary"></textarea>
-          </div>
-          <button class="btn-primary w-full" onclick="saveSleepLog()">
-            <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">save</span> Simpan Log Tidur
-          </button>
-        </div>
-
-        <!-- ===== SLEEP ARCHITECTURE CHART ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <div class="font-bold">Sleep Architecture</div>
-            <label class="flex items-center gap-2 text-xs cursor-pointer">
-              <span>Trend</span>
-              <div class="toggle on" id="trendToggle" onclick="this.classList.toggle('on');drawSleepArch()"></div>
-            </label>
-          </div>
-          <svg viewBox="0 0 320 180" class="w-full h-44" id="sleepArchChart"></svg>
-          <div class="flex flex-wrap gap-3 text-[10px] mt-2">
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#003151"></span>Deep</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#106399"></span>Light</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#c4b5fd"></span>REM</span>
-            <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#fb7185"></span>Awake</span>
-          </div>
-        </div>
-
-        <!-- ===== SLEEP SCORE ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex justify-between items-center">
-            <div>
-              <div class="font-bold text-lg">Sleep Score: <span id="sleepScoreNum">—</span></div>
-              <div class="text-xs text-on-surface-variant" id="sleepScoreLabel">Belum ada data hari ini</div>
-            </div>
-            <a class="text-primary text-sm font-bold cursor-pointer" onclick="document.getElementById('fullAnalysis').classList.toggle('hidden')">Full Analysis →</a>
-          </div>
-          <div class="h-3 rounded-full bg-surface-container overflow-hidden mt-3 mb-2">
-            <div class="h-full rounded-full transition-all duration-1000" id="sleepScoreBar" style="width:0%;background:#22c55e"></div>
-          </div>
-          <div id="fullAnalysis" class="hidden mt-3 text-sm text-on-surface-variant space-y-1">
-            <div>⏱ Total tidur: <b id="faTotal">—</b></div>
-            <div>💤 Efisiensi: <b id="faEff">—</b></div>
-            <div>🌙 Kualitas: <b id="faQual">—</b></div>
-            <div>📝 Catatan: <b id="faNote">—</b></div>
-          </div>
-        </div>
-
-        <!-- ===== STAT GRID ===== -->
-        <div class="grid grid-cols-2 gap-3 mb-5">
-          <div class="card p-4">
-            <div class="text-xs text-on-surface-variant">Total Tidur</div>
-            <div class="text-2xl font-extrabold" id="statTotal">—</div>
-          </div>
-          <div class="card p-4">
-            <div class="text-xs text-on-surface-variant">Efisiensi</div>
-            <div class="text-2xl font-extrabold" id="statEff">—</div>
-          </div>
-          <div class="card p-4">
-            <div class="text-xs text-on-surface-variant">Perasaan Pagi</div>
-            <div class="text-2xl font-extrabold text-secondary" id="statMood">—</div>
-          </div>
-          <div class="card p-4">
-            <div class="text-xs text-on-surface-variant">Rata-rata 7 Hari</div>
-            <div class="text-2xl font-extrabold" id="statAvg">—</div>
-          </div>
-        </div>
-
-        <!-- ===== WEEKLY CHART ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <div class="font-bold">Tidur 7 Hari Terakhir</div>
-            <span class="text-xs text-on-surface-variant" id="weekSleepAvgLabel"></span>
-          </div>
-          <svg viewBox="0 0 320 160" class="w-full h-36" id="sleepWeekChart"></svg>
-          <div class="flex gap-3 mt-2 text-xs flex-wrap">
-            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-secondary"></span>Cukup (≥7j)</span>
-            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block" style="background:#f59e0b"></span>Kurang (5–7j)</span>
-            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-error"></span>Sangat Kurang (&lt;5j)</span>
-          </div>
-        </div>
-
-        <!-- ===== SMART ROUTINE ===== -->
-        <div class="card p-5 mb-5 text-white" style="background:#0b1c30">
-          <div class="flex items-center gap-2 mb-2">
-            <span class="material-symbols-outlined">lightbulb</span>
-            <div class="font-bold">Saran Rutinitas Cerdas</div>
-          </div>
-          <div class="text-sm opacity-90" id="smartRoutineText">Catat tidurmu hari ini untuk mendapatkan saran personal.</div>
-          <button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" onclick="openModal('scheduleModal')">Atur Jadwal Tidur</button>
-        </div>
-
-        <!-- ===== MORNING MOOD ===== -->
-        <div class="card p-5 mb-5">
-          <div class="font-bold mb-3">Bagaimana perasaanmu pagi ini?</div>
-          <div class="grid grid-cols-2 gap-2" id="morningMoods">
-            <button class="mood-chip" data-mm="Energized">⚡ Bersemangat</button>
-            <button class="mood-chip" data-mm="Calm">😊 Tenang</button>
-            <button class="mood-chip" data-mm="Sleepy">😪 Masih Ngantuk</button>
-            <button class="mood-chip" data-mm="Anxious">😟 Gelisah</button>
-          </div>
-          <div class="text-xs text-on-surface-variant mt-2" id="morningMoodMsg"></div>
-        </div>
-
-        <!-- ===== HISTORY ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <div class="font-bold">Riwayat Tidur</div>
-            <button class="text-xs text-error font-bold" onclick="clearSleepHistory()">Hapus Semua</button>
-          </div>
-          <div id="sleepHistoryList" class="space-y-2 text-sm">
-            <div class="text-on-surface-variant text-xs">Belum ada riwayat.</div>
-          </div>
-        </div>
-
-        <!-- ===== SMARTWATCH ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <div>
-              <div class="font-bold">Smartwatch Pairing</div>
-              <div class="text-xs text-on-surface-variant">Connect sleep data from your wearable.</div>
-            </div>
-            <span class="text-xs text-secondary font-semibold">Bluetooth</span>
-          </div>
-          <div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-center">
-            <div>
-              <div class="text-sm font-semibold">Device status</div>
-              <div class="text-on-surface-variant mt-1" id="watchStatus">No smartwatch connected.</div>
-            </div>
-            <button class="btn-primary" id="connectWatchBtn" onclick="toggleWatchConnection()">Connect</button>
-          </div>
-          <div class="text-xs text-on-surface-variant mt-4">Syncs dummy sleep metrics, heart rate, and rest periods for illustrative purposes.</div>
-        </div>
-
-        <!-- ===== CONCENTRATION ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex justify-between py-2 border-b border-outline-variant">
-            <span>Level Konsentrasi</span>
-            <span class="font-bold" id="concLabel">—</span>
-          </div>
-          <div class="flex justify-between py-2">
-            <span>Retensi Memori</span>
-            <span class="pill px-2 py-0.5 text-xs font-bold" id="retLabel">—</span>
-          </div>
-        </div>
-
-        <div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background:#eef2f6">
+<div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
+<!-- ==================== PAGE: SLEEP ==================== -->
+<section class="page active" id="page-sleep">
+<div class="max-w-2xl mx-auto">
+<!-- Header -->
+<div class="flex items-start justify-between mb-2">
+<div>
+<span class="stat-pill-green pill px-3 py-1 text-xs font-bold inline-block mb-2" id="sleepScorePill">Tidur Baik</span>
+<h1 class="text-3xl font-extrabold" data-i18n="nightlyInsights">Nightly Sleep Insights</h1>
+<p class="text-on-surface-variant mt-1 mb-4" data-i18n="sleepSubtitleID">Monitor ritme sirkadian dan tahap tidurmu untuk meningkatkan fokus akademis.</p>
+</div>
+</div>
+<!-- Range tabs -->
+<div class="flex gap-2 mb-5" id="sleepRangeTabs">
+<button class="tab-btn active" data-sr="daily">Harian</button>
+<button class="tab-btn" data-sr="weekly">Mingguan</button>
+<button class="tab-btn" data-sr="monthly">Bulanan</button>
+</div>
+<!-- ===== LOG TIDUR MALAM INI ===== -->
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold text-lg" data-i18n="catatTidur">Catat Tidur Malam Ini</div>
+<span class="text-xs text-on-surface-variant" id="sleepDateLabel"></span>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-4">
+<div>
+<label class="text-xs text-on-surface-variant font-semibold">Jam Tidur</label>
+<input class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary" id="sleepStart" type="time" value="22:00"/>
+</div>
+<div>
+<label class="text-xs text-on-surface-variant font-semibold">Jam Bangun</label>
+<input class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary" id="sleepEnd" type="time" value="06:00"/>
+</div>
+</div>
+<div class="mb-4">
+<label class="text-xs text-on-surface-variant font-semibold block mb-2">Kualitas Tidur</label>
+<div class="flex gap-2" id="sleepQualityBtns">
+<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="1" onclick="selectQuality(1)">😴</button>
+<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="2" onclick="selectQuality(2)">😐</button>
+<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="3" onclick="selectQuality(3)">🙂</button>
+<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="4" onclick="selectQuality(4)">😊</button>
+<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="5" onclick="selectQuality(5)">🤩</button>
+</div>
+<div class="text-xs text-center text-on-surface-variant mt-1" id="qualityLabel">Pilih kualitas tidur</div>
+</div>
+<div class="mb-4">
+<label class="text-xs text-on-surface-variant font-semibold block mb-2">Catatan (opsional)</label>
+<textarea class="w-full rounded-xl border border-outline-variant px-3 py-2 text-sm resize-none focus:outline-none focus:border-primary" id="sleepNote" placeholder="Mimpi, gangguan tidur, dll..." rows="2"></textarea>
+</div>
+<button class="btn-primary w-full" onclick="saveSleepLog()">
+<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">save</span><span data-i18n="simpanLog">Simpan Log Tidur</span></button>
+</div>
+<!-- ===== SLEEP ARCHITECTURE CHART ===== -->
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold" data-i18n="sleepArchitecture">Sleep Architecture</div>
+<label class="flex items-center gap-2 text-xs cursor-pointer">
+<span>Trend</span>
+<div class="toggle on" id="trendToggle" onclick="this.classList.toggle('on');drawSleepArch()"></div>
+</label>
+</div>
+<svg class="w-full h-44" id="sleepArchChart" viewbox="0 0 320 180"></svg>
+<div class="flex flex-wrap gap-3 text-[10px] mt-2">
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#003151"></span>Deep</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#106399"></span><span data-i18n="themeLight">Light</span></span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#c4b5fd"></span>REM</span>
+<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#fb7185"></span>Awake</span>
+</div>
+</div>
+<!-- ===== SLEEP SCORE ===== -->
+<div class="card p-5 mb-5">
+<div class="flex justify-between items-center">
+<div>
+<div class="font-bold text-lg"><span data-i18n="sleepScoreLabel">Sleep Score:</span><span id="sleepScoreNum">—</span></div>
+<div class="text-xs text-on-surface-variant" id="sleepScoreLabel">Belum ada data hari ini</div>
+</div>
+<a class="text-primary text-sm font-bold cursor-pointer" onclick="document.getElementById('fullAnalysis').classList.toggle('hidden')">Full Analysis →</a>
+</div>
+<div class="h-3 rounded-full bg-surface-container overflow-hidden mt-3 mb-2">
+<div class="h-full rounded-full transition-all duration-1000" id="sleepScoreBar" style="width:0%;background:#22c55e"></div>
+</div>
+<div class="hidden mt-3 text-sm text-on-surface-variant space-y-1" id="fullAnalysis">
+<div>⏱ Total tidur: <b id="faTotal">—</b></div>
+<div>💤 Efisiensi: <b id="faEff">—</b></div>
+<div>🌙 Kualitas: <b id="faQual">—</b></div>
+<div>📝 Catatan: <b id="faNote">—</b></div>
+</div>
+</div>
+<!-- ===== STAT GRID ===== -->
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div class="card p-4">
+<div class="text-xs text-on-surface-variant" data-i18n="totalTidur">Total Tidur</div>
+<div class="text-2xl font-extrabold" id="statTotal">—</div>
+</div>
+<div class="card p-4">
+<div class="text-xs text-on-surface-variant" data-i18n="efisiensi">Efisiensi</div>
+<div class="text-2xl font-extrabold" id="statEff">—</div>
+</div>
+<div class="card p-4">
+<div class="text-xs text-on-surface-variant">Perasaan Pagi</div>
+<div class="text-2xl font-extrabold text-secondary" id="statMood">—</div>
+</div>
+<div class="card p-4">
+<div class="text-xs text-on-surface-variant">Rata-rata 7 Hari</div>
+<div class="text-2xl font-extrabold" id="statAvg">—</div>
+</div>
+</div>
+<!-- ===== WEEKLY CHART ===== -->
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold">Tidur 7 Hari Terakhir</div>
+<span class="text-xs text-on-surface-variant" id="weekSleepAvgLabel"></span>
+</div>
+<svg class="w-full h-36" id="sleepWeekChart" viewbox="0 0 320 160"></svg>
+<div class="flex gap-3 mt-2 text-xs flex-wrap">
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-secondary"></span>Cukup (≥7j)</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block" style="background:#f59e0b"></span>Kurang (5–7j)</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-error"></span>Sangat Kurang (&lt;5j)</span>
+</div>
+</div>
+<!-- ===== SMART ROUTINE ===== -->
+<div class="card p-5 mb-5 text-white" style="background:#0b1c30">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined">lightbulb</span>
+<div class="font-bold">Saran Rutinitas Cerdas</div>
+</div>
+<div class="text-sm opacity-90" id="smartRoutineText">Catat tidurmu hari ini untuk mendapatkan saran personal.</div>
+<button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" data-i18n="aturJadwal" onclick="openModal('scheduleModal')">Atur Jadwal Tidur</button>
+</div>
+<!-- ===== MORNING MOOD ===== -->
+<div class="card p-5 mb-5">
+<div class="font-bold mb-3">Bagaimana perasaanmu pagi ini?</div>
+<div class="grid grid-cols-2 gap-2" id="morningMoods">
+<button class="mood-chip" data-mm="Energized">⚡ Bersemangat</button>
+<button class="mood-chip" data-mm="Calm">😊 Tenang</button>
+<button class="mood-chip" data-mm="Sleepy">😪 Masih Ngantuk</button>
+<button class="mood-chip" data-mm="Anxious">😟 Gelisah</button>
+</div>
+<div class="text-xs text-on-surface-variant mt-2" id="morningMoodMsg"></div>
+</div>
+<!-- ===== HISTORY ===== -->
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold" data-i18n="riwayatTidur">Riwayat Tidur</div>
+<button class="text-xs text-error font-bold" onclick="clearSleepHistory()">Hapus Semua</button>
+</div>
+<div class="space-y-2 text-sm" id="sleepHistoryList">
+<div class="text-on-surface-variant text-xs">Belum ada riwayat.</div>
+</div>
+</div>
+<!-- ===== SMARTWATCH ===== -->
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div>
+<div class="font-bold">Smartwatch Pairing</div>
+<div class="text-xs text-on-surface-variant">Connect sleep data from your wearable.</div>
+</div>
+<span class="text-xs text-secondary font-semibold">Bluetooth</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-center">
+<div>
+<div class="text-sm font-semibold">Device status</div>
+<div class="text-on-surface-variant mt-1" id="watchStatus">No smartwatch connected.</div>
+</div>
+<button class="btn-primary" id="connectWatchBtn" onclick="toggleWatchConnection()">Connect</button>
+</div>
+<div class="text-xs text-on-surface-variant mt-4">Syncs dummy sleep metrics, heart rate, and rest periods for illustrative purposes.</div>
+</div>
+<!-- ===== CONCENTRATION ===== -->
+<div class="card p-5 mb-5">
+<div class="flex justify-between py-2 border-b border-outline-variant">
+<span>Level Konsentrasi</span>
+<span class="font-bold" id="concLabel">—</span>
+</div>
+<div class="flex justify-between py-2">
+<span>Retensi Memori</span>
+<span class="pill px-2 py-0.5 text-xs font-bold" id="retLabel">—</span>
+</div>
+</div>
+<div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background:#eef2f6">
           "Pelacakan tidurmu membantu konselor memberikan dukungan yang lebih baik. Data ini bersifat pribadi dan terenkripsi."
         </div>
-
-      </div>
-    </section>
-
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
-      <div class="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <div class="flex items-center gap-2 font-extrabold text-on-surface"><span class="material-symbols-outlined icon-fill text-primary">shield</span>SafeSchoolHub</div>
-          <div class="mt-1 max-w-sm">Promoting digital well-being for the next generation of learners.</div>
-        </div>
-        <div class="flex flex-wrap gap-4">
-          <a class="hover:text-primary cursor-pointer">Privacy Policy</a>
-          <a class="hover:text-primary cursor-pointer">Terms of Service</a>
-          <a class="hover:text-primary cursor-pointer">Accessibility</a>
-          <a class="hover:text-primary cursor-pointer">Contact Support</a>
-        </div>
-      </div>
-      <div class="mt-6 text-xs">© 2024 SafeSchoolHub. All rights reserved.</div>
-    </footer>
-  </div>
+</div>
+</section>
+<!-- ==================== FOOTER ==================== -->
+<footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
+<div class="flex flex-wrap items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 font-extrabold text-on-surface"><span class="material-symbols-outlined icon-fill text-primary">shield</span><span data-i18n="brand">SafeSchoolHub</span></div>
+<div class="mt-1 max-w-sm" data-i18n="footerTagline">Promoting digital well-being for the next generation of learners.</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<a class="hover:text-primary cursor-pointer" data-i18n="footerPrivacy">Privacy Policy</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerTerms">Terms of Service</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerAccessibility">Accessibility</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerContact">Contact Support</a>
+</div>
+</div>
+<div class="mt-6 text-xs" data-i18n="footerCopyright">© 2024 SafeSchoolHub. All rights reserved.</div>
+</footer>
+</div>
 </main>
-
 <!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
-  <div class="bn-item" data-route="overview" onclick="location.href='index.html'"><span class="material-symbols-outlined">dashboard</span>Home</div>
-  <div class="bn-item" data-route="gadget-time" onclick="location.href='gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span>Wellness</div>
-  <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
-  <div class="bn-item" data-route="reports" onclick="location.href='reports.html'"><span class="material-symbols-outlined">report_problem</span>Report</div>
-  <div class="bn-item" data-route="settings" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span>Settings</div>
+<div class="bn-item" data-route="overview" onclick="location.href='index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item" data-route="gadget-time" onclick="location.href='gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
+<div class="bn-item" data-route="reports" onclick="location.href='reports.html'"><span class="material-symbols-outlined">report_problem</span><span data-i18n="bnReport">Report</span></div>
+<div class="bn-item" data-route="settings" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
 </nav>
-
 <!-- ============== MODALS ============== -->
 <div class="modal-backdrop" id="checkinModal">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
-    <div class="flex justify-between gap-2 mb-3" id="checkinMoods">
-      <button class="mood-chip" data-cmood="Stressed">😣</button>
-      <button class="mood-chip" data-cmood="Low">😟</button>
-      <button class="mood-chip" data-cmood="Neutral">😐</button>
-      <button class="mood-chip" data-cmood="Good">🙂</button>
-      <button class="mood-chip" data-cmood="Great">😄</button>
-    </div>
-    <textarea rows="3" placeholder="Any thoughts you'd like to share?" class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote"></textarea>
-    <button class="btn-primary w-full" onclick="submitCheckin()">Submit Check-in</button>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="checkinModalTitle">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="flex justify-between gap-2 mb-3" id="checkinMoods">
+<button class="mood-chip" data-cmood="Stressed">😣</button>
+<button class="mood-chip" data-cmood="Low">😟</button>
+<button class="mood-chip" data-cmood="Neutral">😐</button>
+<button class="mood-chip" data-cmood="Good">🙂</button>
+<button class="mood-chip" data-cmood="Great">😄</button>
 </div>
-
+<textarea class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote" placeholder="Any thoughts you'd like to share?" rows="3"></textarea>
+<button class="btn-primary w-full" data-i18n="submitCheckin" onclick="submitCheckin()">Submit Check-in</button>
+</div>
+</div>
 <div class="modal-backdrop" id="breathCustomize">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Customize Breathing</h3><button onclick="closeModal('breathCustomize')"><span class="material-symbols-outlined">close</span></button></div>
-    <div id="phaseControls" class="grid gap-3"></div>
-    <button class="btn-primary w-full mt-3" onclick="closeModal('breathCustomize');showToast('Breathing timings updated','success')">Apply</button>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="customizeBreathing">Customize Breathing</h3><button onclick="closeModal('breathCustomize')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="grid gap-3" id="phaseControls"></div>
+<button class="btn-primary w-full mt-3" data-i18n="applyBtn" onclick="closeModal('breathCustomize');showToast('Breathing timings updated','success')">Apply</button>
 </div>
-
+</div>
 <div class="modal-backdrop" id="stretchModal">
-  <div class="modal-card text-center">
-    <div class="flex justify-end"><button onclick="closeModal('stretchModal');clearInterval(window._stretchSession)"><span class="material-symbols-outlined">close</span></button></div>
-    <h3 class="font-extrabold text-lg mb-2">Stretch Session</h3>
-    <div class="text-5xl font-extrabold tabular-nums my-4" id="stretchSessionTime" style="font-family:ui-monospace,monospace">05:00</div>
-    <div class="text-sm text-on-surface-variant">Follow the seated twist on screen.</div>
-  </div>
+<div class="modal-card text-center">
+<div class="flex justify-end"><button onclick="closeModal('stretchModal');clearInterval(window._stretchSession)"><span class="material-symbols-outlined">close</span></button></div>
+<h3 class="font-extrabold text-lg mb-2" data-i18n="stretchSession">Stretch Session</h3>
+<div class="text-5xl font-extrabold tabular-nums my-4" id="stretchSessionTime" style="font-family:ui-monospace,monospace">05:00</div>
+<div class="text-sm text-on-surface-variant" data-i18n="stretchInstruction">Follow the seated twist on screen.</div>
 </div>
-
+</div>
 <div class="modal-backdrop" id="scheduleModal">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Adjust Sleep Schedule</h3><button onclick="closeModal('scheduleModal')"><span class="material-symbols-outlined">close</span></button></div>
-    <label class="text-sm">Bedtime</label>
-    <input type="time" value="22:30" class="w-full rounded-lg border border-outline-variant p-2 mb-3"/>
-    <label class="text-sm">Wake time</label>
-    <input type="time" value="06:30" class="w-full rounded-lg border border-outline-variant p-2 mb-3"/>
-    <button class="btn-primary w-full" onclick="closeModal('scheduleModal');showToast('Schedule saved','success')">Save</button>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="adjustSleepSchedule">Adjust Sleep Schedule</h3><button onclick="closeModal('scheduleModal')"><span class="material-symbols-outlined">close</span></button></div>
+<label class="text-sm" data-i18n="bedtime">Bedtime</label>
+<input class="w-full rounded-lg border border-outline-variant p-2 mb-3" type="time" value="22:30"/>
+<label class="text-sm" data-i18n="wakeTime">Wake time</label>
+<input class="w-full rounded-lg border border-outline-variant p-2 mb-3" type="time" value="06:30"/>
+<button class="btn-primary w-full" data-i18n="saveBtn" onclick="closeModal('scheduleModal');showToast('Schedule saved','success')">Save</button>
 </div>
-
+</div>
 <div class="modal-backdrop" id="reportDetail">
-  <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Report Details</h3><button onclick="closeModal('reportDetail')"><span class="material-symbols-outlined">close</span></button></div>
-    <div id="reportDetailBody" class="text-sm"></div>
-  </div>
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="reportDetails">Report Details</h3><button onclick="closeModal('reportDetail')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="text-sm" id="reportDetailBody"></div>
 </div>
-
+</div>
 <div class="modal-backdrop" id="confirmModal">
-  <div class="modal-card">
-    <h3 class="font-extrabold text-lg mb-2" id="confirmTitle">Confirm</h3>
-    <div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
-    <div class="flex gap-2 justify-end"><button class="btn-ghost" onclick="closeModal('confirmModal')">Cancel</button><button class="btn-primary" id="confirmOk">Confirm</button></div>
-  </div>
+<div class="modal-card">
+<h3 class="font-extrabold text-lg mb-2" data-i18n="confirmBtn" id="confirmTitle">Confirm</h3>
+<div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
+<div class="flex gap-2 justify-end"><button class="btn-ghost" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button><button class="btn-primary" data-i18n="confirmBtn" id="confirmOk">Confirm</button></div>
 </div>
-
+</div>
 <script>
 /* ============== ROUTER ============== */
 const ROUTE_FILES={"overview": "index.html", "safety": "safety.html", "gadget-time": "gadget-time.html", "hydration": "hydration.html", "sleep": "sleep.html", "breathing": "breathing.html", "reports": "reports.html", "counseling": "counseling.html", "settings": "settings.html"};
