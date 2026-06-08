@@ -345,9 +345,9 @@ const LangSystem = {
     const s = document.createElement('style');
     s.id = 'lang-style';
     s.textContent = `
-      .lang-select{background:#fff;border:2px solid var(--primary,#106399);border-radius:9999px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;color:var(--primary,#106399);outline:none;transition:background .15s,box-shadow .15s;appearance:none;-webkit-appearance:none;box-shadow:0 2px 8px rgba(16,99,153,.12)}
-      .lang-select:hover,.lang-select:focus{background:#e8f3fb;box-shadow:0 4px 14px rgba(16,99,153,.22)}
-      .lang-select.sm{padding:5px 14px;font-size:11px}
+      .lang-select{background:transparent;border:1.5px solid var(--outline-variant,#c1c7d1);border-radius:8px;padding:4px 8px;font-size:11px;font-weight:700;cursor:pointer;color:var(--on-surface-variant,#41474f);outline:none;transition:border-color .15s,color .15s}
+      .lang-select:hover,.lang-select:focus{border-color:var(--primary,#106399);color:var(--primary,#106399)}
+      .lang-select.sm{padding:2px 6px;font-size:10px;border-radius:6px}
     `;
     document.head.appendChild(s);
   },

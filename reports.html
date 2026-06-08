@@ -53,6 +53,12 @@ tailwind.config={theme:{extend:{colors:{primary:'#106399','on-primary':'#ffffff'
 <div class="text-xs text-on-surface-variant" data-i18n="userGrade">Grade 11-A</div>
 </div>
 </div>
+<div class="px-3 py-2">
+<select id="langSel" class="lang-select">
+<option value="en">🇺🇸 English</option>
+<option value="id">🇮🇩 Indonesia</option>
+</select>
+</div>
 </aside>
 <!-- MOBILE TOP BAR -->
 <header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
@@ -61,6 +67,10 @@ tailwind.config={theme:{extend:{colors:{primary:'#106399','on-primary':'#ffffff'
 <span class="material-symbols-outlined text-white icon-fill" style="font-size:16px">shield</span>
 </div>
 <span class="font-bold text-sm" data-i18n="brand">SafeSchoolHub</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="lang-flag-btn" data-lang-btn="en" class="lang-flag-btn sm">EN</button>
+<button class="lang-flag-btn" data-lang-btn="id" class="lang-flag-btn sm">ID</button>
 </div>
 <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-xs">AJ</div>
 </header>

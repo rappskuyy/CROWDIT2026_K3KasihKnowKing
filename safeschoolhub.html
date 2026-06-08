@@ -106,6 +106,8 @@ tailwind.config = {
   .bn-item.active{color:var(--primary);}
   .bn-item.active .material-symbols-outlined{font-variation-settings:'FILL' 1,'wght' 600;}
   .bn-fab{flex:none;width:56px;height:56px;border-radius:50%;background:var(--inverse-surface);color:#fff;display:flex;align-items:center;justify-content:center;margin-top:-32px;box-shadow:0 6px 16px rgba(0,0,0,.2);cursor:pointer;}
+
+
 </style>
 <script src="js/lang.js"></script>
 </head>
@@ -134,6 +136,12 @@ tailwind.config = {
 <a class="nav-link" data-route="settings"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
 <div class="flex-grow"></div>
+<div class="px-3 py-2">
+<select id="langSel" class="lang-select">
+<option value="en">🇺🇸 English</option>
+<option value="id">🇮🇩 Indonesia</option>
+</select>
+</div>
 <div class="px-3 pb-2 flex flex-col gap-1">
 <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
 <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
@@ -154,6 +162,10 @@ tailwind.config = {
 </div>
 <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
 </div>
+<select id="langSelMobile" class="lang-select sm">
+<option value="en">EN</option>
+<option value="id">ID</option>
+</select>
 <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
 </header>
 <!-- ============== MAIN CONTENT ============== -->

@@ -77,7 +77,13 @@ tailwind.config = {
     <a class="nav-link" href="settings.html" data-route="settings"><span class="material-symbols-outlined">settings</span>Settings</a>
   </nav>
   <div class="flex-grow"></div>
-  <div class="px-3 pb-2 flex flex-col gap-1">
+  <div class="px-3 py-2">
+<select id="langSel" class="lang-select">
+<option value="en">🇺🇸 English</option>
+<option value="id">🇮🇩 Indonesia</option>
+</select>
+</div>
+<div class="px-3 pb-2 flex flex-col gap-1">
     <a class="nav-link"><span class="material-symbols-outlined">help_outline</span>Help Center</a>
     <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span>Log Out</a>
   </div>
@@ -98,7 +104,11 @@ tailwind.config = {
     </div>
     <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
   </div>
-  <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
+  <select id="langSelMobile" class="lang-select sm">
+<option value="en">EN</option>
+<option value="id">ID</option>
+</select>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
 </header>
 
 <!-- ============== MAIN CONTENT ============== -->
@@ -212,7 +222,9 @@ tailwind.config = {
                   @keyframes legSit { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(5deg)} }
                   #glow { animation: pulse 2s ease-in-out infinite; }
                   @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.7} }
-                </style>
+                
+
+</style>
                 <!-- Glow effect -->
                 <ellipse id="glow" cx="60" cy="120" rx="35" ry="8" fill="rgba(255,255,255,0.4)"/>
                 <!-- Chair/seat -->
