@@ -160,18 +160,26 @@ tailwind.config = {
           </div>
         </div>
 
+
         <div class="card p-5 lg:col-span-3">
-          <h3 class="font-bold text-lg mb-2">Sleep Quality</h3>
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="font-bold text-lg">Sleep Quality</h3>
+            <a href="sleep.html" class="text-xs text-primary font-bold hover:underline">Detail →</a>
+          </div>
           <div class="flex items-end gap-2 mb-3">
-            <div class="text-4xl font-extrabold">85</div>
-            <span class="stat-pill-green pill px-2 py-1 text-xs font-bold mb-1">BAIK</span>
+            <div class="text-4xl font-extrabold" id="sleepDashScore">—</div>
+            <span id="sleepDashPill" class="bg-surface-container text-on-surface-variant pill px-2 py-1 text-xs font-bold mb-1">Belum dicatat</span>
           </div>
-          <div class="flex gap-1 mb-3" id="sleepTabs">
-            <button class="tab-btn active" data-st="awake">AWAKE</button>
+          <div class="h-3 rounded-full overflow-hidden mb-3">
+            <div id="sleepDashBar" class="h-full rounded-full transition-all duration-700 bg-secondary" style="width:0%"></div>
+          </div>
+          <div class="text-xs text-on-surface-variant" id="sleepDashTotal">Catat tidurmu di halaman Sleep</div>
+          <div class="flex gap-1 mt-3" id="sleepTabs">
+            <button class="tab-btn active" data-st="awake">Awake</button>
             <button class="tab-btn" data-st="rem">REM</button>
-            <button class="tab-btn" data-st="deep">DEEP</button>
+            <button class="tab-btn" data-st="deep">Deep</button>
           </div>
-          <div class="h-3 rounded-full bg-surface-container overflow-hidden flex">
+          <div class="h-3 rounded-full bg-surface-container overflow-hidden flex mt-2">
             <div id="sleepSegA" class="h-full bg-primary-container transition-all duration-500" style="width:20%"></div>
             <div id="sleepSegR" class="h-full bg-primary transition-all duration-500" style="width:30%"></div>
             <div id="sleepSegD" class="h-full bg-on-primary-container transition-all duration-500" style="width:50%"></div>
@@ -351,6 +359,7 @@ function initPage(){
     drawDonut();
     renderHyd();
     renderGadgetDash();
+    renderSleepDash();
     setTimeout(()=>{ updateStressFromMood(currentMood); }, 50);
   }
   if(r==='sleep'){drawSleepArch();}
@@ -564,7 +573,7 @@ function submitCheckin(){
   document.getElementById('checkinNote').value='';
 }
 
-/* ============== DONUT ===== */
+/* ============== DONUT ============== */
 function drawDonut(){
   const r=60,c=2*Math.PI*r,pct=85/199;
   document.getElementById('donutWrap').innerHTML=`<svg viewBox="0 0 160 160" class="w-44 h-44">
@@ -673,6 +682,51 @@ function renderGadgetDash(){
   } catch(e){}
 }
 setInterval(renderGadgetDash, 5000);
+
+/* ============== SLEEP DASHBOARD CARD ============== */
+function sleepDayKeyIdx(){
+  const d=new Date();
+  return `sleep_${d.getFullYear()}_${String(d.getMonth()).padStart(2,'0')}_${String(d.getDate()).padStart(2,'0')}`;
+}
+function fmtDurSleep(min){const h=Math.floor(min/60),m=min%60;return h>0?`${h}j ${m}m`:`${m}m`;}
+function renderSleepDash(){
+  try{
+    const hist=JSON.parse(localStorage.getItem('sleep_history')||'{}');
+    const today=hist[sleepDayKeyIdx()];
+    const scoreEl=document.getElementById('sleepDashScore');
+    const pillEl=document.getElementById('sleepDashPill');
+    const barEl=document.getElementById('sleepDashBar');
+    const totalEl=document.getElementById('sleepDashTotal');
+    if(!scoreEl)return;
+    if(today){
+      const sc=today.score||0;
+      scoreEl.textContent=sc;
+      if(barEl){barEl.style.width=sc+'%';barEl.style.background=sc>=75?'#1c6c3f':sc>=50?'#f59e0b':'#ef4444';}
+      if(pillEl){
+        pillEl.textContent=sc>=75?'BAIK ✓':sc>=50?'CUKUP':'KURANG';
+        pillEl.className=`pill px-2 py-1 text-xs font-bold mb-1 ${sc>=75?'stat-pill-green':sc>=50?'stat-pill-yellow':'stat-pill-red'}`;
+      }
+      if(totalEl)totalEl.textContent=`${fmtDurSleep(today.durationMin)} · ${today.start}–${today.end}`;
+      // Update sleep stage bars based on quality
+      const q=today.quality||3;
+      const aW=Math.max(5,30-q*3);
+      const rW=15+q*3;
+      const dW=100-aW-rW;
+      const segA=document.getElementById('sleepSegA');
+      const segR=document.getElementById('sleepSegR');
+      const segD=document.getElementById('sleepSegD');
+      if(segA)segA.style.width=aW+'%';
+      if(segR)segR.style.width=rW+'%';
+      if(segD)segD.style.width=dW+'%';
+    } else {
+      scoreEl.textContent='—';
+      if(barEl)barEl.style.width='0%';
+      if(pillEl){pillEl.textContent='Belum dicatat';pillEl.className='bg-surface-container text-on-surface-variant pill px-2 py-1 text-xs font-bold mb-1';}
+      if(totalEl)totalEl.textContent='Catat tidurmu di halaman Sleep';
+    }
+  }catch(e){}
+}
+setInterval(renderSleepDash,8000);
 
 /* ============== GADGET TIME (stretch countdown di dashboard jika ada) ============== */
 let stretchSec=15*60;

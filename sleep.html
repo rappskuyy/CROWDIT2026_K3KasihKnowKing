@@ -107,18 +107,67 @@ tailwind.config = {
     <!-- ==================== PAGE: SLEEP ==================== -->
     <section id="page-sleep" class="page active">
       <div class="max-w-2xl mx-auto">
-        <h1 class="text-3xl font-extrabold">Nightly Sleep Insights</h1>
-        <p class="text-on-surface-variant mt-1 mb-5">Monitor your circadian rhythm and sleep stages to improve academic focus and mental clarity.</p>
-        <div class="flex gap-2 mb-5" id="sleepRangeTabs">
-          <button class="tab-btn active" data-sr="daily">Daily</button>
-          <button class="tab-btn" data-sr="weekly">Weekly</button>
-          <button class="tab-btn" data-sr="monthly">Monthly</button>
+
+        <!-- Header -->
+        <div class="flex items-start justify-between mb-2">
+          <div>
+            <span id="sleepScorePill" class="stat-pill-green pill px-3 py-1 text-xs font-bold inline-block mb-2">Tidur Baik</span>
+            <h1 class="text-3xl font-extrabold">Nightly Sleep Insights</h1>
+            <p class="text-on-surface-variant mt-1 mb-4">Monitor ritme sirkadian dan tahap tidurmu untuk meningkatkan fokus akademis.</p>
+          </div>
         </div>
 
+        <!-- Range tabs -->
+        <div class="flex gap-2 mb-5" id="sleepRangeTabs">
+          <button class="tab-btn active" data-sr="daily">Harian</button>
+          <button class="tab-btn" data-sr="weekly">Mingguan</button>
+          <button class="tab-btn" data-sr="monthly">Bulanan</button>
+        </div>
+
+        <!-- ===== LOG TIDUR MALAM INI ===== -->
         <div class="card p-5 mb-5">
           <div class="flex items-center justify-between mb-3">
-            <div class="font-bold">Sleep Architecture Detail</div>
-            <label class="flex items-center gap-2 text-xs"><span>Nightly Trends</span><div class="toggle on" id="trendToggle" onclick="this.classList.toggle('on');toggleTrendLine()"></div></label>
+            <div class="font-bold text-lg">Catat Tidur Malam Ini</div>
+            <span class="text-xs text-on-surface-variant" id="sleepDateLabel"></span>
+          </div>
+          <div class="grid grid-cols-2 gap-3 mb-4">
+            <div>
+              <label class="text-xs text-on-surface-variant font-semibold">Jam Tidur</label>
+              <input type="time" id="sleepStart" value="22:00" class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary"/>
+            </div>
+            <div>
+              <label class="text-xs text-on-surface-variant font-semibold">Jam Bangun</label>
+              <input type="time" id="sleepEnd" value="06:00" class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary"/>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="text-xs text-on-surface-variant font-semibold block mb-2">Kualitas Tidur</label>
+            <div class="flex gap-2" id="sleepQualityBtns">
+              <button data-q="1" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(1)">😴</button>
+              <button data-q="2" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(2)">😐</button>
+              <button data-q="3" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(3)">🙂</button>
+              <button data-q="4" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(4)">😊</button>
+              <button data-q="5" class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" onclick="selectQuality(5)">🤩</button>
+            </div>
+            <div class="text-xs text-center text-on-surface-variant mt-1" id="qualityLabel">Pilih kualitas tidur</div>
+          </div>
+          <div class="mb-4">
+            <label class="text-xs text-on-surface-variant font-semibold block mb-2">Catatan (opsional)</label>
+            <textarea id="sleepNote" rows="2" placeholder="Mimpi, gangguan tidur, dll..." class="w-full rounded-xl border border-outline-variant px-3 py-2 text-sm resize-none focus:outline-none focus:border-primary"></textarea>
+          </div>
+          <button class="btn-primary w-full" onclick="saveSleepLog()">
+            <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">save</span> Simpan Log Tidur
+          </button>
+        </div>
+
+        <!-- ===== SLEEP ARCHITECTURE CHART ===== -->
+        <div class="card p-5 mb-5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="font-bold">Sleep Architecture</div>
+            <label class="flex items-center gap-2 text-xs cursor-pointer">
+              <span>Trend</span>
+              <div class="toggle on" id="trendToggle" onclick="this.classList.toggle('on');drawSleepArch()"></div>
+            </label>
           </div>
           <svg viewBox="0 0 320 180" class="w-full h-44" id="sleepArchChart"></svg>
           <div class="flex flex-wrap gap-3 text-[10px] mt-2">
@@ -129,62 +178,137 @@ tailwind.config = {
           </div>
         </div>
 
+        <!-- ===== SLEEP SCORE ===== -->
         <div class="card p-5 mb-5">
           <div class="flex justify-between items-center">
-            <div class="font-bold">Sleep Score: 85</div>
+            <div>
+              <div class="font-bold text-lg">Sleep Score: <span id="sleepScoreNum">—</span></div>
+              <div class="text-xs text-on-surface-variant" id="sleepScoreLabel">Belum ada data hari ini</div>
+            </div>
             <a class="text-primary text-sm font-bold cursor-pointer" onclick="document.getElementById('fullAnalysis').classList.toggle('hidden')">Full Analysis →</a>
           </div>
-          <div class="text-xs text-on-surface-variant mb-2">Good Optimal Range</div>
-          <div class="h-3 rounded-full bg-surface-container overflow-hidden"><div class="h-full bg-secondary" style="width:85%"></div></div>
-          <div id="fullAnalysis" class="hidden mt-3 text-sm text-on-surface-variant">Latency: 12 min · Awakenings: 1 · Deep sleep %: 22% · REM cycles: 5</div>
+          <div class="h-3 rounded-full bg-surface-container overflow-hidden mt-3 mb-2">
+            <div class="h-full rounded-full transition-all duration-1000" id="sleepScoreBar" style="width:0%;background:#22c55e"></div>
+          </div>
+          <div id="fullAnalysis" class="hidden mt-3 text-sm text-on-surface-variant space-y-1">
+            <div>⏱ Total tidur: <b id="faTotal">—</b></div>
+            <div>💤 Efisiensi: <b id="faEff">—</b></div>
+            <div>🌙 Kualitas: <b id="faQual">—</b></div>
+            <div>📝 Catatan: <b id="faNote">—</b></div>
+          </div>
         </div>
 
+        <!-- ===== STAT GRID ===== -->
         <div class="grid grid-cols-2 gap-3 mb-5">
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Total Sleep</div><div class="text-2xl font-extrabold">7h 15m</div></div>
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Efficiency</div><div class="text-2xl font-extrabold">91%</div></div>
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Refreshed</div><div class="text-2xl font-extrabold text-secondary">✓ Yes</div></div>
-          <div class="card p-4"><div class="text-xs text-on-surface-variant">Heart Rate</div><div class="text-2xl font-extrabold">54 BPM</div></div>
+          <div class="card p-4">
+            <div class="text-xs text-on-surface-variant">Total Tidur</div>
+            <div class="text-2xl font-extrabold" id="statTotal">—</div>
+          </div>
+          <div class="card p-4">
+            <div class="text-xs text-on-surface-variant">Efisiensi</div>
+            <div class="text-2xl font-extrabold" id="statEff">—</div>
+          </div>
+          <div class="card p-4">
+            <div class="text-xs text-on-surface-variant">Perasaan Pagi</div>
+            <div class="text-2xl font-extrabold text-secondary" id="statMood">—</div>
+          </div>
+          <div class="card p-4">
+            <div class="text-xs text-on-surface-variant">Rata-rata 7 Hari</div>
+            <div class="text-2xl font-extrabold" id="statAvg">—</div>
+          </div>
         </div>
 
+        <!-- ===== WEEKLY CHART ===== -->
+        <div class="card p-5 mb-5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="font-bold">Tidur 7 Hari Terakhir</div>
+            <span class="text-xs text-on-surface-variant" id="weekSleepAvgLabel"></span>
+          </div>
+          <svg viewBox="0 0 320 160" class="w-full h-36" id="sleepWeekChart"></svg>
+          <div class="flex gap-3 mt-2 text-xs flex-wrap">
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-secondary"></span>Cukup (≥7j)</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block" style="background:#f59e0b"></span>Kurang (5–7j)</span>
+            <span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-error"></span>Sangat Kurang (&lt;5j)</span>
+          </div>
+        </div>
+
+        <!-- ===== SMART ROUTINE ===== -->
         <div class="card p-5 mb-5 text-white" style="background:#0b1c30">
-          <div class="flex items-center gap-2 mb-2"><span class="material-symbols-outlined">lightbulb</span><div class="font-bold">Smart Routine Suggestion</div></div>
-          <div class="text-sm opacity-90">Your Deep Sleep was 15% higher last night. We noticed you avoided screens 1 hour before bed. Try maintaining this habit for your midterm week!</div>
-          <button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" onclick="openScheduleModal()">Adjust My Schedule</button>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="material-symbols-outlined">lightbulb</span>
+            <div class="font-bold">Saran Rutinitas Cerdas</div>
+          </div>
+          <div class="text-sm opacity-90" id="smartRoutineText">Catat tidurmu hari ini untuk mendapatkan saran personal.</div>
+          <button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" onclick="openModal('scheduleModal')">Atur Jadwal Tidur</button>
         </div>
 
+        <!-- ===== MORNING MOOD ===== -->
         <div class="card p-5 mb-5">
-          <div class="flex justify-between py-2 border-b border-outline-variant"><span>Concentration Level</span><span class="font-bold">Peak</span></div>
-          <div class="flex justify-between py-2"><span>Retention Rate</span><span class="stat-pill-green pill px-2 py-0.5 text-xs font-bold">+12%</span></div>
-        </div>
-
-        <div class="card p-5 mb-5">
-          <div class="font-bold mb-3">How do you feel this morning?</div>
+          <div class="font-bold mb-3">Bagaimana perasaanmu pagi ini?</div>
           <div class="grid grid-cols-2 gap-2" id="morningMoods">
-            <button class="mood-chip" data-mm="Energized">⚡ Energized</button>
-            <button class="mood-chip" data-mm="Calm">😊 Calm</button>
-            <button class="mood-chip" data-mm="Sleepy">😪 Sleepy</button>
-            <button class="mood-chip" data-mm="Anxious">😟 Anxious</button>
+            <button class="mood-chip" data-mm="Energized">⚡ Bersemangat</button>
+            <button class="mood-chip" data-mm="Calm">😊 Tenang</button>
+            <button class="mood-chip" data-mm="Sleepy">😪 Masih Ngantuk</button>
+            <button class="mood-chip" data-mm="Anxious">😟 Gelisah</button>
           </div>
           <div class="text-xs text-on-surface-variant mt-2" id="morningMoodMsg"></div>
         </div>
 
-        <div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background:#eef2f6">"Your mood tracking helps our counselors provide better support. This data is private and encrypted."</div>
+        <!-- ===== HISTORY ===== -->
+        <div class="card p-5 mb-5">
+          <div class="flex items-center justify-between mb-3">
+            <div class="font-bold">Riwayat Tidur</div>
+            <button class="text-xs text-error font-bold" onclick="clearSleepHistory()">Hapus Semua</button>
+          </div>
+          <div id="sleepHistoryList" class="space-y-2 text-sm">
+            <div class="text-on-surface-variant text-xs">Belum ada riwayat.</div>
+          </div>
+        </div>
 
+        <!-- ===== MEDITATION ===== -->
         <div class="card overflow-hidden mb-5">
-          <div class="h-44" style="background:linear-gradient(135deg,#1e1b4b,#7c3aed)"></div>
+          <div class="h-36 flex items-center justify-center" style="background:linear-gradient(135deg,#1e1b4b,#7c3aed)">
+            <div class="text-white text-center">
+              <div class="text-4xl mb-1">🌙</div>
+              <div class="font-bold">Sleep Meditation</div>
+              <div class="text-xs opacity-75">10 menit guided session</div>
+            </div>
+          </div>
           <div class="p-4">
-            <div class="font-bold">Recommended: Sleep Meditation</div>
-            <div class="text-sm text-on-surface-variant">A 10-minute guided session to help you wind down after a long day of classes.</div>
-            <button class="btn-primary w-full mt-3" onclick="startMeditationPlayer()">Start Session</button>
+            <div class="font-bold">Direkomendasikan: Sleep Meditation</div>
+            <div class="text-sm text-on-surface-variant mb-3">Sesi 10 menit untuk membantu kamu rileks setelah hari yang panjang.</div>
+            <button class="btn-primary w-full" onclick="startMeditationPlayer()">Mulai Sesi</button>
             <div id="medPlayer" class="hidden mt-3">
               <div class="flex items-center gap-3">
-                <button onclick="toggleMedPlay()" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center"><span class="material-symbols-outlined" id="medPlayIcon">pause</span></button>
-                <div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden"><div id="medProg" class="h-full bg-primary" style="width:0%"></div></div>
-                <span class="text-xs" id="medTime">0:00</span>
+                <button onclick="toggleMedPlay()" class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center flex-shrink-0">
+                  <span class="material-symbols-outlined" id="medPlayIcon">pause</span>
+                </button>
+                <div class="flex-1 h-2 rounded-full bg-surface-container overflow-hidden">
+                  <div id="medProg" class="h-full bg-primary transition-all duration-1000" style="width:0%"></div>
+                </div>
+                <span class="text-xs font-bold tabular-nums" id="medTime">0:00</span>
               </div>
+              <div class="text-xs text-center text-on-surface-variant mt-2" id="medPhaseLabel">Tarik napas perlahan...</div>
             </div>
           </div>
         </div>
+
+        <!-- ===== CONCENTRATION ===== -->
+        <div class="card p-5 mb-5">
+          <div class="flex justify-between py-2 border-b border-outline-variant">
+            <span>Level Konsentrasi</span>
+            <span class="font-bold" id="concLabel">—</span>
+          </div>
+          <div class="flex justify-between py-2">
+            <span>Retensi Memori</span>
+            <span class="pill px-2 py-0.5 text-xs font-bold" id="retLabel">—</span>
+          </div>
+        </div>
+
+        <div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background:#eef2f6">
+          "Pelacakan tidurmu membantu konselor memberikan dukungan yang lebih baik. Data ini bersifat pribadi dan terenkripsi."
+        </div>
+
       </div>
     </section>
 
@@ -280,7 +404,7 @@ tailwind.config = {
 const ROUTE_FILES={"overview": "index.html", "safety": "safety.html", "gadget-time": "gadget-time.html", "hydration": "hydration.html", "sleep": "sleep.html", "breathing": "breathing.html", "reports": "reports.html", "counseling": "counseling.html", "settings": "settings.html"};
 const CURRENT_ROUTE='sleep';
 function navigate(r){if(r==='dashboard')r='overview';if(ROUTE_FILES[r]&&r!==CURRENT_ROUTE){location.href=ROUTE_FILES[r];return;}document.querySelectorAll('.nav-link').forEach(n=>n.classList.toggle('active',n.dataset.route===r));window.scrollTo({top:0,behavior:'smooth'});initPage();}
-function initPage(){const r=CURRENT_ROUTE;if(r==='overview'){drawMoodChart();drawDonut();setTimeout(()=>{const sb=document.getElementById('stressBar');if(sb)sb.style.width='30%';},50);}if(r==='hydration'){drawHydWeek();}if(r==='sleep'){drawSleepArch();}if(r==='breathing'){drawWeeklyMood();}if(r==='reports'){renderReports();}}
+function initPage(){const r=CURRENT_ROUTE;if(r==='sleep'){renderSleepPage();}}
 document.querySelectorAll('[data-route]').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.route)));
 
 /* ============== TOAST ============== */
@@ -355,40 +479,7 @@ document.querySelectorAll('#sleepTabs button').forEach(b=>b.addEventListener('cl
   document.getElementById('sleepSegD').style.width=m[2]+'%';
 }));
 
-/* ============== HYDRATION ============== */
-let cups=6;
-function renderHyd(){
-  document.getElementById('cupCount').textContent=cups;
-  document.getElementById('hydDashCount').textContent=cups;
-  const pct=cups/8*100;
-  document.getElementById('cupBar').style.width=pct+'%';
-  document.getElementById('bottleFill').setAttribute('y',12+(116*(1-pct/100)));
-  document.getElementById('bottleFill').setAttribute('height',116*pct/100);
-  document.getElementById('bottlePct').textContent=Math.round(pct)+'%';
-  // hyd dash segments
-  const seg=document.getElementById('hydSegments');
-  if(seg){seg.innerHTML='';for(let i=0;i<8;i++){const d=document.createElement('div');d.className='flex-1 h-3 rounded-full '+(i<cups?'bg-primary':'bg-surface-container');seg.appendChild(d);}}
-  document.getElementById('hydMsg').textContent=cups>=8?'Goal reached! Stay hydrated.':cups>=6?`You're doing great! Just ${8-cups} more cups to reach your optimal energy levels.`:'Keep drinking — you can do it!';
-}
-function changeCup(d){
-  cups=Math.max(0,Math.min(8,cups+d));renderHyd();
-  const bf=document.getElementById('bottleFill');if(bf){bf.style.transition='all .5s ease';}
-  showToast(d>0?'Cup added':'Cup removed','success');
-}
-const FACTS=['Just a 2% drop in hydration can cause significant fatigue and reduced alertness.','Your brain is ~75% water — staying hydrated improves memory.','Drinking water before meals can improve digestion and energy.'];
-let factIdx=0;
-function cycleFact(){factIdx=(factIdx+1)%FACTS.length;document.getElementById('factText').textContent=FACTS[factIdx];}
-function toggleAccordion(id){document.getElementById(id).classList.toggle('hidden');}
-function drawHydWeek(){
-  const data=[3,5,4,6,8,5,4],days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  let svg='';
-  data.forEach((v,i)=>{const x=20+i*42,h=v*12,y=120-h;const color=i===4?'#106399':'#dce9ff';svg+=`<rect x="${x}" y="${y}" width="28" height="${h}" rx="6" fill="${color}"><title>${days[i]}: ${v}</title></rect><text x="${x+14}" y="135" text-anchor="middle" font-size="10" fill="#41474f">${days[i]}</text>`;});
-  document.getElementById('hydWeekChart').innerHTML=svg;
-}
-document.querySelectorAll('#hydWeekTabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#hydWeekTabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');drawHydWeek();}));
-function downloadReport(){const blob=new Blob(['Hydration Report\nCups today: '+cups],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hydration_report.txt';a.click();showToast('Report downloaded','success');}
-
-/* ============== GADGET TIME ============== */
+/* ============== GADGET TIME (noop) ============== */
 let stretchSec=15*60;
 function tickStretch(){
   stretchSec=stretchSec<=0?15*60:stretchSec-1;
@@ -412,121 +503,338 @@ function startStretchSession(){
   },1000);
 }
 
-/* ============== SLEEP ============== */
-function drawSleepArch(){
-  const groups=5,colors=['#003151','#106399','#c4b5fd','#fb7185'];
-  const stages=[[40,30,15,5],[35,35,20,5],[30,40,25,5],[25,35,30,5],[10,20,15,5]];
-  const labels=['12AM','2AM','4AM','6AM','8AM'];
-  let svg='';
-  stages.forEach((s,i)=>{
-    const gx=20+i*60;let y=20;
-    s.forEach((v,k)=>{svg+=`<rect x="${gx}" y="${y}" width="40" height="${v*1.5}" fill="${colors[k]}"><title>${['Deep','Light','REM','Awake'][k]}: ${v}m</title></rect>`;y+=v*1.5;});
-    svg+=`<text x="${gx+20}" y="175" text-anchor="middle" font-size="10" fill="#41474f">${labels[i]}</text>`;
+/* ============== SLEEP — LOCALSTORAGE SYSTEM ============== */
+
+// ---- Key helpers ----
+function sleepDayKey(daysAgo=0){
+  const d=new Date();d.setDate(d.getDate()-daysAgo);
+  return `sleep_${d.getFullYear()}_${String(d.getMonth()).padStart(2,'0')}_${String(d.getDate()).padStart(2,'0')}`;
+}
+function sleepLoadHistory(){
+  try{return JSON.parse(localStorage.getItem('sleep_history')||'{}');}catch(e){return{};}
+}
+function sleepSaveHistory(hist){
+  localStorage.setItem('sleep_history',JSON.stringify(hist));
+}
+function sleepTodayKey(){return sleepDayKey(0);}
+
+// ---- State ----
+let selectedQuality=0;
+let morningMoodVal=null;
+
+// ---- Init date label ----
+(function(){
+  const el=document.getElementById('sleepDateLabel');
+  if(el){const d=new Date();el.textContent=d.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'});}
+})();
+
+// ---- Quality selector ----
+const QUALITY_LABELS=['','Sangat Buruk','Buruk','Cukup','Baik','Sangat Baik'];
+function selectQuality(q){
+  selectedQuality=q;
+  document.querySelectorAll('#sleepQualityBtns button').forEach(b=>{
+    const isActive=+b.dataset.q===q;
+    b.style.borderColor=isActive?'#106399':'';
+    b.style.background=isActive?'#dce9ff':'';
+    b.style.transform=isActive?'scale(1.15)':'';
   });
-  if(document.getElementById('trendToggle')?.classList.contains('on')){
-    let pts=stages.map((s,i)=>(20+i*60+20)+','+(20+s.reduce((a,b)=>a+b,0)*1.5*.6));
-    svg+=`<polyline points="${pts.join(' ')}" fill="none" stroke="#106399" stroke-width="2" stroke-dasharray="4 3"/>`;
+  const el=document.getElementById('qualityLabel');
+  if(el)el.textContent=QUALITY_LABELS[q]||'';
+}
+
+// ---- Calculate duration ----
+function calcDuration(start,end){
+  const [sh,sm]=start.split(':').map(Number);
+  const [eh,em]=end.split(':').map(Number);
+  let startMin=sh*60+sm, endMin=eh*60+em;
+  if(endMin<=startMin)endMin+=24*60; // crossed midnight
+  return endMin-startMin; // in minutes
+}
+function fmtDuration(min){
+  const h=Math.floor(min/60),m=min%60;
+  return h>0?`${h}j ${m}m`:`${m}m`;
+}
+function calcScore(durationMin,quality){
+  // Base dari durasi
+  let score=0;
+  if(durationMin>=480) score=50; // 8h = 50pts
+  else if(durationMin>=420) score=45;
+  else if(durationMin>=360) score=35;
+  else if(durationMin>=300) score=25;
+  else score=15;
+  // Tambah dari kualitas (max 50)
+  score += (quality||1)*9;
+  return Math.min(100,score);
+}
+
+// ---- Save log ----
+function saveSleepLog(){
+  const start=document.getElementById('sleepStart').value;
+  const end=document.getElementById('sleepEnd').value;
+  if(!start||!end){showToast('Isi jam tidur dan bangun dulu!','error');return;}
+  if(!selectedQuality){showToast('Pilih kualitas tidur dulu!','error');return;}
+  const dur=calcDuration(start,end);
+  const score=calcScore(dur,selectedQuality);
+  const note=document.getElementById('sleepNote').value.trim();
+  const entry={date:sleepTodayKey(),start,end,durationMin:dur,quality:selectedQuality,score,note,mood:morningMoodVal,savedAt:new Date().toISOString()};
+  const hist=sleepLoadHistory();
+  hist[sleepTodayKey()]=entry;
+  sleepSaveHistory(hist);
+  showToast('✅ Log tidur tersimpan!','success');
+  renderSleepPage();
+}
+
+// ---- Render all sleep UI ----
+function renderSleepPage(){
+  const hist=sleepLoadHistory();
+  const today=hist[sleepTodayKey()];
+
+  // Score card
+  const scoreNum=document.getElementById('sleepScoreNum');
+  const scoreBar=document.getElementById('sleepScoreBar');
+  const scoreLabel=document.getElementById('sleepScoreLabel');
+  const scorePill=document.getElementById('sleepScorePill');
+  if(today){
+    const sc=today.score;
+    if(scoreNum) scoreNum.textContent=sc;
+    if(scoreBar){
+      scoreBar.style.width=sc+'%';
+      scoreBar.style.background=sc>=75?'#22c55e':sc>=50?'#f59e0b':'#ef4444';
+    }
+    if(scoreLabel) scoreLabel.textContent=sc>=75?'Tidur Optimal':sc>=50?'Cukup Baik':'Perlu Ditingkatkan';
+    if(scorePill){
+      scorePill.textContent=sc>=75?'Tidur Baik ✓':sc>=50?'Cukup':'Perlu Istirahat Lebih';
+      scorePill.className=`pill px-3 py-1 text-xs font-bold inline-block mb-2 ${sc>=75?'stat-pill-green':sc>=50?'stat-pill-yellow':'stat-pill-red'}`;
+    }
+    // Full analysis
+    document.getElementById('faTotal').textContent=fmtDuration(today.durationMin);
+    document.getElementById('faEff').textContent=today.durationMin>=480?'Sangat Baik':today.durationMin>=360?'Baik':'Kurang';
+    document.getElementById('faQual').textContent=QUALITY_LABELS[today.quality]||'-';
+    document.getElementById('faNote').textContent=today.note||'—';
+    // Stats
+    document.getElementById('statTotal').textContent=fmtDuration(today.durationMin);
+    document.getElementById('statEff').textContent=today.durationMin>=480?'Optimal':today.durationMin>=360?'Baik':'Kurang';
+    document.getElementById('statMood').textContent=today.mood||'—';
+    // Smart routine
+    const sr=document.getElementById('smartRoutineText');
+    if(sr){
+      if(today.durationMin>=480) sr.textContent='Luar biasa! Kamu tidur '+fmtDuration(today.durationMin)+' malam ini. Pertahankan jadwal ini!';
+      else if(today.durationMin>=360) sr.textContent='Kamu tidur '+fmtDuration(today.durationMin)+'. Coba tidur 30 menit lebih awal untuk mencapai 8 jam ideal.';
+      else sr.textContent='Kamu hanya tidur '+fmtDuration(today.durationMin)+'. Usahakan tidur sebelum jam 22.00 malam ini.';
+    }
+    // Concentration
+    const conc=document.getElementById('concLabel');
+    const ret=document.getElementById('retLabel');
+    if(conc) conc.textContent=today.score>=75?'Puncak':today.score>=50?'Sedang':'Rendah';
+    if(ret){
+      ret.textContent=today.score>=75?'+12%':today.score>=50?'+4%':'-8%';
+      ret.className=`pill px-2 py-0.5 text-xs font-bold ${today.score>=75?'stat-pill-green':today.score>=50?'stat-pill-yellow':'stat-pill-red'}`;
+    }
+  } else {
+    if(scoreNum) scoreNum.textContent='—';
+    if(scoreBar) scoreBar.style.width='0%';
+    if(scoreLabel) scoreLabel.textContent='Belum ada data hari ini';
+    ['statTotal','statEff','statMood'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='—';});
   }
-  document.getElementById('sleepArchChart').innerHTML=svg;
+
+  // 7-day average
+  let totalMin=0,cnt=0;
+  for(let i=0;i<7;i++){const k=sleepDayKey(i);if(hist[k]){totalMin+=hist[k].durationMin;cnt++;}}
+  const avg=cnt?Math.round(totalMin/cnt):0;
+  const avgEl=document.getElementById('statAvg');
+  if(avgEl) avgEl.textContent=avg?fmtDuration(avg):'—';
+  const weekAvgEl=document.getElementById('weekSleepAvgLabel');
+  if(weekAvgEl) weekAvgEl.textContent=avg?`Rata-rata: ${fmtDuration(avg)}/hari`:'';
+
+  // Draw charts
+  drawSleepArch();
+  drawSleepWeekChart();
+  renderSleepHistory();
+
+  // Sync to localStorage for index.html
+  syncSleepToIndex(today,avg);
 }
+
+// ---- Sync data for dashboard ----
+function syncSleepToIndex(today,avgMin){
+  const payload={date:sleepTodayKey(),today:today||null,avgMin:avgMin||0};
+  localStorage.setItem('sleep_dashboard',JSON.stringify(payload));
+}
+
+// ---- Sleep Architecture Chart (dynamic from history) ----
+function drawSleepArch(){
+  const hist=sleepLoadHistory();
+  const days=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  const colors=['#003151','#106399','#c4b5fd','#fb7185'];
+  let svg='';
+  const pts=[];
+
+  for(let i=4;i>=0;i--){
+    const k=sleepDayKey(i);
+    const entry=hist[k];
+    const gx=20+(4-i)*60;
+    const dur=entry?entry.durationMin:0;
+    const q=entry?entry.quality:0;
+    // Estimasi tahap tidur dari durasi & kualitas
+    const deep=Math.round(dur*(0.15+q*0.02));
+    const light=Math.round(dur*(0.45-q*0.01));
+    const rem=Math.round(dur*(0.20+q*0.02));
+    const awake=Math.max(2,dur-deep-light-rem);
+    const stages=[deep,light,rem,awake];
+    let y=170;
+    const maxH=140;
+    const totalH=Math.min(maxH,(dur/480)*maxH);
+    stages.forEach((v,k2)=>{
+      const h=totalH>0?Math.round((v/dur)*totalH):0;
+      if(h>0){y-=h;svg+=`<rect x="${gx}" y="${y}" width="40" height="${h}" rx="3" fill="${colors[k2]}" opacity="${entry?1:0.2}"><title>${['Deep','Light','REM','Awake'][k2]}: ${v}m</title></rect>`;}
+    });
+    const d=new Date();d.setDate(d.getDate()-i);
+    const lbl=days[d.getDay()]+(i===0?' (today)':'');
+    svg+=`<text x="${gx+20}" y="178" text-anchor="middle" font-size="9" fill="#41474f">${lbl}</text>`;
+    if(entry&&totalH>0) pts.push({x:gx+20,y:y});
+  }
+
+  // Trend line
+  if(document.getElementById('trendToggle')?.classList.contains('on')&&pts.length>=2){
+    let d2='M'+pts[0].x+','+pts[0].y;
+    for(let i=1;i<pts.length;i++){const cx=(pts[i-1].x+pts[i].x)/2;d2+=` Q${cx},${pts[i-1].y} ${pts[i].x},${pts[i].y}`;}
+    svg+=`<path d="${d2}" fill="none" stroke="#106399" stroke-width="2" stroke-dasharray="5 3" opacity="0.7"/>`;
+  }
+
+  const el=document.getElementById('sleepArchChart');
+  if(el)el.innerHTML=svg;
+}
+
+// ---- Weekly bar chart ----
+function drawSleepWeekChart(){
+  const hist=sleepLoadHistory();
+  const days=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  const baseY=130,maxH=110,barW=32;
+  const maxMin=480; // 8j = skala penuh
+  let svg='';
+
+  // goal line 7j
+  const goalY=baseY-(420/maxMin)*maxH;
+  svg+=`<line x1="10" y1="${goalY}" x2="310" y2="${goalY}" stroke="#22c55e" stroke-width="1" stroke-dasharray="4 3" opacity="0.7"/>`;
+  svg+=`<text x="308" y="${goalY-3}" text-anchor="end" font-size="8" fill="#22c55e">7j</text>`;
+
+  for(let i=6;i>=0;i--){
+    const k=sleepDayKey(i);
+    const entry=hist[k];
+    const dur=entry?entry.durationMin:0;
+    const x=15+(6-i)*42;
+    const h=Math.max(2,(Math.min(dur,maxMin)/maxMin)*maxH);
+    const y=baseY-h;
+    const col=dur>=420?'#1c6c3f':dur>=300?'#f59e0b':'#ef4444';
+    const isToday=i===0;
+    const d=new Date();d.setDate(d.getDate()-i);
+    const lbl=days[d.getDay()];
+    if(dur>0){
+      svg+=`<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="5" fill="${col}" opacity="${isToday?1:0.65}"><title>${lbl}: ${fmtDuration(dur)}</title></rect>`;
+      svg+=`<text x="${x+barW/2}" y="${y-4}" text-anchor="middle" font-size="9" font-weight="700" fill="${col}">${fmtDuration(dur)}</text>`;
+    } else {
+      svg+=`<rect x="${x}" y="${baseY-4}" width="${barW}" height="4" rx="2" fill="#e5eeff"/>`;
+    }
+    svg+=`<text x="${x+barW/2}" y="148" text-anchor="middle" font-size="10" fill="${isToday?'#106399':'#41474f'}" font-weight="${isToday?'700':'500'}">${lbl}</text>`;
+  }
+  const el=document.getElementById('sleepWeekChart');
+  if(el)el.innerHTML=svg;
+}
+
+// ---- History list ----
+function renderSleepHistory(){
+  const hist=sleepLoadHistory();
+  const el=document.getElementById('sleepHistoryList');
+  if(!el)return;
+  const entries=Object.values(hist).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,7);
+  if(!entries.length){el.innerHTML='<div class="text-on-surface-variant text-xs">Belum ada riwayat.</div>';return;}
+  el.innerHTML=entries.map(e=>{
+    const d=new Date(e.savedAt||e.date);
+    const dateStr=d.toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short'});
+    const col=e.score>=75?'stat-pill-green':e.score>=50?'stat-pill-yellow':'stat-pill-red';
+    return `<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low">
+      <div>
+        <div class="font-semibold text-sm">${dateStr}</div>
+        <div class="text-xs text-on-surface-variant">${e.start} – ${e.end} · ${fmtDuration(e.durationMin)} · ${QUALITY_LABELS[e.quality]||''}</div>
+        ${e.note?`<div class="text-xs text-on-surface-variant italic mt-0.5">${e.note}</div>`:''}
+      </div>
+      <span class="${col} pill px-2 py-0.5 text-xs font-bold">${e.score}</span>
+    </div>`;
+  }).join('');
+}
+
+// ---- Clear history ----
+function clearSleepHistory(){
+  document.getElementById('confirmTitle').textContent='Hapus riwayat tidur?';
+  document.getElementById('confirmMsg').textContent='Semua data tidur akan dihapus permanen.';
+  document.getElementById('confirmOk').onclick=()=>{
+    localStorage.removeItem('sleep_history');
+    localStorage.removeItem('sleep_dashboard');
+    closeModal('confirmModal');
+    showToast('Riwayat tidur dihapus','success');
+    renderSleepPage();
+  };
+  openModal('confirmModal');
+}
+
+// ---- Morning mood ----
+document.querySelectorAll('#morningMoods button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#morningMoods button').forEach(x=>x.classList.remove('selected'));
+  b.classList.add('selected');
+  morningMoodVal=b.dataset.mm;
+  document.getElementById('morningMoodMsg').textContent='Mood tercatat: '+b.textContent;
+  // Update today's entry if exists
+  const hist=sleepLoadHistory();
+  if(hist[sleepTodayKey()]){hist[sleepTodayKey()].mood=morningMoodVal;sleepSaveHistory(hist);}
+  showToast('Mood pagi tercatat ✓','success');
+}));
+
+// ---- Range tabs ----
+document.querySelectorAll('#sleepRangeTabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#sleepRangeTabs button').forEach(x=>x.classList.remove('active'));
+  b.classList.add('active');
+  drawSleepArch();
+  showToast('Tampilan: '+b.textContent,'info');
+}));
+
+// ---- Toggle trend ----
 function toggleTrendLine(){drawSleepArch();}
-document.querySelectorAll('#sleepRangeTabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#sleepRangeTabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');drawSleepArch();showToast('Range: '+b.textContent,'info');}));
-document.querySelectorAll('#morningMoods button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#morningMoods button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('morningMoodMsg').textContent='Mood logged: '+b.dataset.mm;moodHistory.push(b.dataset.mm);}));
-function openScheduleModal(){openModal('scheduleModal');}
+
+// ---- Meditation player ----
 let medPlaying=false,medT=0,medInt=null;
-function startMeditationPlayer(){document.getElementById('medPlayer').classList.remove('hidden');if(medInt)clearInterval(medInt);medPlaying=true;medT=0;document.getElementById('medPlayIcon').textContent='pause';medInt=setInterval(medTick,1000);}
-function toggleMedPlay(){medPlaying=!medPlaying;document.getElementById('medPlayIcon').textContent=medPlaying?'pause':'play_arrow';}
-function medTick(){if(!medPlaying)return;medT++;if(medT>=600){clearInterval(medInt);medPlaying=false;document.getElementById('medPlayIcon').textContent='play_arrow';showToast('Meditation complete','success');return;}document.getElementById('medProg').style.width=(medT/600*100)+'%';document.getElementById('medTime').textContent=Math.floor(medT/60)+':'+String(medT%60).padStart(2,'0');}
+const MED_PHASES=['Tarik napas perlahan...','Tahan sejenak...','Hembuskan perlahan...','Rileks...'];
+function startMeditationPlayer(){
+  document.getElementById('medPlayer').classList.remove('hidden');
+  if(medInt)clearInterval(medInt);
+  medPlaying=true;medT=0;
+  document.getElementById('medPlayIcon').textContent='pause';
+  medInt=setInterval(medTick,1000);
+}
+function toggleMedPlay(){
+  medPlaying=!medPlaying;
+  document.getElementById('medPlayIcon').textContent=medPlaying?'pause':'play_arrow';
+}
+function medTick(){
+  if(!medPlaying)return;
+  medT++;
+  if(medT>=600){clearInterval(medInt);medPlaying=false;document.getElementById('medPlayIcon').textContent='play_arrow';showToast('Meditasi selesai 🌙','success');return;}
+  document.getElementById('medProg').style.width=(medT/600*100)+'%';
+  document.getElementById('medTime').textContent=Math.floor(medT/60)+':'+String(medT%60).padStart(2,'0');
+  const phaseEl=document.getElementById('medPhaseLabel');
+  if(phaseEl)phaseEl.textContent=MED_PHASES[Math.floor(medT/10)%4];
+}
 
-/* ============== BREATHING ============== */
-let breathTimings={Inhale:4,Hold1:2,Exhale:4,Hold2:2};
-let breathRunning=false,breathPhaseIdx=0,breathTimer=null,sessionN=1,streak=5,roundCount=0;
-const PHASES=[{n:'INHALE',k:'Inhale',inst:s=>`Inhale for ${s} seconds`,size:220,bg:'radial-gradient(circle,#a5d8ff,#5a9bd5)'},{n:'HOLD',k:'Hold1',inst:s=>`Hold for ${s} seconds`,size:220,bg:'radial-gradient(circle,#a5d8ff,#5a9bd5)'},{n:'EXHALE',k:'Exhale',inst:s=>`Exhale for ${s} seconds`,size:160,bg:'radial-gradient(circle,#5a9bd5,#106399)'},{n:'HOLD',k:'Hold2',inst:s=>`Hold for ${s} seconds`,size:160,bg:'radial-gradient(circle,#5a9bd5,#106399)'}];
-function runBreathPhase(){
-  if(!breathRunning)return;
-  const p=PHASES[breathPhaseIdx],dur=breathTimings[p.k];
-  document.getElementById('breathPhase').textContent=p.n;
-  document.getElementById('breathInstruction').textContent=p.inst(dur);
-  const c=document.getElementById('breathCircle');
-  c.style.transition=`all ${dur}s ease-in-out`;
-  c.style.width=p.size+'px';c.style.height=p.size+'px';c.style.background=p.bg;
-  breathTimer=setTimeout(()=>{
-    breathPhaseIdx=(breathPhaseIdx+1)%4;
-    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! 🎉','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionNum').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
-    runBreathPhase();
-  },dur*1000);
-}
-function toggleBreath(){
-  breathRunning=!breathRunning;
-  document.getElementById('breathBtn').textContent=breathRunning?'Pause Session':'Resume Session';
-  if(breathRunning)runBreathPhase();else clearTimeout(breathTimer);
-}
-function openBreathCustomize(){
-  const c=document.getElementById('phaseControls');c.innerHTML='';
-  ['Inhale','Hold1','Exhale','Hold2'].forEach(k=>{
-    const row=document.createElement('div');row.className='flex items-center justify-between gap-2';
-    row.innerHTML=`<span class="font-semibold text-sm">${k.replace(/\d/,'')}</span><div class="flex items-center gap-2"><button class="btn-ghost text-sm px-3" onclick="changePhase('${k}',-1)">−</button><span id="ph-${k}" class="font-bold w-8 text-center">${breathTimings[k]}s</span><button class="btn-ghost text-sm px-3" onclick="changePhase('${k}',1)">+</button></div>`;
-    c.appendChild(row);
-  });
-  openModal('breathCustomize');
-}
-function changePhase(k,d){breathTimings[k]=Math.max(1,Math.min(10,breathTimings[k]+d));document.getElementById('ph-'+k).textContent=breathTimings[k]+'s';}
-function startRoutine(min){navigate('breathing');if(!breathRunning){toggleBreath();}showToast('Routine started — '+min+' min','info');}
-function drawWeeklyMood(){
-  const data=[3,4,3,5,4,6,7],days=['M','T','W','T','F','S','S'];let svg='';
-  data.forEach((v,i)=>{const x=20+i*40,h=v*12,y=110-h;const c=i===6?'#fff':'#5a9bd5';svg+=`<rect x="${x}" y="${y}" width="24" height="${h}" rx="6" fill="${c}"/><text x="${x+12}" y="125" text-anchor="middle" font-size="10" fill="#fff">${days[i]}</text>`;});
-  document.getElementById('weeklyMoodChart').innerHTML=svg;
-}
-let feelHistory=[];
-document.querySelectorAll('#feelChips button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#feelChips button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('feelMsg').textContent='Feeling logged ✓ — '+b.dataset.feel;feelHistory.push(b.dataset.feel);document.getElementById('feelTimeline').innerHTML=feelHistory.map(()=>'<span class="w-2 h-2 rounded-full bg-primary"></span>').join('');}));
+/* ============== INIT SLEEP PAGE ============== */
+renderSleepPage();
 
-/* ============== SAFETY ============== */
-function submitReport(e){e.preventDefault();e.target.reset();showToast('Report submitted anonymously','success');}
-
-/* ============== REPORTS ============== */
-const REPORTS_ALL=[];
-const TYPES=['Bullying','Cyberbullying','Physical Threat','Other'];const LOCS=['East Corridor','Cafeteria','Gym','Library','Lab 2','Schoolyard','Bus Stop'];const STATUS=['Open','Resolved','Pending'];
-for(let i=1;i<=24;i++)REPORTS_ALL.push({id:'R-'+String(1000+i),date:`2024-06-${String((i%28)+1).padStart(2,'0')}`,type:TYPES[i%4],loc:LOCS[i%LOCS.length],status:STATUS[i%3]});
-let reportPage=1;
-function renderReports(){
-  const filter=document.getElementById('reportFilter').value;
-  let data=REPORTS_ALL.filter(r=>filter==='all'||r.status===filter);
-  const per=8,total=Math.max(1,Math.ceil(data.length/per));reportPage=Math.min(reportPage,total);
-  document.getElementById('reportPager').textContent=reportPage+' / '+total;
-  data=data.slice((reportPage-1)*per,reportPage*per);
-  const pill=s=>s==='Open'?'stat-pill-yellow':s==='Resolved'?'stat-pill-green':'bg-surface-container-high text-primary';
-  document.getElementById('reportsBody').innerHTML=data.map(r=>`
-    <tr class="border-t border-outline-variant hover:bg-surface-container-low cursor-pointer">
-      <td class="p-3 font-bold" onclick="openReport('${r.id}')">${r.id}</td>
-      <td class="p-3">${r.date}</td><td class="p-3">${r.type}</td><td class="p-3">${r.loc}</td>
-      <td class="p-3"><span class="pill px-2 py-1 text-xs font-bold ${pill(r.status)}">${r.status}</span></td>
-      <td class="p-3"><button class="btn-ghost text-xs" onclick="resolveReport('${r.id}')">Resolve</button></td>
-    </tr>`).join('');
-}
-function openReport(id){const r=REPORTS_ALL.find(x=>x.id===id);document.getElementById('reportDetailBody').innerHTML=`<div class="space-y-2"><div><b>ID:</b> ${r.id}</div><div><b>Date:</b> ${r.date}</div><div><b>Type:</b> ${r.type}</div><div><b>Location:</b> ${r.loc}</div><div><b>Status:</b> ${r.status}</div><p class="text-on-surface-variant">Detailed narrative would appear here.</p></div>`;openModal('reportDetail');}
-function resolveReport(id){const r=REPORTS_ALL.find(x=>x.id===id);if(r){r.status='Resolved';renderReports();showToast('Report resolved','success');}}
-function exportCSV(){const rows=[['ID','Date','Type','Location','Status'],...REPORTS_ALL.map(r=>[r.id,r.date,r.type,r.loc,r.status])];const csv=rows.map(r=>r.join(',')).join('\n');const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='reports.csv';a.click();showToast('CSV exported','success');}
-
-/* ============== SETTINGS ============== */
-const notifSettings={'Push Notifications':true,'Email Reminders':true,'Hydration Reminders':true,'Sleep Alerts':false,'Stress Check-ins':true};
-function renderNotifs(){
-  const c=document.getElementById('notifList');c.innerHTML='';
-  Object.entries(notifSettings).forEach(([k,v])=>{
-    const row=document.createElement('div');row.className='flex items-center justify-between';
-    row.innerHTML=`<span class="text-sm">${k}</span><div class="toggle ${v?'on':''}"></div>`;
-    row.querySelector('.toggle').addEventListener('click',e=>{notifSettings[k]=!notifSettings[k];e.target.classList.toggle('on');showToast(k+': '+(notifSettings[k]?'ON':'OFF'),'info');});
-    c.appendChild(row);
-  });
-}
-let moodHistory=[];
-function downloadData(){const blob=new Blob([JSON.stringify({profile:{name:'Alex Johnson',grade:'11-A'},cups,moodHistory,feelHistory,notifSettings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my_data.json';a.click();showToast('Data downloaded','success');}
-function clearMoodHistory(){document.getElementById('confirmTitle').textContent='Clear mood history?';document.getElementById('confirmMsg').textContent='This cannot be undone.';document.getElementById('confirmOk').onclick=()=>{moodHistory=[];feelHistory=[];closeModal('confirmModal');showToast('Mood history cleared','success');};openModal('confirmModal');}
-
-const I18N={en:{brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Settings'},id:{brand:'SafeSchoolHub',dashTitle:'Kesejahteraan Siswa',settings:'Pengaturan'}};
-function setLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[l][el.dataset.i18n];if(v)el.textContent=v;});showToast('Language: '+l.toUpperCase(),'info');}
+/* ============== HYDRATION (noop — handled by hydration.html) ============== */
+let cups=0;
+function renderHyd(){}
+function changeCup(){}
 
 /* ============== INIT ============== */
-renderHyd();renderNotifs();
+function renderNotifs(){const c=document.getElementById('notifList');if(!c)return;}
+renderNotifs();
 initPage();
 </script>
 </body>
