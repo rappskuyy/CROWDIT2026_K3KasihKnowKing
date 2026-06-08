@@ -1,5 +1,21 @@
 // Global Theme and Language Management System
-
+// Mengecek dan menerapkan tema setiap kali halaman apapun dimuat
+function applyGlobalTheme(theme){
+  globalCurrentTheme = theme;
+  localStorage.setItem('appTheme', theme);
+  
+  if(theme === 'dark') {
+    document.documentElement.classList.add('dark');
+    document.body.classList.add('dark-theme');
+    document.documentElement.style.colorScheme = 'dark';
+  } else {
+    document.documentElement.classList.remove('dark');
+    document.body.classList.remove('dark-theme');
+    document.documentElement.style.colorScheme = 'light';
+  }
+}
+// Jalankan langsung saat script di-load
+applyGlobalTheme();
 const GLOBAL_I18N={
   en:{
     brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Settings',
