@@ -66,6 +66,7 @@ tailwind.config = {
   </div>
   <nav class="px-3 mt-2 flex flex-col gap-1">
     <a class="nav-link" href="index.html" data-route="overview"><span class="material-symbols-outlined">dashboard</span>Dashboard</a>
+    <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
     <a class="nav-link active" href="gadget-time.html" data-route="gadget-time"><span class="material-symbols-outlined">monitor_heart</span>Wellness Tracking</a>
     <a class="nav-link" href="hydration.html" data-route="hydration"><span class="material-symbols-outlined">water_drop</span>Hydration</a>
     <a class="nav-link" href="sleep.html" data-route="sleep"><span class="material-symbols-outlined">bedtime</span>Sleep</a>
@@ -106,154 +107,133 @@ tailwind.config = {
     <!-- ==================== PAGE: GADGET TIME ==================== -->
     <section id="page-gadget-time" class="page active">
       <div class="max-w-2xl mx-auto">
+        <span class="stat-pill-red pill px-3 py-1 text-xs font-bold inline-block mb-3">High Usage Alert</span>
+        <h1 class="text-3xl font-extrabold">Gadget Time & Posture Monitor</h1>
+        <p class="text-on-surface-variant mt-1 mb-6">Personalized insights to maintain your physical well-being.</p>
 
-        <!-- Header -->
-        <div class="flex items-start justify-between mb-6">
-          <div>
-            <span id="usageAlertPill" class="stat-pill-red pill px-3 py-1 text-xs font-bold inline-block mb-3">High Usage Alert</span>
-            <h1 class="text-3xl font-extrabold">Gadget Time & Posture Monitor</h1>
-            <p class="text-on-surface-variant mt-1">Personalized insights to maintain your physical well-being.</p>
-          </div>
-          <!-- Live indicator -->
-          <div class="flex items-center gap-2 mt-1">
-            <span class="w-2 h-2 rounded-full bg-secondary animate-pulse inline-block"></span>
-            <span class="text-xs text-on-surface-variant font-semibold">LIVE</span>
-          </div>
-        </div>
-
-        <!-- ===== MAIN TIMER CARD ===== -->
         <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-1">
-            <div>
-              <div class="text-sm font-semibold">Total Screen Time</div>
-              <div class="text-xs text-on-surface-variant">Active device monitoring for today</div>
-            </div>
-            <!-- Tracking toggle -->
-            <div class="flex items-center gap-2">
-              <span class="text-xs text-on-surface-variant font-semibold" id="trackingLabel">Tracking ON</span>
-              <div class="toggle on" id="trackingToggle" onclick="toggleTracking()"></div>
-            </div>
+          <div class="text-sm font-semibold">Total Screen Time</div>
+          <div class="text-xs text-on-surface-variant">Active device monitoring for today</div>
+          <div class="flex items-end gap-3 mt-2">
+            <div class="text-4xl font-extrabold" id="gtTotalTime" style="color:#ba1a1a">0h 00m</div>
+            <span class="pill px-2 py-1 text-xs font-bold mb-1" id="gtChangePill" style="background:#ffdad6;color:#93000a">Belum dimulai</span>
           </div>
-
-          <!-- Big time display -->
-          <div class="flex items-end gap-3 mt-3">
-            <div class="text-5xl font-extrabold tabular-nums" id="totalTimeDisplay" style="font-family:ui-monospace,monospace;color:#ba1a1a">0h 00m</div>
-            <span id="vsYesterdayPill" class="pill px-2 py-1 text-xs font-bold mb-2 stat-pill-yellow">—</span>
-          </div>
-
-          <!-- Colored zone bar -->
           <div class="mt-5 relative">
             <div class="h-3 rounded-full flex overflow-hidden">
-              <div style="width:37.5%;background:#22c55e"></div>
-              <div style="width:25%;background:#f59e0b"></div>
-              <div style="width:37.5%;background:#ef4444"></div>
+              <div style="width:30%;background:#22c55e"></div>
+              <div style="width:30%;background:#f59e0b"></div>
+              <div style="width:40%;background:#ef4444"></div>
             </div>
-            <!-- Current marker -->
-            <div class="absolute -top-5 transition-all duration-1000" id="zoneMarker" style="left:0%;transform:translateX(-50%)">
-              <div class="text-[10px] font-bold" id="zoneLabel" style="color:#22c55e">CURRENT</div>
-              <div class="text-center -mt-1" id="zoneArrow" style="color:#22c55e">▼</div>
+            <div class="absolute -top-5" style="left:78%;transform:translateX(-50%)">
+              <div class="text-[10px] font-bold text-error">CURRENT</div>
+              <div class="text-error text-center -mt-1">▼</div>
             </div>
-            <div class="flex justify-between text-[10px] text-on-surface-variant mt-2">
-              <span>Safe (0–3h)</span><span>Moderate (3–5h)</span><span>High (5h+)</span>
+            <div class="flex justify-between text-[10px] text-on-surface-variant mt-2"><span>Safe (0-3h)</span><span>Moderate (3-5h)</span><span>High (5h+)</span></div>
+          </div>
+          <div class="flex items-center justify-between mt-6 mb-2">
+            <div class="text-xs font-bold tracking-widest text-on-surface-variant">DEVICE BREAKDOWN</div>
+            <div class="flex gap-1" id="chartTypeTabs">
+              <button class="tab-btn active" data-ct="bar" onclick="switchChartType('bar')">Bar</button>
+              <button class="tab-btn" data-ct="donut" onclick="switchChartType('donut')">Donut</button>
             </div>
           </div>
-
-          <!-- Device breakdown chart -->
-          <div class="text-xs font-bold tracking-widest text-on-surface-variant mt-6 mb-2">DEVICE BREAKDOWN</div>
-          <svg viewBox="0 0 320 150" class="w-full h-36" id="deviceChart"></svg>
-
-          <!-- Device input buttons -->
-          <div class="grid grid-cols-4 gap-2 mt-4">
-            <button onclick="logDevice('Mobile')" class="btn-ghost text-xs py-2 flex flex-col items-center gap-1">
-              <span class="material-symbols-outlined" style="font-size:18px">smartphone</span>Mobile
-            </button>
-            <button onclick="logDevice('Tablet')" class="btn-ghost text-xs py-2 flex flex-col items-center gap-1">
-              <span class="material-symbols-outlined" style="font-size:18px">tablet</span>Tablet
-            </button>
-            <button onclick="logDevice('Laptop')" class="btn-ghost text-xs py-2 flex flex-col items-center gap-1">
-              <span class="material-symbols-outlined" style="font-size:18px">laptop</span>Laptop
-            </button>
-            <button onclick="logDevice('Other')" class="btn-ghost text-xs py-2 flex flex-col items-center gap-1">
-              <span class="material-symbols-outlined" style="font-size:18px">devices_other</span>Other
-            </button>
-          </div>
-          <div class="text-xs text-on-surface-variant mt-2 text-center">Ketuk perangkat yang sedang kamu gunakan (+15 menit)</div>
-        </div>
-
-        <!-- ===== WEEKLY CHART CARD ===== -->
-        <div class="card p-5 mb-5">
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-bold">Screen Time Mingguan</h3>
-            <span class="text-xs text-on-surface-variant" id="weekAvgLabel">Avg: —</span>
-          </div>
-          <svg viewBox="0 0 320 150" class="w-full h-36" id="weeklyGadgetChart"></svg>
-          <div class="flex gap-2 mt-3 flex-wrap">
-            <span class="flex items-center gap-1 text-xs"><span class="w-3 h-3 rounded-sm inline-block" style="background:#22c55e"></span>Aman (&lt;3j)</span>
-            <span class="flex items-center gap-1 text-xs"><span class="w-3 h-3 rounded-sm inline-block" style="background:#f59e0b"></span>Sedang (3–5j)</span>
-            <span class="flex items-center gap-1 text-xs"><span class="w-3 h-3 rounded-sm inline-block" style="background:#ef4444"></span>Tinggi (&gt;5j)</span>
+          <div id="screenTimeChart" class="w-full"></div>
+          <div class="mt-3 grid grid-cols-2 gap-2" id="deviceLegend">
+            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#106399"></span><span>Laptop: —</span></div>
+            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#5a9bd5"></span><span>Mobile: —</span></div>
+            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#a5d8ff"></span><span>Tablet: —</span></div>
+            <div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:#dce9ff"></span><span>Other: —</span></div>
           </div>
         </div>
 
-        <!-- ===== STRETCH BREAK CARD ===== -->
         <div class="card p-5 mb-5">
           <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center">
-              <span class="material-symbols-outlined text-primary">accessibility_new</span>
-            </div>
+            <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-primary">accessibility_new</span></div>
             <div>
               <div class="font-bold">Stretch Break</div>
-              <div class="text-xs text-on-surface-variant" id="stretchNextMsg">Next stretch in 15 minutes</div>
+              <div class="text-xs text-on-surface-variant">Next stretch in 15 minutes</div>
             </div>
           </div>
-          <div class="text-5xl font-extrabold text-center my-4 tabular-nums" id="stretchCountdown" style="font-family:ui-monospace,monospace">00:15:00</div>
-          <div class="h-2 rounded-full bg-surface-container overflow-hidden mb-4">
-            <div id="stretchProgress" class="h-full bg-primary rounded-full transition-all duration-1000" style="width:0%"></div>
-          </div>
+          <div class="text-5xl font-extrabold text-center my-4 tabular-nums" id="stretchCountdown" style="font-family:ui-monospace,monospace">00:14:54</div>
           <div class="rounded-2xl overflow-hidden mb-3">
-            <div class="h-28 flex items-center justify-center" style="background:linear-gradient(135deg,#5eead4,#0891b2)">
-              <div class="text-white text-center">
-                <div class="text-3xl mb-1">🧘</div>
-                <div class="text-sm font-bold">Seated Twist</div>
-              </div>
+            <div class="flex items-center justify-center py-4" style="background:linear-gradient(135deg,#5eead4,#0891b2)">
+              <svg id="stretchAnim" viewBox="0 0 120 130" width="140" height="130" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body: seated stretch person animation -->
+                <style>
+                  #head { animation: headBob 2s ease-in-out infinite; transform-origin: 60px 22px; }
+                  #torso { animation: torsoStretch 3s ease-in-out infinite; transform-origin: 60px 60px; }
+                  #armLeft { animation: armSwingLeft 3s ease-in-out infinite; transform-origin: 50px 52px; }
+                  #armRight { animation: armSwingRight 3s ease-in-out infinite; transform-origin: 70px 52px; }
+                  #legLeft { animation: legSit 3s ease-in-out infinite; transform-origin: 50px 80px; }
+                  #legRight { animation: legSit 3s ease-in-out infinite 0.15s; transform-origin: 70px 80px; }
+                  @keyframes headBob { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-3px) rotate(-5deg)} }
+                  @keyframes torsoStretch { 0%,100%{transform:rotate(0deg)} 30%{transform:rotate(-15deg)} 60%{transform:rotate(10deg)} }
+                  @keyframes armSwingLeft { 0%,100%{transform:rotate(0deg)} 30%{transform:rotate(-70deg)} 60%{transform:rotate(30deg)} }
+                  @keyframes armSwingRight { 0%,100%{transform:rotate(0deg)} 30%{transform:rotate(60deg)} 60%{transform:rotate(-20deg)} }
+                  @keyframes legSit { 0%,100%{transform:rotate(0deg)} 50%{transform:rotate(5deg)} }
+                  #glow { animation: pulse 2s ease-in-out infinite; }
+                  @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.7} }
+                </style>
+                <!-- Glow effect -->
+                <ellipse id="glow" cx="60" cy="120" rx="35" ry="8" fill="rgba(255,255,255,0.4)"/>
+                <!-- Chair/seat -->
+                <rect x="30" y="90" width="60" height="8" rx="4" fill="rgba(255,255,255,0.3)"/>
+                <rect x="28" y="98" width="6" height="22" rx="3" fill="rgba(255,255,255,0.25)"/>
+                <rect x="86" y="98" width="6" height="22" rx="3" fill="rgba(255,255,255,0.25)"/>
+                <!-- Head -->
+                <g id="head">
+                  <circle cx="60" cy="22" r="12" fill="rgba(255,255,255,0.9)"/>
+                  <!-- Eyes -->
+                  <circle cx="56" cy="21" r="1.5" fill="#0891b2"/>
+                  <circle cx="64" cy="21" r="1.5" fill="#0891b2"/>
+                  <!-- Smile -->
+                  <path d="M56 26 Q60 29 64 26" stroke="#0891b2" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                </g>
+                <!-- Torso -->
+                <g id="torso">
+                  <rect x="50" y="36" width="20" height="40" rx="8" fill="rgba(255,255,255,0.85)"/>
+                </g>
+                <!-- Left arm -->
+                <g id="armLeft">
+                  <path d="M50 50 Q35 45 28 38" stroke="rgba(255,255,255,0.9)" stroke-width="7" stroke-linecap="round" fill="none"/>
+                </g>
+                <!-- Right arm -->
+                <g id="armRight">
+                  <path d="M70 50 Q85 45 92 38" stroke="rgba(255,255,255,0.9)" stroke-width="7" stroke-linecap="round" fill="none"/>
+                </g>
+                <!-- Left leg -->
+                <g id="legLeft">
+                  <path d="M53 76 L48 92 L35 95" stroke="rgba(255,255,255,0.85)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </g>
+                <!-- Right leg -->
+                <g id="legRight">
+                  <path d="M67 76 L72 92 L85 95" stroke="rgba(255,255,255,0.85)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                </g>
+              </svg>
             </div>
             <div class="p-3 bg-surface-container-low">
               <div class="text-[10px] font-bold tracking-widest text-on-surface-variant">RECOMMENDED</div>
-              <div class="text-sm mt-1">The 'Seated Twist' – Good for lower back relief during long study sessions.</div>
+              <div class="text-sm mt-1">The 'Seated Twist' — Good for lower back relief during long study sessions.</div>
             </div>
           </div>
           <button class="btn-primary w-full" onclick="startStretchSession()">Start a 5-minute Stretch Session</button>
         </div>
 
-        <!-- ===== TIP + STATS ===== -->
         <div class="card p-5 mb-5" style="background:#d1fae5">
           <div class="flex items-start gap-3">
             <span class="material-symbols-outlined text-secondary">lightbulb</span>
             <div>
-              <div class="font-bold" id="postureTipTitle">Posture Tip</div>
-              <div class="text-sm" id="postureTipText">Keep your screen at eye level to reduce neck strain. Try raising your laptop by 5 inches.</div>
-              <button class="text-secondary text-xs font-bold mt-2" onclick="cycleTip()">Tip berikutnya →</button>
+              <div class="font-bold">Posture Tip</div>
+              <div class="text-sm">Keep your screen at eye level to reduce neck strain. Try raising your laptop by 5 inches.</div>
             </div>
           </div>
         </div>
 
         <div class="grid grid-cols-3 gap-3">
-          <div class="card p-4 text-center">
-            <span class="material-symbols-outlined text-primary">visibility</span>
-            <div class="text-xs font-bold mt-1">Eye Strain</div>
-            <div class="text-xs font-bold mt-0.5" id="eyeStrainLabel">Low Risk</div>
-          </div>
-          <div class="card p-4 text-center cursor-pointer" onclick="incStretch()">
-            <span class="material-symbols-outlined text-primary">accessibility_new</span>
-            <div class="text-xs font-bold mt-1">Daily Stretches</div>
-            <div class="text-xs text-on-surface-variant"><span id="stretchCount">0</span> / 6 Done</div>
-          </div>
-          <div class="card p-4 text-center">
-            <span class="material-symbols-outlined text-primary">history</span>
-            <div class="text-xs font-bold mt-1">7-day Avg</div>
-            <div class="text-xs text-on-surface-variant" id="weekAvgSmall">—</div>
-          </div>
+          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">visibility</span><div class="text-xs font-bold mt-1">Eye Strain Level</div><div class="text-xs text-on-surface-variant">Moderate Risk</div></div>
+          <div class="card p-4 text-center cursor-pointer" onclick="incStretch()"><span class="material-symbols-outlined text-primary">accessibility_new</span><div class="text-xs font-bold mt-1">Daily Stretches</div><div class="text-xs text-on-surface-variant"><span id="stretchCount">4</span> / 6 Completed</div></div>
+          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">history</span><div class="text-xs font-bold mt-1">Weekly Average</div><div class="text-xs text-on-surface-variant">5h 42m / day</div></div>
         </div>
-
       </div>
     </section>
 
@@ -346,10 +326,10 @@ tailwind.config = {
 
 <script>
 /* ============== ROUTER ============== */
-const ROUTE_FILES={"overview": "index.html", "safety": "safety.html", "gadget-time": "gadget-time.html", "hydration": "hydration.html", "sleep": "sleep.html", "breathing": "breathing.html", "reports": "reports.html", "counseling": "counseling.html", "settings": "settings.html"};
+const ROUTE_FILES={"overview": "index.html", "educational": "educational.html", "gadget-time": "gadget-time.html", "hydration": "hydration.html", "sleep": "sleep.html", "breathing": "breathing.html", "reports": "reports.html", "counseling": "counseling.html", "settings": "settings.html"};
 const CURRENT_ROUTE='gadget-time';
 function navigate(r){if(r==='dashboard')r='overview';if(ROUTE_FILES[r]&&r!==CURRENT_ROUTE){location.href=ROUTE_FILES[r];return;}document.querySelectorAll('.nav-link').forEach(n=>n.classList.toggle('active',n.dataset.route===r));window.scrollTo({top:0,behavior:'smooth'});initPage();}
-function initPage(){const r=CURRENT_ROUTE;if(r==='gadget-time'){updateUI();}if(r==='sleep'){drawSleepArch();}if(r==='breathing'){drawWeeklyMood();}if(r==='reports'){renderReports();}}
+function initPage(){const r=CURRENT_ROUTE;if(r==='overview'){drawMoodChart();renderScreenTimeChart();setTimeout(()=>{const sb=document.getElementById('stressBar');if(sb)sb.style.width='30%';},50);}if(r==='hydration'){drawHydWeek();}if(r==='sleep'){drawSleepArch();}if(r==='breathing'){drawWeeklyMood();}if(r==='reports'){renderReports();}}
 document.querySelectorAll('[data-route]').forEach(el=>el.addEventListener('click',()=>navigate(el.dataset.route)));
 
 /* ============== TOAST ============== */
@@ -381,320 +361,301 @@ function confirmLogout(){
 }
 document.getElementById('sidebar-logout').addEventListener('click',confirmLogout);
 
-/* ============== HYDRATION (baca dari localStorage) ============== */
-function renderHyd(){ /* hydration handled by hydration.html, noop here */ }
+/* ============== MOOD CHART ============== */
+const moodData={0:[1,2,1,2,1,2,1],1:[2,3,2,3,2,3,2],2:[3,4,3,5,4,4,3],3:[4,5,4,5,4,5,4],4:[5,5,5,5,5,5,5]};
+let currentMood=2;
+function drawMoodChart(){
+  const data=moodData[currentMood], w=420, h=180, pad=24;
+  const xs=data.map((_,i)=>pad+i*(w-2*pad)/6);
+  const ys=data.map(v=>h-pad-(v-1)*(h-2*pad)/4);
+  let d='M'+xs[0]+','+ys[0];
+  for(let i=1;i<xs.length;i++){const cx=(xs[i-1]+xs[i])/2;d+=' Q'+cx+','+ys[i-1]+' '+cx+','+(ys[i-1]+ys[i])/2+' T'+xs[i]+','+ys[i];}
+  const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  let svg=`<svg viewBox="0 0 ${w} ${h}" class="w-full h-44">`;
+  for(let i=1;i<=4;i++){const y=pad+i*(h-2*pad)/5;svg+=`<line x1="${pad}" y1="${y}" x2="${w-pad}" y2="${y}" stroke="#e5eeff" stroke-width="1"/>`;}
+  svg+=`<path d="${d}" fill="none" stroke="#106399" stroke-width="3" stroke-linecap="round" stroke-dasharray="800" stroke-dashoffset="800"><animate attributeName="stroke-dashoffset" to="0" dur="0.8s" fill="freeze"/></path>`;
+  xs.forEach((x,i)=>{svg+=`<circle cx="${x}" cy="${ys[i]}" r="4" fill="#106399"><title>${days[i]}: ${data[i]}</title></circle>`;});
+  xs.forEach((x,i)=>{svg+=`<text x="${x}" y="${h-4}" text-anchor="middle" font-size="10" fill="#41474f">${days[i]}</text>`;});
+  svg+=`</svg>`;
+  document.getElementById('moodChart').innerHTML=svg;
+}
+document.querySelectorAll('#moodSelectors button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#moodSelectors button').forEach(x=>x.classList.remove('selected'));
+  b.classList.add('selected');currentMood=+b.dataset.mood;drawMoodChart();showToast('Mood updated','success');
+}));
 
-/* ============== GADGET TIME — REAL-TIME TRACKER ============== */
+/* ============== DEVICE BREAKDOWN CHART (localStorage-aware) ============== */
+const DEVICE_COLORS=['#106399','#5a9bd5','#a5d8ff','#dce9ff'];
+const DEVICE_LABELS=['Laptop','Mobile','Tablet','Other'];
 
-// ---- localStorage helpers ----
-function gtDayKey(daysAgo = 0) {
-  const d = new Date(); d.setDate(d.getDate() - daysAgo);
+function gtDayKey(daysAgo=0){
+  const d=new Date();d.setDate(d.getDate()-daysAgo);
   return `gt_${d.getFullYear()}_${String(d.getMonth()).padStart(2,'0')}_${String(d.getDate()).padStart(2,'0')}`;
 }
-function gtLoadToday() {
-  try {
-    const raw = localStorage.getItem('gadget_today');
-    if (!raw) return null;
-    const data = JSON.parse(raw);
-    if (data.date !== gtDayKey()) return null;
+function fmtHMGt(sec){const h=Math.floor(sec/3600),m=Math.floor((sec%3600)/60);return h>0?`${h}h ${String(m).padStart(2,'0')}m`:`${m}m`;}
+
+function loadGadgetDataFromLS(){
+  try{
+    const raw=localStorage.getItem('gadget_today');
+    if(!raw) return null;
+    const data=JSON.parse(raw);
+    if(data.date!==gtDayKey()) return null;
     return data;
-  } catch(e) { return null; }
-}
-function gtSaveToday() {
-  const data = { date: gtDayKey(), totalSec, deviceSec: {...deviceSec}, stretchCount, tracking };
-  localStorage.setItem('gadget_today', JSON.stringify(data));
-  // juga simpan ke histori
-  const hist = gtLoadHistory();
-  hist[gtDayKey()] = Math.round(totalSec / 60); // simpan dalam menit
-  localStorage.setItem('gadget_history', JSON.stringify(hist));
-}
-function gtLoadHistory() {
-  try { return JSON.parse(localStorage.getItem('gadget_history') || '{}'); }
-  catch(e) { return {}; }
-}
-function gtYesterdayMin() {
-  const hist = gtLoadHistory();
-  return hist[gtDayKey(1)] || null;
+  }catch(e){return null;}
 }
 
-// ---- State ----
-let totalSec = 0;
-let deviceSec = { Mobile: 0, Tablet: 0, Laptop: 0, Other: 0 };
-let stretchCount = 0;
-let tracking = true;
-let gtInterval = null;
+function loadGadgetDataYesterday(){
+  try{
+    const raw=localStorage.getItem('gadget_yesterday');
+    if(!raw) return null;
+    const data=JSON.parse(raw);
+    return data;
+  }catch(e){return null;}
+}
 
-// Restore dari localStorage
-(function restoreState() {
-  const saved = gtLoadToday();
-  if (saved) {
-    totalSec = saved.totalSec || 0;
-    deviceSec = { Mobile: 0, Tablet: 0, Laptop: 0, Other: 0, ...saved.deviceSec };
-    stretchCount = saved.stretchCount || 0;
-    tracking = saved.tracking !== undefined ? saved.tracking : true;
+function getDeviceData(){
+  const ls=loadGadgetDataFromLS();
+  const totalSec=ls?ls.totalSec||0:0;
+  const totalMin=Math.round(totalSec/60);
+  // If we have device breakdown in LS use it, else estimate with fixed ratios
+  if(ls&&ls.devices){
+    return ls.devices.map((m,i)=>({label:DEVICE_LABELS[i],minutes:m,color:DEVICE_COLORS[i]}));
   }
-})();
-
-// ---- Format helpers ----
-function fmtHM(sec) {
-  const h = Math.floor(sec / 3600);
-  const m = Math.floor((sec % 3600) / 60);
-  return h > 0 ? `${h}h ${String(m).padStart(2,'0')}m` : `${m}m`;
-}
-function fmtHMShort(min) {
-  const h = Math.floor(min / 60), m = min % 60;
-  return h > 0 ? `${h}j ${m}m` : `${m}m`;
+  // Estimated split: Laptop 50%, Mobile 30%, Tablet 13%, Other 7%
+  const ratios=[0.50,0.30,0.13,0.07];
+  return DEVICE_LABELS.map((label,i)=>({label,minutes:Math.round(totalMin*ratios[i]),color:DEVICE_COLORS[i]}));
 }
 
-// ---- Main clock ----
-function startGtClock() {
-  if (gtInterval) clearInterval(gtInterval);
-  gtInterval = setInterval(() => {
-    if (!tracking) return;
-    totalSec++;
-    if (totalSec % 30 === 0) gtSaveToday(); // auto-save tiap 30 detik
-    updateUI();
-  }, 1000);
-}
-
-// ---- Toggle tracking ----
-function toggleTracking() {
-  tracking = !tracking;
-  document.getElementById('trackingToggle').classList.toggle('on', tracking);
-  document.getElementById('trackingLabel').textContent = tracking ? 'Tracking ON' : 'Tracking OFF';
-  gtSaveToday();
-  showToast(tracking ? '▶ Tracking dilanjutkan' : '⏸ Tracking dijeda', 'info');
-}
-
-// ---- Log device ----
-function logDevice(dev) {
-  deviceSec[dev] = (deviceSec[dev] || 0) + 15 * 60; // +15 menit
-  totalSec += 15 * 60;
-  gtSaveToday();
-  updateUI();
-  showToast(`+15 menit di ${dev} dicatat 📱`, 'success');
-}
-
-// ---- Update all UI ----
-function updateUI() {
-  // Big time
-  const el = document.getElementById('totalTimeDisplay');
-  if (el) {
-    el.textContent = fmtHM(totalSec);
-    const hours = totalSec / 3600;
-    el.style.color = hours >= 5 ? '#ba1a1a' : hours >= 3 ? '#d97706' : '#1c6c3f';
+function updateGtHeader(){
+  const ls=loadGadgetDataFromLS();
+  const totalSec=ls?ls.totalSec||0:0;
+  const hours=totalSec/3600;
+  const timeEl=document.getElementById('gtTotalTime');
+  const pillEl=document.getElementById('gtChangePill');
+  if(timeEl) timeEl.textContent=fmtHMGt(totalSec);
+  if(timeEl){
+    if(hours>=5) timeEl.style.color='#ba1a1a';
+    else if(hours>=3) timeEl.style.color='#d97706';
+    else if(totalSec>0) timeEl.style.color='#1c6c3f';
+    else timeEl.style.color='#41474f';
   }
-
-  // Alert pill
-  const alertPill = document.getElementById('usageAlertPill');
-  if (alertPill) {
-    const h = totalSec / 3600;
-    if (h >= 5) { alertPill.textContent='High Usage Alert'; alertPill.className='stat-pill-red pill px-3 py-1 text-xs font-bold inline-block mb-3'; }
-    else if (h >= 3) { alertPill.textContent='Moderate Usage'; alertPill.className='stat-pill-yellow pill px-3 py-1 text-xs font-bold inline-block mb-3'; }
-    else { alertPill.textContent='Usage Aman'; alertPill.className='stat-pill-green pill px-3 py-1 text-xs font-bold inline-block mb-3'; }
-  }
-
-  // vs yesterday
-  const yest = gtYesterdayMin();
-  const pill = document.getElementById('vsYesterdayPill');
-  if (pill && yest !== null) {
-    const todayMin = Math.round(totalSec / 60);
-    const diff = todayMin - yest;
-    const pct = yest > 0 ? Math.round(Math.abs(diff) / yest * 100) : 0;
-    if (diff > 5) {
-      pill.textContent = `+${pct}% dari kemarin`;
-      pill.className = 'stat-pill-red pill px-2 py-1 text-xs font-bold mb-2';
-    } else if (diff < -5) {
-      pill.textContent = `-${pct}% dari kemarin`;
-      pill.className = 'stat-pill-green pill px-2 py-1 text-xs font-bold mb-2';
+  // Perbandingan kemarin
+  const yday=loadGadgetDataYesterday();
+  if(pillEl){
+    if(!ls||totalSec===0){
+      pillEl.textContent='Belum dimulai';
+      pillEl.style.cssText='background:#e5eeff;color:#106399';
+    } else if(yday&&yday.totalSec>0){
+      const diff=totalSec-yday.totalSec;
+      const pct=Math.round(Math.abs(diff)/yday.totalSec*100);
+      if(diff>0){
+        pillEl.textContent=`+${pct}% dari kemarin`;
+        pillEl.style.cssText='background:#ffdad6;color:#93000a';
+      } else {
+        pillEl.textContent=`-${pct}% dari kemarin`;
+        pillEl.style.cssText='background:#d1fae5;color:#1c6c3f';
+      }
     } else {
-      pill.textContent = 'Sama dgn kemarin';
-      pill.className = 'stat-pill-yellow pill px-2 py-1 text-xs font-bold mb-2';
+      pillEl.textContent=hours>=5?'Perlu Istirahat!':hours>=3?'Sedang':'Baik ✓';
+      if(hours>=5) pillEl.style.cssText='background:#ffdad6;color:#93000a';
+      else if(hours>=3) pillEl.style.cssText='background:#fff3c4;color:#8a6500';
+      else pillEl.style.cssText='background:#d1fae5;color:#1c6c3f';
     }
-  } else if (pill) {
-    pill.textContent = 'Hari pertama';
-    pill.className = 'bg-surface-container text-on-surface-variant pill px-2 py-1 text-xs font-bold mb-2';
   }
-
-  // Zone marker
-  const marker = document.getElementById('zoneMarker');
-  const zoneLabel = document.getElementById('zoneLabel');
-  const zoneArrow = document.getElementById('zoneArrow');
-  if (marker) {
-    const hours = totalSec / 3600;
-    const maxH = 8;
-    const pct = Math.min(100, (hours / maxH) * 100);
-    marker.style.left = pct + '%';
-    let color = hours < 3 ? '#22c55e' : hours < 5 ? '#f59e0b' : '#ef4444';
-    if (zoneLabel) { zoneLabel.textContent = 'CURRENT'; zoneLabel.style.color = color; }
-    if (zoneArrow) zoneArrow.style.color = color;
-  }
-
-  // Eye strain
-  const eyeEl = document.getElementById('eyeStrainLabel');
-  if (eyeEl) {
-    const h = totalSec / 3600;
-    eyeEl.textContent = h < 2 ? 'Low Risk' : h < 4 ? 'Moderate Risk' : 'High Risk';
-    eyeEl.style.color = h < 2 ? '#1c6c3f' : h < 4 ? '#d97706' : '#ba1a1a';
-  }
-
-  // Stretch count
-  const scEl = document.getElementById('stretchCount');
-  if (scEl) scEl.textContent = stretchCount;
-
-  // Redraw charts
-  drawDeviceChart();
-  drawWeeklyGadgetChart();
+  // Update progress bar on the gauage
+  const barPct=Math.min(100,(hours/8)*100);
+  const cursorEl=document.getElementById('gtCursor');
+  if(cursorEl) cursorEl.style.left=Math.min(96,barPct)+'%';
+  // Update 3-color bar cursor
+  const cursorWrap=document.querySelector('.absolute.-top-5');
+  if(cursorWrap) cursorWrap.style.left=Math.min(96,barPct)+'%';
+  // Update legend
+  updateLegend();
 }
 
-// ---- Device breakdown chart ----
-function drawDeviceChart() {
-  const el = document.getElementById('deviceChart');
-  if (!el) return;
-  const devices = ['Mobile','Tablet','Laptop','Other'];
-  const colors = { Mobile:'#5a9bd5', Tablet:'#a5f4bb', Laptop:'#106399', Other:'#c1c7d1' };
-  const maxSec = Math.max(...Object.values(deviceSec), 3600); // min 1 jam skala
-  const chartH = 110, baseY = 120, barW = 40;
-  const xs = [20, 90, 160, 230];
-  let svg = '';
-  devices.forEach((dev, i) => {
-    const sec = deviceSec[dev] || 0;
-    const h = Math.max(2, (sec / maxSec) * chartH);
-    const y = baseY - h;
-    const isMax = sec === Math.max(...Object.values(deviceSec)) && sec > 0;
-    const col = isMax ? '#106399' : '#dce9ff';
-    const textCol = isMax ? '#106399' : '#41474f';
-    const label = sec > 0 ? fmtHM(sec) : '—';
-    svg += `<rect x="${xs[i]}" y="${y}" width="${barW}" height="${h}" rx="6" fill="${col}"><title>${dev}: ${label}</title></rect>`;
-    svg += `<text x="${xs[i]+barW/2}" y="${y-4}" text-anchor="middle" font-size="10" font-weight="700" fill="${textCol}">${label}</text>`;
-    svg += `<text x="${xs[i]+barW/2}" y="138" text-anchor="middle" font-size="10" fill="#41474f">${dev}</text>`;
+function updateLegend(){
+  const data=getDeviceData();
+  const legend=document.getElementById('deviceLegend');
+  if(!legend) return;
+  legend.innerHTML=data.map(d=>{
+    const h=Math.floor(d.minutes/60),m=d.minutes%60;
+    const label=h>0?`${h}h ${m}m`:`${m}m`;
+    return `<div class="flex items-center gap-2 text-xs"><span class="w-3 h-3 rounded-full inline-block" style="background:${d.color}"></span><span>${d.label}: ${label}</span></div>`;
+  }).join('');
+}
+
+let currentChartType='bar';
+function switchChartType(type){
+  currentChartType=type;
+  document.querySelectorAll('#chartTypeTabs button').forEach(b=>b.classList.toggle('active',b.dataset.ct===type));
+  renderScreenTimeChart();
+}
+
+function renderScreenTimeChart(){
+  updateGtHeader();
+  if(currentChartType==='donut') drawDonut();
+  else drawBarChart();
+}
+
+function drawDonut(){
+  const DEVICE_DATA=getDeviceData();
+  const TOTAL_MIN=DEVICE_DATA.reduce((s,d)=>s+d.minutes,0)||1;
+  const w=280,h=220,cx=140,cy=110,r=80,strokeW=22;
+  const circ=2*Math.PI*r;
+  let offset=0;
+  let slices='';
+  // Animation: each slice animates in
+  DEVICE_DATA.forEach((d,idx)=>{
+    const pct=d.minutes/TOTAL_MIN;
+    const dash=circ*pct;
+    const gap=circ*(1-pct);
+    const rotate=-90+(offset/TOTAL_MIN*360);
+    const animDelay=idx*0.15;
+    slices+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${d.color}" stroke-width="${strokeW}"
+      stroke-dasharray="${dash} ${gap}" stroke-dashoffset="${dash}" 
+      transform="rotate(${rotate} ${cx} ${cy})" stroke-linecap="butt"
+      style="transition:stroke-dashoffset 0.8s ease ${animDelay}s">
+      <title>${d.label}: ${Math.floor(d.minutes/60)}h ${d.minutes%60}m</title>
+    </circle>`;
+    offset+=d.minutes;
   });
-  el.innerHTML = svg;
+  const totalH=Math.floor(TOTAL_MIN/60),totalM=TOTAL_MIN%60;
+  const timeText=TOTAL_MIN===1?'—':(totalH>0?`${totalH}h ${totalM}m`:`${totalM}m`);
+  const svgHTML=`<div class="flex flex-col items-center gap-4 py-2">
+    <svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" xmlns="http://www.w3.org/2000/svg" style="max-width:100%">
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#e5eeff" stroke-width="${strokeW}"/>
+      ${slices}
+      <text x="${cx}" y="${cy-10}" text-anchor="middle" font-size="24" font-weight="800" fill="#0b1c30">${timeText}</text>
+      <text x="${cx}" y="${cy+14}" text-anchor="middle" font-size="12" fill="#41474f">Total Hari Ini</text>
+    </svg>
+    <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm w-full max-w-xs">
+      ${DEVICE_DATA.map(d=>{const h=Math.floor(d.minutes/60),m=d.minutes%60;const lbl=h>0?`${h}h ${m}m`:`${m}m`;return `
+        <div class="flex items-center gap-2">
+          <span style="width:12px;height:12px;border-radius:50%;background:${d.color};display:inline-block;flex-shrink:0"></span>
+          <span class="font-semibold">${d.label}</span>
+          <span class="text-on-surface-variant ml-auto">${lbl}</span>
+        </div>`;}).join('')}
+    </div>
+  </div>`;
+  document.getElementById('screenTimeChart').innerHTML=svgHTML;
+  // Trigger animation after DOM insert
+  setTimeout(()=>{
+    document.querySelectorAll('#screenTimeChart circle[stroke-dashoffset]').forEach(c=>{
+      const da=c.getAttribute('stroke-dasharray').split(' ')[0];
+      c.style.strokeDashoffset='0';
+    });
+  },50);
 }
 
-// ---- Weekly chart ----
-function drawWeeklyGadgetChart() {
-  const el = document.getElementById('weeklyGadgetChart');
-  if (!el) return;
-  const hist = gtLoadHistory();
-  const today = new Date();
-  const days = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
-  let data = [], labels = [];
-  for (let i = 6; i >= 0; i--) {
-    const d = new Date(); d.setDate(d.getDate() - i);
-    const key = `gt_${d.getFullYear()}_${String(d.getMonth()).padStart(2,'0')}_${String(d.getDate()).padStart(2,'0')}`;
-    const min = i === 0 ? Math.round(totalSec / 60) : (hist[key] || 0);
-    data.push(min);
-    labels.push(days[d.getDay()]);
-  }
-
-  const maxMin = Math.max(...data, 60);
-  const chartH = 110, baseY = 120, barW = 30;
-  let svg = '';
-  // Goal line 3 jam = 180 min
-  const goalY = baseY - (180 / maxMin) * chartH;
-  svg += `<line x1="10" y1="${goalY}" x2="310" y2="${goalY}" stroke="#22c55e" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>`;
-  svg += `<text x="305" y="${goalY-3}" text-anchor="end" font-size="8" fill="#22c55e">3j</text>`;
-  const dangerY = baseY - (300 / maxMin) * chartH;
-  svg += `<line x1="10" y1="${dangerY}" x2="310" y2="${dangerY}" stroke="#ef4444" stroke-width="1" stroke-dasharray="4 3" opacity="0.6"/>`;
-  svg += `<text x="305" y="${dangerY-3}" text-anchor="end" font-size="8" fill="#ef4444">5j</text>`;
-
-  data.forEach((min, i) => {
-    const x = 15 + i * 42;
-    const h = Math.max(2, (min / maxMin) * chartH);
-    const y = baseY - h;
-    const isToday = i === 6;
-    const col = min >= 300 ? '#ef4444' : min >= 180 ? '#f59e0b' : '#22c55e';
-    const opacity = isToday ? '1' : '0.65';
-    svg += `<rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="5" fill="${col}" opacity="${opacity}" stroke="${isToday?col:'none'}" stroke-width="2"><title>${labels[i]}: ${fmtHMShort(min)}</title></rect>`;
-    if (min > 0) svg += `<text x="${x+barW/2}" y="${y-4}" text-anchor="middle" font-size="9" font-weight="700" fill="${col}">${fmtHMShort(min)}</text>`;
-    svg += `<text x="${x+barW/2}" y="138" text-anchor="middle" font-size="10" fill="${isToday?'#106399':'#41474f'}" font-weight="${isToday?'700':'500'}">${labels[i]}</text>`;
-  });
-
-  // Avg
-  const validDays = data.filter(v => v > 0);
-  const avg = validDays.length ? Math.round(validDays.reduce((a,b)=>a+b,0)/validDays.length) : 0;
-  const avgEl = document.getElementById('weekAvgLabel');
-  const avgSmall = document.getElementById('weekAvgSmall');
-  if (avgEl) avgEl.textContent = `Avg: ${fmtHMShort(avg)}/hari`;
-  if (avgSmall) avgSmall.textContent = fmtHMShort(avg) + '/hari';
-
-  el.innerHTML = svg;
+function drawBarChart(){
+  const DEVICE_DATA=getDeviceData();
+  const maxMin=Math.max(...DEVICE_DATA.map(d=>d.minutes),1);
+  const bars=DEVICE_DATA.map(d=>{
+    const pct=(d.minutes/maxMin*100).toFixed(1);
+    const h=Math.floor(d.minutes/60),m=d.minutes%60;
+    const label=h>0?`${h}h ${m}m`:`${m}m`;
+    return `<div class="flex items-center gap-3 text-sm">
+      <span class="w-14 text-right font-semibold text-on-surface-variant text-xs">${d.label}</span>
+      <div class="flex-1 bg-surface-container rounded-full h-5 overflow-hidden">
+        <div style="width:${pct}%;background:${d.color};height:100%;border-radius:9999px;transition:width .6s ease"></div>
+      </div>
+      <span class="w-12 font-bold text-xs">${label}</span>
+    </div>`;
+  }).join('');
+  document.getElementById('screenTimeChart').innerHTML=`<div class="flex flex-col gap-3 py-3">${bars}</div>`;
 }
 
-// ---- Stretch countdown ----
-let stretchSec = 15 * 60;
-const STRETCH_TOTAL = 15 * 60;
-function tickStretch() {
-  if (stretchSec > 0) stretchSec--;
-  else {
-    stretchSec = STRETCH_TOTAL;
-    showToast('🧘 Waktunya stretch! Jangan lupa istirahat.', 'info');
-  }
-  const h = String(Math.floor(stretchSec / 3600)).padStart(2,'0');
-  const m = String(Math.floor((stretchSec % 3600) / 60)).padStart(2,'0');
-  const s = String(stretchSec % 60).padStart(2,'0');
-  const el = document.getElementById('stretchCountdown');
-  if (el) el.textContent = `${h}:${m}:${s}`;
-  const prog = document.getElementById('stretchProgress');
-  if (prog) prog.style.width = (100 - (stretchSec / STRETCH_TOTAL * 100)) + '%';
-  const msg = document.getElementById('stretchNextMsg');
-  if (msg) {
-    const mLeft = Math.floor(stretchSec / 60);
-    msg.textContent = mLeft > 0 ? `Stretch berikutnya dalam ${mLeft} menit` : 'Waktunya stretch sekarang!';
-  }
-}
-setInterval(tickStretch, 1000);
+/* Alias for initPage compatibility */
+function drawDonutAlias(){ renderScreenTimeChart(); }
 
-function incStretch() {
-  if (stretchCount < 6) {
-    stretchCount++;
-    stretchSec = STRETCH_TOTAL; // reset countdown
-    gtSaveToday();
-    updateUI();
-    showToast('✅ Stretch dicatat! ('+ stretchCount +'/6)', 'success');
-  } else {
-    showToast('Semua 6 stretch hari ini sudah selesai! 🎉', 'success');
-  }
-}
+/* ============== SLEEP TABS (dashboard card) ============== */
+document.querySelectorAll('#sleepTabs button').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#sleepTabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  const m={awake:[40,30,30],rem:[20,50,30],deep:[15,25,60]}[b.dataset.st];
+  document.getElementById('sleepSegA').style.width=m[0]+'%';
+  document.getElementById('sleepSegR').style.width=m[1]+'%';
+  document.getElementById('sleepSegD').style.width=m[2]+'%';
+}));
 
-function startStretchSession() {
+/* ============== HYDRATION (localStorage sync) ============== */
+function getHydTodayKey(){
+  const d=new Date();
+  return `hyd_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
+}
+function loadCupsFromLS(){
+  try{
+    const raw=localStorage.getItem('hydration_today');
+    if(!raw) return 0;
+    const data=JSON.parse(raw);
+    if(data.date!==getHydTodayKey()) return 0;
+    return data.cups||0;
+  }catch(e){return 0;}
+}
+function saveCupsToLS(c){
+  localStorage.setItem('hydration_today',JSON.stringify({date:getHydTodayKey(),cups:c}));
+}
+let cups=loadCupsFromLS();
+function renderHyd(){
+  const cupCountEl=document.getElementById('cupCount');
+  const hydDashEl=document.getElementById('hydDashCount');
+  if(cupCountEl) cupCountEl.textContent=cups;
+  if(hydDashEl) hydDashEl.textContent=cups;
+  const pct=cups/8*100;
+  const cupBar=document.getElementById('cupBar');
+  if(cupBar) cupBar.style.width=pct+'%';
+  const bf=document.getElementById('bottleFill');
+  if(bf){bf.setAttribute('y',12+(116*(1-pct/100)));bf.setAttribute('height',116*pct/100);}
+  const bpct=document.getElementById('bottlePct');
+  if(bpct) bpct.textContent=Math.round(pct)+'%';
+  // hyd dash segments
+  const seg=document.getElementById('hydSegments');
+  if(seg){seg.innerHTML='';for(let i=0;i<8;i++){const d=document.createElement('div');d.className='flex-1 h-3 rounded-full '+(i<cups?'bg-primary':'bg-surface-container');seg.appendChild(d);}}
+  const hydMsg=document.getElementById('hydMsg');
+  if(hydMsg) hydMsg.textContent=cups>=8?'Goal reached! Stay hydrated.':cups>=6?`You're doing great! Just ${8-cups} more cups to reach your optimal energy levels.`:'Keep drinking — you can do it!';
+}
+function changeCup(d){
+  cups=Math.max(0,Math.min(8,cups+d));
+  saveCupsToLS(cups);
+  renderHyd();
+  const bf=document.getElementById('bottleFill');if(bf){bf.style.transition='all .5s ease';}
+  showToast(d>0?'Cup added':'Cup removed','success');
+}
+const FACTS=['Just a 2% drop in hydration can cause significant fatigue and reduced alertness.','Your brain is ~75% water — staying hydrated improves memory.','Drinking water before meals can improve digestion and energy.'];
+let factIdx=0;
+function cycleFact(){factIdx=(factIdx+1)%FACTS.length;document.getElementById('factText').textContent=FACTS[factIdx];}
+function toggleAccordion(id){document.getElementById(id).classList.toggle('hidden');}
+function drawHydWeek(){
+  const data=[3,5,4,6,8,5,4],days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let svg='';
+  data.forEach((v,i)=>{const x=20+i*42,h=v*12,y=120-h;const color=i===4?'#106399':'#dce9ff';svg+=`<rect x="${x}" y="${y}" width="28" height="${h}" rx="6" fill="${color}"><title>${days[i]}: ${v}</title></rect><text x="${x+14}" y="135" text-anchor="middle" font-size="10" fill="#41474f">${days[i]}</text>`;});
+  document.getElementById('hydWeekChart').innerHTML=svg;
+}
+document.querySelectorAll('#hydWeekTabs button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#hydWeekTabs button').forEach(x=>x.classList.remove('active'));b.classList.add('active');drawHydWeek();}));
+function downloadReport(){const blob=new Blob(['Hydration Report\nCups today: '+cups],{type:'text/plain'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hydration_report.txt';a.click();showToast('Report downloaded','success');}
+
+/* ============== GADGET TIME ============== */
+let stretchSec=15*60;
+function tickStretch(){
+  stretchSec=stretchSec<=0?15*60:stretchSec-1;
+  const h=String(Math.floor(stretchSec/3600)).padStart(2,'0');
+  const m=String(Math.floor((stretchSec%3600)/60)).padStart(2,'0');
+  const s=String(stretchSec%60).padStart(2,'0');
+  const el=document.getElementById('stretchCountdown');if(el)el.textContent=`${h}:${m}:${s}`;
+}
+setInterval(tickStretch,1000);
+let stretchCount=4;
+function incStretch(){if(stretchCount<6){stretchCount++;document.getElementById('stretchCount').textContent=stretchCount;showToast('Stretch logged','success');}}
+function startStretchSession(){
   openModal('stretchModal');
-  let s = 5 * 60;
-  const el = document.getElementById('stretchSessionTime');
-  if (el) el.textContent = '05:00';
+  let s=5*60;
+  document.getElementById('stretchSessionTime').textContent='05:00';
   clearInterval(window._stretchSession);
-  window._stretchSession = setInterval(() => {
-    s--;
-    if (s <= 0) {
-      clearInterval(window._stretchSession);
-      closeModal('stretchModal');
-      incStretch();
-      return;
-    }
-    const mm = String(Math.floor(s/60)).padStart(2,'0'), ss = String(s%60).padStart(2,'0');
-    if (el) el.textContent = `${mm}:${ss}`;
-  }, 1000);
+  window._stretchSession=setInterval(()=>{
+    s--;if(s<=0){clearInterval(window._stretchSession);closeModal('stretchModal');showToast('Stretch session complete!','success');return;}
+    const m=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
+    document.getElementById('stretchSessionTime').textContent=`${m}:${ss}`;
+  },1000);
 }
-
-// ---- Posture tips ----
-const TIPS = [
-  { title: 'Posture Tip', text: 'Keep your screen at eye level to reduce neck strain. Try raising your laptop by 5 inches.' },
-  { title: 'Aturan 20-20-20', text: 'Setiap 20 menit, lihat objek sejauh 20 kaki selama 20 detik untuk mengurangi kelelahan mata.' },
-  { title: 'Posisi Duduk', text: 'Punggung tegak, kaki rata di lantai. Hindari membungkuk ke layar selama lebih dari 30 menit.' },
-  { title: 'Pencahayaan', text: 'Pastikan cahaya ruangan cukup dan layar tidak terlalu terang di malam hari.' },
-  { title: 'Gerakan Leher', text: 'Miringkan kepala kiri-kanan perlahan setiap jam untuk mencegah kekakuan leher.' },
-];
-let tipIdx = 0;
-function cycleTip() {
-  tipIdx = (tipIdx + 1) % TIPS.length;
-  document.getElementById('postureTipTitle').textContent = TIPS[tipIdx].title;
-  document.getElementById('postureTipText').textContent = TIPS[tipIdx].text;
-}
-
-// ---- Start everything ----
-startGtClock();
-updateUI();
 
 /* ============== SLEEP ============== */
 function drawSleepArch(){
@@ -794,7 +755,7 @@ function exportCSV(){const rows=[['ID','Date','Type','Location','Status'],...REP
 /* ============== SETTINGS ============== */
 const notifSettings={'Push Notifications':true,'Email Reminders':true,'Hydration Reminders':true,'Sleep Alerts':false,'Stress Check-ins':true};
 function renderNotifs(){
-  const c=document.getElementById('notifList');c.innerHTML='';
+  const c=document.getElementById('notifList');if(!c)return;c.innerHTML='';
   Object.entries(notifSettings).forEach(([k,v])=>{
     const row=document.createElement('div');row.className='flex items-center justify-between';
     row.innerHTML=`<span class="text-sm">${k}</span><div class="toggle ${v?'on':''}"></div>`;
@@ -810,8 +771,13 @@ const I18N={en:{brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Set
 function setLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[l][el.dataset.i18n];if(v)el.textContent=v;});showToast('Language: '+l.toUpperCase(),'info');}
 
 /* ============== INIT ============== */
-renderNotifs();
+renderHyd();
 initPage();
+if(CURRENT_ROUTE==='gadget-time'){
+  renderScreenTimeChart();
+  // Auto-refresh donut chart every 10 seconds to pick up new localStorage data
+  setInterval(renderScreenTimeChart,10000);
+}
 </script>
 </body>
 </html>
