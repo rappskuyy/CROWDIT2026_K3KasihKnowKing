@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SafeSchool — Platform Manajemen Sekolah Digital</title>
+  <title>SafeSchool — Platform Keselamatan & Wellness Siswa Digital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
@@ -1675,8 +1675,7 @@
     /* ───────────── RESPONSIVE ───────────── */
     @media (max-width: 1024px) {
       .hero-cards-grid {
-        grid-template-columns: repeat(3, 95px);
-        top: 80px;
+        display: none !important; /* Hide floating cards on small desktop & tablet to prevent text overlap */
       }
 
       .fitur-layout {
@@ -1704,6 +1703,10 @@
 
       .nav-cta {
         display: none;
+      }
+
+      .nav-actions {
+        display: none !important; /* Hide desktop action buttons on mobile */
       }
 
       .nav-hamburger {
@@ -1837,18 +1840,17 @@
     <ul class="nav-links">
       <li><a href="#fitur">Fitur</a></li>
       <li><a href="#cara-kerja">Cara Kerja</a></li>
-      <li><a href="#testimoni">Testimoni</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
 
-    <a href="#cta" class="btn-primary nav-cta" style="margin-left:0">Mulai Gratis</a>
+    <a href="#cta" class="btn-primary nav-cta" style="margin-left:0">Daftar</a>
 
     <div class="nav-actions" id="navActions">
       <button class="btn-ghost-nav" onclick="openLoginModal()">
         <span class="material-symbols-outlined">login</span>
         Masuk
       </button>
-      <a href="#cta" class="btn-primary nav-cta-d">Mulai Gratis</a>
+      <a href="#cta" class="btn-primary nav-cta-d">Daftar</a>
     </div>
 
     <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
@@ -1860,7 +1862,6 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#fitur" onclick="toggleMenu()">Fitur</a>
     <a href="#cara-kerja" onclick="toggleMenu()">Cara Kerja</a>
-    <a href="#testimoni" onclick="toggleMenu()">Testimoni</a>
     <a href="#faq" onclick="toggleMenu()">FAQ</a>
     <button class="btn-ghost-nav" style="width:100%;justify-content:center;padding:13px;"
       onclick="toggleMenu();openLoginModal()">
@@ -1877,46 +1878,46 @@
       <!-- Floating cards top-right -->
       <div class="hero-cards-grid">
         <div class="hero-card">
-          <span class="material-symbols-outlined">smart_display</span>
-          <span class="hero-card-label">VPL</span>
+          <span class="material-symbols-outlined">mood</span>
+          <span class="hero-card-label">Mood Tracker</span>
         </div>
         <div class="hero-card">
-          <span class="material-symbols-outlined">how_to_reg</span>
-          <span class="hero-card-label">Online Admission</span>
+          <span class="material-symbols-outlined">water_drop</span>
+          <span class="hero-card-label">Hydration</span>
         </div>
         <div class="hero-card">
-          <span class="material-symbols-outlined">payment</span>
-          <span class="hero-card-label">Fee Payment</span>
+          <span class="material-symbols-outlined">bedtime</span>
+          <span class="hero-card-label">Sleep Tracker</span>
         </div>
         <div class="hero-card">
-          <span class="material-symbols-outlined">menu_book</span>
-          <span class="hero-card-label">School Brochure</span>
+          <span class="material-symbols-outlined">self_improvement</span>
+          <span class="hero-card-label">Breathing</span>
         </div>
         <div class="hero-card">
-          <span class="material-symbols-outlined">sports</span>
-          <span class="hero-card-label">Sports Academy</span>
+          <span class="material-symbols-outlined">monitor_heart</span>
+          <span class="hero-card-label">Screen Time</span>
         </div>
         <div class="hero-card">
-          <span class="material-symbols-outlined">360</span>
-          <span class="hero-card-label">Virtual Tour</span>
+          <span class="material-symbols-outlined">support_agent</span>
+          <span class="hero-card-label">Counseling</span>
         </div>
       </div>
 
       <!-- Award badge -->
       <div class="hero-award">
         <div class="hero-award-circle">
-          <span class="material-symbols-outlined">location_on</span>
+          <span class="material-symbols-outlined">verified</span>
         </div>
         <div class="hero-award-text">
-          <span class="hero-award-title">AWARD WINNER</span>
-          <span class="hero-award-sub">2026 Excellence in Education</span>
+          <span class="hero-award-title">#1 PLATFORM</span>
+          <span class="hero-award-sub">2026 Student Wellness Innovation</span>
         </div>
       </div>
 
       <!-- Headline -->
-      <p class="hero-eyebrow">THE BEST EMERGING</p>
+      <p class="hero-eyebrow">KESELAMATAN & KESEJAHTERAAN SISWA</p>
       <div class="hero-headline-box">
-        <h1>SCHOOL OF THE YEAR</h1>
+        <h1>SAFE SCHOOL HUB</h1>
       </div>
 
     </div>
@@ -1929,25 +1930,25 @@
         <div class="ql-icon-wrap">
           <span class="material-symbols-outlined">info</span>
         </div>
-        <span class="ql-label">About</span>
+        <span class="ql-label">Tentang Kami</span>
       </div>
       <div class="ql-item" onclick="openGalleryModal()">
         <div class="ql-icon-wrap">
           <span class="material-symbols-outlined">photo_library</span>
         </div>
-        <span class="ql-label">Gallery</span>
+        <span class="ql-label">Galeri</span>
       </div>
       <div class="ql-item" onclick="openFacilitiesModal()">
         <div class="ql-icon-wrap">
-          <span class="material-symbols-outlined">apartment</span>
+          <span class="material-symbols-outlined">health_and_safety</span>
         </div>
-        <span class="ql-label">Facilities</span>
+        <span class="ql-label">Fasilitas</span>
       </div>
       <div class="ql-item">
         <div class="ql-icon-wrap">
-          <span class="material-symbols-outlined">child_care</span>
+          <span class="material-symbols-outlined">school</span>
         </div>
-        <span class="ql-label">Kindergarten</span>
+        <span class="ql-label">Edukasi</span>
       </div>
     </div>
   </section>
@@ -1957,7 +1958,7 @@
     <div class="stats-inner stagger">
       <div class="stat-item">
         <div class="stat-icon">
-          <span class="material-symbols-outlined">grid_view</span>
+          <span class="material-symbols-outlined">school</span>
         </div>
         <span class="stat-number">500+</span>
         <span class="stat-label">Sekolah Terdaftar</span>
@@ -1967,14 +1968,14 @@
           <span class="material-symbols-outlined">shield</span>
         </div>
         <span class="stat-number">50.000+</span>
-        <span class="stat-label">Siswa Aktif Terlindungi</span>
+        <span class="stat-label">Siswa Terlindungi & Terpantau</span>
       </div>
       <div class="stat-item">
         <div class="stat-icon">
-          <span class="material-symbols-outlined">dns</span>
+          <span class="material-symbols-outlined">favorite</span>
         </div>
-        <span class="stat-number">99.9%</span>
-        <span class="stat-label">Uptime & Keandalan Server</span>
+        <span class="stat-number">1.2Jt+</span>
+        <span class="stat-label">Wellness Check-in Tercatat</span>
       </div>
       <div class="stat-item">
         <div class="stat-icon gold">
@@ -1990,71 +1991,71 @@
   <section id="fitur">
     <div class="section-header fade-in">
       <p class="section-eyebrow">Fitur Unggulan</p>
-      <h2 class="section-title">Semua yang Sekolah Anda Butuhkan</h2>
-      <p class="section-sub">Satu platform terintegrasi untuk mengelola operasional sekolah dari A sampai Z. Tidak perlu
-        lagi 5 aplikasi berbeda.</p>
+      <h2 class="section-title">Jaga Kesejahteraan Siswa Secara Menyeluruh</h2>
+      <p class="section-sub">Satu platform terintegrasi untuk memantau mood, hidrasi, tidur, screen time, dan kesehatan
+        mental siswa. Semua dalam satu dashboard.</p>
     </div>
 
     <div class="fitur-layout fade-in">
       <!-- TAB LIST (left) -->
       <div class="fitur-tabs" id="fiturTabs">
 
-        <div class="fitur-tab active" data-panel="absensi">
+        <div class="fitur-tab active" data-panel="mood">
           <div class="fitur-tab-icon">
-            <span class="material-symbols-outlined">fingerprint</span>
+            <span class="material-symbols-outlined">mood</span>
           </div>
           <div class="fitur-tab-text">
-            <p class="fitur-tab-title">Absensi Digital</p>
-            <p class="fitur-tab-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke
-              orang tua. Tidak ada lagi manipulasi data kehadiran.</p>
+            <p class="fitur-tab-title">Mood Tracker</p>
+            <p class="fitur-tab-desc">Pantau kondisi emosional siswa setiap hari dengan check-in mood harian. Data mood
+              dianalisis untuk mendeteksi dini potensi masalah kesehatan mental.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
 
-        <div class="fitur-tab" data-panel="pembayaran">
+        <div class="fitur-tab" data-panel="hydration">
           <div class="fitur-tab-icon">
-            <span class="material-symbols-outlined">credit_card</span>
+            <span class="material-symbols-outlined">water_drop</span>
           </div>
           <div class="fitur-tab-text">
-            <p class="fitur-tab-title">Pembayaran Online</p>
-            <p class="fitur-tab-desc">Tagihan SPP, uang kegiatan, dan biaya lainnya dalam satu dashboard. Multi metode
-              pembayaran: transfer bank, e-wallet, QRIS.</p>
+            <p class="fitur-tab-title">Hydration Tracking</p>
+            <p class="fitur-tab-desc">Ingatkan siswa untuk minum air yang cukup sepanjang hari. Pantau asupan cairan dan
+              capai target hidrasi harian.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
 
-        <div class="fitur-tab" data-panel="komunikasi">
+        <div class="fitur-tab" data-panel="sleep">
           <div class="fitur-tab-icon">
-            <span class="material-symbols-outlined">forum</span>
+            <span class="material-symbols-outlined">bedtime</span>
           </div>
           <div class="fitur-tab-text">
-            <p class="fitur-tab-title">Komunikasi Orang Tua</p>
-            <p class="fitur-tab-desc">Pengumuman, jadwal, nilai, dan laporan perkembangan langsung ke HP orang tua. Chat
-              dua arah guru–wali murid.</p>
+            <p class="fitur-tab-title">Sleep Monitor</p>
+            <p class="fitur-tab-desc">Catat dan analisis kualitas tidur siswa. Berikan rekomendasi jadwal tidur yang
+              optimal untuk performa belajar terbaik.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
 
-        <div class="fitur-tab" data-panel="laporan">
+        <div class="fitur-tab" data-panel="breathing">
           <div class="fitur-tab-icon">
-            <span class="material-symbols-outlined">bar_chart</span>
+            <span class="material-symbols-outlined">self_improvement</span>
           </div>
           <div class="fitur-tab-text">
-            <p class="fitur-tab-title">Laporan Akademik</p>
-            <p class="fitur-tab-desc">Input nilai mudah, rapor digital auto-generate. Grafik perkembangan siswa per
-              semester. Analisis performa per mata pelajaran.</p>
+            <p class="fitur-tab-title">Breathing & Meditasi</p>
+            <p class="fitur-tab-desc">Latihan pernapasan terpandu dan sesi meditasi untuk membantu siswa mengelola stres
+              dan meningkatkan fokus belajar.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
 
-        <div class="fitur-tab" data-panel="jadwal">
+        <div class="fitur-tab" data-panel="counseling">
           <div class="fitur-tab-icon">
-            <span class="material-symbols-outlined">calendar_month</span>
+            <span class="material-symbols-outlined">support_agent</span>
           </div>
           <div class="fitur-tab-text">
-            <p class="fitur-tab-title">Jadwal &amp; Agenda</p>
-            <p class="fitur-tab-desc">Atur jadwal pelajaran, ujian, dan event sekolah. Sinkron ke kalender guru &amp;
-              siswa. Pengingat otomatis.</p>
+            <p class="fitur-tab-title">Digital Counseling</p>
+            <p class="fitur-tab-desc">Konseling digital anonim dan aman. Siswa bisa curhat tanpa takut dihakimi,
+              langsung terhubung dengan konselor bersertifikat.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
@@ -2064,123 +2065,124 @@
       <!-- PANEL (right) -->
       <div class="fitur-panels">
 
-        <div class="fitur-panel active" id="panel-absensi">
+        <div class="fitur-panel active" id="panel-mood">
           <div class="panel-header">
             <div class="panel-icon">
-              <span class="material-symbols-outlined">fingerprint</span>
+              <span class="material-symbols-outlined">mood</span>
             </div>
             <div>
-              <p class="panel-title">Absensi Digital</p>
-              <p class="panel-badge">Kurangi bolos hingga 60%</p>
+              <p class="panel-title">Mood Tracker</p>
+              <p class="panel-badge">Deteksi dini masalah mental 3× lebih cepat</p>
             </div>
           </div>
-          <p class="panel-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke orang
-            tua. Tidak ada lagi manipulasi data kehadiran.</p>
+          <p class="panel-desc">Siswa melakukan check-in mood harian dengan emoji sederhana. Sistem menganalisis pola
+            emosi mingguan dan memberikan alert otomatis ke konselor jika terdeteksi pola negatif berkelanjutan.</p>
           <ul class="panel-checklist">
-            <li>Integrasi mudah</li>
-            <li>Laporan otomatis</li>
-            <li>Notifikasi real-time</li>
-            <li>Multi-perangkat</li>
+            <li>Check-in harian cepat</li>
+            <li>Grafik tren mood mingguan</li>
+            <li>Alert otomatis ke konselor</li>
+            <li>Stress level monitoring</li>
           </ul>
           <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&h=460&fit=crop"
-              alt="Dashboard Absensi Digital SafeSchool" />
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&h=460&fit=crop"
+              alt="Dashboard Mood Tracker SafeSchool" />
           </div>
         </div>
 
-        <div class="fitur-panel" id="panel-pembayaran">
+        <div class="fitur-panel" id="panel-hydration">
           <div class="panel-header">
             <div class="panel-icon">
-              <span class="material-symbols-outlined">credit_card</span>
+              <span class="material-symbols-outlined">water_drop</span>
             </div>
             <div>
-              <p class="panel-title">Pembayaran Online</p>
-              <p class="panel-badge">Tagihan terbayar lebih cepat 3×</p>
+              <p class="panel-title">Hydration Tracking</p>
+              <p class="panel-badge">Tingkatkan fokus belajar hingga 40%</p>
             </div>
           </div>
-          <p class="panel-desc">Kelola seluruh tagihan sekolah dalam satu dashboard terpadu. Orang tua dapat membayar
-            kapan saja via transfer bank, e-wallet, atau QRIS tanpa antre di sekolah.</p>
+          <p class="panel-desc">Pantau asupan cairan siswa sepanjang hari sekolah. Pengingat minum air otomatis dan
+            gamifikasi target harian membuat siswa termotivasi menjaga hidrasi tubuh.</p>
           <ul class="panel-checklist">
-            <li>Multi metode bayar</li>
-            <li>Rekap keuangan real-time</li>
-            <li>Notifikasi lunas otomatis</li>
-            <li>Ekspor laporan Excel</li>
+            <li>Target 8 gelas per hari</li>
+            <li>Pengingat otomatis</li>
+            <li>Tracking progress real-time</li>
+            <li>Gamifikasi & reward</li>
           </ul>
           <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=460&fit=crop"
-              alt="Sistem Pembayaran Online SafeSchool" />
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=460&fit=crop"
+              alt="Hydration Tracking SafeSchool" />
           </div>
         </div>
 
-        <div class="fitur-panel" id="panel-komunikasi">
+        <div class="fitur-panel" id="panel-sleep">
           <div class="panel-header">
             <div class="panel-icon">
-              <span class="material-symbols-outlined">forum</span>
+              <span class="material-symbols-outlined">bedtime</span>
             </div>
             <div>
-              <p class="panel-title">Komunikasi Orang Tua</p>
-              <p class="panel-badge">Respons orang tua meningkat 80%</p>
+              <p class="panel-title">Sleep Monitor</p>
+              <p class="panel-badge">Kualitas tidur siswa naik 65%</p>
             </div>
           </div>
-          <p class="panel-desc">Kirim pengumuman, jadwal pelajaran, nilai ujian, dan laporan perkembangan langsung ke
-            smartphone orang tua. Fitur chat dua arah memudahkan koordinasi guru dan wali murid.</p>
+          <p class="panel-desc">Catat jam tidur dan bangun, analisis kualitas tidur dengan skor harian. Rekomendasi
+            jadwal tidur optimal berdasarkan usia dan aktivitas siswa untuk performa belajar terbaik.</p>
           <ul class="panel-checklist">
-            <li>Broadcast pengumuman</li>
-            <li>Chat guru–wali murid</li>
-            <li>Pengiriman foto & dokumen</li>
-            <li>Notifikasi push & SMS</li>
+            <li>Sleep score harian</li>
+            <li>Analisis fase tidur</li>
+            <li>Rekomendasi jadwal optimal</li>
+            <li>Laporan untuk orang tua</li>
+          </ul>
+          <div class="panel-screenshot">
+            <img src="https://images.unsplash.com/photo-1541480601022-2308c0f02487?w=800&h=460&fit=crop"
+              alt="Sleep Monitor SafeSchool" />
+          </div>
+        </div>
+
+        <div class="fitur-panel" id="panel-breathing">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <span class="material-symbols-outlined">self_improvement</span>
+            </div>
+            <div>
+              <p class="panel-title">Breathing & Meditasi</p>
+              <p class="panel-badge">Kurangi tingkat stres hingga 70%</p>
+            </div>
+          </div>
+          <p class="panel-desc">Latihan pernapasan terpandu dengan teknik 4-7-8 dan Box Breathing. Sesi meditasi singkat
+            yang bisa dilakukan di sela-sela pelajaran untuk meningkatkan fokus dan mengurangi kecemasan.</p>
+          <ul class="panel-checklist">
+            <li>Guided breathing interaktif</li>
+            <li>Sesi meditasi 5-10 menit</li>
+            <li>Streak & pencapaian</li>
+            <li>Ambient sound relaksasi</li>
+          </ul>
+          <div class="panel-screenshot">
+            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=460&fit=crop"
+              alt="Breathing & Meditasi SafeSchool" />
+          </div>
+        </div>
+
+        <div class="fitur-panel" id="panel-counseling">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <span class="material-symbols-outlined">support_agent</span>
+            </div>
+            <div>
+              <p class="panel-title">Digital Counseling</p>
+              <p class="panel-badge">Respon konseling < 24 jam</p>
+            </div>
+          </div>
+          <p class="panel-desc">Platform konseling digital yang aman dan anonim. Siswa dapat menyampaikan keluhan,
+            melaporkan perundungan, atau sekadar curhat tanpa takut identitasnya terungkap. Konselor bersertifikat siap
+            merespon.</p>
+          <ul class="panel-checklist">
+            <li>Chat anonim & aman</li>
+            <li>Konselor bersertifikat</li>
+            <li>Laporan insiden anti-bullying</li>
+            <li>Follow-up otomatis</li>
           </ul>
           <div class="panel-screenshot">
             <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=460&fit=crop"
-              alt="Fitur Komunikasi Orang Tua SafeSchool" />
-          </div>
-        </div>
-
-        <div class="fitur-panel" id="panel-laporan">
-          <div class="panel-header">
-            <div class="panel-icon">
-              <span class="material-symbols-outlined">bar_chart</span>
-            </div>
-            <div>
-              <p class="panel-title">Laporan Akademik</p>
-              <p class="panel-badge">Hemat 10 jam kerja per semester</p>
-            </div>
-          </div>
-          <p class="panel-desc">Input nilai sekali, rapor digital otomatis ter-generate dalam hitungan detik. Grafik
-            tren performa siswa per mata pelajaran dan per semester tersedia untuk guru dan orang tua.</p>
-          <ul class="panel-checklist">
-            <li>Rapor digital otomatis</li>
-            <li>Grafik performa siswa</li>
-            <li>Analisis per mapel</li>
-            <li>Export PDF & cetak</li>
-          </ul>
-          <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=460&fit=crop"
-              alt="Dashboard Laporan Akademik SafeSchool" />
-          </div>
-        </div>
-
-        <div class="fitur-panel" id="panel-jadwal">
-          <div class="panel-header">
-            <div class="panel-icon">
-              <span class="material-symbols-outlined">calendar_month</span>
-            </div>
-            <div>
-              <p class="panel-title">Jadwal &amp; Agenda</p>
-              <p class="panel-badge">Zero konflik jadwal pelajaran</p>
-            </div>
-          </div>
-          <p class="panel-desc">Susun jadwal pelajaran, ujian semester, dan kegiatan ekstrakurikuler tanpa konflik
-            secara otomatis. Seluruh sivitas akademika mendapat notifikasi perubahan jadwal secara instan.</p>
-          <ul class="panel-checklist">
-            <li>Auto-detect konflik</li>
-            <li>Sinkron kalender Google</li>
-            <li>Reminder otomatis</li>
-            <li>Akses mobile kapan saja</li>
-          </ul>
-          <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=800&h=460&fit=crop"
-              alt="Manajemen Jadwal SafeSchool" />
+              alt="Digital Counseling SafeSchool" />
           </div>
         </div>
 
@@ -2194,7 +2196,8 @@
       <div class="section-header fade-in">
         <p class="section-eyebrow">Mulai dalam Hitungan Menit</p>
         <h2 class="section-title">Bagaimana Cara Kerjanya</h2>
-        <p class="section-sub">Tidak perlu pelatihan khusus. Tiga langkah mudah dan sekolah Anda sudah siap go-digital.
+        <p class="section-sub">Tiga langkah mudah untuk mulai memantau kesejahteraan siswa secara digital. Tanpa
+          pelatihan khusus.
         </p>
       </div>
 
@@ -2206,9 +2209,9 @@
             <div class="step-card-icon">
               <span class="material-symbols-outlined">person_add</span>
             </div>
-            <h3 class="step-title">Daftar Akun</h3>
-            <p class="step-desc">Isi data sekolah dalam 2 menit. Tidak perlu kartu kredit, langsung aktif dan bisa
-              langsung digunakan.</p>
+            <h3 class="step-title">Daftar & Aktivasi</h3>
+            <p class="step-desc">Daftarkan sekolah Anda dalam 2 menit. Siswa dan guru langsung mendapat akses ke
+              dashboard wellness masing-masing.</p>
           </div>
           <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=320&fit=crop&crop=top"
             alt="Daftar akun SafeSchool" class="step-card-img" />
@@ -2218,28 +2221,28 @@
           <div class="step-card-top">
             <div class="step-num-label">02</div>
             <div class="step-card-icon">
-              <span class="material-symbols-outlined">settings</span>
+              <span class="material-symbols-outlined">mood</span>
             </div>
-            <h3 class="step-title">Konfigurasi Cepat</h3>
-            <p class="step-desc">Import data siswa, atur kelas, dan sesuaikan pengaturan sesuai kebutuhan sekolah Anda.
-              Panduan step-by-step tersedia.</p>
+            <h3 class="step-title">Check-in Harian</h3>
+            <p class="step-desc">Siswa melakukan check-in mood, hidrasi, dan tidur setiap hari. Sistem otomatis
+              menganalisis pola dan memberikan rekomendasi.</p>
           </div>
           <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=320&fit=crop"
-            alt="Konfigurasi SafeSchool" class="step-card-img" />
+            alt="Check-in harian SafeSchool" class="step-card-img" />
         </div>
 
         <div class="step-card">
           <div class="step-card-top">
             <div class="step-num-label">03</div>
             <div class="step-card-icon">
-              <span class="material-symbols-outlined">notifications_active</span>
+              <span class="material-symbols-outlined">monitoring</span>
             </div>
-            <h3 class="step-title">Langsung Jalan</h3>
-            <p class="step-desc">Undang guru dan orang tua, lalu semua fitur siap digunakan. Dashboard langsung
-              menampilkan data real-time.</p>
+            <h3 class="step-title">Pantau & Respon</h3>
+            <p class="step-desc">Guru dan konselor memantau dashboard. Alert otomatis untuk siswa yang butuh perhatian
+              khusus, sehingga bisa segera ditangani.</p>
           </div>
           <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=320&fit=crop"
-            alt="Tim sekolah menggunakan SafeSchool" class="step-card-img" />
+            alt="Tim sekolah memantau SafeSchool" class="step-card-img" />
         </div>
 
       </div>
@@ -2250,9 +2253,9 @@
   <section id="testimoni">
     <div class="section-header fade-in">
       <p class="section-eyebrow">Testimoni</p>
-      <h2 class="section-title">Dipercaya Ribuan Sekolah di Indonesia</h2>
-      <p class="section-sub">Dengarkan langsung dari para kepala sekolah, guru, dan orang tua yang telah merasakan
-        manfaatnya.</p>
+      <h2 class="section-title">Dipercaya Sekolah untuk Jaga Kesejahteraan Siswa</h2>
+      <p class="section-sub">Dengarkan langsung dari para pendidik dan orang tua yang telah merasakan dampak positif
+        SafeSchool terhadap kesehatan mental siswa.</p>
     </div>
     <div class="testi-grid stagger">
       <div class="testi-card">
@@ -2263,9 +2266,9 @@
           <span class="material-symbols-outlined">star</span>
           <span class="material-symbols-outlined">star</span>
         </div>
-        <p class="testi-quote">"SafeSchool benar-benar mengubah cara kami mengelola sekolah. Absensi yang dulu manual
-          dan sering terlambat kini berjalan otomatis. Orang tua pun sangat senang karena bisa memantau anak langsung
-          dari ponsel mereka."</p>
+        <p class="testi-quote">"SafeSchool membantu kami mendeteksi siswa yang mengalami tekanan mental lebih awal.
+          Melalui mood tracker, konselor bisa segera menangani sebelum masalah membesar. Sekolah kami jadi lebih peduli
+          terhadap kesejahteraan siswa."</p>
         <div class="testi-author">
           <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
             alt="Budi Santoso" class="testi-avatar" />
@@ -2283,9 +2286,9 @@
           <span class="material-symbols-outlined">star</span>
           <span class="material-symbols-outlined">star</span>
         </div>
-        <p class="testi-quote">"Laporan akademik yang dulu butuh waktu 3 hari kini selesai dalam 30 menit. Fitur
-          komunikasi dengan orang tua juga sangat intuitif. Saya tidak bisa bayangkan kembali ke cara lama setelah
-          menggunakan SafeSchool."</p>
+        <p class="testi-quote">"Fitur breathing dan meditasi sangat membantu siswa kami mengelola stres saat ujian.
+          Hydration tracker juga membuat mereka lebih sadar pentingnya minum air. Dashboard wellness-nya sangat
+          informatif dan mudah dipahami."</p>
         <div class="testi-author">
           <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face"
             alt="Sri Wahyuni" class="testi-avatar" />
@@ -2303,9 +2306,9 @@
           <span class="material-symbols-outlined">star</span>
           <span class="material-symbols-outlined">star</span>
         </div>
-        <p class="testi-quote">"Sebagai orang tua yang sibuk, fitur notifikasi real-time dan laporan harian anak membuat
-          saya selalu tahu perkembangan si kecil di sekolah. Pembayaran SPP juga jadi sangat mudah lewat aplikasi ini."
-        </p>
+        <p class="testi-quote">"Sebagai orang tua, saya bisa memantau pola tidur dan mood anak langsung dari HP. Fitur
+          digital counseling juga membuat anak saya berani cerita tentang bullying yang dialaminya di sekolah.
+          SafeSchool benar-benar menyelamatkan."</p>
         <div class="testi-author">
           <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
             alt="Rizal Firmansyah" class="testi-avatar" />
@@ -2329,62 +2332,60 @@
     <div class="faq-inner fade-in">
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Apakah SafeSchool bisa digunakan tanpa keahlian teknis IT?
+          Apa itu SafeSchool dan bagaimana cara kerjanya?
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Ya, tentu saja. SafeSchool dirancang dengan antarmuka yang sangat intuitif
-            sehingga siapa pun — bahkan yang tidak familiar dengan teknologi sekalipun — dapat menggunakannya dengan
-            mudah. Kami juga menyediakan pelatihan gratis untuk seluruh staf sekolah, panduan penggunaan lengkap dalam
-            Bahasa Indonesia, dan dukungan teknis yang siap membantu kapan saja.</p>
+          <p class="faq-answer-inner">SafeSchool adalah platform digital yang fokus pada kesejahteraan dan keselamatan
+            siswa. Siswa melakukan check-in harian untuk mood, hidrasi, dan tidur. Data tersebut dianalisis secara
+            otomatis untuk mendeteksi potensi masalah kesehatan mental atau bullying. Guru dan konselor mendapat
+            dashboard real-time untuk memantau dan merespon cepat.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Bagaimana keamanan data siswa dan sekolah saya dijamin?
+          Bagaimana keamanan data dan privasi siswa dijamin?
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Keamanan data adalah prioritas utama kami. Seluruh data dienkripsi menggunakan
-            standar AES-256, disimpan di server lokal Indonesia yang bersertifikat ISO 27001, dengan backup otomatis
-            setiap hari. Kami juga mematuhi regulasi perlindungan data pendidikan nasional (PP No. 71 Tahun 2019) dan
-            tidak pernah menjual atau membagikan data kepada pihak ketiga tanpa izin.</p>
+          <p class="faq-answer-inner">Privasi siswa adalah prioritas utama kami. Seluruh data dienkripsi dengan standar
+            AES-256 dan disimpan di server lokal Indonesia bersertifikat ISO 27001. Fitur konseling bersifat anonim —
+            identitas pelapor tidak pernah terungkap. Kami juga mematuhi regulasi perlindungan data anak (UU
+            Perlindungan Anak) dan tidak pernah menjual data ke pihak ketiga.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Apakah bisa mengimpor data dari sistem lama yang sudah ada?
+          Apakah fitur konseling benar-benar anonim?
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Tentu saja. Tim migrasi data kami akan membantu memindahkan seluruh data dari
-            sistem lama Anda — termasuk data siswa, guru, nilai akademik, dan riwayat pembayaran — ke SafeSchool secara
-            gratis. Proses migrasi dilakukan tanpa mengganggu operasional sekolah dan biasanya selesai dalam 1-3 hari
-            kerja tergantung volume data.</p>
+          <p class="faq-answer-inner">Ya, 100% anonim. Saat siswa menggunakan fitur Digital Counseling untuk melaporkan
+            perundungan atau curhat, identitas mereka dienkripsi dan tidak bisa diakses oleh siapapun — termasuk admin
+            sekolah. Konselor hanya melihat konten laporan tanpa mengetahui siapa pengirimnya, kecuali siswa memilih
+            untuk mengungkapkan identitasnya sendiri.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Berapa harga berlangganan SafeSchool setelah masa trial berakhir?
+          Apakah orang tua bisa memantau perkembangan anak?
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">SafeSchool menawarkan paket harga yang fleksibel berdasarkan jumlah siswa aktif,
-            mulai dari Rp 299.000/bulan untuk sekolah kecil (hingga 200 siswa) hingga paket enterprise dengan harga
-            khusus untuk yayasan atau jaringan sekolah. Setelah trial 30 hari, Anda dapat memilih paket yang paling
-            sesuai. Tidak ada biaya tersembunyi dan Anda bisa membatalkan kapan saja tanpa penalti.</p>
+          <p class="faq-answer-inner">Tentu saja. Orang tua mendapat akses dashboard khusus untuk memantau mood, pola
+            tidur, hidrasi, dan screen time anak mereka. Notifikasi otomatis dikirim jika ada perubahan pola yang perlu
+            perhatian. Orang tua juga bisa berkomunikasi langsung dengan konselor atau wali kelas melalui platform.</p>
         </div>
       </div>
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Apakah SafeSchool tersedia dalam versi mobile (iOS & Android)?
+          Apakah SafeSchool gratis untuk dicoba?
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Ya! SafeSchool tersedia sebagai aplikasi mobile untuk iOS (App Store) dan Android
-            (Google Play), serta dapat diakses melalui browser desktop. Orang tua dapat mengunduh aplikasi khusus
-            SafeSchool Parent untuk memantau perkembangan anak, menerima notifikasi, dan berkomunikasi dengan guru
-            langsung dari smartphone mereka.</p>
+          <p class="faq-answer-inner">Ya! SafeSchool menawarkan trial gratis 30 hari dengan akses penuh ke semua fitur
+            premium — termasuk mood tracker, hydration, sleep monitor, breathing, dan digital counseling. Tidak perlu
+            kartu kredit untuk mendaftar, dan Anda bisa membatalkan kapan saja tanpa biaya apapun.</p>
         </div>
       </div>
     </div>
@@ -2395,23 +2396,23 @@
     <div class="cta-card fade-in">
       <!-- Left: Copy -->
       <div>
-        <p class="cta-eyebrow">Mulai Perjalanan Digital Anda</p>
-        <h2 class="cta-title">Siap Bawa Sekolah ke Level Berikutnya?</h2>
+        <p class="cta-eyebrow">Mulai Lindungi Siswa Anda</p>
+        <h2 class="cta-title">Siap Jadikan Sekolah Lebih Aman & Sehat?</h2>
         <div class="cta-divider"></div>
-        <p class="cta-desc">Daftar sekarang dan dapatkan <strong>akses gratis 30 hari</strong> ke semua fitur premium.
-          Tidak perlu kartu kredit, bisa dibatalkan kapan saja.</p>
+        <p class="cta-desc">Daftar sekarang dan dapatkan <strong>akses gratis 30 hari</strong> ke semua fitur wellness.
+          Pantau mood, hidrasi, tidur, dan kesehatan mental siswa dalam satu platform.</p>
         <ul class="cta-checklist">
           <li>
             <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
-            Gratis onboarding &amp; pelatihan untuk seluruh staf
+            Gratis onboarding & pelatihan untuk seluruh staf
           </li>
           <li>
             <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
-            Support prioritas 24/7 via chat, email, dan telepon
+            Mood tracker, hydration, sleep & breathing lengkap
           </li>
           <li>
             <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
-            Migrasi data gratis dari sistem lama Anda
+            Digital counseling anonim & anti-bullying
           </li>
           <li>
             <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
@@ -2454,8 +2455,8 @@
           </div>
           <span class="nav-logo-text">Safe<span>School</span></span>
         </a>
-        <p>Platform manajemen sekolah digital terpercaya yang membantu ribuan sekolah di Indonesia bertransformasi
-          menuju pendidikan modern dan efisien.</p>
+        <p>Platform keselamatan dan wellness siswa digital terpercaya yang membantu sekolah di Indonesia menciptakan
+          lingkungan belajar yang aman, sehat, dan mendukung kesejahteraan mental siswa.</p>
         <div class="footer-social">
           <a href="#" title="Instagram"><span class="material-symbols-outlined">photo_camera</span></a>
           <a href="#" title="Twitter/X"><span class="material-symbols-outlined">tag</span></a>
@@ -2467,11 +2468,11 @@
       <div class="footer-col">
         <p class="footer-col-title">Produk</p>
         <ul>
-          <li><a href="#">Fitur Lengkap</a></li>
-          <li><a href="#">Harga & Paket</a></li>
-          <li><a href="#">Demo Interaktif</a></li>
-          <li><a href="#">Aplikasi Mobile</a></li>
-          <li><a href="#">Integrasi API</a></li>
+          <li><a href="#">Mood Tracker</a></li>
+          <li><a href="#">Hydration</a></li>
+          <li><a href="#">Sleep Monitor</a></li>
+          <li><a href="#">Breathing</a></li>
+          <li><a href="#">Digital Counseling</a></li>
         </ul>
       </div>
 

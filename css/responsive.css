@@ -1,0 +1,177 @@
+/* ============================================================
+   responsive.css  —  Global Responsive Overrides & Viewports
+   SafeSchoolHub Design System
+   ============================================================ */
+
+/* ── Target viewports down to 320px (xs) ── */
+
+@media (max-width: 480px) {
+  /* General Spacing & Padding Adjustments */
+  .main-content > div {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  h1, .text-3xl {
+    font-size: 1.65rem !important;
+    line-height: 1.25 !important;
+  }
+
+  h2, .text-2xl {
+    font-size: 1.35rem !important;
+    line-height: 1.3 !important;
+  }
+
+  .text-xl {
+    font-size: 1.15rem !important;
+  }
+
+  .card, .glass-card {
+    padding: 1.25rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* Modals bounds and padding adjustments */
+  .modal-backdrop {
+    padding: 0.75rem !important;
+  }
+
+  .modal-card {
+    padding: 1.25rem !important;
+    border-radius: 18px !important;
+    max-width: 100% !important;
+  }
+
+  .btn-primary, .btn-ghost, .btn-cta, button {
+    padding: 0.6rem 1rem !important;
+    font-size: 0.85rem !important;
+    min-height: 40px !important;
+  }
+
+  /* Mood chips responsive wraps & spacing */
+  #moodSelectors, #checkinMoods, #morningMoods {
+    gap: 6px !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+
+  .mood-chip {
+    padding: 0.4rem 0.6rem !important;
+    min-width: 44px !important;
+    min-height: 44px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .mood-icon {
+    font-size: 1.6rem !important;
+  }
+
+  .mood-text {
+    font-size: 0.65rem !important;
+    margin-top: 2px !important;
+  }
+
+  /* Settings Page Profile Card Stack */
+  #page-settings .card.flex, 
+  .card.flex.items-center.gap-4 {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Sleep Quality Button Wrappers */
+  #sleepQualityBtns {
+    gap: 6px !important;
+  }
+
+  #sleepQualityBtns button {
+    flex: 1 1 calc(33.33% - 6px) !important;
+    min-width: 70px !important;
+    font-size: 10px !important;
+    padding: 0.5rem 0.25rem !important;
+  }
+
+  /* Stepper margins and label scaling in Reports */
+  .flex.items-center.justify-between.mb-8.px-2 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .flex.items-center.justify-between.mb-8.px-2 .flex.flex-col.items-center span.text-xs {
+    font-size: 0.65rem !important;
+    white-space: nowrap !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  .flex.items-center.justify-between.mb-8.px-2 .flex-1.h-0.5 {
+    margin-left: 0.35rem !important;
+    margin-right: 0.35rem !important;
+  }
+
+  /* Digital Counseling layout stacks */
+  #counselorGrid, .grid-cols-1.sm:grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Targets viewports down to 360px ── */
+@media (max-width: 360px) {
+  .mood-text {
+    display: none !important; /* Hide labels to fit 5 emojis easily */
+  }
+
+  #sleepQualityBtns button {
+    flex: 1 1 calc(50% - 6px) !important; /* Stack 2 per row */
+  }
+
+  .flex.items-center.justify-between.mb-8.px-2 .flex.flex-col.items-center span.text-xs {
+    display: none !important; /* Hide labels to avoid overlaps */
+  }
+
+  .flex.items-center.justify-between.mb-8.px-2 .flex-1.h-0.5 {
+    margin-top: 0 !important;
+  }
+}
+
+/* ── Gadget Time specific stacking ── */
+@media (max-width: 400px) {
+  #deviceInputs {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Horizontal Scrolling Filters for Clean Mobile UI ── */
+@media (max-width: 768px) {
+  #videoFilterBtns, #seminarFilterBtns, .flex.gap-2.overflow-x-auto {
+    display: flex !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 1rem !important;
+    gap: 8px !important;
+  }
+
+  #videoFilterBtns::-webkit-scrollbar, 
+  #seminarFilterBtns::-webkit-scrollbar, 
+  .flex.gap-2.overflow-x-auto::-webkit-scrollbar {
+    display: none !important; /* Hide scrollbars for slick native look */
+  }
+
+  #videoFilterBtns button, 
+  #seminarFilterBtns button, 
+  .section-tab, 
+  .tab-btn {
+    flex: 0 0 auto !important;
+  }
+}
+
+/* ── SafeSchoolHub Single Page App Specific Overrides ── */
+@media (max-width: 480px) {
+  /* Ensure mood selection in unified app fits */
+  #page-overview #moodSelectors button {
+    padding: 0.4rem 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+}
