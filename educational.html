@@ -51,6 +51,54 @@ tailwind.config = {
 /* Long video indicator */
 .cert-eligible{position:absolute;top:8px;left:8px;background:linear-gradient(90deg,#106399,#1c6c3f);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:9999px;display:flex;align-items:center;gap:.25rem;}
 </style>
+  <script>
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.replace('safeschool-landing.html');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user && user.name) {
+          const sidebarName = document.getElementById('sidebarName') || document.querySelector('[data-i18n="userName"]');
+          if (sidebarName) sidebarName.textContent = user.name;
+          const sidebarGrade = document.getElementById('sidebarGrade') || document.querySelector('[data-i18n="userGrade"]');
+          if (sidebarGrade) {
+            sidebarGrade.textContent = user.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : 'Siswa';
+          }
+          const mobileAvatar = document.getElementById('mobileAvatarBadge');
+          if (mobileAvatar) {
+            mobileAvatar.textContent = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          }
+        }
+      } catch(e) {}
+
+      const logoutBtn = document.getElementById('sidebar-logout');
+      if (logoutBtn) {
+        const newLogoutBtn = logoutBtn.cloneNode(true);
+        logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+        newLogoutBtn.addEventListener('click', () => {
+          const confirmModal = document.getElementById('confirmModal');
+          if (confirmModal) {
+            document.getElementById('confirmTitle').textContent = 'Keluar?';
+            document.getElementById('confirmMsg').textContent = 'Apakah Anda yakin ingin keluar dari SafeSchool?';
+            document.getElementById('confirmOk').onclick = () => {
+              document.getElementById('confirmModal').classList.remove('open');
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('safeschool-landing.html');
+            };
+            document.getElementById('confirmModal').classList.add('open');
+          } else {
+            if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('safeschool-landing.html');
+            }
+          }
+        });
+      }
+    });
+  </script>
 </head>
 <body class="min-h-screen">
 <div class="toast" id="toast"></div>

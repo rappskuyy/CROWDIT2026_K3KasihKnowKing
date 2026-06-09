@@ -1,0 +1,2794 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeSchool — Platform Manajemen Sekolah Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #0056A9;
+      --blue-dark: #00193E;
+      --blue-mid: #0056A9;
+      --blue-light: #008DC2;
+      --blue-hover: #004d99;
+      --navy: #0B1830;
+      --navy-deep: #070D15;
+      --white: #ffffff;
+      --muted: #94a3b8;
+      --muted-dark: #64748b;
+      --text-dark: #0b1c30;
+      --surface: #f8f9ff;
+      --error: #DE2125;
+      --hero-grad: linear-gradient(135deg, #8b9299 0%, #374151 40%, #111827 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--white);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* ───────────── NAVBAR ───────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      transition: background 0.3s, backdrop-filter 0.3s, box-shadow 0.3s;
+    }
+
+    #navbar.scrolled {
+      background: rgba(7, 13, 21, 0.88);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: var(--blue);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-icon .material-symbols-outlined {
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .nav-logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue-light);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo-text span { color: #fff; }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      width: 24px; height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ───────────── HERO ───────────── */
+    #hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #070D15;
+      background-image: linear-gradient(rgba(11, 24, 48, 0.45), rgba(7, 13, 21, 0.85)), url('hero-bg.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 80px;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      position: relative;
+    }
+
+    /* Floating cards grid top-right */
+    .hero-cards-grid {
+      position: absolute;
+      top: 100px;
+      right: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 110px);
+      gap: 8px;
+    }
+
+    .hero-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      padding: 14px 8px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .hero-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+
+    .hero-card .material-symbols-outlined {
+      font-size: 22px;
+      color: #1f2937;
+    }
+
+    .hero-card-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #374151;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    /* Award badge */
+    .hero-award {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .hero-award-circle {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .hero-award-circle .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--blue-light);
+    }
+
+    .hero-award-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-award-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .hero-award-sub {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Headline */
+    .hero-eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    .hero-headline-box {
+      display: inline-block;
+      background: var(--blue);
+      padding: 14px 28px;
+      border-radius: 4px;
+    }
+
+    .hero-headline-box h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* ───────────── QUICK LINKS BAR ───────────── */
+    #quicklinks {
+      background: var(--navy);
+      padding: 28px 0;
+    }
+
+    .quicklinks-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .ql-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 16px;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .ql-item:last-child { border-right: none; }
+    .ql-item:hover { background: rgba(255,255,255,0.05); }
+
+    .ql-icon-wrap {
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ql-icon-wrap .material-symbols-outlined {
+      font-size: 20px;
+      color: #fff;
+    }
+
+    .ql-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+    }
+
+    /* ───────────── STATS ───────────── */
+    #stats {
+      background: #fff;
+      padding: 60px 0;
+      border-bottom: 1px solid #e5eeff;
+    }
+
+    .stats-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 20px;
+      border-right: 1px solid #e2e8f0;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-icon .material-symbols-outlined {
+      font-size: 28px;
+      color: var(--blue);
+    }
+
+    .stat-icon.gold .material-symbols-outlined {
+      color: #f59e0b;
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted-dark);
+      font-weight: 500;
+      text-align: center;
+    }
+
+    /* ───────────── SHARED SECTION HEADER ───────────── */
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.15;
+      margin-bottom: 14px;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted-dark);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ───────────── FEATURES — TAB LAYOUT ───────────── */
+    #fitur {
+      background: #fff;
+      padding: 90px 0 100px;
+    }
+
+    .fitur-layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* Left: tab list */
+    .fitur-tabs {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .fitur-tab {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      border-radius: 14px;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+      background: transparent;
+    }
+
+    .fitur-tab:hover {
+      background: #f0f6ff;
+    }
+
+    .fitur-tab.active {
+      background: #fff;
+      border-color: #dbeafe;
+      box-shadow: 0 4px 20px rgba(0,86,169,0.09);
+    }
+
+    .fitur-tab-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: #e8f0fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .fitur-tab.active .fitur-tab-icon {
+      background: var(--blue);
+    }
+
+    .fitur-tab-icon .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--blue);
+      transition: color 0.2s;
+    }
+
+    .fitur-tab.active .fitur-tab-icon .material-symbols-outlined {
+      color: #fff;
+    }
+
+    .fitur-tab-text { flex: 1; min-width: 0; }
+
+    .fitur-tab-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .fitur-tab-desc {
+      font-size: 12.5px;
+      color: var(--muted-dark);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .fitur-tab-chevron {
+      color: var(--blue);
+      font-size: 18px;
+      align-self: center;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .fitur-tab.active .fitur-tab-chevron { opacity: 1; }
+
+    /* Right: detail panel */
+    .fitur-panel {
+      display: none;
+      background: #f8f9ff;
+      border-radius: 20px;
+      border: 1px solid #e5eeff;
+      padding: 36px 40px;
+      animation: panelIn 0.3s ease;
+    }
+
+    .fitur-panel.active { display: block; }
+
+    @keyframes panelIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .panel-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: #e8f0fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .panel-icon .material-symbols-outlined {
+      font-size: 24px;
+      color: var(--blue);
+    }
+
+    .panel-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .panel-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: #16a34a;
+      margin-top: 2px;
+    }
+
+    .panel-desc {
+      font-size: 15px;
+      color: #374151;
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .panel-checklist {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .panel-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      color: #374151;
+      font-weight: 500;
+    }
+
+    .panel-checklist li::before {
+      content: '';
+      width: 18px; height: 18px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230056A9'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E") center/contain no-repeat;
+      flex-shrink: 0;
+    }
+
+    .panel-screenshot {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #dbeafe;
+      box-shadow: 0 8px 32px rgba(0,86,169,0.1);
+    }
+
+    .panel-screenshot img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ───────────── HOW IT WORKS — CARD LAYOUT ───────────── */
+    #cara-kerja {
+      background: var(--surface);
+      padding: 90px 0 100px;
+    }
+
+    .howit-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+    }
+
+    .step-card {
+      background: #fff;
+      border-radius: 18px;
+      border: 1px solid #e5eeff;
+      box-shadow: 0 2px 16px rgba(0,86,169,0.05);
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .step-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,86,169,0.12);
+    }
+
+    .step-card-top {
+      padding: 28px 28px 20px;
+    }
+
+    .step-num-label {
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: #dbeafe;
+      line-height: 1;
+      margin-bottom: 16px;
+      letter-spacing: -2px;
+    }
+
+    .step-card-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      background: #e8f0fb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+    }
+
+    .step-card-icon .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--blue);
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      color: var(--muted-dark);
+      line-height: 1.65;
+    }
+
+    .step-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ───────────── TESTIMONIALS ───────────── */
+    #testimoni {
+      background: var(--surface);
+      padding: 90px 0;
+    }
+
+    .testi-grid {
+      max-width: 1200px;
+      margin: 56px auto 0;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 2px 16px rgba(0,86,169,0.06);
+      border: 1px solid #e5eeff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .testi-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0,86,169,0.12);
+    }
+
+    .testi-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px;
+    }
+
+    .testi-stars .material-symbols-outlined {
+      font-size: 18px;
+      color: #f59e0b;
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .testi-quote {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.7;
+      margin-bottom: 22px;
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testi-avatar {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e5eeff;
+    }
+
+    .testi-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .testi-role {
+      font-size: 12px;
+      color: var(--muted-dark);
+    }
+
+    /* ───────────── FAQ ───────────── */
+    #faq {
+      background: #fff;
+      padding: 90px 0;
+    }
+
+    .faq-inner {
+      max-width: 780px;
+      margin: 56px auto 0;
+      padding: 0 48px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 0;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-dark);
+      text-align: left;
+      gap: 16px;
+      transition: color 0.2s;
+    }
+
+    .faq-question:hover { color: var(--blue); }
+
+    .faq-icon {
+      font-size: 22px;
+      color: var(--blue);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+
+    .faq-answer-inner {
+      font-size: 14px;
+      color: var(--muted-dark);
+      line-height: 1.75;
+      padding-bottom: 20px;
+    }
+
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    /* ───────────── CTA + FORM ───────────── */
+    #cta {
+      padding: 80px 48px;
+      background: var(--surface);
+    }
+
+    .cta-card {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--navy);
+      border-radius: 20px;
+      padding: 60px 64px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .cta-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--blue-light);
+      margin-bottom: 14px;
+    }
+
+    .cta-title {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .cta-divider {
+      width: 56px; height: 4px;
+      background: var(--blue);
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+
+    .cta-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .cta-desc strong { color: #fff; }
+
+    .cta-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      list-style: none;
+    }
+
+    .cta-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: #cbd5e1;
+    }
+
+    .check-icon {
+      width: 20px; height: 20px;
+      background: #16a34a;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .check-icon .material-symbols-outlined {
+      font-size: 13px;
+      color: #fff;
+      font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 20;
+    }
+
+    /* Form */
+    .cta-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+
+    .form-label span { color: #ef4444; }
+
+    .form-input {
+      width: 100%;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: #fff;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+
+    .form-input:focus {
+      border-color: var(--blue-light);
+      background: rgba(255,255,255,0.09);
+      box-shadow: 0 0 0 3px rgba(0,141,194,0.15);
+    }
+
+    .btn-cta {
+      width: 100%;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      margin-top: 4px;
+    }
+
+    .btn-cta:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: rgba(148,163,184,0.7);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* ───────────── FOOTER ───────────── */
+    #footer {
+      background: var(--navy-deep);
+      padding: 64px 0 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 260px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .footer-social a {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.07);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .footer-social a:hover { background: var(--blue); }
+
+    .footer-social a .material-symbols-outlined {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .footer-col-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col ul li a {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover { color: #fff; }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 20px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: var(--muted-dark);
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-links a {
+      font-size: 12px;
+      color: var(--muted-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-bottom-links a:hover { color: #fff; }
+
+    /* ───────────── LOGIN MODAL ───────────── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 13, 21, 0.72);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+      animation: overlayIn 0.2s ease;
+    }
+
+    @keyframes overlayIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.22);
+      overflow: hidden;
+      animation: modalIn 0.28s cubic-bezier(0.34,1.56,0.64,1);
+      position: relative;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.92) translateY(20px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .modal-header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, var(--blue-light) 100%);
+      padding: 32px 36px 28px;
+      position: relative;
+    }
+
+    .modal-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .modal-logo-icon {
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-logo-icon .material-symbols-outlined {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .modal-logo-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .modal-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .modal-subtitle {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 32px; height: 32px;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: rgba(255,255,255,0.28); }
+    .modal-close .material-symbols-outlined { font-size: 18px; color: #fff; }
+
+    .modal-body {
+      padding: 28px 36px 32px;
+    }
+
+    /* Role selector */
+    .role-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .role-btn {
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      background: #f8f9ff;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .role-btn:hover {
+      border-color: #93c5fd;
+      background: #eff6ff;
+    }
+
+    .role-btn.active {
+      border-color: var(--blue);
+      background: #eff6ff;
+      box-shadow: 0 0 0 3px rgba(0,86,169,0.1);
+    }
+
+    .role-btn .material-symbols-outlined {
+      font-size: 20px;
+      color: var(--muted-dark);
+      transition: color 0.2s;
+    }
+
+    .role-btn.active .material-symbols-outlined { color: var(--blue); }
+
+    .role-btn span.role-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--muted-dark);
+      letter-spacing: 0.02em;
+    }
+
+    .role-btn.active span.role-label { color: var(--blue); }
+
+    /* Login form fields */
+    .login-group {
+      margin-bottom: 16px;
+    }
+
+    .login-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .login-input-wrap {
+      position: relative;
+    }
+
+    .login-input-wrap .material-symbols-outlined {
+      position: absolute;
+      left: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #94a3b8;
+      pointer-events: none;
+    }
+
+    .login-input {
+      width: 100%;
+      background: #f8f9ff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px 12px 42px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .login-input::placeholder { color: #b0bec5; }
+
+    .login-input:focus {
+      border-color: var(--blue);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(0,86,169,0.1);
+    }
+
+    .login-input.error {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px rgba(222,33,37,0.1);
+    }
+
+    .login-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      margin-top: -4px;
+    }
+
+    .login-remember {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      cursor: pointer;
+    }
+
+    .login-remember input[type="checkbox"] {
+      width: 15px; height: 15px;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    .login-remember span {
+      font-size: 12.5px;
+      color: #64748b;
+    }
+
+    .login-forgot {
+      font-size: 12.5px;
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .login-forgot:hover { color: var(--blue-hover); }
+
+    .btn-login {
+      width: 100%;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-login:hover { background: var(--blue-hover); transform: translateY(-1px); }
+    .btn-login:disabled { background: #93c5fd; cursor: not-allowed; transform: none; }
+
+    .login-error-msg {
+      display: none;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #dc2626;
+      margin-bottom: 16px;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .login-error-msg.show {
+      display: flex;
+    }
+
+    .login-error-msg .material-symbols-outlined { font-size: 16px; color: #dc2626; flex-shrink: 0; }
+
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .login-divider::before,
+    .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #e2e8f0;
+    }
+
+    .login-divider span {
+      font-size: 12px;
+      color: #94a3b8;
+      white-space: nowrap;
+    }
+
+    .login-register {
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+    }
+
+    .login-register a {
+      color: var(--blue);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .login-register a:hover { color: var(--blue-hover); }
+
+    /* Success state */
+    .login-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 8px 0 8px;
+    }
+
+    .login-success.show { display: flex; }
+
+    .success-circle {
+      width: 68px; height: 68px;
+      background: #dcfce7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .success-circle .material-symbols-outlined {
+      font-size: 32px;
+      color: #16a34a;
+      font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .success-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .success-sub {
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.6;
+    }
+
+    /* Navbar login btn ghost style */
+    .btn-ghost-nav {
+      background: transparent;
+      color: rgba(255,255,255,0.88);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      border-radius: 8px;
+      padding: 9px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      font-family: 'Inter', sans-serif;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .btn-ghost-nav:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.5);
+      color: #fff;
+    }
+
+    .btn-ghost-nav .material-symbols-outlined { font-size: 17px; }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ───────────── ANIMATIONS ───────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* staggered children */
+    .stagger > * {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s; }
+    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.1s; }
+    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.2s; }
+    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.3s; }
+    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.4s; }
+    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.5s; }
+
+    /* ───────────── MOBILE MENU ───────────── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0;
+      background: rgba(7,13,21,0.97);
+      backdrop-filter: blur(20px);
+      padding: 24px 32px 32px;
+      z-index: 99;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .mobile-menu.open { display: flex; }
+
+    .mobile-menu a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .mobile-menu .btn-primary {
+      width: 100%;
+      text-align: center;
+      padding: 14px;
+      font-size: 15px;
+      margin-top: 4px;
+    }
+
+    /* ───────────── RESPONSIVE ───────────── */
+    @media (max-width: 1024px) {
+      .hero-cards-grid { grid-template-columns: repeat(3, 95px); top: 80px; }
+      .fitur-layout { grid-template-columns: 280px 1fr; gap: 28px; }
+      .testi-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      #navbar { padding: 0 24px; }
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .nav-hamburger { display: flex; }
+
+      .hero-inner { padding: 0 24px; }
+      .hero-cards-grid { display: none; }
+      .hero-headline-box h1 { font-size: 2rem; white-space: normal; }
+
+      .quicklinks-inner { padding: 0 16px; }
+      .ql-item { padding: 12px 8px; }
+      .ql-label { font-size: 9px; }
+
+      .stats-inner { padding: 0 24px; grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+
+      #fitur { padding: 60px 0; }
+      .fitur-layout { grid-template-columns: 1fr; padding: 0 24px; }
+      .fitur-panel { padding: 24px 20px; }
+      .panel-checklist { grid-template-columns: 1fr; }
+
+      .steps-grid { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; padding: 0 24px; }
+      .faq-inner { padding: 0 24px; }
+
+      #cta { padding: 48px 24px; }
+      .cta-card { grid-template-columns: 1fr; gap: 40px; padding: 36px 28px; }
+
+      .footer-inner { grid-template-columns: 1fr 1fr; padding: 0 24px; gap: 32px; }
+      .footer-bottom { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
+      .footer-bottom-links { flex-wrap: wrap; justify-content: center; }
+
+      .howit-inner { padding: 0 24px; }
+      .section-header { padding: 0 24px; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">
+        <span class="material-symbols-outlined">shield</span>
+      </div>
+      <span class="nav-logo-text">Safe<span>School</span></span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#fitur">Fitur</a></li>
+      <li><a href="#cara-kerja">Cara Kerja</a></li>
+      <li><a href="#testimoni">Testimoni</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <a href="#cta" class="btn-primary nav-cta" style="margin-left:0">Mulai Gratis</a>
+
+    <div class="nav-actions" id="navActions">
+      <button class="btn-ghost-nav" onclick="openLoginModal()">
+        <span class="material-symbols-outlined">login</span>
+        Masuk
+      </button>
+      <a href="#cta" class="btn-primary nav-cta-d">Mulai Gratis</a>
+    </div>
+
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#fitur" onclick="toggleMenu()">Fitur</a>
+    <a href="#cara-kerja" onclick="toggleMenu()">Cara Kerja</a>
+    <a href="#testimoni" onclick="toggleMenu()">Testimoni</a>
+    <a href="#faq" onclick="toggleMenu()">FAQ</a>
+    <button class="btn-ghost-nav" style="width:100%;justify-content:center;padding:13px;" onclick="toggleMenu();openLoginModal()">
+      <span class="material-symbols-outlined">login</span>
+      Masuk ke Akun
+    </button>
+    <a href="#cta" class="btn-primary" style="text-align:center;padding:14px;" onclick="toggleMenu()">Mulai Gratis</a>
+  </div>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section id="hero">
+    <div class="hero-inner">
+
+      <!-- Floating cards top-right -->
+      <div class="hero-cards-grid">
+        <div class="hero-card">
+          <span class="material-symbols-outlined">smart_display</span>
+          <span class="hero-card-label">VPL</span>
+        </div>
+        <div class="hero-card">
+          <span class="material-symbols-outlined">how_to_reg</span>
+          <span class="hero-card-label">Online Admission</span>
+        </div>
+        <div class="hero-card">
+          <span class="material-symbols-outlined">payment</span>
+          <span class="hero-card-label">Fee Payment</span>
+        </div>
+        <div class="hero-card">
+          <span class="material-symbols-outlined">menu_book</span>
+          <span class="hero-card-label">School Brochure</span>
+        </div>
+        <div class="hero-card">
+          <span class="material-symbols-outlined">sports</span>
+          <span class="hero-card-label">Sports Academy</span>
+        </div>
+        <div class="hero-card">
+          <span class="material-symbols-outlined">360</span>
+          <span class="hero-card-label">Virtual Tour</span>
+        </div>
+      </div>
+
+      <!-- Award badge -->
+      <div class="hero-award">
+        <div class="hero-award-circle">
+          <span class="material-symbols-outlined">location_on</span>
+        </div>
+        <div class="hero-award-text">
+          <span class="hero-award-title">AWARD WINNER</span>
+          <span class="hero-award-sub">2026 Excellence in Education</span>
+        </div>
+      </div>
+
+      <!-- Headline -->
+      <p class="hero-eyebrow">THE BEST EMERGING</p>
+      <div class="hero-headline-box">
+        <h1>SCHOOL OF THE YEAR</h1>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ QUICK LINKS BAR ═══════════ -->
+  <section id="quicklinks">
+    <div class="quicklinks-inner stagger">
+      <div class="ql-item" onclick="openAboutModal()">
+        <div class="ql-icon-wrap">
+          <span class="material-symbols-outlined">info</span>
+        </div>
+        <span class="ql-label">About</span>
+      </div>
+      <div class="ql-item" onclick="openGalleryModal()">
+        <div class="ql-icon-wrap">
+          <span class="material-symbols-outlined">photo_library</span>
+        </div>
+        <span class="ql-label">Gallery</span>
+      </div>
+      <div class="ql-item" onclick="openFacilitiesModal()">
+        <div class="ql-icon-wrap">
+          <span class="material-symbols-outlined">apartment</span>
+        </div>
+        <span class="ql-label">Facilities</span>
+      </div>
+      <div class="ql-item">
+        <div class="ql-icon-wrap">
+          <span class="material-symbols-outlined">child_care</span>
+        </div>
+        <span class="ql-label">Kindergarten</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ STATS ═══════════ -->
+  <section id="stats">
+    <div class="stats-inner stagger">
+      <div class="stat-item">
+        <div class="stat-icon">
+          <span class="material-symbols-outlined">grid_view</span>
+        </div>
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Sekolah Terdaftar</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <span class="material-symbols-outlined">shield</span>
+        </div>
+        <span class="stat-number">50.000+</span>
+        <span class="stat-label">Siswa Aktif Terlindungi</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon">
+          <span class="material-symbols-outlined">dns</span>
+        </div>
+        <span class="stat-number">99.9%</span>
+        <span class="stat-label">Uptime & Keandalan Server</span>
+      </div>
+      <div class="stat-item">
+        <div class="stat-icon gold">
+          <span class="material-symbols-outlined">star</span>
+        </div>
+        <span class="stat-number">4.9/5</span>
+        <span class="stat-label">Rating Kepuasan Pengguna</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FEATURES — TAB LAYOUT ═══════════ -->
+  <section id="fitur">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">Fitur Unggulan</p>
+      <h2 class="section-title">Semua yang Sekolah Anda Butuhkan</h2>
+      <p class="section-sub">Satu platform terintegrasi untuk mengelola operasional sekolah dari A sampai Z. Tidak perlu lagi 5 aplikasi berbeda.</p>
+    </div>
+
+    <div class="fitur-layout fade-in">
+      <!-- TAB LIST (left) -->
+      <div class="fitur-tabs" id="fiturTabs">
+
+        <div class="fitur-tab active" data-panel="absensi">
+          <div class="fitur-tab-icon">
+            <span class="material-symbols-outlined">fingerprint</span>
+          </div>
+          <div class="fitur-tab-text">
+            <p class="fitur-tab-title">Absensi Digital</p>
+            <p class="fitur-tab-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke orang tua. Tidak ada lagi manipulasi data kehadiran.</p>
+          </div>
+          <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
+        </div>
+
+        <div class="fitur-tab" data-panel="pembayaran">
+          <div class="fitur-tab-icon">
+            <span class="material-symbols-outlined">credit_card</span>
+          </div>
+          <div class="fitur-tab-text">
+            <p class="fitur-tab-title">Pembayaran Online</p>
+            <p class="fitur-tab-desc">Tagihan SPP, uang kegiatan, dan biaya lainnya dalam satu dashboard. Multi metode pembayaran: transfer bank, e-wallet, QRIS.</p>
+          </div>
+          <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
+        </div>
+
+        <div class="fitur-tab" data-panel="komunikasi">
+          <div class="fitur-tab-icon">
+            <span class="material-symbols-outlined">forum</span>
+          </div>
+          <div class="fitur-tab-text">
+            <p class="fitur-tab-title">Komunikasi Orang Tua</p>
+            <p class="fitur-tab-desc">Pengumuman, jadwal, nilai, dan laporan perkembangan langsung ke HP orang tua. Chat dua arah guru–wali murid.</p>
+          </div>
+          <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
+        </div>
+
+        <div class="fitur-tab" data-panel="laporan">
+          <div class="fitur-tab-icon">
+            <span class="material-symbols-outlined">bar_chart</span>
+          </div>
+          <div class="fitur-tab-text">
+            <p class="fitur-tab-title">Laporan Akademik</p>
+            <p class="fitur-tab-desc">Input nilai mudah, rapor digital auto-generate. Grafik perkembangan siswa per semester. Analisis performa per mata pelajaran.</p>
+          </div>
+          <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
+        </div>
+
+        <div class="fitur-tab" data-panel="jadwal">
+          <div class="fitur-tab-icon">
+            <span class="material-symbols-outlined">calendar_month</span>
+          </div>
+          <div class="fitur-tab-text">
+            <p class="fitur-tab-title">Jadwal &amp; Agenda</p>
+            <p class="fitur-tab-desc">Atur jadwal pelajaran, ujian, dan event sekolah. Sinkron ke kalender guru &amp; siswa. Pengingat otomatis.</p>
+          </div>
+          <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
+        </div>
+
+      </div>
+
+      <!-- PANEL (right) -->
+      <div class="fitur-panels">
+
+        <div class="fitur-panel active" id="panel-absensi">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <span class="material-symbols-outlined">fingerprint</span>
+            </div>
+            <div>
+              <p class="panel-title">Absensi Digital</p>
+              <p class="panel-badge">Kurangi bolos hingga 60%</p>
+            </div>
+          </div>
+          <p class="panel-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke orang tua. Tidak ada lagi manipulasi data kehadiran.</p>
+          <ul class="panel-checklist">
+            <li>Integrasi mudah</li>
+            <li>Laporan otomatis</li>
+            <li>Notifikasi real-time</li>
+            <li>Multi-perangkat</li>
+          </ul>
+          <div class="panel-screenshot">
+            <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&h=460&fit=crop" alt="Dashboard Absensi Digital SafeSchool" />
+          </div>
+        </div>
+
+        <div class="fitur-panel" id="panel-pembayaran">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <span class="material-symbols-outlined">credit_card</span>
+            </div>
+            <div>
+              <p class="panel-title">Pembayaran Online</p>
+              <p class="panel-badge">Tagihan terbayar lebih cepat 3×</p>
+            </div>
+          </div>
+          <p class="panel-desc">Kelola seluruh tagihan sekolah dalam satu dashboard terpadu. Orang tua dapat membayar kapan saja via transfer bank, e-wallet, atau QRIS tanpa antre di sekolah.</p>
+          <ul class="panel-checklist">
+            <li>Multi metode bayar</li>
+            <li>Rekap keuangan real-time</li>
+            <li>Notifikasi lunas otomatis</li>
+            <li>Ekspor laporan Excel</li>
+          </ul>
+          <div class="panel-screenshot">
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=460&fit=crop" alt="Sistem Pembayaran Online SafeSchool" />
+          </div>
+        </div>
+
+        <div class="fitur-panel" id="panel-komunikasi">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <span class="material-symbols-outlined">forum</span>
+            </div>
+            <div>
+              <p class="panel-title">Komunikasi Orang Tua</p>
+              <p class="panel-badge">Respons orang tua meningkat 80%</p>
+            </div>
+          </div>
+          <p class="panel-desc">Kirim pengumuman, jadwal pelajaran, nilai ujian, dan laporan perkembangan langsung ke smartphone orang tua. Fitur chat dua arah memudahkan koordinasi guru dan wali murid.</p>
+          <ul class="panel-checklist">
+            <li>Broadcast pengumuman</li>
+            <li>Chat guru–wali murid</li>
+            <li>Pengiriman foto & dokumen</li>
+            <li>Notifikasi push & SMS</li>
+          </ul>
+          <div class="panel-screenshot">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=460&fit=crop" alt="Fitur Komunikasi Orang Tua SafeSchool" />
+          </div>
+        </div>
+
+        <div class="fitur-panel" id="panel-laporan">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <span class="material-symbols-outlined">bar_chart</span>
+            </div>
+            <div>
+              <p class="panel-title">Laporan Akademik</p>
+              <p class="panel-badge">Hemat 10 jam kerja per semester</p>
+            </div>
+          </div>
+          <p class="panel-desc">Input nilai sekali, rapor digital otomatis ter-generate dalam hitungan detik. Grafik tren performa siswa per mata pelajaran dan per semester tersedia untuk guru dan orang tua.</p>
+          <ul class="panel-checklist">
+            <li>Rapor digital otomatis</li>
+            <li>Grafik performa siswa</li>
+            <li>Analisis per mapel</li>
+            <li>Export PDF & cetak</li>
+          </ul>
+          <div class="panel-screenshot">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=460&fit=crop" alt="Dashboard Laporan Akademik SafeSchool" />
+          </div>
+        </div>
+
+        <div class="fitur-panel" id="panel-jadwal">
+          <div class="panel-header">
+            <div class="panel-icon">
+              <span class="material-symbols-outlined">calendar_month</span>
+            </div>
+            <div>
+              <p class="panel-title">Jadwal &amp; Agenda</p>
+              <p class="panel-badge">Zero konflik jadwal pelajaran</p>
+            </div>
+          </div>
+          <p class="panel-desc">Susun jadwal pelajaran, ujian semester, dan kegiatan ekstrakurikuler tanpa konflik secara otomatis. Seluruh sivitas akademika mendapat notifikasi perubahan jadwal secara instan.</p>
+          <ul class="panel-checklist">
+            <li>Auto-detect konflik</li>
+            <li>Sinkron kalender Google</li>
+            <li>Reminder otomatis</li>
+            <li>Akses mobile kapan saja</li>
+          </ul>
+          <div class="panel-screenshot">
+            <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=800&h=460&fit=crop" alt="Manajemen Jadwal SafeSchool" />
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ HOW IT WORKS ═══════════ -->
+  <section id="cara-kerja">
+    <div class="howit-inner">
+      <div class="section-header fade-in">
+        <p class="section-eyebrow">Mulai dalam Hitungan Menit</p>
+        <h2 class="section-title">Bagaimana Cara Kerjanya</h2>
+        <p class="section-sub">Tidak perlu pelatihan khusus. Tiga langkah mudah dan sekolah Anda sudah siap go-digital.</p>
+      </div>
+
+      <div class="steps-grid stagger">
+
+        <div class="step-card">
+          <div class="step-card-top">
+            <div class="step-num-label">01</div>
+            <div class="step-card-icon">
+              <span class="material-symbols-outlined">person_add</span>
+            </div>
+            <h3 class="step-title">Daftar Akun</h3>
+            <p class="step-desc">Isi data sekolah dalam 2 menit. Tidak perlu kartu kredit, langsung aktif dan bisa langsung digunakan.</p>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=320&fit=crop&crop=top"
+            alt="Daftar akun SafeSchool"
+            class="step-card-img"
+          />
+        </div>
+
+        <div class="step-card">
+          <div class="step-card-top">
+            <div class="step-num-label">02</div>
+            <div class="step-card-icon">
+              <span class="material-symbols-outlined">settings</span>
+            </div>
+            <h3 class="step-title">Konfigurasi Cepat</h3>
+            <p class="step-desc">Import data siswa, atur kelas, dan sesuaikan pengaturan sesuai kebutuhan sekolah Anda. Panduan step-by-step tersedia.</p>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=320&fit=crop"
+            alt="Konfigurasi SafeSchool"
+            class="step-card-img"
+          />
+        </div>
+
+        <div class="step-card">
+          <div class="step-card-top">
+            <div class="step-num-label">03</div>
+            <div class="step-card-icon">
+              <span class="material-symbols-outlined">notifications_active</span>
+            </div>
+            <h3 class="step-title">Langsung Jalan</h3>
+            <p class="step-desc">Undang guru dan orang tua, lalu semua fitur siap digunakan. Dashboard langsung menampilkan data real-time.</p>
+          </div>
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=320&fit=crop"
+            alt="Tim sekolah menggunakan SafeSchool"
+            class="step-card-img"
+          />
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ TESTIMONIALS ═══════════ -->
+  <section id="testimoni">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">Testimoni</p>
+      <h2 class="section-title">Dipercaya Ribuan Sekolah di Indonesia</h2>
+      <p class="section-sub">Dengarkan langsung dari para kepala sekolah, guru, dan orang tua yang telah merasakan manfaatnya.</p>
+    </div>
+    <div class="testi-grid stagger">
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+        </div>
+        <p class="testi-quote">"SafeSchool benar-benar mengubah cara kami mengelola sekolah. Absensi yang dulu manual dan sering terlambat kini berjalan otomatis. Orang tua pun sangat senang karena bisa memantau anak langsung dari ponsel mereka."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Budi Santoso" class="testi-avatar" />
+          <div>
+            <p class="testi-name">Budi Santoso, M.Pd.</p>
+            <p class="testi-role">Kepala Sekolah — SMA Negeri 3 Bandung</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+        </div>
+        <p class="testi-quote">"Laporan akademik yang dulu butuh waktu 3 hari kini selesai dalam 30 menit. Fitur komunikasi dengan orang tua juga sangat intuitif. Saya tidak bisa bayangkan kembali ke cara lama setelah menggunakan SafeSchool."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="Sri Wahyuni" class="testi-avatar" />
+          <div>
+            <p class="testi-name">Sri Wahyuni, S.Pd.</p>
+            <p class="testi-role">Wali Kelas — SD Islam Terpadu Surabaya</p>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+          <span class="material-symbols-outlined">star</span>
+        </div>
+        <p class="testi-quote">"Sebagai orang tua yang sibuk, fitur notifikasi real-time dan laporan harian anak membuat saya selalu tahu perkembangan si kecil di sekolah. Pembayaran SPP juga jadi sangat mudah lewat aplikasi ini."</p>
+        <div class="testi-author">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Rizal Firmansyah" class="testi-avatar" />
+          <div>
+            <p class="testi-name">Rizal Firmansyah</p>
+            <p class="testi-role">Orang Tua Murid — Jakarta Selatan</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FAQ ═══════════ -->
+  <section id="faq">
+    <div class="section-header fade-in">
+      <p class="section-eyebrow">FAQ</p>
+      <h2 class="section-title">Pertanyaan yang Sering Diajukan</h2>
+      <p class="section-sub">Tidak menemukan jawaban yang Anda cari? Hubungi tim support kami yang siap membantu 24/7.</p>
+    </div>
+    <div class="faq-inner fade-in">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Apakah SafeSchool bisa digunakan tanpa keahlian teknis IT?
+          <span class="material-symbols-outlined faq-icon">add</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Ya, tentu saja. SafeSchool dirancang dengan antarmuka yang sangat intuitif sehingga siapa pun — bahkan yang tidak familiar dengan teknologi sekalipun — dapat menggunakannya dengan mudah. Kami juga menyediakan pelatihan gratis untuk seluruh staf sekolah, panduan penggunaan lengkap dalam Bahasa Indonesia, dan dukungan teknis yang siap membantu kapan saja.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Bagaimana keamanan data siswa dan sekolah saya dijamin?
+          <span class="material-symbols-outlined faq-icon">add</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Keamanan data adalah prioritas utama kami. Seluruh data dienkripsi menggunakan standar AES-256, disimpan di server lokal Indonesia yang bersertifikat ISO 27001, dengan backup otomatis setiap hari. Kami juga mematuhi regulasi perlindungan data pendidikan nasional (PP No. 71 Tahun 2019) dan tidak pernah menjual atau membagikan data kepada pihak ketiga tanpa izin.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Apakah bisa mengimpor data dari sistem lama yang sudah ada?
+          <span class="material-symbols-outlined faq-icon">add</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Tentu saja. Tim migrasi data kami akan membantu memindahkan seluruh data dari sistem lama Anda — termasuk data siswa, guru, nilai akademik, dan riwayat pembayaran — ke SafeSchool secara gratis. Proses migrasi dilakukan tanpa mengganggu operasional sekolah dan biasanya selesai dalam 1-3 hari kerja tergantung volume data.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Berapa harga berlangganan SafeSchool setelah masa trial berakhir?
+          <span class="material-symbols-outlined faq-icon">add</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">SafeSchool menawarkan paket harga yang fleksibel berdasarkan jumlah siswa aktif, mulai dari Rp 299.000/bulan untuk sekolah kecil (hingga 200 siswa) hingga paket enterprise dengan harga khusus untuk yayasan atau jaringan sekolah. Setelah trial 30 hari, Anda dapat memilih paket yang paling sesuai. Tidak ada biaya tersembunyi dan Anda bisa membatalkan kapan saja tanpa penalti.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Apakah SafeSchool tersedia dalam versi mobile (iOS & Android)?
+          <span class="material-symbols-outlined faq-icon">add</span>
+        </button>
+        <div class="faq-answer">
+          <p class="faq-answer-inner">Ya! SafeSchool tersedia sebagai aplikasi mobile untuk iOS (App Store) dan Android (Google Play), serta dapat diakses melalui browser desktop. Orang tua dapat mengunduh aplikasi khusus SafeSchool Parent untuk memantau perkembangan anak, menerima notifikasi, dan berkomunikasi dengan guru langsung dari smartphone mereka.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CTA + FORM ═══════════ -->
+  <section id="cta">
+    <div class="cta-card fade-in">
+      <!-- Left: Copy -->
+      <div>
+        <p class="cta-eyebrow">Mulai Perjalanan Digital Anda</p>
+        <h2 class="cta-title">Siap Bawa Sekolah ke Level Berikutnya?</h2>
+        <div class="cta-divider"></div>
+        <p class="cta-desc">Daftar sekarang dan dapatkan <strong>akses gratis 30 hari</strong> ke semua fitur premium. Tidak perlu kartu kredit, bisa dibatalkan kapan saja.</p>
+        <ul class="cta-checklist">
+          <li>
+            <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
+            Gratis onboarding &amp; pelatihan untuk seluruh staf
+          </li>
+          <li>
+            <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
+            Support prioritas 24/7 via chat, email, dan telepon
+          </li>
+          <li>
+            <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
+            Migrasi data gratis dari sistem lama Anda
+          </li>
+          <li>
+            <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
+            Garansi 30 hari uang kembali — no questions asked
+          </li>
+        </ul>
+      </div>
+
+      <!-- Right: Form -->
+      <div class="cta-form">
+        <div class="form-group">
+          <label class="form-label">Nama Lengkap <span>*</span></label>
+          <input type="text" class="form-input" placeholder="Masukkan nama lengkap Anda" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email <span>*</span></label>
+          <input type="email" class="form-input" placeholder="email@sekolah.sch.id" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nama Sekolah <span>*</span></label>
+          <input type="text" class="form-input" placeholder="Nama resmi sekolah Anda" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nomor Telepon</label>
+          <input type="tel" class="form-input" placeholder="+62 812 xxxx xxxx" />
+        </div>
+        <button class="btn-cta">Daftar Gratis Sekarang</button>
+        <p class="form-note">Tidak perlu kartu kredit &nbsp;•&nbsp; Gratis 30 hari &nbsp;•&nbsp; Batal kapan saja</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom:0">
+          <div class="nav-logo-icon">
+            <span class="material-symbols-outlined">shield</span>
+          </div>
+          <span class="nav-logo-text">Safe<span>School</span></span>
+        </a>
+        <p>Platform manajemen sekolah digital terpercaya yang membantu ribuan sekolah di Indonesia bertransformasi menuju pendidikan modern dan efisien.</p>
+        <div class="footer-social">
+          <a href="#" title="Instagram"><span class="material-symbols-outlined">photo_camera</span></a>
+          <a href="#" title="Twitter/X"><span class="material-symbols-outlined">tag</span></a>
+          <a href="#" title="LinkedIn"><span class="material-symbols-outlined">business</span></a>
+          <a href="#" title="YouTube"><span class="material-symbols-outlined">smart_display</span></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Produk</p>
+        <ul>
+          <li><a href="#">Fitur Lengkap</a></li>
+          <li><a href="#">Harga & Paket</a></li>
+          <li><a href="#">Demo Interaktif</a></li>
+          <li><a href="#">Aplikasi Mobile</a></li>
+          <li><a href="#">Integrasi API</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Perusahaan</p>
+        <ul>
+          <li><a href="#">Tentang Kami</a></li>
+          <li><a href="#">Blog & Berita</a></li>
+          <li><a href="#">Karir</a></li>
+          <li><a href="#">Press Kit</a></li>
+          <li><a href="#">Mitra Sekolah</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <p class="footer-col-title">Dukungan</p>
+        <ul>
+          <li><a href="#">Pusat Bantuan</a></li>
+          <li><a href="#">Dokumentasi</a></li>
+          <li><a href="#">Status Sistem</a></li>
+          <li><a href="#">Hubungi Kami</a></li>
+          <li><a href="#">Komunitas</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 SafeSchool. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat & Ketentuan</a>
+        <a href="#">Kebijakan Cookie</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════ ABOUT MODAL ═══════════ -->
+  <div class="modal-overlay" id="aboutModal" onclick="handleAboutOverlayClick(event)">
+    <div class="modal-box" style="max-width: 500px;">
+      <div class="modal-header">
+        <div class="modal-logo">
+          <div class="modal-logo-icon">
+            <span class="material-symbols-outlined">info</span>
+          </div>
+          <span class="modal-logo-text">Tentang SafeSchool</span>
+        </div>
+        <h2 class="modal-title">Visi &amp; Misi Kami</h2>
+        <p class="modal-subtitle">Platform Manajemen &amp; Wellness Sekolah Digital</p>
+        <button class="modal-close" onclick="closeAboutModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 28px 36px 32px; line-height: 1.6;">
+        <p style="margin-bottom: 16px; font-size: 14.5px; color: #374151;">
+          <strong>SafeSchool</strong> adalah pelopor platform manajemen ekosistem sekolah digital di Indonesia yang mengutamakan keselamatan dan kesejahteraan (wellness) siswa secara menyeluruh.
+        </p>
+        <p style="margin-bottom: 16px; font-size: 14.5px; color: #374151;">
+          Kami berfokus pada pencegahan perundungan (anti-bullying), pemantauan kesehatan mental dan fisik siswa (wellness tracking), pelaporan insiden keamanan secara anonim, serta efisiensi administrasi sekolah.
+        </p>
+        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Pilar Utama SafeSchool</h4>
+        <ul style="list-style: none; padding-left: 0; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #4b5563;">
+          <li style="display: flex; align-items: flex-start; gap: 10px;">
+            <span class="material-symbols-outlined" style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
+            <span><strong>Anti-Bullying &amp; Safety:</strong> Menyediakan kanal pengaduan rahasia (anonim) demi keamanan siswa.</span>
+          </li>
+          <li style="display: flex; align-items: flex-start; gap: 10px;">
+            <span class="material-symbols-outlined" style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
+            <span><strong>Wellness Tracking:</strong> Edukasi &amp; monitoring pola tidur, hidrasi, screen time, serta meditasi siswa.</span>
+          </li>
+          <li style="display: flex; align-items: flex-start; gap: 10px;">
+            <span class="material-symbols-outlined" style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
+            <span><strong>Integrasi Sistem:</strong> Menghubungkan wali kelas, konselor, siswa, dan orang tua dalam satu platform.</span>
+          </li>
+        </ul>
+        <button class="btn-login" onclick="closeAboutModal()" style="width: 100%;">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ GALLERY MODAL ═══════════ -->
+  <div class="modal-overlay" id="galleryModal" onclick="handleGalleryOverlayClick(event)">
+    <div class="modal-box" style="max-width: 640px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);">
+        <div class="modal-logo">
+          <div class="modal-logo-icon">
+            <span class="material-symbols-outlined">photo_library</span>
+          </div>
+          <span class="modal-logo-text">Galeri SafeSchool</span>
+        </div>
+        <h2 class="modal-title">Dokumentasi &amp; Kegiatan</h2>
+        <p class="modal-subtitle">Potret nyata lingkungan sekolah yang aman dan sehat</p>
+        <button class="modal-close" onclick="closeGalleryModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 24px; max-height: 70vh; overflow-y: auto;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Seminar Anti-Bullying" />
+            <div style="padding: 12px;">
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Seminar Anti-Bullying</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Edukasi berkala bagi seluruh siswa untuk menumbuhkan sikap toleransi dan empati.</p>
+            </div>
+          </div>
+          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Ruang Konseling &amp; Curhat" />
+            <div style="padding: 12px;">
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Ruang Konseling &amp; Curhat</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Tempat aman dan rahasia bagi siswa untuk berkonsultasi mengenai kesehatan mental mereka.</p>
+            </div>
+          </div>
+          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Sistem Absensi Keamanan" />
+            <div style="padding: 12px;">
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Sistem Absensi Keamanan</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Gerbang pintar dengan pemindai QR untuk memastikan siswa hadir secara aman di area sekolah.</p>
+            </div>
+          </div>
+          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Interaksi Positif Siswa" />
+            <div style="padding: 12px;">
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Interaksi Positif Siswa</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Aktivitas kelompok sebaya untuk membangun jejaring pertemanan yang saling mendukung.</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-login" onclick="closeGalleryModal()" style="width: 100%; margin-top: 20px;">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ FACILITIES MODAL ═══════════ -->
+  <div class="modal-overlay" id="facilitiesModal" onclick="handleFacilitiesOverlayClick(event)">
+    <div class="modal-box" style="max-width: 540px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, var(--navy) 0%, var(--blue-mid) 100%);">
+        <div class="modal-logo">
+          <div class="modal-logo-icon">
+            <span class="material-symbols-outlined">apartment</span>
+          </div>
+          <span class="modal-logo-text">Fasilitas SafeSchool</span>
+        </div>
+        <h2 class="modal-title">Fasilitas Keamanan &amp; Wellness</h2>
+        <p class="modal-subtitle">Sarana pendukung kenyamanan fisik dan mental siswa</p>
+        <button class="modal-close" onclick="closeFacilitiesModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="modal-body" style="padding: 24px; max-height: 70vh; overflow-y: auto;">
+        <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
+          
+          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">videocam</span>
+            </div>
+            <div>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Pusat CCTV &amp; Monitoring 24 Jam</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Pengawasan kamera di titik rawan perundungan untuk menjamin tindakan pencegahan yang responsif.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">self_improvement</span>
+            </div>
+            <div>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Pojok Meditasi &amp; Olah Nafas</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Area tenang yang dilengkapi panduan relaksasi bagi siswa untuk melepas penat dan kecemasan.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">medical_services</span>
+            </div>
+            <div>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Klinik UKS &amp; Wellness Corner</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Layanan pertolongan pertama kesehatan fisik dan pengecekan kebugaran berkala bagi siswa.</p>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">forum</span>
+            </div>
+            <div>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Ruang Konseling &amp; Terapi Bicara</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Ruang kedap suara ramah anak untuk berkonsultasi privat bersama konselor sekolah bersertifikat.</p>
+            </div>
+          </div>
+
+        </div>
+        <button class="btn-login" onclick="closeFacilitiesModal()" style="width: 100%;">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ LOGIN MODAL ═══════════ -->
+  <div class="modal-overlay" id="loginModal" onclick="handleOverlayClick(event)">
+    <div class="modal-box" id="modalBox">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div class="modal-logo">
+          <div class="modal-logo-icon">
+            <span class="material-symbols-outlined">shield</span>
+          </div>
+          <span class="modal-logo-text">SafeSchool</span>
+        </div>
+        <h2 class="modal-title">Selamat Datang Kembali</h2>
+        <p class="modal-subtitle">Masuk ke akun SafeSchool Anda</p>
+        <button class="modal-close" onclick="closeLoginModal()">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+
+        <!-- Role selector -->
+        <div class="role-selector" id="roleSelector">
+          <button class="role-btn active" data-role="admin" onclick="selectRole(this)">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+            <span class="role-label">Admin</span>
+          </button>
+          <button class="role-btn" data-role="guru" onclick="selectRole(this)">
+            <span class="material-symbols-outlined">school</span>
+            <span class="role-label">Guru</span>
+          </button>
+          <button class="role-btn" data-role="ortu" onclick="selectRole(this)">
+            <span class="material-symbols-outlined">family_restroom</span>
+            <span class="role-label">Orang Tua</span>
+          </button>
+        </div>
+
+        <!-- Error message -->
+        <div class="login-error-msg" id="loginError">
+          <span class="material-symbols-outlined">error</span>
+          <span id="loginErrorText">Email atau kata sandi salah. Silakan coba lagi.</span>
+        </div>
+
+        <!-- Form -->
+        <div id="loginForm">
+          <div class="login-group">
+            <label class="login-label">Email / ID Sekolah</label>
+            <div class="login-input-wrap">
+              <span class="material-symbols-outlined">alternate_email</span>
+              <input type="email" class="login-input" id="loginEmail" placeholder="email@sekolah.sch.id" />
+            </div>
+          </div>
+
+          <div class="login-group">
+            <label class="login-label">Kata Sandi</label>
+            <div class="login-input-wrap">
+              <span class="material-symbols-outlined">lock</span>
+              <input type="password" class="login-input" id="loginPass" placeholder="Masukkan kata sandi" style="padding-right:44px" />
+              <button onclick="togglePassVis()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;">
+                <span class="material-symbols-outlined" id="eyeIcon" style="font-size:18px;color:#94a3b8;">visibility_off</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="login-row">
+            <label class="login-remember">
+              <input type="checkbox" id="rememberMe" />
+              <span>Ingat saya</span>
+            </label>
+            <a href="#" class="login-forgot" onclick="showForgot(event)">Lupa kata sandi?</a>
+          </div>
+
+          <button class="btn-login" id="loginBtn" onclick="doLogin()">
+            <span class="material-symbols-outlined">login</span>
+            Masuk Sekarang
+          </button>
+
+          <div class="login-divider"><span>atau</span></div>
+
+          <p class="login-register">
+            Belum punya akun?
+            <a href="#cta" onclick="closeLoginModal()">Daftar gratis 30 hari</a>
+          </p>
+        </div>
+
+        <!-- Success state -->
+        <div class="login-success" id="loginSuccess">
+          <div class="success-circle">
+            <span class="material-symbols-outlined">check_circle</span>
+          </div>
+          <p class="success-title">Login Berhasil!</p>
+          <p class="success-sub">Selamat datang kembali.<br>Anda akan diarahkan ke dashboard sekolah Anda.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ─── Feature tabs ───
+    document.querySelectorAll('.fitur-tab').forEach(tab => {
+      tab.addEventListener('click', function() {
+        const panelId = this.dataset.panel;
+        document.querySelectorAll('.fitur-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.fitur-panel').forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+        document.getElementById('panel-' + panelId).classList.add('active');
+      });
+    });
+
+    // ─── Navbar scroll effect ───
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // ─── Mobile menu ───
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('open');
+    }
+
+    // ─── FAQ accordion ───
+    function toggleFaq(btn) {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ─── IntersectionObserver fade-in ───
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in, .stagger').forEach(el => observer.observe(el));
+
+    // ─── Smooth anchor scroll ───
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // ─── CTA Form submit ───
+    document.querySelector('.btn-cta').addEventListener('click', function() {
+      const inputs = document.querySelectorAll('.cta-form .form-input');
+      const nama = inputs[0].value.trim();
+      const email = inputs[1].value.trim();
+      const sekolah = inputs[2].value.trim();
+      if (!nama || !email || !sekolah) {
+        this.textContent = 'Lengkapi field yang wajib diisi!';
+        this.style.background = '#DE2125';
+        setTimeout(() => {
+          this.textContent = 'Daftar Gratis Sekarang';
+          this.style.background = '';
+        }, 2000);
+        return;
+      }
+      
+      localStorage.setItem('loggedIn', 'true');
+      localStorage.setItem('user', JSON.stringify({ name: nama, email: email, role: 'admin' }));
+      
+      this.textContent = '✓ Registrasi Berhasil! Mengarahkan ke Dashboard...';
+      this.style.background = '#16a34a';
+      this.disabled = true;
+      
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 1500);
+    });
+
+    // ─── LOGIN MODAL ───
+    function openLoginModal() {
+      const modal = document.getElementById('loginModal');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      // reset state
+      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginPass').value = '';
+      document.getElementById('loginError').classList.remove('show');
+      document.getElementById('loginForm').style.display = '';
+      document.getElementById('loginSuccess').classList.remove('show');
+      document.getElementById('loginBtn').disabled = false;
+      document.getElementById('loginBtn').innerHTML = '<span class="material-symbols-outlined">login</span> Masuk Sekarang';
+      document.getElementById('loginEmail').classList.remove('error');
+      document.getElementById('loginPass').classList.remove('error');
+      setTimeout(() => document.getElementById('loginEmail').focus(), 300);
+    }
+
+    function closeLoginModal() {
+      document.getElementById('loginModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleOverlayClick(e) {
+      if (e.target === document.getElementById('loginModal')) closeLoginModal();
+    }
+
+    // ─── ABOUT MODAL ───
+    function openAboutModal() {
+      document.getElementById('aboutModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeAboutModal() {
+      document.getElementById('aboutModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleAboutOverlayClick(e) {
+      if (e.target === document.getElementById('aboutModal')) closeAboutModal();
+    }
+
+    // ─── GALLERY MODAL ───
+    function openGalleryModal() {
+      document.getElementById('galleryModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeGalleryModal() {
+      document.getElementById('galleryModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleGalleryOverlayClick(e) {
+      if (e.target === document.getElementById('galleryModal')) closeGalleryModal();
+    }
+
+    // ─── FACILITIES MODAL ───
+    function openFacilitiesModal() {
+      document.getElementById('facilitiesModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeFacilitiesModal() {
+      document.getElementById('facilitiesModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function handleFacilitiesOverlayClick(e) {
+      if (e.target === document.getElementById('facilitiesModal')) closeFacilitiesModal();
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeLoginModal();
+        closeAboutModal();
+        closeGalleryModal();
+        closeFacilitiesModal();
+      }
+    });
+
+    function selectRole(btn) {
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function togglePassVis() {
+      const inp = document.getElementById('loginPass');
+      const icon = document.getElementById('eyeIcon');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        icon.textContent = 'visibility';
+      } else {
+        inp.type = 'password';
+        icon.textContent = 'visibility_off';
+      }
+    }
+
+    function doLogin() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass  = document.getElementById('loginPass').value.trim();
+      const errEl = document.getElementById('loginError');
+      const errTxt = document.getElementById('loginErrorText');
+      const btn   = document.getElementById('loginBtn');
+
+      // Clear errors
+      errEl.classList.remove('show');
+      document.getElementById('loginEmail').classList.remove('error');
+      document.getElementById('loginPass').classList.remove('error');
+
+      // Validation
+      if (!email) {
+        errTxt.textContent = 'Email tidak boleh kosong.';
+        errEl.classList.add('show');
+        document.getElementById('loginEmail').classList.add('error');
+        document.getElementById('loginEmail').focus();
+        return;
+      }
+      if (!email.includes('@')) {
+        errTxt.textContent = 'Format email tidak valid.';
+        errEl.classList.add('show');
+        document.getElementById('loginEmail').classList.add('error');
+        return;
+      }
+      if (!pass) {
+        errTxt.textContent = 'Kata sandi tidak boleh kosong.';
+        errEl.classList.add('show');
+        document.getElementById('loginPass').classList.add('error');
+        document.getElementById('loginPass').focus();
+        return;
+      }
+      if (pass.length < 6) {
+        errTxt.textContent = 'Kata sandi minimal 6 karakter.';
+        errEl.classList.add('show');
+        document.getElementById('loginPass').classList.add('error');
+        return;
+      }
+
+      // Loading state
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined" style="animation:spin 0.8s linear infinite">refresh</span> Memverifikasi…';
+
+      // Simulate API call
+      setTimeout(() => {
+        const activeRoleBtn = document.querySelector('.role-btn.active');
+        const role = activeRoleBtn ? activeRoleBtn.dataset.role : 'admin';
+        const name = email.split('@')[0];
+        
+        localStorage.setItem('loggedIn', 'true');
+        localStorage.setItem('user', JSON.stringify({ name: name, email: email, role: role }));
+
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('loginSuccess').classList.add('show');
+
+        // Redirect after 1.8s
+        setTimeout(() => {
+          closeLoginModal();
+          window.location.href = 'index.html';
+        }, 1800);
+      }, 1400);
+    }
+
+    function showForgot(e) {
+      e.preventDefault();
+      const errEl = document.getElementById('loginError');
+      const errTxt = document.getElementById('loginErrorText');
+      errTxt.textContent = 'Fitur lupa kata sandi akan segera tersedia. Hubungi admin sekolah Anda.';
+      errEl.style.background = '#eff6ff';
+      errEl.style.borderColor = '#93c5fd';
+      errEl.querySelector('.material-symbols-outlined').style.color = '#0056A9';
+      errEl.querySelector('.material-symbols-outlined').textContent = 'info';
+      errEl.querySelector('span:last-child').style.color = '#0056A9';
+      errEl.classList.add('show');
+    }
+
+    function checkLoginStatus() {
+      const loggedIn = localStorage.getItem('loggedIn') === 'true';
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const navActions = document.getElementById('navActions');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const navCta = document.querySelector('.nav-cta');
+      
+      if (loggedIn && user.name) {
+        if (navActions) {
+          navActions.innerHTML = `
+            <span style="color: rgba(255,255,255,0.9); font-weight: 600; font-size: 14px; margin-right: 12px; display: flex; align-items: center; gap: 6px;">
+              <span class="material-symbols-outlined" style="font-size: 18px; color: var(--blue-light);">person</span>
+              Hai, ${user.name}
+            </span>
+            <a href="index.html" class="btn-primary" style="margin-right: 8px;">Dashboard</a>
+            <button class="btn-ghost-nav" onclick="doLogout()">
+              <span class="material-symbols-outlined">logout</span>
+              Keluar
+            </button>
+          `;
+        }
+        if (navCta) {
+          navCta.style.display = 'none';
+        }
+        if (mobileMenu) {
+          mobileMenu.innerHTML = `
+            <a href="#fitur" onclick="toggleMenu()">Fitur</a>
+            <a href="#cara-kerja" onclick="toggleMenu()">Cara Kerja</a>
+            <a href="#testimoni" onclick="toggleMenu()">Testimoni</a>
+            <a href="#faq" onclick="toggleMenu()">FAQ</a>
+            <div style="color: rgba(255,255,255,0.9); font-weight: 600; font-size: 15px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 6px;">
+              <span class="material-symbols-outlined" style="color: var(--blue-light);">person</span>
+              Hai, ${user.name}
+            </div>
+            <a href="index.html" class="btn-primary" style="text-align:center;padding:14px;">Buka Dashboard</a>
+            <button class="btn-ghost-nav" style="width:100%;justify-content:center;padding:13px;" onclick="doLogout()">
+              <span class="material-symbols-outlined">logout</span>
+              Keluar dari Akun
+            </button>
+          `;
+        }
+      }
+    }
+
+    function doLogout() {
+      localStorage.removeItem('loggedIn');
+      localStorage.removeItem('user');
+      window.location.reload();
+    }
+
+    // Run on load
+    window.addEventListener('DOMContentLoaded', checkLoginStatus);
+
+    // Spin keyframe for loading icon
+    const styleEl = document.createElement('style');
+    styleEl.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+    document.head.appendChild(styleEl);
+  </script>
+</body>
+</html>
