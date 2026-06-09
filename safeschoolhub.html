@@ -15,28 +15,29 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        primary: '#106399',
-        'on-primary': '#ffffff',
-        'primary-container': '#5a9bd5',
-        'on-primary-container': '#003151',
-        secondary: '#1c6c3f',
-        'on-secondary': '#ffffff',
-        'secondary-container': '#a5f4bb',
-        'on-secondary-container': '#247245',
-        surface: '#f8f9ff',
-        'surface-container-lowest': '#ffffff',
-        'surface-container-low': '#eff4ff',
-        'surface-container': '#e5eeff',
-        'surface-container-high': '#dce9ff',
-        'surface-container-highest': '#d3e4fe',
-        'on-surface': '#0b1c30',
-        'on-surface-variant': '#41474f',
-        outline: '#717880',
-        'outline-variant': '#c1c7d1',
-        error: '#ba1a1a',
-        'error-container': '#ffdad6',
-        'inverse-surface': '#213145',
-        background: '#f8f9ff',
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        surface: 'var(--surface)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
+        background: 'var(--background)',
+      },
       },
       fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
       boxShadow: {
@@ -636,16 +637,24 @@ tailwind.config = {
 <div class="text-sm opacity-90 mt-2">You're more calm this week compared to last! Keep it up, Alex.</div>
 </div>
 <div class="card p-5">
-<div class="font-bold mb-3" data-i18n="feelingNow">How are you feeling right now?</div>
-<div class="flex flex-col gap-2" id="feelChips">
-<button class="mood-chip text-left" data-feel="Calm">🎯 Calm</button>
-<button class="mood-chip text-left" data-feel="Anxious">😰 Anxious</button>
-<button class="mood-chip text-left" data-feel="Tired">🌙 Tired</button>
-<button class="mood-chip text-left" data-feel="Energetic">⚡ Energetic</button>
-<button class="mood-chip text-left" data-feel="Focused">🔮 Focused</button>
-</div>
-<div class="text-xs text-on-surface-variant mt-2" id="feelMsg"></div>
-<div class="flex gap-1 mt-2" id="feelTimeline"></div>
+  <div class="font-extrabold text-sm mb-3 text-primary flex items-center gap-1.5">
+    <span class="material-symbols-outlined" style="font-size:18px">menu_book</span>
+    <span data-i18n="breathEduTitle">Edukasi & Pentingnya Menjaga Pernapasan</span>
+  </div>
+  <div class="space-y-3">
+    <div class="p-3 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:border-primary transition-colors" onclick="location.href='educational.html'">
+      <div class="font-bold text-xs text-on-surface" data-i18n="breathArt1Title">Pentingnya Bernapas dengan Diafragma</div>
+      <p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed" data-i18n="breathArt1Desc">Bernapas dengan diafragma (perut) membantu menurunkan hormon stres kortisol, menstabilkan tekanan darah, dan meningkatkan kapasitas paru-paru Anda secara optimal.</p>
+    </div>
+    <div class="p-3 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:border-primary transition-colors" onclick="location.href='educational.html'">
+      <div class="font-bold text-xs text-on-surface" data-i18n="breathArt2Title">Kaitan Pernapasan dengan Konsentrasi Belajar</div>
+      <p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed" data-i18n="breathArt2Desc">Ketika asupan oksigen ke otak maksimal melalui teknik pernapasan yang benar, fokus belajar, daya ingat, dan retensi materi akademis Anda akan meningkat drastis.</p>
+    </div>
+    <div class="p-3 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:border-primary transition-colors" onclick="location.href='educational.html'">
+      <div class="font-bold text-xs text-on-surface" data-i18n="breathArt3Title">Teknik Box Breathing untuk Meredakan Kecemasan</div>
+      <p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed" data-i18n="breathArt3Desc">Box Breathing adalah teknik pernapasan taktis yang digunakan untuk merilekskan sistem saraf secara instan saat menghadapi kecemasan atau stres ujian.</p>
+    </div>
+  </div>
 </div>
 </div>
 </section>
@@ -1062,8 +1071,7 @@ function drawWeeklyMood(){
   data.forEach((v,i)=>{const x=20+i*40,h=v*12,y=110-h;const c=i===6?'#fff':'#5a9bd5';svg+=`<rect x="${x}" y="${y}" width="24" height="${h}" rx="6" fill="${c}"/><text x="${x+12}" y="125" text-anchor="middle" font-size="10" fill="#fff">${days[i]}</text>`;});
   document.getElementById('weeklyMoodChart').innerHTML=svg;
 }
-let feelHistory=[];
-document.querySelectorAll('#feelChips button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#feelChips button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('feelMsg').textContent='Feeling logged ✓ — '+b.dataset.feel;feelHistory.push(b.dataset.feel);document.getElementById('feelTimeline').innerHTML=feelHistory.map(()=>'<span class="w-2 h-2 rounded-full bg-primary"></span>').join('');}));
+/* ===== FEEL CHIPS (removed) ===== */
 
 /* ============== SAFETY ============== */
 function submitReport(e){e.preventDefault();e.target.reset();showToast('Report submitted anonymously','success');}
@@ -1108,7 +1116,10 @@ function downloadData(){const blob=new Blob([JSON.stringify({profile:{name:'Alex
 function clearMoodHistory(){document.getElementById('confirmTitle').textContent='Clear mood history?';document.getElementById('confirmMsg').textContent='This cannot be undone.';document.getElementById('confirmOk').onclick=()=>{moodHistory=[];feelHistory=[];closeModal('confirmModal');showToast('Mood history cleared','success');};openModal('confirmModal');}
 
 const I18N={en:{brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Settings'},id:{brand:'SafeSchoolHub',dashTitle:'Kesejahteraan Siswa',settings:'Pengaturan'}};
-function setLang(l){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=I18N[l][el.dataset.i18n];if(v)el.textContent=v;});showToast('Language: '+l.toUpperCase(),'info');}
+function setLang(l){
+  LangSystem.setLang(l);
+  showToast(l==='id'?'Bahasa: Indonesia':'Language: English','info');
+}
 
 /* ============== INIT ============== */
 renderHyd();renderNotifs();
@@ -1285,3 +1296,4 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden){mainXP=lo
 <script src="profile.js"></script>
 </body>
 </html>
+

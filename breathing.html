@@ -14,12 +14,29 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        primary: '#106399','on-primary': '#ffffff','primary-container': '#5a9bd5','on-primary-container': '#003151',
-        secondary: '#1c6c3f','on-secondary': '#ffffff','secondary-container': '#a5f4bb','on-secondary-container': '#247245',
-        surface: '#f8f9ff','surface-container-lowest': '#ffffff','surface-container-low': '#eff4ff',
-        'surface-container': '#e5eeff','surface-container-high': '#dce9ff','surface-container-highest': '#d3e4fe',
-        'on-surface': '#0b1c30','on-surface-variant': '#41474f',outline: '#717880','outline-variant': '#c1c7d1',
-        error: '#ba1a1a','error-container': '#ffdad6','inverse-surface': '#213145',background: '#f8f9ff',
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        surface: 'var(--surface)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
+        background: 'var(--background)',
+      },
       },
       fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
       boxShadow: { card: '0 10px 30px rgba(0,0,0,0.04)', 'card-hover': '0 15px 40px rgba(0,0,0,0.08)' },
@@ -182,18 +199,26 @@ tailwind.config = {
       </div>
       <div class="text-xs text-on-surface-variant mt-3">Session <span id="sessionCounter">1</span> of 5</div>
 
-      <!-- How are you feeling -->
+      <!-- Edukasi Pernapasan -->
       <div class="w-full mt-5 pt-5 border-t border-outline-variant text-left">
-        <div class="font-bold mb-2 text-sm">How are you feeling right now?</div>
-        <div class="flex flex-wrap gap-2" id="feelChips">
-          <button class="mood-chip text-left" data-feel="Calm">🎯 Calm</button>
-          <button class="mood-chip text-left" data-feel="Anxious">😰 Anxious</button>
-          <button class="mood-chip text-left" data-feel="Tired">🌙 Tired</button>
-          <button class="mood-chip text-left" data-feel="Energetic">⚡ Energetic</button>
-          <button class="mood-chip text-left" data-feel="Focused">🔮 Focused</button>
+        <div class="font-extrabold text-sm mb-3 text-primary flex items-center gap-1.5">
+          <span class="material-symbols-outlined" style="font-size:18px">menu_book</span>
+          <span data-i18n="breathEduTitle">Edukasi & Pentingnya Menjaga Pernapasan</span>
         </div>
-        <div class="text-xs text-on-surface-variant mt-2" id="feelMsg"></div>
-        <div class="flex gap-1 mt-2" id="feelTimeline"></div>
+        <div class="space-y-3">
+          <div class="p-3 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:border-primary transition-colors" onclick="location.href='educational.html'">
+            <div class="font-bold text-xs text-on-surface" data-i18n="breathArt1Title">Pentingnya Bernapas dengan Diafragma</div>
+            <p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed" data-i18n="breathArt1Desc">Bernapas dengan diafragma (perut) membantu menurunkan hormon stres kortisol, menstabilkan tekanan darah, dan meningkatkan kapasitas paru-paru Anda secara optimal.</p>
+          </div>
+          <div class="p-3 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:border-primary transition-colors" onclick="location.href='educational.html'">
+            <div class="font-bold text-xs text-on-surface" data-i18n="breathArt2Title">Kaitan Pernapasan dengan Konsentrasi Belajar</div>
+            <p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed" data-i18n="breathArt2Desc">Ketika asupan oksigen ke otak maksimal melalui teknik pernapasan yang benar, fokus belajar, daya ingat, dan retensi materi akademis Anda akan meningkat drastis.</p>
+          </div>
+          <div class="p-3 rounded-xl border border-outline-variant bg-surface-container-lowest cursor-pointer hover:border-primary transition-colors" onclick="location.href='educational.html'">
+            <div class="font-bold text-xs text-on-surface" data-i18n="breathArt3Title">Teknik Box Breathing untuk Meredakan Kecemasan</div>
+            <p class="text-[10px] text-on-surface-variant mt-1 leading-relaxed" data-i18n="breathArt3Desc">Box Breathing adalah teknik pernapasan taktis yang digunakan untuk merilekskan sistem saraf secara instan saat menghadapi kecemasan atau stres ujian.</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -420,15 +445,7 @@ function selectWeeklyMood(idx){
   document.querySelectorAll('#weeklyMoodChart rect').forEach((r,i)=>{r.setAttribute('stroke-width',i===idx?2.5:1);r.setAttribute('stroke',i===idx?'#fff':'rgba(255,255,255,0.3)');});
 }
 
-/* ===== FEEL CHIPS ===== */
-let feelHistory=[];
-document.querySelectorAll('#feelChips button').forEach(b=>b.addEventListener('click',()=>{
-  document.querySelectorAll('#feelChips button').forEach(x=>x.classList.remove('selected'));
-  b.classList.add('selected');
-  document.getElementById('feelMsg').textContent='Feeling logged ✓ — '+b.dataset.feel;
-  feelHistory.push(b.dataset.feel);
-  document.getElementById('feelTimeline').innerHTML=feelHistory.map(()=>'<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>').join('');
-}));
+/* ===== FEEL CHIPS (removed) ===== */
 
 drawWeeklyMood();
 </script>
@@ -471,3 +488,4 @@ drawWeeklyMood();
 </body>
 </html>
 <script src="js/avatar.js"></script>
+

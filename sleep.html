@@ -17,6 +17,12 @@ tailwind.config = {
       colors: {
         primary: 'var(--primary)',
         'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
         surface: 'var(--surface)',
         'surface-container-lowest': 'var(--surface-container-lowest)',
         'surface-container-low': 'var(--surface-container-low)',
@@ -27,7 +33,11 @@ tailwind.config = {
         'on-surface-variant': 'var(--on-surface-variant)',
         outline: 'var(--outline)',
         'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
         background: 'var(--background)',
+      },
       },
       fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
       boxShadow: {
@@ -154,7 +164,6 @@ tailwind.config = {
 <!-- Header -->
 <div class="flex items-start justify-between mb-2">
 <div>
-<span class="stat-pill-green pill px-3 py-1 text-xs font-bold inline-block mb-2" id="sleepScorePill">Tidur Baik</span>
 <h1 class="text-3xl font-extrabold" data-i18n="nightlyInsights">Nightly Sleep Insights</h1>
 <p class="text-on-surface-variant mt-1 mb-4" data-i18n="sleepSubtitleID">Monitor ritme sirkadian dan tahap tidurmu untuk meningkatkan fokus akademis.</p>
 </div>
@@ -182,15 +191,15 @@ tailwind.config = {
 </div>
 </div>
 <div class="mb-4">
-<label class="text-xs text-on-surface-variant font-semibold block mb-2">Kualitas Tidur</label>
-<div class="flex gap-2" id="sleepQualityBtns">
-<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="1" onclick="selectQuality(1)">😴</button>
-<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="2" onclick="selectQuality(2)">😐</button>
-<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="3" onclick="selectQuality(3)">🙂</button>
-<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="4" onclick="selectQuality(4)">😊</button>
-<button class="flex-1 py-2 rounded-xl border-2 border-outline-variant text-lg transition-all" data-q="5" onclick="selectQuality(5)">🤩</button>
+<label class="text-xs text-on-surface-variant font-semibold block mb-2" data-i18n="sleepQuality">Kualitas Tidur</label>
+<div class="flex flex-wrap gap-2" id="sleepQualityBtns">
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="1" onclick="selectQuality(1)" data-i18n="sleepQVeryBad">Sangat Buruk</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="2" onclick="selectQuality(2)" data-i18n="sleepQBad">Buruk</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="3" onclick="selectQuality(3)" data-i18n="sleepQFair">Cukup</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="4" onclick="selectQuality(4)" data-i18n="sleepQGood">Baik</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="5" onclick="selectQuality(5)" data-i18n="sleepQVeryGood">Sangat Baik</button>
 </div>
-<div class="text-xs text-center text-on-surface-variant mt-1" id="qualityLabel">Pilih kualitas tidur</div>
+<div class="text-xs text-center text-on-surface-variant mt-1.5" id="qualityLabel">Pilih kualitas tidur</div>
 </div>
 <div class="mb-4">
 <label class="text-xs text-on-surface-variant font-semibold block mb-2">Catatan (opsional)</label>
@@ -199,42 +208,6 @@ tailwind.config = {
 <button class="btn-primary w-full" onclick="saveSleepLog()">
 <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">save</span><span data-i18n="simpanLog">Simpan Log Tidur</span></button>
 </div>
-<!-- ===== SLEEP ARCHITECTURE CHART ===== -->
-<div class="card p-5 mb-5">
-<div class="flex items-center justify-between mb-3">
-<div class="font-bold" data-i18n="sleepArchitecture">Sleep Architecture</div>
-<label class="flex items-center gap-2 text-xs cursor-pointer">
-<span>Trend</span>
-<div class="toggle on" id="trendToggle" onclick="this.classList.toggle('on');drawSleepArch()"></div>
-</label>
-</div>
-<svg class="w-full h-44" id="sleepArchChart" viewbox="0 0 320 180"></svg>
-<div class="flex flex-wrap gap-3 text-[10px] mt-2">
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#003151"></span>Deep</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#106399"></span><span data-i18n="themeLight">Light</span></span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#c4b5fd"></span>REM</span>
-<span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#fb7185"></span>Awake</span>
-</div>
-</div>
-<!-- ===== SLEEP SCORE ===== -->
-<div class="card p-5 mb-5">
-<div class="flex justify-between items-center">
-<div>
-<div class="font-bold text-lg"><span data-i18n="sleepScoreLabel">Sleep Score:</span><span id="sleepScoreNum">—</span></div>
-<div class="text-xs text-on-surface-variant" id="sleepScoreLabel">Belum ada data hari ini</div>
-</div>
-<a class="text-primary text-sm font-bold cursor-pointer" onclick="document.getElementById('fullAnalysis').classList.toggle('hidden')">Full Analysis →</a>
-</div>
-<div class="h-3 rounded-full bg-surface-container overflow-hidden mt-3 mb-2">
-<div class="h-full rounded-full transition-all duration-1000" id="sleepScoreBar" style="width:0%;background:#22c55e"></div>
-</div>
-<div class="hidden mt-3 text-sm text-on-surface-variant space-y-1" id="fullAnalysis">
-<div>⏱ Total tidur: <b id="faTotal">—</b></div>
-<div>💤 Efisiensi: <b id="faEff">—</b></div>
-<div>🌙 Kualitas: <b id="faQual">—</b></div>
-<div>📝 Catatan: <b id="faNote">—</b></div>
-</div>
-</div>
 <!-- ===== STAT GRID ===== -->
 <div class="grid grid-cols-2 gap-3 mb-5">
 <div class="card p-4">
@@ -242,15 +215,7 @@ tailwind.config = {
 <div class="text-2xl font-extrabold" id="statTotal">—</div>
 </div>
 <div class="card p-4">
-<div class="text-xs text-on-surface-variant" data-i18n="efisiensi">Efisiensi</div>
-<div class="text-2xl font-extrabold" id="statEff">—</div>
-</div>
-<div class="card p-4">
-<div class="text-xs text-on-surface-variant">Perasaan Pagi</div>
-<div class="text-2xl font-extrabold text-secondary" id="statMood">—</div>
-</div>
-<div class="card p-4">
-<div class="text-xs text-on-surface-variant">Rata-rata 7 Hari</div>
+<div class="text-xs text-on-surface-variant" data-i18n="weeklyAverage">Rata-rata 7 Hari</div>
 <div class="text-2xl font-extrabold" id="statAvg">—</div>
 </div>
 </div>
@@ -276,17 +241,7 @@ tailwind.config = {
 <div class="text-sm opacity-90" id="smartRoutineText">Catat tidurmu hari ini untuk mendapatkan saran personal.</div>
 <button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" data-i18n="aturJadwal" onclick="openModal('scheduleModal')">Atur Jadwal Tidur</button>
 </div>
-<!-- ===== MORNING MOOD ===== -->
-<div class="card p-5 mb-5">
-<div class="font-bold mb-3">Bagaimana perasaanmu pagi ini?</div>
-<div class="grid grid-cols-2 gap-2" id="morningMoods">
-<button class="mood-chip" data-mm="Energized">⚡ Bersemangat</button>
-<button class="mood-chip" data-mm="Calm">😊 Tenang</button>
-<button class="mood-chip" data-mm="Sleepy">😪 Masih Ngantuk</button>
-<button class="mood-chip" data-mm="Anxious">😟 Gelisah</button>
-</div>
-<div class="text-xs text-on-surface-variant mt-2" id="morningMoodMsg"></div>
-</div>
+
 <!-- ===== HISTORY ===== -->
 <div class="card p-5 mb-5">
 <div class="flex items-center justify-between mb-3">
@@ -314,17 +269,6 @@ tailwind.config = {
 <button class="btn-primary" id="connectWatchBtn" onclick="toggleWatchConnection()">Connect</button>
 </div>
 <div class="text-xs text-on-surface-variant mt-4">Syncs dummy sleep metrics, heart rate, and rest periods for illustrative purposes.</div>
-</div>
-<!-- ===== CONCENTRATION ===== -->
-<div class="card p-5 mb-5">
-<div class="flex justify-between py-2 border-b border-outline-variant">
-<span>Level Konsentrasi</span>
-<span class="font-bold" id="concLabel">—</span>
-</div>
-<div class="flex justify-between py-2">
-<span>Retensi Memori</span>
-<span class="pill px-2 py-0.5 text-xs font-bold" id="retLabel">—</span>
-</div>
 </div>
 <div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background:#eef2f6">
           "Pelacakan tidurmu membantu konselor memberikan dukungan yang lebih baik. Data ini bersifat pribadi dan terenkripsi."
@@ -539,17 +483,17 @@ let morningMoodVal=null;
 })();
 
 // ---- Quality selector ----
-const QUALITY_LABELS=['','Sangat Buruk','Buruk','Cukup','Baik','Sangat Baik'];
+const QUALITY_LABELS=['','sleepQVeryBad','sleepQBad','sleepQFair','sleepQGood','sleepQVeryGood'];
 function selectQuality(q){
   selectedQuality=q;
   document.querySelectorAll('#sleepQualityBtns button').forEach(b=>{
     const isActive=+b.dataset.q===q;
     b.style.borderColor=isActive?'#106399':'';
     b.style.background=isActive?'#dce9ff':'';
-    b.style.transform=isActive?'scale(1.15)':'';
+    b.style.transform=isActive?'scale(1.1)':'';
   });
   const el=document.getElementById('qualityLabel');
-  if(el)el.textContent=QUALITY_LABELS[q]||'';
+  if(el)el.textContent=LangSystem.t(QUALITY_LABELS[q])||'';
 }
 
 // ---- Calculate duration ----
@@ -599,32 +543,17 @@ function renderSleepPage(){
   const hist=sleepLoadHistory();
   const today=hist[sleepTodayKey()];
 
-  // Score card
-  const scoreNum=document.getElementById('sleepScoreNum');
-  const scoreBar=document.getElementById('sleepScoreBar');
-  const scoreLabel=document.getElementById('sleepScoreLabel');
+  // Score card & pill
   const scorePill=document.getElementById('sleepScorePill');
   if(today){
     const sc=today.score;
-    if(scoreNum) scoreNum.textContent=sc;
-    if(scoreBar){
-      scoreBar.style.width=sc+'%';
-      scoreBar.style.background=sc>=75?'#22c55e':sc>=50?'#f59e0b':'#ef4444';
-    }
-    if(scoreLabel) scoreLabel.textContent=sc>=75?'Tidur Optimal':sc>=50?'Cukup Baik':'Perlu Ditingkatkan';
     if(scorePill){
       scorePill.textContent=sc>=75?'Tidur Baik ✓':sc>=50?'Cukup':'Perlu Istirahat Lebih';
       scorePill.className=`pill px-3 py-1 text-xs font-bold inline-block mb-2 ${sc>=75?'stat-pill-green':sc>=50?'stat-pill-yellow':'stat-pill-red'}`;
     }
-    // Full analysis
-    document.getElementById('faTotal').textContent=fmtDuration(today.durationMin);
-    document.getElementById('faEff').textContent=today.durationMin>=480?'Sangat Baik':today.durationMin>=360?'Baik':'Kurang';
-    document.getElementById('faQual').textContent=QUALITY_LABELS[today.quality]||'-';
-    document.getElementById('faNote').textContent=today.note||'—';
     // Stats
-    document.getElementById('statTotal').textContent=fmtDuration(today.durationMin);
-    document.getElementById('statEff').textContent=today.durationMin>=480?'Optimal':today.durationMin>=360?'Baik':'Kurang';
-    document.getElementById('statMood').textContent=today.mood||'—';
+    const totalEl = document.getElementById('statTotal');
+    if (totalEl) totalEl.textContent=fmtDuration(today.durationMin);
     // Smart routine
     const sr=document.getElementById('smartRoutineText');
     if(sr){
@@ -632,19 +561,12 @@ function renderSleepPage(){
       else if(today.durationMin>=360) sr.textContent='Kamu tidur '+fmtDuration(today.durationMin)+'. Coba tidur 30 menit lebih awal untuk mencapai 8 jam ideal.';
       else sr.textContent='Kamu hanya tidur '+fmtDuration(today.durationMin)+'. Usahakan tidur sebelum jam 22.00 malam ini.';
     }
-    // Concentration
-    const conc=document.getElementById('concLabel');
-    const ret=document.getElementById('retLabel');
-    if(conc) conc.textContent=today.score>=75?'Puncak':today.score>=50?'Sedang':'Rendah';
-    if(ret){
-      ret.textContent=today.score>=75?'+12%':today.score>=50?'+4%':'-8%';
-      ret.className=`pill px-2 py-0.5 text-xs font-bold ${today.score>=75?'stat-pill-green':today.score>=50?'stat-pill-yellow':'stat-pill-red'}`;
-    }
   } else {
-    if(scoreNum) scoreNum.textContent='—';
-    if(scoreBar) scoreBar.style.width='0%';
-    if(scoreLabel) scoreLabel.textContent='Belum ada data hari ini';
-    ['statTotal','statEff','statMood'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='—';});
+    if(scorePill){
+      scorePill.textContent='Belum dicatat';
+      scorePill.className='pill px-3 py-1 text-xs font-bold inline-block mb-2 bg-surface-container text-on-surface-variant';
+    }
+    ['statTotal'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='—';});
   }
 
   // 7-day average
@@ -671,49 +593,8 @@ function syncSleepToIndex(today,avgMin){
   localStorage.setItem('sleep_dashboard',JSON.stringify(payload));
 }
 
-// ---- Sleep Architecture Chart (dynamic from history) ----
-function drawSleepArch(){
-  const hist=sleepLoadHistory();
-  const days=['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
-  const colors=['#003151','#106399','#c4b5fd','#fb7185'];
-  let svg='';
-  const pts=[];
-
-  for(let i=4;i>=0;i--){
-    const k=sleepDayKey(i);
-    const entry=hist[k];
-    const gx=20+(4-i)*60;
-    const dur=entry?entry.durationMin:0;
-    const q=entry?entry.quality:0;
-    // Estimasi tahap tidur dari durasi & kualitas
-    const deep=Math.round(dur*(0.15+q*0.02));
-    const light=Math.round(dur*(0.45-q*0.01));
-    const rem=Math.round(dur*(0.20+q*0.02));
-    const awake=Math.max(2,dur-deep-light-rem);
-    const stages=[deep,light,rem,awake];
-    let y=170;
-    const maxH=140;
-    const totalH=Math.min(maxH,(dur/480)*maxH);
-    stages.forEach((v,k2)=>{
-      const h=totalH>0?Math.round((v/dur)*totalH):0;
-      if(h>0){y-=h;svg+=`<rect x="${gx}" y="${y}" width="40" height="${h}" rx="3" fill="${colors[k2]}" opacity="${entry?1:0.2}"><title>${['Deep','Light','REM','Awake'][k2]}: ${v}m</title></rect>`;}
-    });
-    const d=new Date();d.setDate(d.getDate()-i);
-    const lbl=days[d.getDay()]+(i===0?' (today)':'');
-    svg+=`<text x="${gx+20}" y="178" text-anchor="middle" font-size="9" fill="#41474f">${lbl}</text>`;
-    if(entry&&totalH>0) pts.push({x:gx+20,y:y});
-  }
-
-  // Trend line
-  if(document.getElementById('trendToggle')?.classList.contains('on')&&pts.length>=2){
-    let d2='M'+pts[0].x+','+pts[0].y;
-    for(let i=1;i<pts.length;i++){const cx=(pts[i-1].x+pts[i].x)/2;d2+=` Q${cx},${pts[i-1].y} ${pts[i].x},${pts[i].y}`;}
-    svg+=`<path d="${d2}" fill="none" stroke="#106399" stroke-width="2" stroke-dasharray="5 3" opacity="0.7"/>`;
-  }
-
-  const el=document.getElementById('sleepArchChart');
-  if(el)el.innerHTML=svg;
-}
+// ---- Sleep Architecture Chart (stubbed out) ----
+function drawSleepArch(){}
 
 // ---- Weekly bar chart ----
 function drawSleepWeekChart(){
@@ -765,7 +646,7 @@ function renderSleepHistory(){
     return `<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low">
       <div>
         <div class="font-semibold text-sm">${dateStr}</div>
-        <div class="text-xs text-on-surface-variant">${e.start} – ${e.end} · ${fmtDuration(e.durationMin)} · ${QUALITY_LABELS[e.quality]||''}</div>
+        <div class="text-xs text-on-surface-variant">${e.start} – ${e.end} · ${fmtDuration(e.durationMin)} · ${LangSystem.t(QUALITY_LABELS[e.quality])||''}</div>
         ${e.note?`<div class="text-xs text-on-surface-variant italic mt-0.5">${e.note}</div>`:''}
       </div>
       <span class="${col} pill px-2 py-0.5 text-xs font-bold">${e.score}</span>
@@ -902,3 +783,4 @@ initPage();
 </script>
 </body>
 </html>
+

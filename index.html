@@ -21,6 +21,12 @@ tailwind.config = {
       colors: {
         primary: 'var(--primary)',
         'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
         surface: 'var(--surface)',
         'surface-container-lowest': 'var(--surface-container-lowest)',
         'surface-container-low': 'var(--surface-container-low)',
@@ -31,6 +37,9 @@ tailwind.config = {
         'on-surface-variant': 'var(--on-surface-variant)',
         outline: 'var(--outline)',
         'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
         background: 'var(--background)',
       },
       fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
@@ -198,7 +207,7 @@ tailwind.config = {
 <div class="text-secondary font-bold text-xl" data-i18n="stressLow">Low Stress</div>
 <div class="italic text-sm text-on-surface-variant mb-3">Reflecting 'Calm'</div>
 <div class="h-3 rounded-full bg-surface-container overflow-hidden">
-<div class="h-full bg-secondary rounded-full transition-all duration-1000" id="stressBar" style="width:0"></div>
+<div class="h-full bg-secondary rounded-full transition-all duration-1000" id="stressBar" style="width:30%"></div>
 </div>
 <div class="mt-4 p-3 rounded-2xl bg-surface-container-low flex items-start gap-3">
 <span class="material-symbols-outlined text-primary">self_improvement</span>
@@ -208,55 +217,29 @@ tailwind.config = {
 </div>
 </div>
 </div>
-<div class="card p-5 lg:col-span-3">
-<div class="flex items-center justify-between mb-2">
-<h3 class="font-bold text-lg" data-i18n="sleepQuality">Sleep Quality</h3>
-<a class="text-xs text-primary font-bold hover:underline" data-i18n="detailLink" href="sleep.html">Detail →</a>
-</div>
-<div class="flex items-end gap-2 mb-3">
-<div class="text-4xl font-extrabold" id="sleepDashScore">—</div>
-<span class="bg-surface-container text-on-surface-variant pill px-2 py-1 text-xs font-bold mb-1" id="sleepDashPill">Belum dicatat</span>
-</div>
-<div class="h-3 rounded-full overflow-hidden mb-3">
-<div class="h-full rounded-full transition-all duration-700 bg-secondary" id="sleepDashBar" style="width:0%"></div>
-</div>
-<div class="text-xs text-on-surface-variant" data-i18n="sleepCtatNote" id="sleepDashTotal">Catat tidurmu di halaman Sleep</div>
-<div class="flex gap-1 mt-3" id="sleepTabs">
-<button class="tab-btn active" data-st="awake">Awake</button>
-<button class="tab-btn" data-st="rem">REM</button>
-<button class="tab-btn" data-st="deep">Deep</button>
-</div>
-<div class="h-3 rounded-full bg-surface-container overflow-hidden flex mt-2">
-<div class="h-full bg-primary-container transition-all duration-500" id="sleepSegA" style="width:20%"></div>
-<div class="h-full bg-primary transition-all duration-500" id="sleepSegR" style="width:30%"></div>
-<div class="h-full bg-on-primary-container transition-all duration-500" id="sleepSegD" style="width:50%"></div>
-</div>
-</div>
 <div class="card p-5 lg:col-span-4">
 <div class="flex items-center justify-between mb-2">
 <h3 class="font-bold text-lg" data-i18n="navHydration">Hydration</h3>
 <a class="text-xs text-primary font-bold hover:underline" data-i18n="lihatDetail" href="hydration.html">Lihat Detail →</a>
 </div>
-<div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">0</span> / 8 Glasses</div>
-<div class="flex gap-1 mb-3" id="hydSegments"></div>
+<div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">3</span> / 8 Glasses</div>
+<div class="flex gap-1 mb-3" id="hydSegments">
+<div class="h-2 flex-1 rounded-full bg-primary transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-primary transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-primary transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+</div>
 <div class="flex items-center gap-2">
 <span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1" id="hydStatusPill">
 <span class="material-symbols-outlined" style="font-size:14px">water_drop</span>
-<span id="hydStatusText">Mulai minum!</span>
+<span id="hydStatusText">On Track</span>
 </span>
 </div>
-<div class="mt-2 text-xs text-on-surface-variant" id="hydDashMsg">Minum gelas pertama untuk memulai hari hidrasimu.</div>
-</div>
-<div class="card p-5 lg:col-span-4">
-<h3 class="font-bold text-lg mb-3" data-i18n="breathingCard">Olah Nafas</h3>
-<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container mb-2" onclick="navigate('breathing')">
-<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">crop_square</span><span class="font-semibold" data-i18n="boxBreathing">Box Breathing</span></div>
-<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
-</div>
-<div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container" onclick="navigate('breathing')">
-<div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">bedtime</span><span class="font-semibold" data-i18n="sleepBreath">Sleep Breath</span></div>
-<span class="material-symbols-outlined text-on-surface-variant">chevron_right</span>
-</div>
+<div class="mt-2 text-xs text-on-surface-variant" id="hydDashMsg">Kamu sudah minum cukup hari ini, pertahankan!</div>
 </div>
 <div class="card p-5 lg:col-span-4">
 <div class="flex items-center justify-between mb-2">

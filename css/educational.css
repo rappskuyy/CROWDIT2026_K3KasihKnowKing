@@ -28,6 +28,32 @@
   --background: #f8f9ff;
 }
 
+/* ============== DARK MODE VARIABLES ============== */
+html[style*="color-scheme: dark"] {
+  --primary: #a5d8ff;
+  --on-primary: #003151;
+  --primary-container: #0d527e;
+  --on-primary-container: #c4e7ff;
+  --secondary: #89d7a9;
+  --secondary-container: #0d4c2a;
+  --on-secondary-container: #a5f4bb;
+  --surface: #0f1419;
+  --surface-container-lowest: #0a0e14;
+  --surface-container-low: #1a1f2e;
+  --surface-container: #1e2430;
+  --surface-container-high: #282e39;
+  --surface-container-highest: #333942;
+  --on-surface: #e3e7ee;
+  --on-surface-variant: #c1c7d1;
+  --outline: #8b9199;
+  --outline-variant: #4a5159;
+  --error: #ffb4ab;
+  --error-container: #930006;
+  --inverse-surface: #e3e7ee;
+  --background: #0f1419;
+}
+
+
 /* ── Base ── */
 html, body {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -457,3 +483,4 @@ html, body {
 
 /* Modal backdrop for avatarShopModal */
 .modal-backdrop.open { display: flex; animation: fadeIn .2s; }
+

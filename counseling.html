@@ -15,14 +15,29 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        primary: '#106399', 'on-primary': '#ffffff', 'primary-container': '#5a9bd5', 'on-primary-container': '#003151',
-        secondary: '#1c6c3f', 'on-secondary': '#ffffff', 'secondary-container': '#a5f4bb', 'on-secondary-container': '#247245',
-        'secondary-fixed': '#5af8fb', 'on-secondary-fixed': '#002020',
-        tertiary: '#5f45c3', 'tertiary-container': '#ede8ff', 'on-tertiary': '#ffffff', 'on-tertiary-container': '#1d0061',
-        surface: '#f8f9ff', 'surface-container-lowest': '#ffffff', 'surface-container-low': '#eff4ff',
-        'surface-container': '#e5eeff', 'surface-container-high': '#dce9ff', 'surface-container-highest': '#d3e4fe',
-        'on-surface': '#0b1c30', 'on-surface-variant': '#41474f', outline: '#717880', 'outline-variant': '#c1c7d1',
-        error: '#ba1a1a', 'error-container': '#ffdad6', 'on-error': '#ffffff', 'inverse-surface': '#213145', background: '#f8f9ff',
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        surface: 'var(--surface)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
+        background: 'var(--background)',
+      },
       },
       fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
     },
@@ -360,21 +375,6 @@ tailwind.config = {
 </div>
 </section>
 </div>
-<!-- Footer -->
-<footer class="bg-surface-container-highest border-t border-outline-variant mt-12 py-10">
-<div class="max-w-7xl mx-auto px-6 md:px-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-<div>
-<h3 class="font-bold text-base mb-1">Safe School Hub</h3>
-<p class="text-sm text-on-surface-variant" data-i18n="footerCopyrightLong">© 2024 SafeSchoolHub. All rights reserved. Built for student safety and emotional well-being.</p>
-</div>
-<div class="flex flex-wrap gap-4 md:justify-end items-center">
-<a class="text-sm text-on-surface-variant hover:text-primary transition-colors" data-i18n="footerPrivacy" href="#">Privacy Policy</a>
-<a class="text-sm text-on-surface-variant hover:text-primary transition-colors" data-i18n="footerTerms" href="#">Terms of Service</a>
-<a class="text-sm text-on-surface-variant hover:text-primary transition-colors" data-i18n="footerAccessibility" href="#">Accessibility</a>
-<a class="text-sm text-on-surface-variant hover:text-primary transition-colors" data-i18n="footerContact" href="#">Contact Support</a>
-</div>
-</div>
-</footer>
 </main>
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav mobile-only">
@@ -503,3 +503,4 @@ applySidebarAvatar();
 </script>
 </body>
 </html>
+

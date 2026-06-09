@@ -14,12 +14,29 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        primary: '#106399','on-primary': '#ffffff','primary-container': '#5a9bd5','on-primary-container': '#003151',
-        secondary: '#1c6c3f','on-secondary': '#ffffff','secondary-container': '#a5f4bb','on-secondary-container': '#247245',
-        surface: '#f8f9ff','surface-container-lowest': '#ffffff','surface-container-low': '#eff4ff',
-        'surface-container': '#e5eeff','surface-container-high': '#dce9ff','surface-container-highest': '#d3e4fe',
-        'on-surface': '#0b1c30','on-surface-variant': '#41474f',outline: '#717880','outline-variant': '#c1c7d1',
-        error: '#ba1a1a','error-container': '#ffdad6','inverse-surface': '#213145',background: '#f8f9ff',
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        surface: 'var(--surface)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
+        background: 'var(--background)',
+      },
       },
       fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
     },
@@ -167,7 +184,7 @@ tailwind.config = {
   <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
     <div>
       <div class="flex items-center gap-2 mb-1">
-        <span class="seminar-badge" style="background:#e0f2fe;color:#0369a1;">📚 Educational Hub</span>
+        <span class="seminar-badge" style="background: var(--surface-container-high); color: var(--primary);">📚 Educational Hub</span>
       </div>
       <h1 class="text-3xl lg:text-4xl font-extrabold">Learning Center</h1>
       <p class="text-on-surface-variant mt-1">Videos, articles, seminars &amp; safety knowledge quiz.</p>
@@ -181,21 +198,21 @@ tailwind.config = {
         </div>
       </div>
       <div class="flex items-center gap-2 bg-white rounded-2xl px-4 py-2 shadow-card border border-outline-variant">
-        <span class="material-symbols-outlined" style="color:#f59e0b">workspace_premium</span>
+        <span class="material-symbols-outlined text-primary">workspace_premium</span>
         <div>
           <div class="text-xs text-on-surface-variant">Sertifikat</div>
-          <div class="font-extrabold" style="color:#f59e0b" id="certCount">0 / 6</div>
+          <div class="font-extrabold text-primary" id="certCount">0 / 6</div>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Cert info banner -->
-  <div class="rounded-2xl p-4 mb-6 flex items-start gap-3" style="background:linear-gradient(135deg,#fef9c3,#fef3c7);border:1px solid #fde68a;">
-    <span class="material-symbols-outlined icon-fill flex-shrink-0" style="color:#d97706;font-size:22px">workspace_premium</span>
+  <div class="rounded-2xl p-4 mb-6 flex items-start gap-3" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
+    <span class="material-symbols-outlined icon-fill flex-shrink-0 text-primary" style="font-size:22px">workspace_premium</span>
     <div>
-      <div class="font-bold text-sm" style="color:#92400e">🎓 Sistem Sertifikat Belajar</div>
-      <div class="text-xs mt-0.5" style="color:#78350f">Tonton video yang berdurasi lebih dari 5 menit hingga selesai untuk mendapatkan <strong>sertifikat kelulusan</strong> yang bisa diunduh! Video dengan badge <span class="font-bold">🏅 Eligible</span> memenuhi syarat.</div>
+      <div class="font-bold text-sm text-primary">🎓 Sistem Sertifikat Belajar</div>
+      <div class="text-xs mt-0.5 text-on-surface-variant">Tonton video yang berdurasi lebih dari 5 menit hingga selesai untuk mendapatkan <strong>sertifikat kelulusan</strong> yang bisa diunduh! Video dengan badge <span class="font-bold">🏅 Eligible</span> memenuhi syarat.</div>
     </div>
   </div>
 
@@ -234,14 +251,14 @@ tailwind.config = {
       <div class="p-5 flex items-start justify-between gap-4">
         <div>
           <div class="flex items-center gap-2 mb-1">
-            <span class="seminar-badge" style="background:#dce9ff;color:#106399;">Featured</span>
-            <span class="seminar-badge" style="background:#d1fae5;color:#1c6c3f;">Wellbeing</span>
+            <span class="seminar-badge" style="background: var(--primary); color: #fff;">Featured</span>
+            <span class="seminar-badge" style="background: var(--surface-container-high); color: var(--primary);">Wellbeing</span>
           </div>
           <div class="font-bold text-lg">Kesehatan Mental untuk Remaja</div>
           <div class="text-sm text-on-surface-variant mt-1">Into The Light Indonesia · 28 min · 12.4K views</div>
         </div>
         <div class="text-right flex-shrink-0">
-          <div class="text-xs font-bold" style="color:#f59e0b">+50 XP + 🏅 Sertifikat</div>
+          <div class="text-xs font-bold text-primary">+50 XP + 🏅 Sertifikat</div>
         </div>
       </div>
     </div>
@@ -265,15 +282,15 @@ tailwind.config = {
       </select>
     </div>
     <!-- Trending Article -->
-    <div class="card p-5 mb-5 cursor-pointer" onclick="openArticle(0)" style="background:linear-gradient(135deg,#eff4ff,#dce9ff)">
+    <div class="card p-5 mb-5 cursor-pointer" onclick="openArticle(0)" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
       <div class="flex items-start gap-4">
         <div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center flex-shrink-0">
           <span class="material-symbols-outlined icon-fill text-white" style="font-size:28px">local_fire_department</span>
         </div>
         <div class="flex-1">
           <div class="flex items-center gap-2 mb-1">
-            <span class="seminar-badge" style="background:#ffdad6;color:#ba1a1a;">🔥 Trending</span>
-            <span class="seminar-badge" style="background:#dce9ff;color:#106399;">Mental Health</span>
+            <span class="seminar-badge" style="background: var(--primary); color: #fff;">🔥 Trending</span>
+            <span class="seminar-badge" style="background: var(--surface-container-high); color: var(--primary);">Mental Health</span>
           </div>
           <div class="font-extrabold text-lg leading-snug">5 Tanda Kamu Butuh Istirahat dari Gadget — dan Cara Mengatasinya</div>
           <div class="text-sm text-on-surface-variant mt-1">Tim SafeSchoolHub · 5 Jun 2026 · 6 min baca · 8.2K dibaca</div>
@@ -297,10 +314,10 @@ tailwind.config = {
     <!-- Featured: Mental Health in the Digital Age (from screenshot) -->
     <div class="card mb-5 overflow-hidden" style="border:1px solid var(--outline-variant);">
       <!-- Hero image / header area -->
-      <div style="background:linear-gradient(135deg,#e0f2fe,#bfdbfe,#ddd6fe);padding:2rem 1.5rem 1.5rem;position:relative;">
+      <div style="background: var(--surface-container-low); border-bottom: 1px solid var(--outline-variant); padding: 2rem 1.5rem 1.5rem; position: relative;">
         <div class="flex items-start gap-3 mb-2">
-          <span class="seminar-badge" style="background:rgba(255,255,255,0.7);color:#0369a1;">📺 Live Webinar</span>
-          <span class="seminar-badge" style="background:rgba(255,255,255,0.7);color:#7c3aed;">Mental Health</span>
+          <span class="seminar-badge" style="background: var(--primary); color: #fff;">📺 Live Webinar</span>
+          <span class="seminar-badge" style="background: var(--surface-container-high); color: var(--primary);">Mental Health</span>
         </div>
         <h3 class="font-extrabold text-xl text-on-surface leading-snug mb-2">Seminar Registration: Mental Health in the Digital Age</h3>
         <div class="flex flex-wrap items-center gap-3 text-sm text-on-surface-variant mb-4">
@@ -322,8 +339,8 @@ tailwind.config = {
               <div style="display:flex;align-items:flex-start;gap:.5rem;"><div style="flex-shrink:0;width:20px;height:20px;border-radius:50%;background:var(--secondary-container);display:flex;align-items:center;justify-content:center;margin-top:1px;"><span class="material-symbols-outlined" style="font-size:12px;color:var(--on-secondary-container);font-variation-settings:'FILL' 1,'wght' 600">check</span></div><p class="text-xs text-on-surface-variant">Develop a Digital Safety Blueprint for home and classroom environments</p></div>
             </div>
             <!-- Speaker -->
-            <div class="flex items-center gap-3 p-3 rounded-xl mt-4" style="background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.9);">
-              <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl flex-shrink-0" style="background:linear-gradient(135deg,#ddd6fe,#a5b4fc);border:2px solid var(--primary);">👩‍🏫</div>
+            <div class="flex items-center gap-3 p-3 rounded-xl mt-4" style="background: var(--surface-container-lowest); border: 1px solid var(--outline-variant);">
+              <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl flex-shrink-0" style="background: var(--surface-container-high); border: 2px solid var(--primary);">👩‍🏫</div>
               <div>
                 <div class="font-extrabold text-sm">Dr. Elena Rodriguez</div>
                 <div class="text-xs font-semibold text-primary">Cognitive Psychology Specialist</div>
@@ -381,11 +398,11 @@ tailwind.config = {
       </div>
     </div>
 
-    <div class="card p-5 mb-5" style="background:linear-gradient(135deg,#003151,#106399);color:#fff">
+    <div class="card p-5 mb-5" style="background: var(--primary); color: #fff;">
       <div class="flex items-start justify-between gap-4 flex-wrap">
         <div>
           <div class="flex items-center gap-2 mb-2">
-            <span class="seminar-badge" style="background:rgba(255,255,255,0.2);color:#fff;">🔴 LIVE in 2 Days</span>
+            <span class="seminar-badge" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff;">🔴 LIVE in 2 Days</span>
           </div>
           <div class="font-extrabold text-xl">Bullying di Era Digital: Kenali &amp; Lawan</div>
           <div class="text-sm opacity-80 mt-1">Bersama Psikolog Klinis Dr. Anisa Putri, M.Psi</div>
@@ -688,7 +705,7 @@ tailwind.config = {
       <button onclick="closeProfileModal()"><span class="material-symbols-outlined">close</span></button>
     </div>
     <!-- Avatar preview -->
-    <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+    <div class="rounded-2xl p-5 mb-4 text-center" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
       <div class="relative inline-block mb-2">
         <div id="profileAvatarCircle" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:44px;">🧑</div>
         <div id="profileHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
@@ -731,7 +748,7 @@ tailwind.config = {
     </div>
     <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
   </div>
-  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+  <div class="rounded-2xl p-5 mb-4 text-center" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
     <div class="relative inline-block mb-2">
       <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">🧑</div>
       <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
@@ -850,11 +867,11 @@ function renderVideos(){
       </div>
       <div class="p-4">
         <div class="flex items-center gap-2 mb-1">
-          <span class="seminar-badge" style="background:${v.category==='digital'?'#ffdad6;color:#93000a':v.category==='health'?'#d1fae5;color:#1c6c3f':'#dce9ff;color:#106399'}">${v.category}</span>
+          <span class="seminar-badge" style="background: var(--surface-container-high); color: var(--primary); text-transform: capitalize;">${v.category}</span>
         </div>
         <div class="font-bold leading-snug text-sm">${v.title}</div>
         <div class="text-xs text-on-surface-variant mt-1">${v.author} · ${v.duration} · ${v.views} views</div>
-        <div class="text-xs font-semibold mt-1" style="color:${v.certEligible?'#f59e0b':'var(--primary)'}">+${v.xp} XP${v.certEligible?' + 🏅 Sertifikat':''}</div>
+        <div class="text-xs font-semibold mt-1 text-primary">+${v.xp} XP${v.certEligible?' + 🏅 Sertifikat':''}</div>
       </div>
     </div>
   `).join('');
@@ -921,8 +938,8 @@ function renderArticles(){
   if(filtered.length===0){list.innerHTML='<div class="text-center text-on-surface-variant py-8">Tidak ada artikel di kategori ini.</div>';return;}
   list.innerHTML=filtered.map(a=>`
     <div class="article-card" onclick="openArticle(${a.id})">
-      <div class="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center" style="background:${a.color}">
-        <span class="material-symbols-outlined icon-fill" style="color:${a.iconColor};font-size:22px">${a.icon}</span>
+      <div class="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center bg-surface-container-high">
+        <span class="material-symbols-outlined icon-fill text-primary" style="font-size:22px">${a.icon}</span>
       </div>
       <div class="flex-1 min-w-0">
         <div class="font-bold leading-snug">${a.title}</div>
@@ -947,14 +964,14 @@ function openArticle(id){
   document.getElementById('articleDoneBar').style.display='none';
   document.getElementById('articleContent').innerHTML=`
     <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;align-items:center;">
-      <span style="background:${a.color};color:${a.iconColor};border-radius:9999px;padding:.25rem .75rem;font-size:.75rem;font-weight:700;">${a.cat.toUpperCase()}</span>
+      <span style="background: var(--surface-container-high); color: var(--primary); border-radius:9999px;padding:.25rem .75rem;font-size:.75rem;font-weight:700;">${a.cat.toUpperCase()}</span>
       <span style="font-size:.8rem;color:var(--on-surface-variant);">⏱ ${a.readTime} baca</span>
       <span style="font-size:.8rem;color:var(--on-surface-variant);">👁 ${a.views} views</span>
     </div>
     <h1 style="font-size:1.5rem;font-weight:800;line-height:1.3;color:var(--on-surface);margin-bottom:.75rem;">${a.title}</h1>
     <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--outline-variant);">
-      <div style="width:36px;height:36px;border-radius:50%;background:${a.color};display:flex;align-items:center;justify-content:center;">
-        <span class="material-symbols-outlined icon-fill" style="color:${a.iconColor};font-size:18px;">${a.icon}</span>
+      <div style="width:36px;height:36px;border-radius:50%;background: var(--surface-container-high);display:flex;align-items:center;justify-content:center;">
+        <span class="material-symbols-outlined icon-fill text-primary" style="font-size:18px;">${a.icon}</span>
       </div>
       <div>
         <div style="font-weight:700;font-size:.85rem;">${a.author}</div>
@@ -1405,3 +1422,4 @@ if(gotoTab){localStorage.removeItem('edu_goto_tab');switchTab(gotoTab);}
   <script src="js/avatar.js"></script>
 </body>
 </html>
+
