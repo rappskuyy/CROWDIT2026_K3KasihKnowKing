@@ -1,51 +1,55 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SafeSchoolHub — Digital Counseling</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: 'var(--primary)',
-        'on-primary': 'var(--on-primary)',
-        'primary-container': 'var(--primary-container)',
-        'on-primary-container': 'var(--on-primary-container)',
-        secondary: 'var(--secondary)',
-        'on-secondary': 'var(--on-secondary)',
-        'secondary-container': 'var(--secondary-container)',
-        'on-secondary-container': 'var(--on-secondary-container)',
-        surface: 'var(--surface)',
-        'surface-container-lowest': 'var(--surface-container-lowest)',
-        'surface-container-low': 'var(--surface-container-low)',
-        'surface-container': 'var(--surface-container)',
-        'surface-container-high': 'var(--surface-container-high)',
-        'surface-container-highest': 'var(--surface-container-highest)',
-        'on-surface': 'var(--on-surface)',
-        'on-surface-variant': 'var(--on-surface-variant)',
-        outline: 'var(--outline)',
-        'outline-variant': 'var(--outline-variant)',
-        error: 'var(--error)',
-        'error-container': 'var(--error-container)',
-        'inverse-surface': 'var(--inverse-surface)',
-        background: 'var(--background)',
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>SafeSchoolHub — Digital Counseling</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap"
+    rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: 'var(--primary)',
+            'on-primary': 'var(--on-primary)',
+            'primary-container': 'var(--primary-container)',
+            'on-primary-container': 'var(--on-primary-container)',
+            secondary: 'var(--secondary)',
+            'on-secondary': 'var(--on-secondary)',
+            'secondary-container': 'var(--secondary-container)',
+            'on-secondary-container': 'var(--on-secondary-container)',
+            surface: 'var(--surface)',
+            'surface-container-lowest': 'var(--surface-container-lowest)',
+            'surface-container-low': 'var(--surface-container-low)',
+            'surface-container': 'var(--surface-container)',
+            'surface-container-high': 'var(--surface-container-high)',
+            'surface-container-highest': 'var(--surface-container-highest)',
+            'on-surface': 'var(--on-surface)',
+            'on-surface-variant': 'var(--on-surface-variant)',
+            outline: 'var(--outline)',
+            'outline-variant': 'var(--outline-variant)',
+            error: 'var(--error)',
+            'error-container': 'var(--error-container)',
+            'inverse-surface': 'var(--inverse-surface)',
+            background: 'var(--background)',
+          },
+        },
+        fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
       },
-      },
-      fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
     },
-  },
 };
-</script>
-<link href="css/counseling.css" rel="stylesheet"/>
-<script src="js/lang.js"></script>
+  </script>
+  <link href="css/counseling.css" rel="stylesheet" />
+  <script src="js/lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
       window.location.replace('safeschool-landing.html');
@@ -65,7 +69,7 @@ tailwind.config = {
             mobileAvatar.textContent = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
           }
         }
-      } catch(e) {}
+      } catch (e) { }
 
       const logoutBtn = document.getElementById('sidebar-logout');
       if (logoutBtn) {
@@ -95,412 +99,430 @@ tailwind.config = {
     });
   </script>
 </head>
+
 <body class="min-h-screen bg-background text-on-surface">
-<!-- SIDEBAR -->
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
-<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0 border-b border-outline-variant">
-<div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-white icon-fill" style="font-size:20px">security</span>
-</div>
-<div>
-<h1 class="font-bold text-sm text-on-surface" data-i18n="brand">SafeSchoolHub</h1>
-<p class="text-xs text-on-surface-variant" data-i18n="dashTitle">Student Wellness</p>
-</div>
-</div>
-<nav class="px-3 py-2 flex flex-col gap-0.5 overflow-y-auto flex-1" style="scrollbar-width:thin;">
-<a class="nav-link" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
-<a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
-<a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
-<a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
-<a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
-<a class="nav-link" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
-<a class="nav-link active" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
-<a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
-<div style="flex:1;min-height:12px;"></div>
-<a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
-<a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
-</nav>
-<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
-  <div class="flex items-center gap-3">
-    <div class="relative flex-shrink-0">
-      <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
-        <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+  <!-- SIDEBAR -->
+  <aside
+    class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40"
+    style="overflow:hidden;">
+    <div class="px-5 py-5 flex items-center gap-3 flex-shrink-0 border-b border-outline-variant">
+      <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white icon-fill" style="font-size:20px">security</span>
       </div>
-      <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
-    </div>
-    <div class="flex-1 min-w-0">
-      <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
-      <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
-      <div class="flex items-center gap-1 mt-0.5">
-        <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
-        <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+      <div>
+        <h1 class="font-bold text-sm text-on-surface" data-i18n="brand">SafeSchoolHub</h1>
+        <p class="text-xs text-on-surface-variant" data-i18n="dashTitle">Student Wellness</p>
       </div>
     </div>
-    <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
-  </div>
-</div>
-</aside>
-<!-- MOBILE TOP BAR -->
-<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
-<div class="flex items-center gap-2">
-<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-<span class="material-symbols-outlined text-white icon-fill" style="font-size:16px">security</span>
-</div>
-<span class="font-bold text-sm" data-i18n="brand">SafeSchoolHub</span>
-</div>
-<div class="flex items-center gap-2">
-<button class="p-2 rounded-full hover:bg-surface-container">
-<span class="material-symbols-outlined" style="font-size:20px">search</span>
-</button>
-<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center font-bold text-on-primary-container text-sm">A</div>
-</div>
-</header>
-<!-- MAIN CONTENT -->
-<main class="lg:ml-64 main-content">
-<div class="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
-<!-- Hero Section -->
-<section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-<div class="lg:col-span-2 space-y-4">
-<div>
-<h2 class="text-3xl md:text-4xl font-extrabold text-on-surface mb-3" data-i18n="counselingTitle">Digital Counseling Support</h2>
-<p class="text-on-surface-variant text-base md:text-lg max-w-2xl" data-i18n="counselingIntro">
-            Connect with our licensed professionals in a secure, private environment. Whether you need a quick chat or a scheduled session, we're here to help you navigate school life.
-          </p>
-</div>
-<!-- Mobile search -->
-<div class="md:hidden flex gap-3">
-<input class="flex-1 bg-white border border-outline-variant/30 rounded-xl px-4 py-3 text-sm" placeholder="Find a counselor..." type="text"/>
-<button class="bg-surface-container-high text-primary p-3 rounded-xl">
-<span class="material-symbols-outlined">tune</span>
-</button>
-</div>
-</div>
-<!-- Confidential Badge -->
-<div class="glass-card p-6 rounded-2xl flex flex-col justify-center items-center text-center space-y-3">
-<div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-secondary-container text-4xl icon-fill">verified_user</span>
-</div>
-<div>
-<h4 class="font-bold text-lg" data-i18n="confidential">100% Confidential</h4>
-<p class="text-sm text-on-surface-variant" data-i18n="encryptedDesc">End-to-end encrypted messaging and private video consultations.</p>
-</div>
-</div>
-</section>
-<!-- Main Bento Grid -->
-<section class="grid grid-cols-1 md:grid-cols-12 gap-6">
-<!-- Counselors + Chat -->
-<div class="md:col-span-8 space-y-6">
-<!-- Counselors Header -->
-<div class="flex justify-between items-end">
-<h3 class="text-xl font-bold" data-i18n="availableProfessionals">Available Professionals</h3>
-<a class="text-primary font-semibold text-sm hover:underline" data-i18n="viewAll" href="#">View All</a>
-</div>
-<!-- Counselor Cards -->
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-<!-- Card 1 -->
-<div class="glass-card p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform cursor-pointer">
-<div class="flex items-start justify-between">
-<div class="active-dot">
-<div class="w-16 h-16 rounded-xl bg-primary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-primary-container text-4xl icon-fill">person</span>
-</div>
-</div>
-<span class="bg-secondary-container/40 text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold" data-i18n="onlineNow">Online Now</span>
-</div>
-<div>
-<h5 class="font-bold text-base">Dr. Sarah Jenkins</h5>
-<p class="text-sm text-on-surface-variant">Cognitive Behavioral Specialist</p>
-</div>
-<div class="flex flex-wrap gap-2">
-<span class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Stress</span>
-<span class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Anxiety</span>
-<span class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Teens</span>
-</div>
-<button class="book-session-btn w-full py-2 bg-primary/10 text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors" data-i18n="bookSession">Book Session</button>
-</div>
-<!-- Card 2 -->
-<div class="glass-card p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform cursor-pointer">
-<div class="flex items-start justify-between">
-<div class="relative">
-<div class="w-16 h-16 rounded-xl bg-secondary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-secondary-container text-4xl icon-fill">person</span>
-</div>
-</div>
-<span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold">Available 2PM</span>
-</div>
-<div>
-<h5 class="font-bold text-base">Mr. David Chen</h5>
-<p class="text-sm text-on-surface-variant">Academic Support &amp; Wellness</p>
-</div>
-<div class="flex flex-wrap gap-2">
-<span class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Focus</span>
-<span class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Career</span>
-<span class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Habits</span>
-</div>
-<button class="book-session-btn w-full py-2 bg-primary/10 text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors" data-i18n="bookSession">Book Session</button>
-</div>
-</div>
-<!-- Chat Interface -->
-<div class="glass-card rounded-2xl overflow-hidden flex flex-col" style="height: 420px;">
-<!-- Chat Header -->
-<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-white/50">
-<div class="flex items-center gap-3">
-<div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-secondary-container" style="font-size:18px">support_agent</span>
-</div>
-<div>
-<p class="font-bold text-sm" data-i18n="wellnessChat">Wellness Support Chat</p>
-<p class="text-[10px] text-secondary font-semibold" data-i18n="secureConfidential">Secure &amp; Confidential</p>
-</div>
-</div>
-<button class="p-2 hover:bg-surface-container rounded-full">
-<span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
-</button>
-</div>
-<!-- Messages -->
-<div class="flex-1 p-4 space-y-4 overflow-y-auto bg-slate-50/50" id="chatMessages">
-<div class="flex items-start gap-2 max-w-[80%]">
-<div class="w-7 h-7 rounded-full bg-primary-container shrink-0 flex items-center justify-center">
-<span class="material-symbols-outlined text-on-primary-container icon-fill" style="font-size:14px">support_agent</span>
-</div>
-<div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
-<p class="text-sm" data-i18n="counselorGreeting">Hi there! How are you feeling today? I'm here if you want to talk about anything on your mind.</p>
-<span class="text-[10px] text-on-surface-variant mt-1 block">10:45 AM</span>
-</div>
-</div>
-<div class="flex items-start gap-2 max-w-[80%] ml-auto flex-row-reverse">
-<div class="bg-primary text-white p-3 rounded-2xl rounded-tr-none shadow-sm">
-<p class="text-sm">I've been feeling a bit overwhelmed with exams lately. Is it normal?</p>
-<span class="text-[10px] opacity-70 mt-1 block text-right">10:46 AM</span>
-</div>
-</div>
-<div class="flex items-start gap-2 max-w-[80%]">
-<div class="w-7 h-7 rounded-full bg-primary-container shrink-0 flex items-center justify-center">
-<span class="material-symbols-outlined text-on-primary-container icon-fill" style="font-size:14px">support_agent</span>
-</div>
-<div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
-<p class="text-sm">Absolutely. Exam stress is very common, but there are some great techniques we can use to manage it together.</p>
-<span class="text-[10px] text-on-surface-variant mt-1 block">10:47 AM</span>
-</div>
-</div>
-</div>
-<!-- Input -->
-<div class="p-3 bg-white border-t border-outline-variant/30 flex gap-3">
-<input class="flex-1 bg-surface-container border-none rounded-full px-4 text-sm focus:ring-1 focus:ring-primary" id="chatInput" placeholder="Type your message..." type="text"/>
-<button class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center active:scale-90 transition-transform hover:bg-primary-container hover:text-on-primary-container" id="sendMsgBtn">
-<span class="material-symbols-outlined">send</span>
-</button>
-</div>
-</div>
-</div>
-<!-- Scheduler Sidebar -->
-<div class="md:col-span-4 space-y-4">
-<!-- Session Scheduler -->
-<div class="glass-card p-5 rounded-2xl space-y-4">
-<div class="flex items-center justify-between">
-<h4 class="font-bold" data-i18n="sessionScheduler">Session Scheduler</h4>
-<span class="material-symbols-outlined text-primary">calendar_month</span>
-</div>
-<!-- Calendar mini -->
-<div class="space-y-3">
-<div class="flex justify-between items-center text-center">
-<button class="p-1 hover:bg-surface-container rounded-full"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
-<span class="text-sm font-bold">October 2024</span>
-<button class="p-1 hover:bg-surface-container rounded-full"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
-</div>
-<div class="grid grid-cols-7 text-center text-[10px] font-bold text-on-surface-variant uppercase tracking-tighter">
-<span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
-</div>
-<div class="grid grid-cols-7 gap-1 text-center text-xs font-semibold">
-<span class="p-2 text-outline-variant">28</span>
-<span class="p-2 text-outline-variant">29</span>
-<span class="p-2 text-outline-variant">30</span>
-<span class="p-2 font-bold bg-primary text-white rounded-lg cursor-pointer">1</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">2</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">3</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">4</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">5</span>
-<span class="p-2 bg-secondary-container/30 text-secondary font-bold rounded-lg cursor-pointer">6</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">7</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">8</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">9</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">10</span>
-<span class="p-2 hover:bg-surface-container rounded-lg cursor-pointer">11</span>
-</div>
-</div>
-<!-- Time slots -->
-<div class="space-y-2 pt-3 border-t border-outline-variant/30">
-<p class="text-xs text-on-surface-variant font-semibold">Suggested Slots</p>
-<div class="grid grid-cols-2 gap-2">
-<button class="time-slot py-2 text-xs border border-outline-variant/50 rounded-xl hover:bg-primary/5 transition-colors">09:00 AM</button>
-<button class="time-slot py-2 text-xs border border-outline-variant/50 rounded-xl hover:bg-primary/5 transition-colors">11:30 AM</button>
-<button class="time-slot py-2 text-xs border border-primary text-primary font-bold rounded-xl bg-primary/5">02:00 PM</button>
-<button class="time-slot py-2 text-xs border border-outline-variant/50 rounded-xl hover:bg-primary/5 transition-colors">04:30 PM</button>
-</div>
-</div>
-<button class="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-md active:scale-95 duration-150 hover:bg-on-primary-container transition-colors" data-i18n="confirmAppointment" id="confirmAppointmentBtn">
-            Confirm Appointment
-          </button>
-</div>
-<!-- Mindfulness Card -->
-<div class="bg-tertiary-container text-on-tertiary-container p-5 rounded-2xl space-y-3 relative overflow-hidden">
-<div class="relative z-10">
-<h5 class="font-bold text-base" data-i18n="mindfulnessBreak">Mindfulness Break</h5>
-<p class="text-sm opacity-90">Take 5 minutes to breathe. Research shows short breaks improve academic performance significantly.</p>
-<button class="mt-4 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-xl text-sm font-bold transition-colors" data-i18n="startExercise" id="mindfulnessBtn">
-              Start Exercise
+    <nav class="px-3 py-2 flex flex-col gap-0.5 overflow-y-auto flex-1" style="scrollbar-width:thin;">
+      <a class="nav-link" data-route="overview" href="index.html"><span
+          class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+      <a class="nav-link" href="educational.html" data-route="educational"><span
+          class="material-symbols-outlined">school</span>Educational</a>
+      <a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span
+          class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness
+          Tracking</span></a>
+      <a class="nav-link" data-route="hydration" href="hydration.html"><span
+          class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+      <a class="nav-link" data-route="sleep" href="sleep.html"><span
+          class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+      <a class="nav-link" data-route="breathing" href="breathing.html"><span
+          class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+      <a class="nav-link active" data-route="counseling" href="counseling.html"><span
+          class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital
+          Counseling</span></a>
+      <a class="nav-link" data-route="settings" href="settings.html"><span
+          class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+      <div style="flex:1;min-height:12px;"></div>
+      <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span
+          data-i18n="navLogout">Log Out</span></a>
+    </nav>
+    <div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0"
+      onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
+      <div class="flex items-center gap-3">
+        <div class="relative flex-shrink-0">
+          <div id="sidebarAvatarWrap"
+            class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden"
+            style="border:2px solid var(--primary);">
+            <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+          </div>
+          <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+          <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
+          <div class="flex items-center gap-1 mt-0.5">
+            <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+            <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
+      </div>
+    </div>
+  </aside>
+  <!-- MOBILE TOP BAR -->
+  <header
+    class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-white icon-fill" style="font-size:16px">security</span>
+      </div>
+      <span class="font-bold text-sm" data-i18n="brand">SafeSchoolHub</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button class="p-2 rounded-full hover:bg-surface-container">
+        <span class="material-symbols-outlined" style="font-size:20px">search</span>
+      </button>
+      <div
+        class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center font-bold text-on-primary-container text-sm">
+        A</div>
+    </div>
+  </header>
+  <!-- MAIN CONTENT -->
+  <main class="lg:ml-64 main-content">
+    <div class="p-4 md:p-8 max-w-7xl mx-auto space-y-8">
+      <!-- Hero Section -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 space-y-4">
+          <div>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-on-surface mb-3" data-i18n="counselingTitle">Digital
+              Counseling Support</h2>
+            <p class="text-on-surface-variant text-base md:text-lg max-w-2xl" data-i18n="counselingIntro">
+              Connect with our licensed professionals in a secure, private environment. Whether you need a quick chat or
+              a scheduled session, we're here to help you navigate school life.
+            </p>
+          </div>
+          <!-- Mobile search -->
+          <div class="md:hidden flex gap-3">
+            <input class="flex-1 bg-white border border-outline-variant/30 rounded-xl px-4 py-3 text-sm"
+              placeholder="Find a counselor..." type="text" />
+            <button class="bg-surface-container-high text-primary p-3 rounded-xl">
+              <span class="material-symbols-outlined">tune</span>
             </button>
-</div>
-<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-8xl opacity-10 icon-fill">spa</span>
-</div>
-<!-- Quick Resources -->
-<div class="card p-5 space-y-3">
-<h4 class="font-bold">Quick Resources</h4>
+          </div>
+        </div>
+        <!-- Confidential Badge -->
+        <div class="glass-card p-6 rounded-2xl flex flex-col justify-center items-center text-center space-y-3">
+          <div class="w-16 h-16 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-secondary-container text-4xl icon-fill">verified_user</span>
+          </div>
+          <div>
+            <h4 class="font-bold text-lg" data-i18n="confidential">100% Confidential</h4>
+            <p class="text-sm text-on-surface-variant" data-i18n="encryptedDesc">End-to-end encrypted messaging and
+              private video consultations.</p>
+          </div>
+        </div>
+      </section>
+      <!-- Main Bento Grid -->
+      <section class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <!-- Counselors + Chat -->
+        <div class="md:col-span-8 space-y-6">
+          <!-- Counselors Header -->
+          <div class="flex justify-between items-end">
+            <h3 class="text-xl font-bold" data-i18n="availableProfessionals">Available Professionals</h3>
+            <a class="text-primary font-semibold text-sm hover:underline" data-i18n="viewAll" href="#">View All</a>
+          </div>
+          <!-- Counselor Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Card 1 -->
+            <div class="glass-card p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform cursor-pointer">
+              <div class="flex items-start justify-between">
+                <div class="active-dot">
+                  <div class="w-16 h-16 rounded-xl bg-primary-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-on-primary-container text-4xl icon-fill">person</span>
+                  </div>
+                </div>
+                <span
+                  class="bg-secondary-container/40 text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold"
+                  data-i18n="onlineNow">Online Now</span>
+              </div>
+              <div>
+                <h5 class="font-bold text-base">Dr. Sarah Jenkins</h5>
+                <p class="text-sm text-on-surface-variant">Cognitive Behavioral Specialist</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Stress</span>
+                <span
+                  class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Anxiety</span>
+                <span
+                  class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Teens</span>
+              </div>
+              <button
+                class="book-session-btn w-full py-2 bg-primary/10 text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors"
+                data-i18n="bookSession">Book Session</button>
+            </div>
+            <!-- Card 2 -->
+            <div class="glass-card p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform cursor-pointer">
+              <div class="flex items-start justify-between">
+                <div class="relative">
+                  <div class="w-16 h-16 rounded-xl bg-secondary-container flex items-center justify-center">
+                    <span class="material-symbols-outlined text-on-secondary-container text-4xl icon-fill">person</span>
+                  </div>
+                </div>
+                <span
+                  class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold">Available
+                  2PM</span>
+              </div>
+              <div>
+                <h5 class="font-bold text-base">Mr. David Chen</h5>
+                <p class="text-sm text-on-surface-variant">Academic Support &amp; Wellness</p>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Focus</span>
+                <span
+                  class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Career</span>
+                <span
+                  class="bg-surface-container-highest px-2 py-1 rounded-lg text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">Habits</span>
+              </div>
+              <button
+                class="book-session-btn w-full py-2 bg-primary/10 text-primary font-semibold rounded-xl hover:bg-primary hover:text-white transition-colors"
+                data-i18n="bookSession">Book Session</button>
+            </div>
+          </div>
+          <!-- Chat Interface -->
+          <div class="glass-card rounded-2xl overflow-hidden flex flex-col" style="height: 420px;">
+            <!-- Chat Header -->
+            <div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-white/50">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-secondary-container"
+                    style="font-size:18px">support_agent</span>
+                </div>
+                <div>
+                  <p class="font-bold text-sm" data-i18n="wellnessChat">Wellness Support Chat</p>
+                  <p class="text-[10px] text-secondary font-semibold" data-i18n="secureConfidential">Secure &amp;
+                    Confidential</p>
+                </div>
+              </div>
+              <button class="p-2 hover:bg-surface-container rounded-full">
+                <span class="material-symbols-outlined text-on-surface-variant">more_vert</span>
+              </button>
+            </div>
+            <!-- Messages -->
+            <div class="flex-1 p-4 space-y-4 overflow-y-auto bg-slate-50/50" id="chatMessages">
+              <div class="flex items-start gap-2 max-w-[80%]">
+                <div class="w-7 h-7 rounded-full bg-primary-container shrink-0 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-primary-container icon-fill"
+                    style="font-size:14px">support_agent</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
+                  <p class="text-sm" data-i18n="counselorGreeting">Hi there! How are you feeling today? I'm here if you
+                    want to talk about anything on your mind.</p>
+                  <span class="text-[10px] text-on-surface-variant mt-1 block">10:45 AM</span>
+                </div>
+              </div>
+              <div class="flex items-start gap-2 max-w-[80%] ml-auto flex-row-reverse">
+                <div class="bg-primary text-white p-3 rounded-2xl rounded-tr-none shadow-sm">
+                  <p class="text-sm">I've been feeling a bit overwhelmed with exams lately. Is it normal?</p>
+                  <span class="text-[10px] opacity-70 mt-1 block text-right">10:46 AM</span>
+                </div>
+              </div>
+              <div class="flex items-start gap-2 max-w-[80%]">
+                <div class="w-7 h-7 rounded-full bg-primary-container shrink-0 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-primary-container icon-fill"
+                    style="font-size:14px">support_agent</span>
+                </div>
+                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
+                  <p class="text-sm">Absolutely. Exam stress is very common, but there are some great techniques we can
+                    use to manage it together.</p>
+                  <span class="text-[10px] text-on-surface-variant mt-1 block">10:47 AM</span>
+                </div>
+              </div>
+            </div>
+            <!-- Input -->
+            <div class="p-3 bg-white border-t border-outline-variant/30 flex gap-3">
+              <input
+                class="flex-1 bg-surface-container border-none rounded-full px-4 text-sm focus:ring-1 focus:ring-primary"
+                id="chatInput" placeholder="Type your message..." type="text" />
+              <button
+                class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center active:scale-90 transition-transform hover:bg-primary-container hover:text-on-primary-container"
+                id="sendMsgBtn">
+                <span class="material-symbols-outlined">send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Scheduler Sidebar -->
+        <div class="md:col-span-4 space-y-4">
+          <!-- Mindfulness Card -->
+          <div
+            class="bg-tertiary-container text-on-tertiary-container p-5 rounded-2xl space-y-3 relative overflow-hidden">
+            <div class="relative z-10">
+              <h5 class="font-bold text-base" data-i18n="mindfulnessBreak">Mindfulness Break</h5>
+              <p class="text-sm opacity-90">Take 5 minutes to breathe. Research shows short breaks improve academic
+                performance significantly.</p>
+              <button
+                class="mt-4 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-xl text-sm font-bold transition-colors"
+                data-i18n="startExercise" id="mindfulnessBtn">
+                Start Exercise
+              </button>
+            </div>
+            <span class="material-symbols-outlined absolute -bottom-4 -right-4 text-8xl opacity-10 icon-fill">spa</span>
+          </div>
+          <!-- Quick Resources -->
+          <div class="card p-5 space-y-3">
+            <h4 class="font-bold">Quick Resources</h4>
 
-<a class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer" href="breathing.html">
-<span class="material-symbols-outlined text-secondary icon-fill">self_improvement</span>
-<div>
-<p class="text-sm font-semibold">Breathing Exercises</p>
-<p class="text-xs text-on-surface-variant" data-i18n="calmMindNow">Calm your mind now</p>
-</div>
-</a>
-<a class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer" href="tel:988">
-<span class="material-symbols-outlined text-primary icon-fill">call</span>
-<div>
-<p class="text-sm font-semibold">Crisis Helpline (988)</p>
-<p class="text-xs text-on-surface-variant" data-i18n="support247">24/7 support available</p>
-</div>
-</a>
-</div>
-</div>
-</section>
-</div>
-</main>
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav mobile-only">
-<div class="bn-item" onclick="location.href='index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
-<div class="bn-item" onclick="location.href='gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
-<div class="bn-item active"><span class="material-symbols-outlined">support_agent</span>Konseling</div>
+            <a class="flex items-center gap-3 p-3 rounded-xl hover:bg-surface-container transition-colors cursor-pointer"
+              href="breathing.html">
+              <span class="material-symbols-outlined text-secondary icon-fill">self_improvement</span>
+              <div>
+                <p class="text-sm font-semibold">Breathing Exercises</p>
+                <p class="text-xs text-on-surface-variant" data-i18n="calmMindNow">Calm your mind now</p>
+              </div>
+            </a>
 
-<div class="bn-item" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
-</nav>
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
-<!-- Modal: Confirm Logout -->
-<div class="modal-backdrop" id="confirmModal">
-<div class="modal-card">
-<h3 class="font-bold text-lg mb-2" data-i18n="confirmBtn" id="confirmTitle">Confirm</h3>
-<p class="text-on-surface-variant text-sm mb-6" id="confirmMsg"></p>
-<div class="flex gap-3">
-<button class="btn-ghost flex-1" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button>
-<button class="btn-primary flex-1" data-i18n="confirmBtn" id="confirmOk">Confirm</button>
-</div>
-</div>
-</div>
-<!-- Avatar Shop Modal -->
-<div class="modal-backdrop" id="avatarShopModal">
-<div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
-  <div class="flex justify-between items-center mb-4">
-    <div><h3 class="font-extrabold text-xl">🎨 Avatar &amp; Toko Aksesori</h3>
-    <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
-    <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
-  </div>
-  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
-    <div class="relative inline-block mb-2">
-      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">🧑</div>
-      <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
-      <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+          </div>
+        </div>
+      </section>
     </div>
-    <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
-    <div class="flex items-center justify-center gap-2 mt-1">
-      <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
-      <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
+  </main>
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav mobile-only">
+    <div class="bn-item" onclick="location.href='index.html'"><span
+        class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+    <div class="bn-item" onclick="location.href='gadget-time.html'"><span
+        class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+    <div class="bn-item active"><span class="material-symbols-outlined">support_agent</span>Konseling</div>
+
+    <div class="bn-item" onclick="location.href='settings.html'"><span
+        class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
+  </nav>
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+  <!-- Modal: Confirm Logout -->
+  <div class="modal-backdrop" id="confirmModal">
+    <div class="modal-card">
+      <h3 class="font-bold text-lg mb-2" data-i18n="confirmBtn" id="confirmTitle">Confirm</h3>
+      <p class="text-on-surface-variant text-sm mb-6" id="confirmMsg"></p>
+      <div class="flex gap-3">
+        <button class="btn-ghost flex-1" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button>
+        <button class="btn-primary flex-1" data-i18n="confirmBtn" id="confirmOk">Confirm</button>
+      </div>
     </div>
   </div>
-  <div class="mb-4"><div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div><div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div></div>
-  <div class="mb-2"><div class="font-bold text-sm mb-2">🛍️ Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
-</div>
-</div>
-<script src="js/counseling.js"></script>
-<script>
-/* ===== AVATAR SYSTEM ===== */
-const BASE_AVATARS=['🧑','👦','👧','🧒','👨','👩','🧔','👱','🙋','😊'];
-const ACCESSORIES=[
-  {id:'hat_grad',emoji:'🎓',name:'Topi Wisuda',slot:'hat',cost:100,desc:'Tampil seperti lulusan terbaik!'},
-  {id:'hat_top',emoji:'🎩',name:'Top Hat',slot:'hat',cost:150,desc:'Gaya klasik yang elegan.'},
-  {id:'hat_crown',emoji:'👑',name:'Mahkota',slot:'hat',cost:300,desc:'Jadilah raja/ratu sekolah!'},
-  {id:'hat_party',emoji:'🥳',name:'Topi Pesta',slot:'hat',cost:80,desc:'Rayakan setiap pencapaian!'},
-  {id:'glasses_cool',emoji:'🕶️',name:'Kacamata Keren',slot:'glasses',cost:120,desc:'Penampilan super keren.'},
-  {id:'glasses_nerd',emoji:'🤓',name:'Kacamata Pelajar',slot:'glasses',cost:60,desc:'Tampil cerdas dan serius!'},
-  {id:'badge_star',emoji:'⭐',name:'Badge Bintang',slot:'badge',cost:200,desc:'Penghargaan pencapaian top.'},
-  {id:'badge_fire',emoji:'🔥',name:'Badge On Fire',slot:'badge',cost:180,desc:'Kamu sedang on fire!'},
-];
-function loadXPLocal(){try{return parseInt(localStorage.getItem('edu_xp')||'320',10);}catch(e){return 320;}}
-function saveXPLocal(v){try{localStorage.setItem('edu_xp',String(v));}catch(e){}}
-function loadAvatarState(){try{return JSON.parse(localStorage.getItem('avatar_state')||'null');}catch(e){return null;}}
-function saveAvatarState(s){try{localStorage.setItem('avatar_state',JSON.stringify(s));}catch(e){}}
-function loadOwnedAccessories(){try{return JSON.parse(localStorage.getItem('owned_acc')||'[]');}catch(e){return[];}}
-function saveOwnedAccessories(a){try{localStorage.setItem('owned_acc',JSON.stringify(a));}catch(e){}}
-let avatarState=loadAvatarState()||{base:'🧑',hat:null,glasses:null,badge:null};
-let ownedAccessories=loadOwnedAccessories();
-function applySidebarAvatar(){
-  const e=document.getElementById('sidebarAvatarEmoji'),h=document.getElementById('sidebarHatBadge');
-  if(e)e.textContent=avatarState.base;
-  if(h){if(avatarState.hat){const a=ACCESSORIES.find(x=>x.id===avatarState.hat);h.textContent=a?a.emoji:'';h.classList.toggle('hidden',!avatarState.hat);}else h.classList.add('hidden');}
-  const xEl=document.getElementById('sidebarXP');if(xEl)xEl.textContent=loadXPLocal()+' XP';
-}
-function applyPreviewAvatar(){
-  const c=document.getElementById('avatarPreviewCircle'),hp=document.getElementById('avatarHatPreview'),gp=document.getElementById('avatarGlassesPreview');
-  if(!c)return;c.textContent=avatarState.base;
-  if(hp){const a=avatarState.hat?ACCESSORIES.find(x=>x.id===avatarState.hat):null;hp.textContent=a?a.emoji:'';hp.classList.toggle('hidden',!avatarState.hat);}
-  if(gp){const a=avatarState.glasses?ACCESSORIES.find(x=>x.id===avatarState.glasses):null;gp.textContent=a?a.emoji:'';gp.classList.toggle('hidden',!avatarState.glasses);}
-}
-function openAvatarShop(){
-  const xp=loadXPLocal();
-  const xs=document.getElementById('avatarShopXP');if(xs)xs.textContent=xp+' XP';
-  const grid=document.getElementById('baseAvatarGrid');
-  if(grid)grid.innerHTML=BASE_AVATARS.map(em=>`<button onclick="selectBase('${em}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base===em?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}" style="font-size:22px">${em}</button>`).join('');
-  const sg=document.getElementById('accessoryShopGrid');
-  if(sg)sg.innerHTML=ACCESSORIES.map(acc=>{
-    const owned=ownedAccessories.includes(acc.id),equipped=avatarState[acc.slot]===acc.id,canAfford=xp>=acc.cost;
-    return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped?'border-primary bg-surface-container-low':'border-outline-variant bg-white'}"><div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div><div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned?'<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>':`<div class="text-xs font-bold mt-0.5" style="color:${canAfford?'#f59e0b':'#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div><div>${owned?`<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${equipped?'bg-primary text-white':'border border-primary text-primary'}">${equipped?'Dipakai':'Pakai'}</button>`:`<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${canAfford?'bg-primary text-white':'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford?'disabled':''}>Beli</button>`}</div></div>`;
-  }).join('');
-  applyPreviewAvatar();
-  document.getElementById('avatarShopModal').classList.add('open');
-}
-function selectBase(emoji){
-  avatarState.base=emoji;saveAvatarState(avatarState);applySidebarAvatar();applyPreviewAvatar();
-  document.querySelectorAll('#baseAvatarGrid button').forEach((btn,i)=>{const e=BASE_AVATARS[i];btn.className=`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e===emoji?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}`;btn.style.fontSize='22px';});
-}
-function buyAccessory(id){
-  const acc=ACCESSORIES.find(a=>a.id===id);if(!acc)return;
-  let xp=loadXPLocal();
-  if(xp<acc.cost){if(typeof showToast!=='undefined')showToast('XP tidak cukup! Kunjungi Educational untuk mendapatkan XP.','error');return;}
-  xp-=acc.cost;saveXPLocal(xp);ownedAccessories.push(id);saveOwnedAccessories(ownedAccessories);
-  avatarState[acc.slot]=id;saveAvatarState(avatarState);applySidebarAvatar();
-  if(typeof showToast!=='undefined')showToast('🎉 '+acc.name+' berhasil dibeli & dipakai!','success');
-  openAvatarShop();
-}
-function toggleEquip(id){
-  const acc=ACCESSORIES.find(a=>a.id===id);if(!acc)return;
-  if(avatarState[acc.slot]===id){avatarState[acc.slot]=null;if(typeof showToast!=='undefined')showToast(acc.name+' dilepas.','info');}
-  else{avatarState[acc.slot]=id;if(typeof showToast!=='undefined')showToast(acc.emoji+' '+acc.name+' dipakai!','success');}
-  saveAvatarState(avatarState);applySidebarAvatar();applyPreviewAvatar();openAvatarShop();
-}
-applySidebarAvatar();
-</script>
-<script src="profile.js"></script>
-<script>
-/* ===== PROFILE SIDEBAR INIT ===== */
-(function(){
-  const name=localStorage.getItem('profileName')||'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
-  const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
-  const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
-  const mb=document.getElementById('mobileAvatarBadge');
-  if(mb)mb.textContent=name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
-})();
-</script>
+  <!-- Avatar Shop Modal -->
+  <div class="modal-backdrop" id="avatarShopModal">
+    <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3 class="font-extrabold text-xl">🎨 Avatar &amp; Toko Aksesori</h3>
+          <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div>
+        </div>
+        <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span
+            class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+        <div class="relative inline-block mb-2">
+          <div id="avatarPreviewCircle"
+            class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center"
+            style="border:3px solid var(--primary);font-size:52px;">🧑</div>
+          <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
+          <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+        </div>
+        <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
+        <div class="flex items-center justify-center gap-2 mt-1">
+          <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+          <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
+        </div>
+      </div>
+      <div class="mb-4">
+        <div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div>
+        <div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div>
+      </div>
+      <div class="mb-2">
+        <div class="font-bold text-sm mb-2">🛍️ Toko Aksesori</div>
+        <div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div>
+      </div>
+    </div>
+  </div>
+  <script src="js/counseling.js"></script>
+  <script>
+    /* ===== AVATAR SYSTEM ===== */
+    const BASE_AVATARS = ['🧑', '👦', '👧', '🧒', '👨', '👩', '🧔', '👱', '🙋', '😊'];
+    const ACCESSORIES = [
+      { id: 'hat_grad', emoji: '🎓', name: 'Topi Wisuda', slot: 'hat', cost: 100, desc: 'Tampil seperti lulusan terbaik!' },
+      { id: 'hat_top', emoji: '🎩', name: 'Top Hat', slot: 'hat', cost: 150, desc: 'Gaya klasik yang elegan.' },
+      { id: 'hat_crown', emoji: '👑', name: 'Mahkota', slot: 'hat', cost: 300, desc: 'Jadilah raja/ratu sekolah!' },
+      { id: 'hat_party', emoji: '🥳', name: 'Topi Pesta', slot: 'hat', cost: 80, desc: 'Rayakan setiap pencapaian!' },
+      { id: 'glasses_cool', emoji: '🕶️', name: 'Kacamata Keren', slot: 'glasses', cost: 120, desc: 'Penampilan super keren.' },
+      { id: 'glasses_nerd', emoji: '🤓', name: 'Kacamata Pelajar', slot: 'glasses', cost: 60, desc: 'Tampil cerdas dan serius!' },
+      { id: 'badge_star', emoji: '⭐', name: 'Badge Bintang', slot: 'badge', cost: 200, desc: 'Penghargaan pencapaian top.' },
+      { id: 'badge_fire', emoji: '🔥', name: 'Badge On Fire', slot: 'badge', cost: 180, desc: 'Kamu sedang on fire!' },
+    ];
+    function loadXPLocal() { try { return parseInt(localStorage.getItem('edu_xp') || '320', 10); } catch (e) { return 320; } }
+    function saveXPLocal(v) { try { localStorage.setItem('edu_xp', String(v)); } catch (e) { } }
+    function loadAvatarState() { try { return JSON.parse(localStorage.getItem('avatar_state') || 'null'); } catch (e) { return null; } }
+    function saveAvatarState(s) { try { localStorage.setItem('avatar_state', JSON.stringify(s)); } catch (e) { } }
+    function loadOwnedAccessories() { try { return JSON.parse(localStorage.getItem('owned_acc') || '[]'); } catch (e) { return []; } }
+    function saveOwnedAccessories(a) { try { localStorage.setItem('owned_acc', JSON.stringify(a)); } catch (e) { } }
+    let avatarState = loadAvatarState() || { base: '🧑', hat: null, glasses: null, badge: null };
+    let ownedAccessories = loadOwnedAccessories();
+    function applySidebarAvatar() {
+      const e = document.getElementById('sidebarAvatarEmoji'), h = document.getElementById('sidebarHatBadge');
+      if (e) e.textContent = avatarState.base;
+      if (h) { if (avatarState.hat) { const a = ACCESSORIES.find(x => x.id === avatarState.hat); h.textContent = a ? a.emoji : ''; h.classList.toggle('hidden', !avatarState.hat); } else h.classList.add('hidden'); }
+      const xEl = document.getElementById('sidebarXP'); if (xEl) xEl.textContent = loadXPLocal() + ' XP';
+    }
+    function applyPreviewAvatar() {
+      const c = document.getElementById('avatarPreviewCircle'), hp = document.getElementById('avatarHatPreview'), gp = document.getElementById('avatarGlassesPreview');
+      if (!c) return; c.textContent = avatarState.base;
+      if (hp) { const a = avatarState.hat ? ACCESSORIES.find(x => x.id === avatarState.hat) : null; hp.textContent = a ? a.emoji : ''; hp.classList.toggle('hidden', !avatarState.hat); }
+      if (gp) { const a = avatarState.glasses ? ACCESSORIES.find(x => x.id === avatarState.glasses) : null; gp.textContent = a ? a.emoji : ''; gp.classList.toggle('hidden', !avatarState.glasses); }
+    }
+    function openAvatarShop() {
+      const xp = loadXPLocal();
+      const xs = document.getElementById('avatarShopXP'); if (xs) xs.textContent = xp + ' XP';
+      const grid = document.getElementById('baseAvatarGrid');
+      if (grid) grid.innerHTML = BASE_AVATARS.map(em => `<button onclick="selectBase('${em}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base === em ? 'border-primary bg-surface-container-high' : 'border-outline-variant bg-white'}" style="font-size:22px">${em}</button>`).join('');
+      const sg = document.getElementById('accessoryShopGrid');
+      if (sg) sg.innerHTML = ACCESSORIES.map(acc => {
+        const owned = ownedAccessories.includes(acc.id), equipped = avatarState[acc.slot] === acc.id, canAfford = xp >= acc.cost;
+        return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped ? 'border-primary bg-surface-container-low' : 'border-outline-variant bg-white'}"><div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div><div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned ? '<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>' : `<div class="text-xs font-bold mt-0.5" style="color:${canAfford ? '#f59e0b' : '#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div><div>${owned ? `<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${equipped ? 'bg-primary text-white' : 'border border-primary text-primary'}">${equipped ? 'Dipakai' : 'Pakai'}</button>` : `<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${canAfford ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>Beli</button>`}</div></div>`;
+      }).join('');
+      applyPreviewAvatar();
+      document.getElementById('avatarShopModal').classList.add('open');
+    }
+    function selectBase(emoji) {
+      avatarState.base = emoji; saveAvatarState(avatarState); applySidebarAvatar(); applyPreviewAvatar();
+      document.querySelectorAll('#baseAvatarGrid button').forEach((btn, i) => { const e = BASE_AVATARS[i]; btn.className = `w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e === emoji ? 'border-primary bg-surface-container-high' : 'border-outline-variant bg-white'}`; btn.style.fontSize = '22px'; });
+    }
+    function buyAccessory(id) {
+      const acc = ACCESSORIES.find(a => a.id === id); if (!acc) return;
+      let xp = loadXPLocal();
+      if (xp < acc.cost) { if (typeof showToast !== 'undefined') showToast('XP tidak cukup! Kunjungi Educational untuk mendapatkan XP.', 'error'); return; }
+      xp -= acc.cost; saveXPLocal(xp); ownedAccessories.push(id); saveOwnedAccessories(ownedAccessories);
+      avatarState[acc.slot] = id; saveAvatarState(avatarState); applySidebarAvatar();
+      if (typeof showToast !== 'undefined') showToast('🎉 ' + acc.name + ' berhasil dibeli & dipakai!', 'success');
+      openAvatarShop();
+    }
+    function toggleEquip(id) {
+      const acc = ACCESSORIES.find(a => a.id === id); if (!acc) return;
+      if (avatarState[acc.slot] === id) { avatarState[acc.slot] = null; if (typeof showToast !== 'undefined') showToast(acc.name + ' dilepas.', 'info'); }
+      else { avatarState[acc.slot] = id; if (typeof showToast !== 'undefined') showToast(acc.emoji + ' ' + acc.name + ' dipakai!', 'success'); }
+      saveAvatarState(avatarState); applySidebarAvatar(); applyPreviewAvatar(); openAvatarShop();
+    }
+    applySidebarAvatar();
+  </script>
+  <script src="profile.js"></script>
+  <script>
+    /* ===== PROFILE SIDEBAR INIT ===== */
+    function openProfileModal() {
+      if (typeof openAvatarShop === 'function') {
+        openAvatarShop();
+      }
+    }
+    (function () {
+      const name = localStorage.getItem('profileName') || 'Alex Johnson';
+      const grade = localStorage.getItem('profileGrade') || 'Grade 11-A';
+      const sn = document.getElementById('sidebarName'); if (sn) sn.textContent = name;
+      const sg = document.getElementById('sidebarGrade'); if (sg) sg.textContent = grade;
+      const mb = document.getElementById('mobileAvatarBadge');
+      if (mb) mb.textContent = name.split(' ').map(function (w) { return w[0]; }).join('').substring(0, 2).toUpperCase();
+    })();
+  </script>
 </body>
-</html>
 
+</html>

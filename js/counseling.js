@@ -142,34 +142,7 @@ window.addEventListener('DOMContentLoaded', () => {
     chatInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
   }
 
-  /* ============== CALENDAR ============== */
-  const calDays = document.querySelectorAll('.grid-cols-7 span.cursor-pointer');
-  calDays.forEach(day => {
-    day.addEventListener('click', () => {
-      calDays.forEach(d => {
-        d.className = 'p-2 hover:bg-surface-container rounded-lg cursor-pointer';
-      });
-      day.className = 'p-2 font-bold bg-primary text-white rounded-lg cursor-pointer';
-    });
-  });
 
-  document.querySelectorAll('.time-slot').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.time-slot').forEach(b => {
-        b.classList.remove('border-primary', 'text-primary', 'font-bold', 'bg-primary/5');
-        b.classList.add('border-outline-variant/50');
-      });
-      btn.classList.add('border-primary', 'text-primary', 'font-bold', 'bg-primary/5');
-    });
-  });
-
-  document.getElementById('confirmAppointmentBtn')?.addEventListener('click', () => {
-    const activeSlot = document.querySelector('.time-slot.border-primary');
-    const slotText = activeSlot ? activeSlot.textContent : '02:00 PM';
-    const lang = localStorage.getItem('appLang') === 'id' ? 'id' : 'en';
-    const msg = lang === 'id' ? `✅ Janji temu dikonfirmasi pada ${slotText}!` : `✅ Appointment confirmed at ${slotText}!`;
-    showToast(msg, 'success');
-  });
 
   document.querySelectorAll('.book-session-btn').forEach(btn => {
     btn.addEventListener('click', () => {
