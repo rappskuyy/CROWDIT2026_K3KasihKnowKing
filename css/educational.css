@@ -89,15 +89,14 @@ html, body {
   color: var(--on-surface-variant);
   font-weight: 500;
   cursor: pointer;
-  transition: all .2s;
-  border-right: 4px solid transparent;
+  transition: background .2s, color .2s, box-shadow .2s;
   text-decoration: none;
 }
 .nav-link:hover { background: var(--surface-container); }
 .nav-link.active {
   background: var(--surface-container-high);
   color: var(--primary);
-  border-right-color: var(--primary);
+  box-shadow: inset -4px 0 0 var(--primary);
   font-weight: 700;
 }
 .nav-link.active .material-symbols-outlined {
@@ -438,3 +437,23 @@ html, body {
   background: var(--surface-container);
   color: var(--on-surface-variant);
 }
+
+/* ── Article Reader Prose ── */
+.article-prose h2, .article-prose h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--on-surface);
+  margin: 1.5rem 0 .5rem;
+  padding-left: .75rem;
+  border-left: 3px solid var(--primary);
+}
+.article-prose p { margin-bottom: 1rem; }
+.article-prose ul, .article-prose ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+.article-prose li { margin-bottom: .35rem; }
+.article-prose strong { color: var(--on-surface); font-weight: 700; }
+
+/* Modal backdrop for avatarShopModal */
+.modal-backdrop.open { display: flex; animation: fadeIn .2s; }

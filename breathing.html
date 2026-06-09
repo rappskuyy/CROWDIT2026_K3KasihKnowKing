@@ -34,8 +34,8 @@ tailwind.config = {
 <div class="toast" id="toast"></div>
 
 <!-- SIDEBAR -->
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40">
-<div class="px-5 py-6 flex items-center gap-3">
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
   <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
     <span class="material-symbols-outlined icon-fill">shield</span>
   </div>
@@ -44,8 +44,8 @@ tailwind.config = {
     <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
   </div>
 </div>
-<nav class="px-3 mt-2 flex flex-col gap-1">
-  <a class="nav-link" href="index.html"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
+<nav class="px-3 flex flex-col gap-0.5 overflow-y-auto flex-1" style="scrollbar-width:thin;">
+  <a class="nav-link" href="index.html"><span class="material-symbols-outlined">dashboard</span><span>dashboard</span></a>
   <a class="nav-link" href="educational.html"><span class="material-symbols-outlined">school</span><span>Educational</span></a>
   <a class="nav-link" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span>Wellness Tracking</span></a>
   <a class="nav-link" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span>Hydration</span></a>
@@ -53,23 +53,27 @@ tailwind.config = {
   <a class="nav-link active" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span>Breathing</span></a>
   <a class="nav-link" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span>Digital Counseling</span></a>
   <a class="nav-link" href="settings.html"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
-</nav>
-<div class="flex-grow"></div>
-<div class="px-3 py-2">
-<select id="langSel" class="lang-select">
-<option value="en">🇺🇸 English</option>
-<option value="id">🇮🇩 Indonesia</option>
-</select>
-</div>
-<div class="px-3 pb-2 flex flex-col gap-1">
+  <div style="flex:1;min-height:12px;"></div>
   <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span>Help Center</span></a>
   <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span>Log Out</span></a>
-</div>
-<div class="m-3 p-3 rounded-2xl bg-surface-container-low flex items-center gap-3">
-  <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">AJ</div>
-  <div>
-    <div class="font-bold text-sm">Alex Johnson</div>
-    <div class="text-xs text-on-surface-variant">Grade 11-A</div>
+</nav>
+<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openAvatarShop()" style="border:1px solid var(--outline-variant);">
+  <div class="flex items-center gap-3">
+    <div class="relative flex-shrink-0">
+      <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
+        <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+      </div>
+      <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="font-bold text-sm truncate">Alex Johnson</div>
+      <div class="text-xs text-on-surface-variant">Grade 11-A</div>
+      <div class="flex items-center gap-1 mt-0.5">
+        <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+        <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+      </div>
+    </div>
+    <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
   </div>
 </div>
 </aside>
@@ -82,10 +86,6 @@ tailwind.config = {
   </div>
   <span class="font-extrabold">SafeSchoolHub</span>
 </div>
-<select id="langSelMobile" class="lang-select sm">
-<option value="en">EN</option>
-<option value="id">ID</option>
-</select>
 <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
 </header>
 
@@ -384,5 +384,30 @@ document.querySelectorAll('#feelChips button').forEach(b=>b.addEventListener('cl
 
 drawWeeklyMood();
 </script>
+<!-- Avatar Shop Modal -->
+<div class="modal-backdrop" id="avatarShopModal">
+<div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
+  <div class="flex justify-between items-center mb-4">
+    <div><h3 class="font-extrabold text-xl">🎨 Avatar &amp; Toko Aksesori</h3>
+    <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
+    <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+    <div class="relative inline-block mb-2">
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">&#x1F9D1;</div>
+      <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
+      <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+    </div>
+    <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
+    <div class="flex items-center justify-center gap-2 mt-1">
+      <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+      <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
+    </div>
+  </div>
+  <div class="mb-4"><div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div><div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div></div>
+  <div class="mb-2"><div class="font-bold text-sm mb-2">&#x1F6CD; Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
+</div>
+</div>
 </body>
 </html>
+<script src="js/avatar.js"></script>

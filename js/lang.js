@@ -339,29 +339,22 @@ const LangSystem = {
     document.documentElement.lang = lang;
   },
 
-  /** Inject CSS select translate — dipanggil otomatis sekali */
-  _injectCSS() {
-    if (document.getElementById('lang-style')) return;
-    const s = document.createElement('style');
-    s.id = 'lang-style';
-    s.textContent = `
-      .lang-select{background:#fff;border:2px solid var(--primary,#106399);border-radius:9999px;padding:7px 18px;font-size:12px;font-weight:700;cursor:pointer;color:var(--primary,#106399);outline:none;transition:background .15s,box-shadow .15s;appearance:none;-webkit-appearance:none;box-shadow:0 2px 8px rgba(16,99,153,.12)}
-      .lang-select:hover,.lang-select:focus{background:#e8f3fb;box-shadow:0 4px 14px rgba(16,99,153,.22)}
-      .lang-select.sm{padding:5px 14px;font-size:11px}
-    `;
-    document.head.appendChild(s);
-  },
-
   /** Inisialisasi — panggil sekali saat DOMContentLoaded atau di akhir <body> */
   init() {
-    this._injectCSS();
     const lang = this.getLang();
     this._applyAll(lang);
 
-    // Sync semua select langSel dan langSelMobile
-    document.querySelectorAll('#langSel, #langSelMobile').forEach(sel => {
+    // Sync dropdown
+    const sel = document.getElementById('langSel');
+    if (sel) {
       sel.value = lang;
       sel.addEventListener('change', e => this.setLang(e.target.value));
+    }
+
+    // Sync tombol flag
+    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.langBtn === lang);
+      btn.addEventListener('click', () => this.setLang(btn.dataset.langBtn));
     });
   }
 };

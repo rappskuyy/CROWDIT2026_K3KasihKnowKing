@@ -24,8 +24,7 @@
   color: var(--on-surface-variant);
   font-weight: 500;
   cursor: pointer;
-  transition: all .2s;
-  border-right: 4px solid transparent;
+  transition: background .2s, color .2s, box-shadow .2s;
   text-decoration: none;
 }
 .nav-link:hover {
@@ -34,7 +33,7 @@
 .nav-link.active {
   background: var(--surface-container-high);
   color: var(--primary);
-  border-right-color: var(--primary);
+  box-shadow: inset -4px 0 0 var(--primary);
   font-weight: 700;
 }
 .nav-link.active .material-symbols-outlined {

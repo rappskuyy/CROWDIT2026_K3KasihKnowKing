@@ -56,8 +56,8 @@ tailwind.config = {
 <div class="toast" id="toast"></div>
 
 <!-- SIDEBAR -->
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40">
-<div class="px-5 py-6 flex items-center gap-3">
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
   <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
     <span class="material-symbols-outlined icon-fill">shield</span>
   </div>
@@ -66,7 +66,7 @@ tailwind.config = {
     <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
   </div>
 </div>
-<nav class="px-3 mt-2 flex flex-col gap-1">
+<nav class="px-3 flex flex-col gap-0.5 overflow-y-auto flex-1" style="scrollbar-width:thin;">
   <a class="nav-link" href="index.html"><span class="material-symbols-outlined">dashboard</span><span>Dashboard</span></a>
   <a class="nav-link active" href="educational.html"><span class="material-symbols-outlined">school</span><span>Educational</span></a>
   <a class="nav-link" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span>Wellness Tracking</span></a>
@@ -75,23 +75,27 @@ tailwind.config = {
   <a class="nav-link" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span>Breathing</span></a>
   <a class="nav-link" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span>Digital Counseling</span></a>
   <a class="nav-link" href="settings.html"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
-</nav>
-<div class="flex-grow"></div>
-<div class="px-3 py-2">
-<select id="langSel" class="lang-select">
-<option value="en">🇺🇸 English</option>
-<option value="id">🇮🇩 Indonesia</option>
-</select>
-</div>
-<div class="px-3 pb-2 flex flex-col gap-1">
+  <div style="flex:1;min-height:12px;"></div>
   <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span>Help Center</span></a>
   <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span>Log Out</span></a>
-</div>
-<div class="m-3 p-3 rounded-2xl bg-surface-container-low flex items-center gap-3">
-  <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">AJ</div>
-  <div>
-    <div class="font-bold text-sm">Alex Johnson</div>
-    <div class="text-xs text-on-surface-variant">Grade 11-A</div>
+</nav>
+<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openAvatarShop()" style="border:1px solid var(--outline-variant);">
+  <div class="flex items-center gap-3">
+    <div class="relative flex-shrink-0">
+      <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
+        <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+      </div>
+      <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="font-bold text-sm truncate">Alex Johnson</div>
+      <div class="text-xs text-on-surface-variant">Grade 11-A</div>
+      <div class="flex items-center gap-1 mt-0.5">
+        <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+        <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+      </div>
+    </div>
+    <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
   </div>
 </div>
 </aside>
@@ -104,10 +108,6 @@ tailwind.config = {
   </div>
   <span class="font-extrabold">SafeSchoolHub</span>
 </div>
-<select id="langSelMobile" class="lang-select sm">
-<option value="en">EN</option>
-<option value="id">ID</option>
-</select>
 <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
 </header>
 
@@ -382,10 +382,39 @@ tailwind.config = {
 </div>
 
 <!-- Article Modal -->
-<div class="video-modal-wrap" id="articleModal">
-  <div class="video-modal" style="background:#fff;max-height:90vh;overflow-y:auto;">
-    <div class="close-modal-btn" onclick="closeArticle()" style="background:rgba(0,0,0,0.1);color:#000"><span class="material-symbols-outlined">close</span></div>
-    <div class="p-6" id="articleContent"></div>
+<!-- Article Full-Page Reader Modal -->
+<div id="articleModal" style="display:none;position:fixed;inset:0;z-index:2000;background:#f8f9ff;overflow-y:auto;">
+  <!-- Article Reader Top Bar -->
+  <div style="position:sticky;top:0;z-index:10;background:rgba(248,249,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--outline-variant);">
+    <div style="max-width:720px;margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
+      <button onclick="closeArticle()" style="width:40px;height:40px;border-radius:50%;border:1px solid var(--outline-variant);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <span class="material-symbols-outlined" style="font-size:20px">arrow_back</span>
+      </button>
+      <div style="flex:1;min-width:0;">
+        <div id="articleReaderTitle" style="font-weight:700;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--on-surface);"></div>
+        <div style="display:flex;align-items:center;gap:.5rem;margin-top:2px;">
+          <div id="articleReadProgress" style="flex:1;height:4px;background:var(--outline-variant);border-radius:9999px;overflow:hidden;">
+            <div id="articleReadBar" style="height:100%;width:0%;background:var(--primary);transition:width .3s;border-radius:9999px;"></div>
+          </div>
+          <span id="articleReadPct" style="font-size:.7rem;font-weight:700;color:var(--primary);white-space:nowrap;">0%</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.35rem;background:var(--surface-container-low);border-radius:9999px;padding:.3rem .75rem;flex-shrink:0;">
+        <span class="material-symbols-outlined" style="font-size:14px;color:var(--primary)">stars</span>
+        <span style="font-size:.75rem;font-weight:700;color:var(--primary)" id="articleXpBadge">+15 XP</span>
+      </div>
+    </div>
+  </div>
+  <!-- Article Content -->
+  <div style="max-width:720px;margin:0 auto;padding:2rem 1rem 6rem;" id="articleContent"></div>
+  <!-- Floating Done Button -->
+  <div id="articleDoneBar" style="position:fixed;bottom:0;left:0;right:0;padding:1rem;background:rgba(248,249,255,0.97);border-top:1px solid var(--outline-variant);display:none;z-index:11;">
+    <div style="max-width:720px;margin:0 auto;">
+      <button id="articleDoneBtn" onclick="finishArticle()" style="width:100%;padding:.85rem;border-radius:9999px;background:var(--primary);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;border:none;">
+        <span class="material-symbols-outlined">check_circle</span>
+        <span>Selesai Dibaca — Klaim +15 XP</span>
+      </button>
+    </div>
   </div>
 </div>
 
@@ -399,6 +428,39 @@ tailwind.config = {
       <button class="btn-primary" id="confirmOk">OK</button>
     </div>
   </div>
+</div>
+
+<!-- Avatar Shop Modal -->
+<div class="modal-backdrop" id="avatarShopModal">
+<div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <h3 class="font-extrabold text-xl">🎨 Avatar & Toko Aksesori</h3>
+      <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div>
+    </div>
+    <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+    <div class="relative inline-block mb-2">
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">🧑</div>
+      <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
+      <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+    </div>
+    <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
+    <div class="flex items-center justify-center gap-2 mt-1">
+      <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+      <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
+    </div>
+  </div>
+  <div class="mb-4">
+    <div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div>
+    <div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div>
+  </div>
+  <div class="mb-2">
+    <div class="font-bold text-sm mb-2">🛍️ Toko Aksesori</div>
+    <div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div>
+  </div>
+</div>
 </div>
 
 <script>
@@ -415,7 +477,7 @@ function showToast(msg,type='info'){
 function loadXP(){try{return parseInt(localStorage.getItem('edu_xp')||'320',10);}catch(e){return 320;}}
 function saveXP(v){try{localStorage.setItem('edu_xp',String(v));}catch(e){}}
 let xp=loadXP();
-function addXP(n){xp+=n;saveXP(xp);const el=document.getElementById('xpDisplay');if(el)el.textContent=xp+' XP';showToast('+'+n+' XP diperoleh! Total: '+xp+' XP','success');}
+function addXP(n){xp+=n;saveXP(xp);const el=document.getElementById('xpDisplay');if(el)el.textContent=xp+' XP';const sEl=document.getElementById('sidebarXP');if(sEl)sEl.textContent=xp+' XP';showToast('+'+n+' XP diperoleh! Total: '+xp+' XP','success');}
 document.addEventListener('DOMContentLoaded',()=>{const el=document.getElementById('xpDisplay');if(el)el.textContent=xp+' XP';});
 
 /* ===== CERTIFICATES ===== */
@@ -580,23 +642,66 @@ function renderArticles(){
   `).join('');
 }
 
+let currentArticleId=null;
+let articleFinished=false;
 function openArticle(id){
   const a=ARTICLES.find(x=>x.id===id);if(!a)return;
-  const extBtn=a.extUrl?`<a href="${a.extUrl}" target="_blank" rel="noopener noreferrer" class="btn-ghost mt-3 text-sm flex items-center gap-1 justify-center" style="text-decoration:none"><span class="material-symbols-outlined" style="font-size:16px">open_in_new</span>Baca Artikel Lengkap</a>`:'';
+  currentArticleId=id;
+  articleFinished=false;
+  const extBtn=a.extUrl?`<a href="${a.extUrl}" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.6rem 1rem;border-radius:9999px;border:1px solid var(--outline-variant);color:var(--on-surface);font-weight:600;font-size:.85rem;text-decoration:none;margin-top:1.25rem;"><span class="material-symbols-outlined" style="font-size:16px">open_in_new</span>Baca di Sumber Asli</a>`:'';
+  document.getElementById('articleReaderTitle').textContent=a.title;
+  document.getElementById('articleXpBadge').textContent='+15 XP';
+  document.getElementById('articleReadBar').style.width='0%';
+  document.getElementById('articleReadPct').textContent='0%';
+  document.getElementById('articleDoneBar').style.display='none';
   document.getElementById('articleContent').innerHTML=`
-    <div class="flex items-center gap-2 mb-3">
-      <span class="seminar-badge" style="background:${a.color};color:${a.iconColor}">${a.cat}</span>
-      <span class="text-xs text-on-surface-variant">${a.readTime} baca</span>
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;align-items:center;">
+      <span style="background:${a.color};color:${a.iconColor};border-radius:9999px;padding:.25rem .75rem;font-size:.75rem;font-weight:700;">${a.cat.toUpperCase()}</span>
+      <span style="font-size:.8rem;color:var(--on-surface-variant);">⏱ ${a.readTime} baca</span>
+      <span style="font-size:.8rem;color:var(--on-surface-variant);">👁 ${a.views} views</span>
     </div>
-    <h2 class="font-extrabold text-xl mb-2 leading-snug">${a.title}</h2>
-    <div class="text-sm text-on-surface-variant mb-5">${a.author} · ${a.date}</div>
-    <div class="text-sm leading-relaxed prose">${a.content}</div>
+    <h1 style="font-size:1.5rem;font-weight:800;line-height:1.3;color:var(--on-surface);margin-bottom:.75rem;">${a.title}</h1>
+    <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--outline-variant);">
+      <div style="width:36px;height:36px;border-radius:50%;background:${a.color};display:flex;align-items:center;justify-content:center;">
+        <span class="material-symbols-outlined icon-fill" style="color:${a.iconColor};font-size:18px;">${a.icon}</span>
+      </div>
+      <div>
+        <div style="font-weight:700;font-size:.85rem;">${a.author}</div>
+        <div style="font-size:.75rem;color:var(--on-surface-variant);">${a.date}</div>
+      </div>
+    </div>
+    <div style="font-size:.95rem;line-height:1.8;color:var(--on-surface);" class="article-prose">${a.content}</div>
     ${extBtn}
-    <button class="btn-primary mt-3 text-sm w-full" onclick="closeArticle();showToast('Artikel selesai dibaca! +15 XP','success');addXP(15)">✅ Selesai Dibaca (+15 XP)</button>
+    <div style="height:4rem;"></div>
   `;
-  document.getElementById('articleModal').classList.add('open');
+  const modal=document.getElementById('articleModal');
+  modal.style.display='block';
+  modal.scrollTop=0;
+  document.body.style.overflow='hidden';
+  // Scroll tracking
+  modal.onscroll=function(){
+    const sh=modal.scrollHeight-modal.clientHeight;
+    const pct=sh>0?Math.round((modal.scrollTop/sh)*100):100;
+    document.getElementById('articleReadBar').style.width=pct+'%';
+    document.getElementById('articleReadPct').textContent=pct+'%';
+    if(pct>=70&&!articleFinished){
+      document.getElementById('articleDoneBar').style.display='block';
+    }
+  };
 }
-function closeArticle(){document.getElementById('articleModal').classList.remove('open');}
+function closeArticle(){
+  document.getElementById('articleModal').style.display='none';
+  document.body.style.overflow='';
+}
+function finishArticle(){
+  if(articleFinished)return;
+  articleFinished=true;
+  document.getElementById('articleDoneBar').style.display='none';
+  addXP(15);
+  updateSidebarXP();
+  closeArticle();
+  showToast('✅ Artikel selesai dibaca! +15 XP','success');
+}
 
 /* ===== SEMINARS ===== */
 const SEMINARS=[
@@ -613,31 +718,55 @@ function filterSeminars(f){
   document.querySelectorAll('#seminarFilterBtns button').forEach(b=>b.classList.toggle('active',b.dataset.sf===f));
   renderSeminars();
 }
+const SEMINAR_ICONS={'Mental Health':'psychology','Safety':'shield','Digital':'devices','Nutrition':'restaurant','Social':'group'};
+const SEMINAR_COLORS={'Mental Health':'#f3e8ff','Safety':'#fef9c3','Digital':'#dce9ff','Nutrition':'#d1fae5','Social':'#fce7f3'};
+const SEMINAR_ICON_COLORS={'Mental Health':'#7c3aed','Safety':'#ca8a04','Digital':'#106399','Nutrition':'#1c6c3f','Social':'#db2777'};
+
 function renderSeminars(){
   const grid=document.getElementById('seminarGrid');
   const filtered=seminarFilter==='all'?SEMINARS:SEMINARS.filter(s=>s.type===seminarFilter);
-  grid.innerHTML=filtered.map(s=>`
-    <div class="card p-5">
-      <div class="flex items-start justify-between gap-2 mb-3">
-        <div class="flex items-center gap-2">
-          <span class="seminar-badge" style="background:${s.type==='upcoming'?'#d1fae5;color:#1c6c3f':'#dce9ff;color:#106399'}">${s.type==='upcoming'?'📅 Upcoming':'▶ Recorded'}</span>
-          <span class="seminar-badge" style="background:#f3e8ff;color:#7c3aed">${s.topic}</span>
+  if(filtered.length===0){grid.innerHTML='<div class="text-center text-on-surface-variant py-8 col-span-2">Tidak ada seminar di kategori ini.</div>';return;}
+  grid.innerHTML=filtered.map(s=>{
+    const ic=SEMINAR_ICONS[s.topic]||'school';
+    const bg=SEMINAR_COLORS[s.topic]||'#dce9ff';
+    const icColor=SEMINAR_ICON_COLORS[s.topic]||'#106399';
+    const isUpcoming=s.type==='upcoming';
+    return `<div class="card overflow-hidden" style="border:1px solid var(--outline-variant);">
+      <!-- Card Header with color -->
+      <div class="p-4 flex items-center gap-3" style="background:${bg};">
+        <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm">
+          <span class="material-symbols-outlined icon-fill" style="color:${icColor};font-size:26px">${ic}</span>
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="seminar-badge" style="background:${isUpcoming?'#d1fae5;color:#1c6c3f':'rgba(16,99,153,0.12);color:#106399'};font-size:.65rem;">${isUpcoming?'📅 Upcoming':'▶ Recorded'}</span>
+            <span class="seminar-badge" style="background:rgba(255,255,255,0.7);color:${icColor};font-size:.65rem;">${s.topic}</span>
+          </div>
+          <div class="font-extrabold text-sm leading-snug mt-1" style="color:var(--on-surface)">${s.title}</div>
         </div>
       </div>
-      <div class="font-bold text-base leading-snug mb-1">${s.title}</div>
-      <div class="text-sm text-on-surface-variant mb-3">${s.speaker}</div>
-      <div class="flex items-center gap-3 text-xs text-on-surface-variant mb-4">
-        <span>${s.date}${s.time?' · '+s.time:''}</span>
-        <span>${s.duration}</span>
+      <!-- Card Body -->
+      <div class="p-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="material-symbols-outlined text-on-surface-variant" style="font-size:16px">person</span>
+          <span class="text-sm font-semibold text-on-surface">${s.speaker}</span>
+        </div>
+        <div class="flex items-center gap-4 text-xs text-on-surface-variant mb-4">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">calendar_month</span>${s.date}${s.time?' · '+s.time:''}</span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">schedule</span>${s.duration}</span>
+        </div>
+        <div class="flex items-center justify-between pt-3" style="border-top:1px solid var(--outline-variant)">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-on-surface-variant" style="font-size:14px">${isUpcoming?'groups':'play_circle'}</span>
+            <span class="text-xs text-on-surface-variant font-semibold">${s.registered.toLocaleString()} ${isUpcoming?'mendaftar':'ditonton'}</span>
+          </div>
+          ${isUpcoming
+            ?`<button class="btn-primary text-xs py-2 px-4" onclick="registerSeminar('${s.id}','${s.title}')">📝 Daftar Sekarang</button>`
+            :`<button class="btn-ghost text-xs py-2 px-4" onclick="watchSeminar('${s.id}')"><span style="display:flex;align-items:center;gap:4px"><span class="material-symbols-outlined icon-fill" style="font-size:14px;color:var(--primary)">play_arrow</span>Tonton (+25 XP)</span></button>`}
+        </div>
       </div>
-      <div class="flex items-center justify-between">
-        <div class="text-xs text-on-surface-variant">${s.registered.toLocaleString()} ${s.type==='upcoming'?'mendaftar':'views'}</div>
-        ${s.type==='upcoming'
-          ?`<button class="btn-primary text-sm" onclick="registerSeminar('${s.id}','${s.title}')">Daftar</button>`
-          :`<button class="btn-ghost text-sm" onclick="watchSeminar('${s.id}')">▶ Tonton</button>`}
-      </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 function registerSeminar(id,title){const s=SEMINARS.find(x=>x.id===id);if(s&&s.regUrl){window.open(s.regUrl,'_blank');showToast('Membuka halaman pendaftaran...','info');}else{showToast('Berhasil mendaftar: '+title,'success');}addXP(20);}
 function watchSeminar(id){const s=SEMINARS.find(x=>x.id===id);if(s&&s.watchUrl){window.open(s.watchUrl,'_blank');showToast('Membuka seminar...','info');addXP(25);}}
@@ -699,8 +828,90 @@ function retryQuiz(){startQuiz();}
 /* ===== LOGOUT ===== */
 document.getElementById('sidebar-logout').addEventListener('click',()=>{if(confirm('Log out?'))location.href='index.html';});
 
+/* ===== AVATAR SYSTEM ===== */
+const BASE_AVATARS=['🧑','👦','👧','🧒','👨','👩','🧔','👱','🙋','😊'];
+const ACCESSORIES=[
+  {id:'hat_grad',emoji:'🎓',name:'Topi Wisuda',slot:'hat',cost:100,desc:'Tampil seperti lulusan terbaik!'},
+  {id:'hat_top',emoji:'🎩',name:'Top Hat',slot:'hat',cost:150,desc:'Gaya klasik yang elegan.'},
+  {id:'hat_crown',emoji:'👑',name:'Mahkota',slot:'hat',cost:300,desc:'Jadilah raja/ratu sekolah!'},
+  {id:'hat_party',emoji:'🥳',name:'Topi Pesta',slot:'hat',cost:80,desc:'Rayakan setiap pencapaian!'},
+  {id:'glasses_cool',emoji:'🕶️',name:'Kacamata Keren',slot:'glasses',cost:120,desc:'Penampilan super keren.'},
+  {id:'glasses_nerd',emoji:'🤓',name:'Kacamata Pelajar',slot:'glasses',cost:60,desc:'Tampil cerdas dan serius!'},
+  {id:'badge_star',emoji:'⭐',name:'Badge Bintang',slot:'badge',cost:200,desc:'Penghargaan pencapaian top.'},
+  {id:'badge_fire',emoji:'🔥',name:'Badge On Fire',slot:'badge',cost:180,desc:'Kamu sedang on fire!'},
+];
+function loadAvatarState(){try{return JSON.parse(localStorage.getItem('avatar_state')||'null');}catch(e){return null;}}
+function saveAvatarState(s){try{localStorage.setItem('avatar_state',JSON.stringify(s));}catch(e){}}
+function loadOwnedAccessories(){try{return JSON.parse(localStorage.getItem('owned_acc')||'[]');}catch(e){return[];}}
+function saveOwnedAccessories(a){try{localStorage.setItem('owned_acc',JSON.stringify(a));}catch(e){}}
+let avatarState=loadAvatarState()||{base:'🧑',hat:null,glasses:null,badge:null};
+let ownedAccessories=loadOwnedAccessories();
+
+function applySidebarAvatar(){
+  const emojiEl=document.getElementById('sidebarAvatarEmoji');
+  const hatEl=document.getElementById('sidebarHatBadge');
+  if(emojiEl) emojiEl.textContent=avatarState.base;
+  if(hatEl){
+    if(avatarState.hat){const acc=ACCESSORIES.find(a=>a.id===avatarState.hat);hatEl.textContent=acc?acc.emoji:'';hatEl.classList.toggle('hidden',!avatarState.hat);}
+    else hatEl.classList.add('hidden');
+  }
+}
+function updateSidebarXP(){
+  const el=document.getElementById('sidebarXP');if(el)el.textContent=xp+' XP';
+  const el2=document.getElementById('avatarShopXP');if(el2)el2.textContent=xp+' XP';
+}
+function applyPreviewAvatar(){
+  const circle=document.getElementById('avatarPreviewCircle');
+  const hatPrev=document.getElementById('avatarHatPreview');
+  const glassesPrev=document.getElementById('avatarGlassesPreview');
+  if(!circle) return;
+  circle.textContent=avatarState.base;
+  if(hatPrev){const acc=avatarState.hat?ACCESSORIES.find(a=>a.id===avatarState.hat):null;hatPrev.textContent=acc?acc.emoji:'';hatPrev.classList.toggle('hidden',!avatarState.hat);}
+  if(glassesPrev){const acc=avatarState.glasses?ACCESSORIES.find(a=>a.id===avatarState.glasses):null;glassesPrev.textContent=acc?acc.emoji:'';glassesPrev.classList.toggle('hidden',!avatarState.glasses);}
+}
+function openAvatarShop(){
+  updateSidebarXP();
+  const grid=document.getElementById('baseAvatarGrid');
+  if(grid) grid.innerHTML=BASE_AVATARS.map(e=>`<button onclick="selectBase('${e}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base===e?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}" style="font-size:22px">${e}</button>`).join('');
+  const shopGrid=document.getElementById('accessoryShopGrid');
+  if(shopGrid) shopGrid.innerHTML=ACCESSORIES.map(acc=>{
+    const owned=ownedAccessories.includes(acc.id);
+    const equipped=avatarState[acc.slot]===acc.id;
+    const canAfford=xp>=acc.cost;
+    return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped?'border-primary bg-surface-container-low':'border-outline-variant bg-white'}">
+      <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div>
+      <div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned?`<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>`:`<div class="text-xs font-bold mt-0.5" style="color:${canAfford?'#f59e0b':'#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div>
+      <div>${owned?`<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${equipped?'bg-primary text-white':'border border-primary text-primary'}">${equipped?'Dipakai':'Pakai'}</button>`:`<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${canAfford?'bg-primary text-white':'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford?'disabled':''}">Beli</button>`}</div>
+    </div>`;
+  }).join('');
+  applyPreviewAvatar();
+  document.getElementById('avatarShopModal').classList.add('open');
+}
+function selectBase(emoji){
+  avatarState.base=emoji;saveAvatarState(avatarState);applySidebarAvatar();applyPreviewAvatar();
+  document.querySelectorAll('#baseAvatarGrid button').forEach((btn,i)=>{const e=BASE_AVATARS[i];btn.className=`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e===emoji?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}`;btn.style.fontSize='22px';});
+}
+function buyAccessory(id){
+  const acc=ACCESSORIES.find(a=>a.id===id);if(!acc)return;
+  if(xp<acc.cost){showToast('XP tidak cukup! Tonton video/artikel dulu.','error');return;}
+  xp-=acc.cost;saveXP(xp);ownedAccessories.push(id);saveOwnedAccessories(ownedAccessories);
+  avatarState[acc.slot]=id;saveAvatarState(avatarState);
+  const el=document.getElementById('xpDisplay');if(el)el.textContent=xp+' XP';
+  updateSidebarXP();applySidebarAvatar();
+  showToast('🎉 '+acc.name+' berhasil dibeli & dipakai!','success');
+  openAvatarShop();
+}
+function toggleEquip(id){
+  const acc=ACCESSORIES.find(a=>a.id===id);if(!acc)return;
+  if(avatarState[acc.slot]===id){avatarState[acc.slot]=null;showToast(acc.name+' dilepas.','info');}
+  else{avatarState[acc.slot]=id;showToast(acc.emoji+' '+acc.name+' dipakai!','success');}
+  saveAvatarState(avatarState);applySidebarAvatar();applyPreviewAvatar();openAvatarShop();
+}
+
 /* ===== INIT ===== */
 renderVideos();renderArticles();renderSeminars();
-</script>
+applySidebarAvatar();updateSidebarXP();
+  </script>
+  <script src="js/avatar.js"></script>
 </body>
 </html>

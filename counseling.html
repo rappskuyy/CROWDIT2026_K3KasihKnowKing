@@ -34,9 +34,8 @@ tailwind.config = {
 </head>
 <body class="min-h-screen bg-background text-on-surface">
 <!-- SIDEBAR -->
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40">
-<div class="p-5 border-b border-outline-variant">
-<div class="flex items-center gap-3">
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0 border-b border-outline-variant">
 <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
 <span class="material-symbols-outlined text-white icon-fill" style="font-size:20px">security</span>
 </div>
@@ -45,26 +44,37 @@ tailwind.config = {
 <p class="text-xs text-on-surface-variant" data-i18n="dashTitle">Student Wellness</p>
 </div>
 </div>
-</div>
-<nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+<nav class="px-3 py-2 flex flex-col gap-0.5 overflow-y-auto flex-1" style="scrollbar-width:thin;">
 <a class="nav-link" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
-    <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
+<a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
 <a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
 <a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
 <a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
 <a class="nav-link" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
 <a class="nav-link active" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
 <a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
-</nav>
-<div class="p-3 border-t border-outline-variant space-y-1">
+<div style="flex:1;min-height:12px;"></div>
 <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
 <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
-</div>
-<div class="px-3 py-2">
-<select id="langSel" class="lang-select">
-<option value="en">🇺🇸 English</option>
-<option value="id">🇮🇩 Indonesia</option>
-</select>
+</nav>
+<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openAvatarShop()" style="border:1px solid var(--outline-variant);">
+  <div class="flex items-center gap-3">
+    <div class="relative flex-shrink-0">
+      <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
+        <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+      </div>
+      <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+    </div>
+    <div class="flex-1 min-w-0">
+      <div class="font-bold text-sm truncate">Alex Johnson</div>
+      <div class="text-xs text-on-surface-variant">Grade 11-A</div>
+      <div class="flex items-center gap-1 mt-0.5">
+        <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+        <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+      </div>
+    </div>
+    <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
+  </div>
 </div>
 </aside>
 <!-- MOBILE TOP BAR -->
@@ -74,10 +84,6 @@ tailwind.config = {
 <span class="material-symbols-outlined text-white icon-fill" style="font-size:16px">security</span>
 </div>
 <span class="font-bold text-sm" data-i18n="brand">SafeSchoolHub</span>
-</div>
-<div class="flex items-center gap-1">
-<button class="lang-flag-btn" data-lang-btn="en" class="lang-flag-btn sm">EN</button>
-<button class="lang-flag-btn" data-lang-btn="id" class="lang-flag-btn sm">ID</button>
 </div>
 <div class="flex items-center gap-2">
 <button class="p-2 rounded-full hover:bg-surface-container">
@@ -343,6 +349,97 @@ tailwind.config = {
 </div>
 </div>
 </div>
+<!-- Avatar Shop Modal -->
+<div class="modal-backdrop" id="avatarShopModal">
+<div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
+  <div class="flex justify-between items-center mb-4">
+    <div><h3 class="font-extrabold text-xl">🎨 Avatar &amp; Toko Aksesori</h3>
+    <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
+    <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+    <div class="relative inline-block mb-2">
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">🧑</div>
+      <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
+      <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+    </div>
+    <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
+    <div class="flex items-center justify-center gap-2 mt-1">
+      <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+      <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
+    </div>
+  </div>
+  <div class="mb-4"><div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div><div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div></div>
+  <div class="mb-2"><div class="font-bold text-sm mb-2">🛍️ Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
+</div>
+</div>
 <script src="js/counseling.js"></script>
+<script>
+/* ===== AVATAR SYSTEM ===== */
+const BASE_AVATARS=['🧑','👦','👧','🧒','👨','👩','🧔','👱','🙋','😊'];
+const ACCESSORIES=[
+  {id:'hat_grad',emoji:'🎓',name:'Topi Wisuda',slot:'hat',cost:100,desc:'Tampil seperti lulusan terbaik!'},
+  {id:'hat_top',emoji:'🎩',name:'Top Hat',slot:'hat',cost:150,desc:'Gaya klasik yang elegan.'},
+  {id:'hat_crown',emoji:'👑',name:'Mahkota',slot:'hat',cost:300,desc:'Jadilah raja/ratu sekolah!'},
+  {id:'hat_party',emoji:'🥳',name:'Topi Pesta',slot:'hat',cost:80,desc:'Rayakan setiap pencapaian!'},
+  {id:'glasses_cool',emoji:'🕶️',name:'Kacamata Keren',slot:'glasses',cost:120,desc:'Penampilan super keren.'},
+  {id:'glasses_nerd',emoji:'🤓',name:'Kacamata Pelajar',slot:'glasses',cost:60,desc:'Tampil cerdas dan serius!'},
+  {id:'badge_star',emoji:'⭐',name:'Badge Bintang',slot:'badge',cost:200,desc:'Penghargaan pencapaian top.'},
+  {id:'badge_fire',emoji:'🔥',name:'Badge On Fire',slot:'badge',cost:180,desc:'Kamu sedang on fire!'},
+];
+function loadXPLocal(){try{return parseInt(localStorage.getItem('edu_xp')||'320',10);}catch(e){return 320;}}
+function saveXPLocal(v){try{localStorage.setItem('edu_xp',String(v));}catch(e){}}
+function loadAvatarState(){try{return JSON.parse(localStorage.getItem('avatar_state')||'null');}catch(e){return null;}}
+function saveAvatarState(s){try{localStorage.setItem('avatar_state',JSON.stringify(s));}catch(e){}}
+function loadOwnedAccessories(){try{return JSON.parse(localStorage.getItem('owned_acc')||'[]');}catch(e){return[];}}
+function saveOwnedAccessories(a){try{localStorage.setItem('owned_acc',JSON.stringify(a));}catch(e){}}
+let avatarState=loadAvatarState()||{base:'🧑',hat:null,glasses:null,badge:null};
+let ownedAccessories=loadOwnedAccessories();
+function applySidebarAvatar(){
+  const e=document.getElementById('sidebarAvatarEmoji'),h=document.getElementById('sidebarHatBadge');
+  if(e)e.textContent=avatarState.base;
+  if(h){if(avatarState.hat){const a=ACCESSORIES.find(x=>x.id===avatarState.hat);h.textContent=a?a.emoji:'';h.classList.toggle('hidden',!avatarState.hat);}else h.classList.add('hidden');}
+  const xEl=document.getElementById('sidebarXP');if(xEl)xEl.textContent=loadXPLocal()+' XP';
+}
+function applyPreviewAvatar(){
+  const c=document.getElementById('avatarPreviewCircle'),hp=document.getElementById('avatarHatPreview'),gp=document.getElementById('avatarGlassesPreview');
+  if(!c)return;c.textContent=avatarState.base;
+  if(hp){const a=avatarState.hat?ACCESSORIES.find(x=>x.id===avatarState.hat):null;hp.textContent=a?a.emoji:'';hp.classList.toggle('hidden',!avatarState.hat);}
+  if(gp){const a=avatarState.glasses?ACCESSORIES.find(x=>x.id===avatarState.glasses):null;gp.textContent=a?a.emoji:'';gp.classList.toggle('hidden',!avatarState.glasses);}
+}
+function openAvatarShop(){
+  const xp=loadXPLocal();
+  const xs=document.getElementById('avatarShopXP');if(xs)xs.textContent=xp+' XP';
+  const grid=document.getElementById('baseAvatarGrid');
+  if(grid)grid.innerHTML=BASE_AVATARS.map(em=>`<button onclick="selectBase('${em}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base===em?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}" style="font-size:22px">${em}</button>`).join('');
+  const sg=document.getElementById('accessoryShopGrid');
+  if(sg)sg.innerHTML=ACCESSORIES.map(acc=>{
+    const owned=ownedAccessories.includes(acc.id),equipped=avatarState[acc.slot]===acc.id,canAfford=xp>=acc.cost;
+    return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped?'border-primary bg-surface-container-low':'border-outline-variant bg-white'}"><div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div><div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned?'<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>':`<div class="text-xs font-bold mt-0.5" style="color:${canAfford?'#f59e0b':'#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div><div>${owned?`<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${equipped?'bg-primary text-white':'border border-primary text-primary'}">${equipped?'Dipakai':'Pakai'}</button>`:`<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${canAfford?'bg-primary text-white':'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford?'disabled':''}>Beli</button>`}</div></div>`;
+  }).join('');
+  applyPreviewAvatar();
+  document.getElementById('avatarShopModal').classList.add('open');
+}
+function selectBase(emoji){
+  avatarState.base=emoji;saveAvatarState(avatarState);applySidebarAvatar();applyPreviewAvatar();
+  document.querySelectorAll('#baseAvatarGrid button').forEach((btn,i)=>{const e=BASE_AVATARS[i];btn.className=`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e===emoji?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}`;btn.style.fontSize='22px';});
+}
+function buyAccessory(id){
+  const acc=ACCESSORIES.find(a=>a.id===id);if(!acc)return;
+  let xp=loadXPLocal();
+  if(xp<acc.cost){if(typeof showToast!=='undefined')showToast('XP tidak cukup! Kunjungi Educational untuk mendapatkan XP.','error');return;}
+  xp-=acc.cost;saveXPLocal(xp);ownedAccessories.push(id);saveOwnedAccessories(ownedAccessories);
+  avatarState[acc.slot]=id;saveAvatarState(avatarState);applySidebarAvatar();
+  if(typeof showToast!=='undefined')showToast('🎉 '+acc.name+' berhasil dibeli & dipakai!','success');
+  openAvatarShop();
+}
+function toggleEquip(id){
+  const acc=ACCESSORIES.find(a=>a.id===id);if(!acc)return;
+  if(avatarState[acc.slot]===id){avatarState[acc.slot]=null;if(typeof showToast!=='undefined')showToast(acc.name+' dilepas.','info');}
+  else{avatarState[acc.slot]=id;if(typeof showToast!=='undefined')showToast(acc.emoji+' '+acc.name+' dipakai!','success');}
+  saveAvatarState(avatarState);applySidebarAvatar();applyPreviewAvatar();openAvatarShop();
+}
+applySidebarAvatar();
+</script>
 </body>
 </html>
