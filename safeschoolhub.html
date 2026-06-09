@@ -137,7 +137,7 @@ tailwind.config = {
 <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
 </nav>
 <!-- Profile Card with Avatar -->
-<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openAvatarShop()" style="border:1px solid var(--outline-variant);">
+<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
   <div class="flex items-center gap-3">
     <div class="relative flex-shrink-0">
       <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
@@ -204,7 +204,7 @@ tailwind.config = {
 </div>
 <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
 </div>
-<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold cursor-pointer" id="mobileAvatarBadge" onclick="openProfileModal()">AJ</div>
 </header>
 <!-- ============== MAIN CONTENT ============== -->
 <main class="main-content lg:ml-64 min-h-screen">
@@ -222,7 +222,7 @@ tailwind.config = {
 <!-- XP & Avatar Banner -->
 <div class="card p-4 mb-5 flex flex-wrap items-center gap-4" style="background:linear-gradient(135deg,#003151,#106399);color:#fff;border-radius:20px;">
   <div class="flex items-center gap-3 flex-1 min-w-0">
-    <div id="dashAvatarCircle" style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;cursor:pointer;" onclick="openAvatarShop()">🧑</div>
+    <div id="dashAvatarCircle" style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;cursor:pointer;" onclick="openProfileModal()">🧑</div>
     <div>
       <div class="font-bold">Alex Johnson · Grade 11-A</div>
       <div style="display:flex;align-items:center;gap:.5rem;margin-top:.25rem;">
@@ -1234,5 +1234,6 @@ updateDashAvatar();
 // Re-sync on page focus (in case XP was earned in educational.html)
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){mainXP=loadXPMain();updateSidebarXP();updateDashAvatar();}});
 </script>
+<script src="profile.js"></script>
 </body>
 </html>

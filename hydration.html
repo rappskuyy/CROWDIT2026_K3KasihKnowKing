@@ -204,7 +204,7 @@ tailwind.config = {
   <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span>Help Center</span></a>
   <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span>Log Out</span></a>
 </nav>
-<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openAvatarShop()" style="border:1px solid var(--outline-variant);">
+<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
   <div class="flex items-center gap-3">
     <div class="relative flex-shrink-0">
       <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
@@ -213,8 +213,8 @@ tailwind.config = {
       <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
     </div>
     <div class="flex-1 min-w-0">
-      <div class="font-bold text-sm truncate">Alex Johnson</div>
-      <div class="text-xs text-on-surface-variant">Grade 11-A</div>
+      <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+      <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
       <div class="flex items-center gap-1 mt-0.5">
         <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
         <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
@@ -232,7 +232,7 @@ tailwind.config = {
 </div>
 <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
 </div>
-<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold">AJ</div>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold cursor-pointer" id="mobileAvatarBadge" onclick="openProfileModal()">AJ</div>
 </header>
 <!-- ===== MAIN CONTENT ===== -->
 <main class="main-content lg:ml-64 min-h-screen">
@@ -913,5 +913,17 @@ if(logTimes.length > 0) updateTimeLogged();
   <div class="mb-2"><div class="font-bold text-sm mb-2">&#x1F6CD; Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
 </div>
 </div>
+<script src="profile.js"></script>
+<script>
+/* ===== PROFILE SIDEBAR INIT ===== */
+(function(){
+  const name=localStorage.getItem('profileName')||'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
+  const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
+  const mb=document.getElementById('mobileAvatarBadge');
+  if(mb)mb.textContent=name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+})();
+</script>
 </body>
 </html>
