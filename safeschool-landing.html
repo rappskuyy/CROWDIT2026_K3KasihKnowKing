@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SafeSchool — Platform Manajemen Sekolah Digital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     :root {
       --blue: #0056A9;
@@ -28,7 +38,9 @@
       --hero-grad: linear-gradient(135deg, #8b9299 0%, #374151 40%, #111827 100%);
     }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
@@ -44,7 +56,9 @@
     /* ───────────── NAVBAR ───────────── */
     #navbar {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -57,7 +71,7 @@
     #navbar.scrolled {
       background: rgba(7, 13, 21, 0.88);
       backdrop-filter: blur(18px);
-      box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05);
     }
 
     .nav-logo {
@@ -68,7 +82,8 @@
     }
 
     .nav-logo-icon {
-      width: 36px; height: 36px;
+      width: 36px;
+      height: 36px;
       background: var(--blue);
       border-radius: 8px;
       display: flex;
@@ -88,7 +103,9 @@
       letter-spacing: -0.3px;
     }
 
-    .nav-logo-text span { color: #fff; }
+    .nav-logo-text span {
+      color: #fff;
+    }
 
     .nav-links {
       display: flex;
@@ -97,14 +114,16 @@
     }
 
     .nav-links a {
-      color: rgba(255,255,255,0.85);
+      color: rgba(255, 255, 255, 0.85);
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
       transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover {
+      color: #fff;
+    }
 
     .btn-primary {
       background: var(--blue);
@@ -135,7 +154,8 @@
     }
 
     .nav-hamburger span {
-      width: 24px; height: 2px;
+      width: 24px;
+      height: 2px;
       background: #fff;
       border-radius: 2px;
       transition: 0.3s;
@@ -147,7 +167,7 @@
       width: 100%;
       min-height: 100vh;
       background-color: #070D15;
-      background-image: linear-gradient(rgba(11, 24, 48, 0.45), rgba(7, 13, 21, 0.85)), url('hero-bg.jpg');
+      background-image: linear-gradient(rgba(11, 24, 48, 0.45), rgba(7, 13, 21, 0.85)), url('hero-bg.png');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -178,7 +198,7 @@
     .hero-card {
       background: #fff;
       border-radius: 12px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
       padding: 14px 8px 10px;
       display: flex;
       flex-direction: column;
@@ -190,7 +210,7 @@
 
     .hero-card:hover {
       transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
 
     .hero-card .material-symbols-outlined {
@@ -217,13 +237,14 @@
     }
 
     .hero-award-circle {
-      width: 44px; height: 44px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      border: 2px solid rgba(255,255,255,0.25);
+      border: 2px solid rgba(255, 255, 255, 0.25);
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .hero-award-circle .material-symbols-outlined {
@@ -299,15 +320,21 @@
       padding: 16px;
       cursor: pointer;
       transition: background 0.2s;
-      border-right: 1px solid rgba(255,255,255,0.07);
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
     }
 
-    .ql-item:last-child { border-right: none; }
-    .ql-item:hover { background: rgba(255,255,255,0.05); }
+    .ql-item:last-child {
+      border-right: none;
+    }
+
+    .ql-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
 
     .ql-icon-wrap {
-      width: 44px; height: 44px;
-      background: rgba(255,255,255,0.1);
+      width: 44px;
+      height: 44px;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -351,7 +378,9 @@
       border-right: 1px solid #e2e8f0;
     }
 
-    .stat-item:last-child { border-right: none; }
+    .stat-item:last-child {
+      border-right: none;
+    }
 
     .stat-icon .material-symbols-outlined {
       font-size: 28px;
@@ -450,11 +479,12 @@
     .fitur-tab.active {
       background: #fff;
       border-color: #dbeafe;
-      box-shadow: 0 4px 20px rgba(0,86,169,0.09);
+      box-shadow: 0 4px 20px rgba(0, 86, 169, 0.09);
     }
 
     .fitur-tab-icon {
-      width: 40px; height: 40px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background: #e8f0fb;
       display: flex;
@@ -478,7 +508,10 @@
       color: #fff;
     }
 
-    .fitur-tab-text { flex: 1; min-width: 0; }
+    .fitur-tab-text {
+      flex: 1;
+      min-width: 0;
+    }
 
     .fitur-tab-title {
       font-size: 15px;
@@ -505,7 +538,9 @@
       transition: opacity 0.2s;
     }
 
-    .fitur-tab.active .fitur-tab-chevron { opacity: 1; }
+    .fitur-tab.active .fitur-tab-chevron {
+      opacity: 1;
+    }
 
     /* Right: detail panel */
     .fitur-panel {
@@ -517,11 +552,20 @@
       animation: panelIn 0.3s ease;
     }
 
-    .fitur-panel.active { display: block; }
+    .fitur-panel.active {
+      display: block;
+    }
 
     @keyframes panelIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .panel-header {
@@ -532,7 +576,8 @@
     }
 
     .panel-icon {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       border-radius: 12px;
       background: #e8f0fb;
       display: flex;
@@ -584,7 +629,8 @@
 
     .panel-checklist li::before {
       content: '';
-      width: 18px; height: 18px;
+      width: 18px;
+      height: 18px;
       background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%230056A9'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E") center/contain no-repeat;
       flex-shrink: 0;
     }
@@ -594,7 +640,7 @@
       border-radius: 12px;
       overflow: hidden;
       border: 1px solid #dbeafe;
-      box-shadow: 0 8px 32px rgba(0,86,169,0.1);
+      box-shadow: 0 8px 32px rgba(0, 86, 169, 0.1);
     }
 
     .panel-screenshot img {
@@ -627,14 +673,14 @@
       background: #fff;
       border-radius: 18px;
       border: 1px solid #e5eeff;
-      box-shadow: 0 2px 16px rgba(0,86,169,0.05);
+      box-shadow: 0 2px 16px rgba(0, 86, 169, 0.05);
       overflow: hidden;
       transition: transform 0.25s, box-shadow 0.25s;
     }
 
     .step-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 16px 40px rgba(0,86,169,0.12);
+      box-shadow: 0 16px 40px rgba(0, 86, 169, 0.12);
     }
 
     .step-card-top {
@@ -651,7 +697,8 @@
     }
 
     .step-card-icon {
-      width: 40px; height: 40px;
+      width: 40px;
+      height: 40px;
       border-radius: 10px;
       background: #e8f0fb;
       display: flex;
@@ -704,14 +751,14 @@
       background: #fff;
       border-radius: 16px;
       padding: 28px;
-      box-shadow: 0 2px 16px rgba(0,86,169,0.06);
+      box-shadow: 0 2px 16px rgba(0, 86, 169, 0.06);
       border: 1px solid #e5eeff;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .testi-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,86,169,0.12);
+      box-shadow: 0 12px 32px rgba(0, 86, 169, 0.12);
     }
 
     .testi-stars {
@@ -741,7 +788,8 @@
     }
 
     .testi-avatar {
-      width: 46px; height: 46px;
+      width: 46px;
+      height: 46px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid #e5eeff;
@@ -792,7 +840,9 @@
       transition: color 0.2s;
     }
 
-    .faq-question:hover { color: var(--blue); }
+    .faq-question:hover {
+      color: var(--blue);
+    }
 
     .faq-icon {
       font-size: 22px;
@@ -858,7 +908,8 @@
     }
 
     .cta-divider {
-      width: 56px; height: 4px;
+      width: 56px;
+      height: 4px;
       background: var(--blue);
       border-radius: 2px;
       margin-bottom: 20px;
@@ -871,7 +922,9 @@
       margin-bottom: 28px;
     }
 
-    .cta-desc strong { color: #fff; }
+    .cta-desc strong {
+      color: #fff;
+    }
 
     .cta-checklist {
       display: flex;
@@ -889,7 +942,8 @@
     }
 
     .check-icon {
-      width: 20px; height: 20px;
+      width: 20px;
+      height: 20px;
       background: #16a34a;
       border-radius: 50%;
       display: flex;
@@ -925,12 +979,14 @@
       color: #94a3b8;
     }
 
-    .form-label span { color: #ef4444; }
+    .form-label span {
+      color: #ef4444;
+    }
 
     .form-input {
       width: 100%;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 8px;
       padding: 14px 16px;
       font-family: 'Inter', sans-serif;
@@ -940,12 +996,14 @@
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .form-input::placeholder { color: rgba(255,255,255,0.3); }
+    .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
 
     .form-input:focus {
       border-color: var(--blue-light);
-      background: rgba(255,255,255,0.09);
-      box-shadow: 0 0 0 3px rgba(0,141,194,0.15);
+      background: rgba(255, 255, 255, 0.09);
+      box-shadow: 0 0 0 3px rgba(0, 141, 194, 0.15);
     }
 
     .btn-cta {
@@ -970,7 +1028,7 @@
 
     .form-note {
       font-size: 12px;
-      color: rgba(148,163,184,0.7);
+      color: rgba(148, 163, 184, 0.7);
       text-align: center;
       line-height: 1.5;
     }
@@ -1006,8 +1064,9 @@
     }
 
     .footer-social a {
-      width: 36px; height: 36px;
-      background: rgba(255,255,255,0.07);
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.07);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -1015,7 +1074,9 @@
       transition: background 0.2s;
     }
 
-    .footer-social a:hover { background: var(--blue); }
+    .footer-social a:hover {
+      background: var(--blue);
+    }
 
     .footer-social a .material-symbols-outlined {
       font-size: 18px;
@@ -1045,10 +1106,12 @@
       transition: color 0.2s;
     }
 
-    .footer-col ul li a:hover { color: #fff; }
+    .footer-col ul li a:hover {
+      color: #fff;
+    }
 
     .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.07);
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
       padding: 20px 48px;
       max-width: 1200px;
       margin: 0 auto;
@@ -1074,7 +1137,9 @@
       transition: color 0.2s;
     }
 
-    .footer-bottom-links a:hover { color: #fff; }
+    .footer-bottom-links a:hover {
+      color: #fff;
+    }
 
     /* ───────────── LOGIN MODAL ───────────── */
     .modal-overlay {
@@ -1095,8 +1160,13 @@
     }
 
     @keyframes overlayIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
 
     .modal-box {
@@ -1104,15 +1174,22 @@
       border-radius: 20px;
       width: 100%;
       max-width: 440px;
-      box-shadow: 0 24px 64px rgba(0,0,0,0.22);
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.22);
       overflow: hidden;
-      animation: modalIn 0.28s cubic-bezier(0.34,1.56,0.64,1);
+      animation: modalIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
       position: relative;
     }
 
     @keyframes modalIn {
-      from { opacity: 0; transform: scale(0.92) translateY(20px); }
-      to   { opacity: 1; transform: none; }
+      from {
+        opacity: 0;
+        transform: scale(0.92) translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .modal-header {
@@ -1129,8 +1206,9 @@
     }
 
     .modal-logo-icon {
-      width: 34px; height: 34px;
-      background: rgba(255,255,255,0.18);
+      width: 34px;
+      height: 34px;
+      background: rgba(255, 255, 255, 0.18);
       border-radius: 8px;
       display: flex;
       align-items: center;
@@ -1157,14 +1235,16 @@
 
     .modal-subtitle {
       font-size: 13px;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255, 255, 255, 0.7);
     }
 
     .modal-close {
       position: absolute;
-      top: 16px; right: 16px;
-      width: 32px; height: 32px;
-      background: rgba(255,255,255,0.15);
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      background: rgba(255, 255, 255, 0.15);
       border: none;
       border-radius: 8px;
       display: flex;
@@ -1174,8 +1254,14 @@
       transition: background 0.2s;
     }
 
-    .modal-close:hover { background: rgba(255,255,255,0.28); }
-    .modal-close .material-symbols-outlined { font-size: 18px; color: #fff; }
+    .modal-close:hover {
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .modal-close .material-symbols-outlined {
+      font-size: 18px;
+      color: #fff;
+    }
 
     .modal-body {
       padding: 28px 36px 32px;
@@ -1211,7 +1297,7 @@
     .role-btn.active {
       border-color: var(--blue);
       background: #eff6ff;
-      box-shadow: 0 0 0 3px rgba(0,86,169,0.1);
+      box-shadow: 0 0 0 3px rgba(0, 86, 169, 0.1);
     }
 
     .role-btn .material-symbols-outlined {
@@ -1220,7 +1306,9 @@
       transition: color 0.2s;
     }
 
-    .role-btn.active .material-symbols-outlined { color: var(--blue); }
+    .role-btn.active .material-symbols-outlined {
+      color: var(--blue);
+    }
 
     .role-btn span.role-label {
       font-size: 11px;
@@ -1229,7 +1317,9 @@
       letter-spacing: 0.02em;
     }
 
-    .role-btn.active span.role-label { color: var(--blue); }
+    .role-btn.active span.role-label {
+      color: var(--blue);
+    }
 
     /* Login form fields */
     .login-group {
@@ -1272,17 +1362,19 @@
       transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     }
 
-    .login-input::placeholder { color: #b0bec5; }
+    .login-input::placeholder {
+      color: #b0bec5;
+    }
 
     .login-input:focus {
       border-color: var(--blue);
       background: #fff;
-      box-shadow: 0 0 0 3px rgba(0,86,169,0.1);
+      box-shadow: 0 0 0 3px rgba(0, 86, 169, 0.1);
     }
 
     .login-input.error {
       border-color: var(--error);
-      box-shadow: 0 0 0 3px rgba(222,33,37,0.1);
+      box-shadow: 0 0 0 3px rgba(222, 33, 37, 0.1);
     }
 
     .login-row {
@@ -1301,7 +1393,8 @@
     }
 
     .login-remember input[type="checkbox"] {
-      width: 15px; height: 15px;
+      width: 15px;
+      height: 15px;
       accent-color: var(--blue);
       cursor: pointer;
     }
@@ -1319,7 +1412,9 @@
       transition: color 0.2s;
     }
 
-    .login-forgot:hover { color: var(--blue-hover); }
+    .login-forgot:hover {
+      color: var(--blue-hover);
+    }
 
     .btn-login {
       width: 100%;
@@ -1339,8 +1434,16 @@
       gap: 8px;
     }
 
-    .btn-login:hover { background: var(--blue-hover); transform: translateY(-1px); }
-    .btn-login:disabled { background: #93c5fd; cursor: not-allowed; transform: none; }
+    .btn-login:hover {
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-login:disabled {
+      background: #93c5fd;
+      cursor: not-allowed;
+      transform: none;
+    }
 
     .login-error-msg {
       display: none;
@@ -1359,7 +1462,11 @@
       display: flex;
     }
 
-    .login-error-msg .material-symbols-outlined { font-size: 16px; color: #dc2626; flex-shrink: 0; }
+    .login-error-msg .material-symbols-outlined {
+      font-size: 16px;
+      color: #dc2626;
+      flex-shrink: 0;
+    }
 
     .login-divider {
       display: flex;
@@ -1395,7 +1502,9 @@
       transition: color 0.2s;
     }
 
-    .login-register a:hover { color: var(--blue-hover); }
+    .login-register a:hover {
+      color: var(--blue-hover);
+    }
 
     /* Success state */
     .login-success {
@@ -1406,10 +1515,13 @@
       padding: 8px 0 8px;
     }
 
-    .login-success.show { display: flex; }
+    .login-success.show {
+      display: flex;
+    }
 
     .success-circle {
-      width: 68px; height: 68px;
+      width: 68px;
+      height: 68px;
       background: #dcfce7;
       border-radius: 50%;
       display: flex;
@@ -1440,8 +1552,8 @@
     /* Navbar login btn ghost style */
     .btn-ghost-nav {
       background: transparent;
-      color: rgba(255,255,255,0.88);
-      border: 1.5px solid rgba(255,255,255,0.3);
+      color: rgba(255, 255, 255, 0.88);
+      border: 1.5px solid rgba(255, 255, 255, 0.3);
       border-radius: 8px;
       padding: 9px 20px;
       font-size: 14px;
@@ -1456,12 +1568,14 @@
     }
 
     .btn-ghost-nav:hover {
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.5);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.5);
       color: #fff;
     }
 
-    .btn-ghost-nav .material-symbols-outlined { font-size: 17px; }
+    .btn-ghost-nav .material-symbols-outlined {
+      font-size: 17px;
+    }
 
     .nav-actions {
       display: flex;
@@ -1482,25 +1596,56 @@
     }
 
     /* staggered children */
-    .stagger > * {
+    .stagger>* {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
-    .stagger.visible > *:nth-child(1) { opacity:1; transform:none; transition-delay: 0s; }
-    .stagger.visible > *:nth-child(2) { opacity:1; transform:none; transition-delay: 0.1s; }
-    .stagger.visible > *:nth-child(3) { opacity:1; transform:none; transition-delay: 0.2s; }
-    .stagger.visible > *:nth-child(4) { opacity:1; transform:none; transition-delay: 0.3s; }
-    .stagger.visible > *:nth-child(5) { opacity:1; transform:none; transition-delay: 0.4s; }
-    .stagger.visible > *:nth-child(6) { opacity:1; transform:none; transition-delay: 0.5s; }
+    .stagger.visible>*:nth-child(1) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0s;
+    }
+
+    .stagger.visible>*:nth-child(2) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.1s;
+    }
+
+    .stagger.visible>*:nth-child(3) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.2s;
+    }
+
+    .stagger.visible>*:nth-child(4) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.3s;
+    }
+
+    .stagger.visible>*:nth-child(5) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.4s;
+    }
+
+    .stagger.visible>*:nth-child(6) {
+      opacity: 1;
+      transform: none;
+      transition-delay: 0.5s;
+    }
 
     /* ───────────── MOBILE MENU ───────────── */
     .mobile-menu {
       display: none;
       position: fixed;
-      top: 64px; left: 0; right: 0;
-      background: rgba(7,13,21,0.97);
+      top: 64px;
+      left: 0;
+      right: 0;
+      background: rgba(7, 13, 21, 0.97);
       backdrop-filter: blur(20px);
       padding: 24px 32px 32px;
       z-index: 99;
@@ -1508,10 +1653,12 @@
       gap: 20px;
     }
 
-    .mobile-menu.open { display: flex; }
+    .mobile-menu.open {
+      display: flex;
+    }
 
     .mobile-menu a {
-      color: rgba(255,255,255,0.85);
+      color: rgba(255, 255, 255, 0.85);
       text-decoration: none;
       font-size: 16px;
       font-weight: 500;
@@ -1527,55 +1674,155 @@
 
     /* ───────────── RESPONSIVE ───────────── */
     @media (max-width: 1024px) {
-      .hero-cards-grid { grid-template-columns: repeat(3, 95px); top: 80px; }
-      .fitur-layout { grid-template-columns: 280px 1fr; gap: 28px; }
-      .testi-grid { grid-template-columns: repeat(2, 1fr); }
-      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .hero-cards-grid {
+        grid-template-columns: repeat(3, 95px);
+        top: 80px;
+      }
+
+      .fitur-layout {
+        grid-template-columns: 280px 1fr;
+        gap: 28px;
+      }
+
+      .testi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media (max-width: 768px) {
-      #navbar { padding: 0 24px; }
-      .nav-links { display: none; }
-      .nav-cta { display: none; }
-      .nav-hamburger { display: flex; }
+      #navbar {
+        padding: 0 24px;
+      }
 
-      .hero-inner { padding: 0 24px; }
-      .hero-cards-grid { display: none; }
-      .hero-headline-box h1 { font-size: 2rem; white-space: normal; }
+      .nav-links {
+        display: none;
+      }
 
-      .quicklinks-inner { padding: 0 16px; }
-      .ql-item { padding: 12px 8px; }
-      .ql-label { font-size: 9px; }
+      .nav-cta {
+        display: none;
+      }
 
-      .stats-inner { padding: 0 24px; grid-template-columns: repeat(2, 1fr); }
-      .stat-item:nth-child(2) { border-right: none; }
+      .nav-hamburger {
+        display: flex;
+      }
 
-      #fitur { padding: 60px 0; }
-      .fitur-layout { grid-template-columns: 1fr; padding: 0 24px; }
-      .fitur-panel { padding: 24px 20px; }
-      .panel-checklist { grid-template-columns: 1fr; }
+      .hero-inner {
+        padding: 0 24px;
+      }
 
-      .steps-grid { grid-template-columns: 1fr; }
-      .testi-grid { grid-template-columns: 1fr; padding: 0 24px; }
-      .faq-inner { padding: 0 24px; }
+      .hero-cards-grid {
+        display: none;
+      }
 
-      #cta { padding: 48px 24px; }
-      .cta-card { grid-template-columns: 1fr; gap: 40px; padding: 36px 28px; }
+      .hero-headline-box h1 {
+        font-size: 2rem;
+        white-space: normal;
+      }
 
-      .footer-inner { grid-template-columns: 1fr 1fr; padding: 0 24px; gap: 32px; }
-      .footer-bottom { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
-      .footer-bottom-links { flex-wrap: wrap; justify-content: center; }
+      .quicklinks-inner {
+        padding: 0 16px;
+      }
 
-      .howit-inner { padding: 0 24px; }
-      .section-header { padding: 0 24px; }
+      .ql-item {
+        padding: 12px 8px;
+      }
+
+      .ql-label {
+        font-size: 9px;
+      }
+
+      .stats-inner {
+        padding: 0 24px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-item:nth-child(2) {
+        border-right: none;
+      }
+
+      #fitur {
+        padding: 60px 0;
+      }
+
+      .fitur-layout {
+        grid-template-columns: 1fr;
+        padding: 0 24px;
+      }
+
+      .fitur-panel {
+        padding: 24px 20px;
+      }
+
+      .panel-checklist {
+        grid-template-columns: 1fr;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testi-grid {
+        grid-template-columns: 1fr;
+        padding: 0 24px;
+      }
+
+      .faq-inner {
+        padding: 0 24px;
+      }
+
+      #cta {
+        padding: 48px 24px;
+      }
+
+      .cta-card {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 36px 28px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        padding: 0 24px;
+        gap: 32px;
+      }
+
+      .footer-bottom {
+        padding: 20px 24px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .footer-bottom-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .howit-inner {
+        padding: 0 24px;
+      }
+
+      .section-header {
+        padding: 0 24px;
+      }
     }
 
     @media (max-width: 480px) {
-      .stats-inner { grid-template-columns: repeat(2, 1fr); }
-      .footer-inner { grid-template-columns: 1fr; }
+      .stats-inner {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- ═══════════ NAVBAR ═══════════ -->
@@ -1615,7 +1862,8 @@
     <a href="#cara-kerja" onclick="toggleMenu()">Cara Kerja</a>
     <a href="#testimoni" onclick="toggleMenu()">Testimoni</a>
     <a href="#faq" onclick="toggleMenu()">FAQ</a>
-    <button class="btn-ghost-nav" style="width:100%;justify-content:center;padding:13px;" onclick="toggleMenu();openLoginModal()">
+    <button class="btn-ghost-nav" style="width:100%;justify-content:center;padding:13px;"
+      onclick="toggleMenu();openLoginModal()">
       <span class="material-symbols-outlined">login</span>
       Masuk ke Akun
     </button>
@@ -1743,7 +1991,8 @@
     <div class="section-header fade-in">
       <p class="section-eyebrow">Fitur Unggulan</p>
       <h2 class="section-title">Semua yang Sekolah Anda Butuhkan</h2>
-      <p class="section-sub">Satu platform terintegrasi untuk mengelola operasional sekolah dari A sampai Z. Tidak perlu lagi 5 aplikasi berbeda.</p>
+      <p class="section-sub">Satu platform terintegrasi untuk mengelola operasional sekolah dari A sampai Z. Tidak perlu
+        lagi 5 aplikasi berbeda.</p>
     </div>
 
     <div class="fitur-layout fade-in">
@@ -1756,7 +2005,8 @@
           </div>
           <div class="fitur-tab-text">
             <p class="fitur-tab-title">Absensi Digital</p>
-            <p class="fitur-tab-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke orang tua. Tidak ada lagi manipulasi data kehadiran.</p>
+            <p class="fitur-tab-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke
+              orang tua. Tidak ada lagi manipulasi data kehadiran.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
@@ -1767,7 +2017,8 @@
           </div>
           <div class="fitur-tab-text">
             <p class="fitur-tab-title">Pembayaran Online</p>
-            <p class="fitur-tab-desc">Tagihan SPP, uang kegiatan, dan biaya lainnya dalam satu dashboard. Multi metode pembayaran: transfer bank, e-wallet, QRIS.</p>
+            <p class="fitur-tab-desc">Tagihan SPP, uang kegiatan, dan biaya lainnya dalam satu dashboard. Multi metode
+              pembayaran: transfer bank, e-wallet, QRIS.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
@@ -1778,7 +2029,8 @@
           </div>
           <div class="fitur-tab-text">
             <p class="fitur-tab-title">Komunikasi Orang Tua</p>
-            <p class="fitur-tab-desc">Pengumuman, jadwal, nilai, dan laporan perkembangan langsung ke HP orang tua. Chat dua arah guru–wali murid.</p>
+            <p class="fitur-tab-desc">Pengumuman, jadwal, nilai, dan laporan perkembangan langsung ke HP orang tua. Chat
+              dua arah guru–wali murid.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
@@ -1789,7 +2041,8 @@
           </div>
           <div class="fitur-tab-text">
             <p class="fitur-tab-title">Laporan Akademik</p>
-            <p class="fitur-tab-desc">Input nilai mudah, rapor digital auto-generate. Grafik perkembangan siswa per semester. Analisis performa per mata pelajaran.</p>
+            <p class="fitur-tab-desc">Input nilai mudah, rapor digital auto-generate. Grafik perkembangan siswa per
+              semester. Analisis performa per mata pelajaran.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
@@ -1800,7 +2053,8 @@
           </div>
           <div class="fitur-tab-text">
             <p class="fitur-tab-title">Jadwal &amp; Agenda</p>
-            <p class="fitur-tab-desc">Atur jadwal pelajaran, ujian, dan event sekolah. Sinkron ke kalender guru &amp; siswa. Pengingat otomatis.</p>
+            <p class="fitur-tab-desc">Atur jadwal pelajaran, ujian, dan event sekolah. Sinkron ke kalender guru &amp;
+              siswa. Pengingat otomatis.</p>
           </div>
           <span class="material-symbols-outlined fitur-tab-chevron">chevron_right</span>
         </div>
@@ -1820,7 +2074,8 @@
               <p class="panel-badge">Kurangi bolos hingga 60%</p>
             </div>
           </div>
-          <p class="panel-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke orang tua. Tidak ada lagi manipulasi data kehadiran.</p>
+          <p class="panel-desc">Siswa check-in via QR code atau biometrik. Rekap otomatis, notifikasi real-time ke orang
+            tua. Tidak ada lagi manipulasi data kehadiran.</p>
           <ul class="panel-checklist">
             <li>Integrasi mudah</li>
             <li>Laporan otomatis</li>
@@ -1828,7 +2083,8 @@
             <li>Multi-perangkat</li>
           </ul>
           <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&h=460&fit=crop" alt="Dashboard Absensi Digital SafeSchool" />
+            <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?w=800&h=460&fit=crop"
+              alt="Dashboard Absensi Digital SafeSchool" />
           </div>
         </div>
 
@@ -1842,7 +2098,8 @@
               <p class="panel-badge">Tagihan terbayar lebih cepat 3×</p>
             </div>
           </div>
-          <p class="panel-desc">Kelola seluruh tagihan sekolah dalam satu dashboard terpadu. Orang tua dapat membayar kapan saja via transfer bank, e-wallet, atau QRIS tanpa antre di sekolah.</p>
+          <p class="panel-desc">Kelola seluruh tagihan sekolah dalam satu dashboard terpadu. Orang tua dapat membayar
+            kapan saja via transfer bank, e-wallet, atau QRIS tanpa antre di sekolah.</p>
           <ul class="panel-checklist">
             <li>Multi metode bayar</li>
             <li>Rekap keuangan real-time</li>
@@ -1850,7 +2107,8 @@
             <li>Ekspor laporan Excel</li>
           </ul>
           <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=460&fit=crop" alt="Sistem Pembayaran Online SafeSchool" />
+            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=460&fit=crop"
+              alt="Sistem Pembayaran Online SafeSchool" />
           </div>
         </div>
 
@@ -1864,7 +2122,8 @@
               <p class="panel-badge">Respons orang tua meningkat 80%</p>
             </div>
           </div>
-          <p class="panel-desc">Kirim pengumuman, jadwal pelajaran, nilai ujian, dan laporan perkembangan langsung ke smartphone orang tua. Fitur chat dua arah memudahkan koordinasi guru dan wali murid.</p>
+          <p class="panel-desc">Kirim pengumuman, jadwal pelajaran, nilai ujian, dan laporan perkembangan langsung ke
+            smartphone orang tua. Fitur chat dua arah memudahkan koordinasi guru dan wali murid.</p>
           <ul class="panel-checklist">
             <li>Broadcast pengumuman</li>
             <li>Chat guru–wali murid</li>
@@ -1872,7 +2131,8 @@
             <li>Notifikasi push & SMS</li>
           </ul>
           <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=460&fit=crop" alt="Fitur Komunikasi Orang Tua SafeSchool" />
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=460&fit=crop"
+              alt="Fitur Komunikasi Orang Tua SafeSchool" />
           </div>
         </div>
 
@@ -1886,7 +2146,8 @@
               <p class="panel-badge">Hemat 10 jam kerja per semester</p>
             </div>
           </div>
-          <p class="panel-desc">Input nilai sekali, rapor digital otomatis ter-generate dalam hitungan detik. Grafik tren performa siswa per mata pelajaran dan per semester tersedia untuk guru dan orang tua.</p>
+          <p class="panel-desc">Input nilai sekali, rapor digital otomatis ter-generate dalam hitungan detik. Grafik
+            tren performa siswa per mata pelajaran dan per semester tersedia untuk guru dan orang tua.</p>
           <ul class="panel-checklist">
             <li>Rapor digital otomatis</li>
             <li>Grafik performa siswa</li>
@@ -1894,7 +2155,8 @@
             <li>Export PDF & cetak</li>
           </ul>
           <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=460&fit=crop" alt="Dashboard Laporan Akademik SafeSchool" />
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=460&fit=crop"
+              alt="Dashboard Laporan Akademik SafeSchool" />
           </div>
         </div>
 
@@ -1908,7 +2170,8 @@
               <p class="panel-badge">Zero konflik jadwal pelajaran</p>
             </div>
           </div>
-          <p class="panel-desc">Susun jadwal pelajaran, ujian semester, dan kegiatan ekstrakurikuler tanpa konflik secara otomatis. Seluruh sivitas akademika mendapat notifikasi perubahan jadwal secara instan.</p>
+          <p class="panel-desc">Susun jadwal pelajaran, ujian semester, dan kegiatan ekstrakurikuler tanpa konflik
+            secara otomatis. Seluruh sivitas akademika mendapat notifikasi perubahan jadwal secara instan.</p>
           <ul class="panel-checklist">
             <li>Auto-detect konflik</li>
             <li>Sinkron kalender Google</li>
@@ -1916,7 +2179,8 @@
             <li>Akses mobile kapan saja</li>
           </ul>
           <div class="panel-screenshot">
-            <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=800&h=460&fit=crop" alt="Manajemen Jadwal SafeSchool" />
+            <img src="https://images.unsplash.com/photo-1506784365847-bbad939e9335?w=800&h=460&fit=crop"
+              alt="Manajemen Jadwal SafeSchool" />
           </div>
         </div>
 
@@ -1930,7 +2194,8 @@
       <div class="section-header fade-in">
         <p class="section-eyebrow">Mulai dalam Hitungan Menit</p>
         <h2 class="section-title">Bagaimana Cara Kerjanya</h2>
-        <p class="section-sub">Tidak perlu pelatihan khusus. Tiga langkah mudah dan sekolah Anda sudah siap go-digital.</p>
+        <p class="section-sub">Tidak perlu pelatihan khusus. Tiga langkah mudah dan sekolah Anda sudah siap go-digital.
+        </p>
       </div>
 
       <div class="steps-grid stagger">
@@ -1942,13 +2207,11 @@
               <span class="material-symbols-outlined">person_add</span>
             </div>
             <h3 class="step-title">Daftar Akun</h3>
-            <p class="step-desc">Isi data sekolah dalam 2 menit. Tidak perlu kartu kredit, langsung aktif dan bisa langsung digunakan.</p>
+            <p class="step-desc">Isi data sekolah dalam 2 menit. Tidak perlu kartu kredit, langsung aktif dan bisa
+              langsung digunakan.</p>
           </div>
-          <img
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=320&fit=crop&crop=top"
-            alt="Daftar akun SafeSchool"
-            class="step-card-img"
-          />
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=320&fit=crop&crop=top"
+            alt="Daftar akun SafeSchool" class="step-card-img" />
         </div>
 
         <div class="step-card">
@@ -1958,13 +2221,11 @@
               <span class="material-symbols-outlined">settings</span>
             </div>
             <h3 class="step-title">Konfigurasi Cepat</h3>
-            <p class="step-desc">Import data siswa, atur kelas, dan sesuaikan pengaturan sesuai kebutuhan sekolah Anda. Panduan step-by-step tersedia.</p>
+            <p class="step-desc">Import data siswa, atur kelas, dan sesuaikan pengaturan sesuai kebutuhan sekolah Anda.
+              Panduan step-by-step tersedia.</p>
           </div>
-          <img
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=320&fit=crop"
-            alt="Konfigurasi SafeSchool"
-            class="step-card-img"
-          />
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=320&fit=crop"
+            alt="Konfigurasi SafeSchool" class="step-card-img" />
         </div>
 
         <div class="step-card">
@@ -1974,13 +2235,11 @@
               <span class="material-symbols-outlined">notifications_active</span>
             </div>
             <h3 class="step-title">Langsung Jalan</h3>
-            <p class="step-desc">Undang guru dan orang tua, lalu semua fitur siap digunakan. Dashboard langsung menampilkan data real-time.</p>
+            <p class="step-desc">Undang guru dan orang tua, lalu semua fitur siap digunakan. Dashboard langsung
+              menampilkan data real-time.</p>
           </div>
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=320&fit=crop"
-            alt="Tim sekolah menggunakan SafeSchool"
-            class="step-card-img"
-          />
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=320&fit=crop"
+            alt="Tim sekolah menggunakan SafeSchool" class="step-card-img" />
         </div>
 
       </div>
@@ -1992,7 +2251,8 @@
     <div class="section-header fade-in">
       <p class="section-eyebrow">Testimoni</p>
       <h2 class="section-title">Dipercaya Ribuan Sekolah di Indonesia</h2>
-      <p class="section-sub">Dengarkan langsung dari para kepala sekolah, guru, dan orang tua yang telah merasakan manfaatnya.</p>
+      <p class="section-sub">Dengarkan langsung dari para kepala sekolah, guru, dan orang tua yang telah merasakan
+        manfaatnya.</p>
     </div>
     <div class="testi-grid stagger">
       <div class="testi-card">
@@ -2003,9 +2263,12 @@
           <span class="material-symbols-outlined">star</span>
           <span class="material-symbols-outlined">star</span>
         </div>
-        <p class="testi-quote">"SafeSchool benar-benar mengubah cara kami mengelola sekolah. Absensi yang dulu manual dan sering terlambat kini berjalan otomatis. Orang tua pun sangat senang karena bisa memantau anak langsung dari ponsel mereka."</p>
+        <p class="testi-quote">"SafeSchool benar-benar mengubah cara kami mengelola sekolah. Absensi yang dulu manual
+          dan sering terlambat kini berjalan otomatis. Orang tua pun sangat senang karena bisa memantau anak langsung
+          dari ponsel mereka."</p>
         <div class="testi-author">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="Budi Santoso" class="testi-avatar" />
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
+            alt="Budi Santoso" class="testi-avatar" />
           <div>
             <p class="testi-name">Budi Santoso, M.Pd.</p>
             <p class="testi-role">Kepala Sekolah — SMA Negeri 3 Bandung</p>
@@ -2020,9 +2283,12 @@
           <span class="material-symbols-outlined">star</span>
           <span class="material-symbols-outlined">star</span>
         </div>
-        <p class="testi-quote">"Laporan akademik yang dulu butuh waktu 3 hari kini selesai dalam 30 menit. Fitur komunikasi dengan orang tua juga sangat intuitif. Saya tidak bisa bayangkan kembali ke cara lama setelah menggunakan SafeSchool."</p>
+        <p class="testi-quote">"Laporan akademik yang dulu butuh waktu 3 hari kini selesai dalam 30 menit. Fitur
+          komunikasi dengan orang tua juga sangat intuitif. Saya tidak bisa bayangkan kembali ke cara lama setelah
+          menggunakan SafeSchool."</p>
         <div class="testi-author">
-          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face" alt="Sri Wahyuni" class="testi-avatar" />
+          <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face"
+            alt="Sri Wahyuni" class="testi-avatar" />
           <div>
             <p class="testi-name">Sri Wahyuni, S.Pd.</p>
             <p class="testi-role">Wali Kelas — SD Islam Terpadu Surabaya</p>
@@ -2037,9 +2303,12 @@
           <span class="material-symbols-outlined">star</span>
           <span class="material-symbols-outlined">star</span>
         </div>
-        <p class="testi-quote">"Sebagai orang tua yang sibuk, fitur notifikasi real-time dan laporan harian anak membuat saya selalu tahu perkembangan si kecil di sekolah. Pembayaran SPP juga jadi sangat mudah lewat aplikasi ini."</p>
+        <p class="testi-quote">"Sebagai orang tua yang sibuk, fitur notifikasi real-time dan laporan harian anak membuat
+          saya selalu tahu perkembangan si kecil di sekolah. Pembayaran SPP juga jadi sangat mudah lewat aplikasi ini."
+        </p>
         <div class="testi-author">
-          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="Rizal Firmansyah" class="testi-avatar" />
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face"
+            alt="Rizal Firmansyah" class="testi-avatar" />
           <div>
             <p class="testi-name">Rizal Firmansyah</p>
             <p class="testi-role">Orang Tua Murid — Jakarta Selatan</p>
@@ -2054,7 +2323,8 @@
     <div class="section-header fade-in">
       <p class="section-eyebrow">FAQ</p>
       <h2 class="section-title">Pertanyaan yang Sering Diajukan</h2>
-      <p class="section-sub">Tidak menemukan jawaban yang Anda cari? Hubungi tim support kami yang siap membantu 24/7.</p>
+      <p class="section-sub">Tidak menemukan jawaban yang Anda cari? Hubungi tim support kami yang siap membantu 24/7.
+      </p>
     </div>
     <div class="faq-inner fade-in">
       <div class="faq-item">
@@ -2063,7 +2333,10 @@
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Ya, tentu saja. SafeSchool dirancang dengan antarmuka yang sangat intuitif sehingga siapa pun — bahkan yang tidak familiar dengan teknologi sekalipun — dapat menggunakannya dengan mudah. Kami juga menyediakan pelatihan gratis untuk seluruh staf sekolah, panduan penggunaan lengkap dalam Bahasa Indonesia, dan dukungan teknis yang siap membantu kapan saja.</p>
+          <p class="faq-answer-inner">Ya, tentu saja. SafeSchool dirancang dengan antarmuka yang sangat intuitif
+            sehingga siapa pun — bahkan yang tidak familiar dengan teknologi sekalipun — dapat menggunakannya dengan
+            mudah. Kami juga menyediakan pelatihan gratis untuk seluruh staf sekolah, panduan penggunaan lengkap dalam
+            Bahasa Indonesia, dan dukungan teknis yang siap membantu kapan saja.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -2072,7 +2345,10 @@
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Keamanan data adalah prioritas utama kami. Seluruh data dienkripsi menggunakan standar AES-256, disimpan di server lokal Indonesia yang bersertifikat ISO 27001, dengan backup otomatis setiap hari. Kami juga mematuhi regulasi perlindungan data pendidikan nasional (PP No. 71 Tahun 2019) dan tidak pernah menjual atau membagikan data kepada pihak ketiga tanpa izin.</p>
+          <p class="faq-answer-inner">Keamanan data adalah prioritas utama kami. Seluruh data dienkripsi menggunakan
+            standar AES-256, disimpan di server lokal Indonesia yang bersertifikat ISO 27001, dengan backup otomatis
+            setiap hari. Kami juga mematuhi regulasi perlindungan data pendidikan nasional (PP No. 71 Tahun 2019) dan
+            tidak pernah menjual atau membagikan data kepada pihak ketiga tanpa izin.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -2081,7 +2357,10 @@
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Tentu saja. Tim migrasi data kami akan membantu memindahkan seluruh data dari sistem lama Anda — termasuk data siswa, guru, nilai akademik, dan riwayat pembayaran — ke SafeSchool secara gratis. Proses migrasi dilakukan tanpa mengganggu operasional sekolah dan biasanya selesai dalam 1-3 hari kerja tergantung volume data.</p>
+          <p class="faq-answer-inner">Tentu saja. Tim migrasi data kami akan membantu memindahkan seluruh data dari
+            sistem lama Anda — termasuk data siswa, guru, nilai akademik, dan riwayat pembayaran — ke SafeSchool secara
+            gratis. Proses migrasi dilakukan tanpa mengganggu operasional sekolah dan biasanya selesai dalam 1-3 hari
+            kerja tergantung volume data.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -2090,7 +2369,10 @@
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">SafeSchool menawarkan paket harga yang fleksibel berdasarkan jumlah siswa aktif, mulai dari Rp 299.000/bulan untuk sekolah kecil (hingga 200 siswa) hingga paket enterprise dengan harga khusus untuk yayasan atau jaringan sekolah. Setelah trial 30 hari, Anda dapat memilih paket yang paling sesuai. Tidak ada biaya tersembunyi dan Anda bisa membatalkan kapan saja tanpa penalti.</p>
+          <p class="faq-answer-inner">SafeSchool menawarkan paket harga yang fleksibel berdasarkan jumlah siswa aktif,
+            mulai dari Rp 299.000/bulan untuk sekolah kecil (hingga 200 siswa) hingga paket enterprise dengan harga
+            khusus untuk yayasan atau jaringan sekolah. Setelah trial 30 hari, Anda dapat memilih paket yang paling
+            sesuai. Tidak ada biaya tersembunyi dan Anda bisa membatalkan kapan saja tanpa penalti.</p>
         </div>
       </div>
       <div class="faq-item">
@@ -2099,7 +2381,10 @@
           <span class="material-symbols-outlined faq-icon">add</span>
         </button>
         <div class="faq-answer">
-          <p class="faq-answer-inner">Ya! SafeSchool tersedia sebagai aplikasi mobile untuk iOS (App Store) dan Android (Google Play), serta dapat diakses melalui browser desktop. Orang tua dapat mengunduh aplikasi khusus SafeSchool Parent untuk memantau perkembangan anak, menerima notifikasi, dan berkomunikasi dengan guru langsung dari smartphone mereka.</p>
+          <p class="faq-answer-inner">Ya! SafeSchool tersedia sebagai aplikasi mobile untuk iOS (App Store) dan Android
+            (Google Play), serta dapat diakses melalui browser desktop. Orang tua dapat mengunduh aplikasi khusus
+            SafeSchool Parent untuk memantau perkembangan anak, menerima notifikasi, dan berkomunikasi dengan guru
+            langsung dari smartphone mereka.</p>
         </div>
       </div>
     </div>
@@ -2113,7 +2398,8 @@
         <p class="cta-eyebrow">Mulai Perjalanan Digital Anda</p>
         <h2 class="cta-title">Siap Bawa Sekolah ke Level Berikutnya?</h2>
         <div class="cta-divider"></div>
-        <p class="cta-desc">Daftar sekarang dan dapatkan <strong>akses gratis 30 hari</strong> ke semua fitur premium. Tidak perlu kartu kredit, bisa dibatalkan kapan saja.</p>
+        <p class="cta-desc">Daftar sekarang dan dapatkan <strong>akses gratis 30 hari</strong> ke semua fitur premium.
+          Tidak perlu kartu kredit, bisa dibatalkan kapan saja.</p>
         <ul class="cta-checklist">
           <li>
             <div class="check-icon"><span class="material-symbols-outlined">check</span></div>
@@ -2168,7 +2454,8 @@
           </div>
           <span class="nav-logo-text">Safe<span>School</span></span>
         </a>
-        <p>Platform manajemen sekolah digital terpercaya yang membantu ribuan sekolah di Indonesia bertransformasi menuju pendidikan modern dan efisien.</p>
+        <p>Platform manajemen sekolah digital terpercaya yang membantu ribuan sekolah di Indonesia bertransformasi
+          menuju pendidikan modern dan efisien.</p>
         <div class="footer-social">
           <a href="#" title="Instagram"><span class="material-symbols-outlined">photo_camera</span></a>
           <a href="#" title="Twitter/X"><span class="material-symbols-outlined">tag</span></a>
@@ -2239,24 +2526,35 @@
       </div>
       <div class="modal-body" style="padding: 28px 36px 32px; line-height: 1.6;">
         <p style="margin-bottom: 16px; font-size: 14.5px; color: #374151;">
-          <strong>SafeSchool</strong> adalah pelopor platform manajemen ekosistem sekolah digital di Indonesia yang mengutamakan keselamatan dan kesejahteraan (wellness) siswa secara menyeluruh.
+          <strong>SafeSchool</strong> adalah pelopor platform manajemen ekosistem sekolah digital di Indonesia yang
+          mengutamakan keselamatan dan kesejahteraan (wellness) siswa secara menyeluruh.
         </p>
         <p style="margin-bottom: 16px; font-size: 14.5px; color: #374151;">
-          Kami berfokus pada pencegahan perundungan (anti-bullying), pemantauan kesehatan mental dan fisik siswa (wellness tracking), pelaporan insiden keamanan secara anonim, serta efisiensi administrasi sekolah.
+          Kami berfokus pada pencegahan perundungan (anti-bullying), pemantauan kesehatan mental dan fisik siswa
+          (wellness tracking), pelaporan insiden keamanan secara anonim, serta efisiensi administrasi sekolah.
         </p>
-        <h4 style="font-weight: 700; color: var(--text-dark); margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">Pilar Utama SafeSchool</h4>
-        <ul style="list-style: none; padding-left: 0; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #4b5563;">
+        <h4
+          style="font-weight: 700; color: var(--text-dark); margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em;">
+          Pilar Utama SafeSchool</h4>
+        <ul
+          style="list-style: none; padding-left: 0; margin-bottom: 24px; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; color: #4b5563;">
           <li style="display: flex; align-items: flex-start; gap: 10px;">
-            <span class="material-symbols-outlined" style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
-            <span><strong>Anti-Bullying &amp; Safety:</strong> Menyediakan kanal pengaduan rahasia (anonim) demi keamanan siswa.</span>
+            <span class="material-symbols-outlined"
+              style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
+            <span><strong>Anti-Bullying &amp; Safety:</strong> Menyediakan kanal pengaduan rahasia (anonim) demi
+              keamanan siswa.</span>
           </li>
           <li style="display: flex; align-items: flex-start; gap: 10px;">
-            <span class="material-symbols-outlined" style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
-            <span><strong>Wellness Tracking:</strong> Edukasi &amp; monitoring pola tidur, hidrasi, screen time, serta meditasi siswa.</span>
+            <span class="material-symbols-outlined"
+              style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
+            <span><strong>Wellness Tracking:</strong> Edukasi &amp; monitoring pola tidur, hidrasi, screen time, serta
+              meditasi siswa.</span>
           </li>
           <li style="display: flex; align-items: flex-start; gap: 10px;">
-            <span class="material-symbols-outlined" style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
-            <span><strong>Integrasi Sistem:</strong> Menghubungkan wali kelas, konselor, siswa, dan orang tua dalam satu platform.</span>
+            <span class="material-symbols-outlined"
+              style="color: var(--blue); font-size: 18px; margin-top: 2px;">verified</span>
+            <span><strong>Integrasi Sistem:</strong> Menghubungkan wali kelas, konselor, siswa, dan orang tua dalam satu
+              platform.</span>
           </li>
         </ul>
         <button class="btn-login" onclick="closeAboutModal()" style="width: 100%;">Tutup</button>
@@ -2282,32 +2580,49 @@
       </div>
       <div class="modal-body" style="padding: 24px; max-height: 70vh; overflow-y: auto;">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Seminar Anti-Bullying" />
+          <div
+            style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=300&amp;h=200&amp;fit=crop"
+              style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Seminar Anti-Bullying" />
             <div style="padding: 12px;">
-              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Seminar Anti-Bullying</h4>
-              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Edukasi berkala bagi seluruh siswa untuk menumbuhkan sikap toleransi dan empati.</p>
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Seminar
+                Anti-Bullying</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Edukasi berkala bagi seluruh
+                siswa untuk menumbuhkan sikap toleransi dan empati.</p>
             </div>
           </div>
-          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Ruang Konseling &amp; Curhat" />
+          <div
+            style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&amp;h=200&amp;fit=crop"
+              style="width: 100%; height: 140px; object-fit: cover; display: block;"
+              alt="Ruang Konseling &amp; Curhat" />
             <div style="padding: 12px;">
-              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Ruang Konseling &amp; Curhat</h4>
-              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Tempat aman dan rahasia bagi siswa untuk berkonsultasi mengenai kesehatan mental mereka.</p>
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Ruang
+                Konseling &amp; Curhat</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Tempat aman dan rahasia bagi
+                siswa untuk berkonsultasi mengenai kesehatan mental mereka.</p>
             </div>
           </div>
-          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Sistem Absensi Keamanan" />
+          <div
+            style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=300&amp;h=200&amp;fit=crop"
+              style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Sistem Absensi Keamanan" />
             <div style="padding: 12px;">
-              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Sistem Absensi Keamanan</h4>
-              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Gerbang pintar dengan pemindai QR untuk memastikan siswa hadir secara aman di area sekolah.</p>
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Sistem
+                Absensi Keamanan</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Gerbang pintar dengan pemindai
+                QR untuk memastikan siswa hadir secara aman di area sekolah.</p>
             </div>
           </div>
-          <div style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
-            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=300&amp;h=200&amp;fit=crop" style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Interaksi Positif Siswa" />
+          <div
+            style="border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?w=300&amp;h=200&amp;fit=crop"
+              style="width: 100%; height: 140px; object-fit: cover; display: block;" alt="Interaksi Positif Siswa" />
             <div style="padding: 12px;">
-              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Interaksi Positif Siswa</h4>
-              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Aktivitas kelompok sebaya untuk membangun jejaring pertemanan yang saling mendukung.</p>
+              <h4 style="font-size: 13.5px; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">Interaksi
+                Positif Siswa</h4>
+              <p style="font-size: 11.5px; color: var(--muted-dark); line-height: 1.4;">Aktivitas kelompok sebaya untuk
+                membangun jejaring pertemanan yang saling mendukung.</p>
             </div>
           </div>
         </div>
@@ -2334,44 +2649,62 @@
       </div>
       <div class="modal-body" style="padding: 24px; max-height: 70vh; overflow-y: auto;">
         <div style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
-          
-          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
-            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+
+          <div
+            style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div
+              style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
               <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">videocam</span>
             </div>
             <div>
-              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Pusat CCTV &amp; Monitoring 24 Jam</h4>
-              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Pengawasan kamera di titik rawan perundungan untuk menjamin tindakan pencegahan yang responsif.</p>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Pusat CCTV
+                &amp; Monitoring 24 Jam</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Pengawasan kamera di titik rawan
+                perundungan untuk menjamin tindakan pencegahan yang responsif.</p>
             </div>
           </div>
 
-          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
-            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">self_improvement</span>
+          <div
+            style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div
+              style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span class="material-symbols-outlined"
+                style="color: var(--blue); font-size: 22px;">self_improvement</span>
             </div>
             <div>
-              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Pojok Meditasi &amp; Olah Nafas</h4>
-              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Area tenang yang dilengkapi panduan relaksasi bagi siswa untuk melepas penat dan kecemasan.</p>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Pojok Meditasi
+                &amp; Olah Nafas</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Area tenang yang dilengkapi
+                panduan relaksasi bagi siswa untuk melepas penat dan kecemasan.</p>
             </div>
           </div>
 
-          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
-            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-              <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">medical_services</span>
+          <div
+            style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div
+              style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+              <span class="material-symbols-outlined"
+                style="color: var(--blue); font-size: 22px;">medical_services</span>
             </div>
             <div>
-              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Klinik UKS &amp; Wellness Corner</h4>
-              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Layanan pertolongan pertama kesehatan fisik dan pengecekan kebugaran berkala bagi siswa.</p>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Klinik UKS
+                &amp; Wellness Corner</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Layanan pertolongan pertama
+                kesehatan fisik dan pengecekan kebugaran berkala bagi siswa.</p>
             </div>
           </div>
 
-          <div style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
-            <div style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <div
+            style="display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 10px; background: #f8f9ff; border: 1px solid #e2e8f0;">
+            <div
+              style="width: 40px; height: 40px; border-radius: 8px; background: #e8f0fb; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
               <span class="material-symbols-outlined" style="color: var(--blue); font-size: 22px;">forum</span>
             </div>
             <div>
-              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Ruang Konseling &amp; Terapi Bicara</h4>
-              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Ruang kedap suara ramah anak untuk berkonsultasi privat bersama konselor sekolah bersertifikat.</p>
+              <h4 style="font-size: 14px; font-weight: 700; color: var(--text-dark); margin-bottom: 3px;">Ruang
+                Konseling &amp; Terapi Bicara</h4>
+              <p style="font-size: 12.5px; color: var(--muted-dark); line-height: 1.5;">Ruang kedap suara ramah anak
+                untuk berkonsultasi privat bersama konselor sekolah bersertifikat.</p>
             </div>
           </div>
 
@@ -2439,9 +2772,12 @@
             <label class="login-label">Kata Sandi</label>
             <div class="login-input-wrap">
               <span class="material-symbols-outlined">lock</span>
-              <input type="password" class="login-input" id="loginPass" placeholder="Masukkan kata sandi" style="padding-right:44px" />
-              <button onclick="togglePassVis()" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;">
-                <span class="material-symbols-outlined" id="eyeIcon" style="font-size:18px;color:#94a3b8;">visibility_off</span>
+              <input type="password" class="login-input" id="loginPass" placeholder="Masukkan kata sandi"
+                style="padding-right:44px" />
+              <button onclick="togglePassVis()"
+                style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:0;display:flex;">
+                <span class="material-symbols-outlined" id="eyeIcon"
+                  style="font-size:18px;color:#94a3b8;">visibility_off</span>
               </button>
             </div>
           </div>
@@ -2483,7 +2819,7 @@
   <script>
     // ─── Feature tabs ───
     document.querySelectorAll('.fitur-tab').forEach(tab => {
-      tab.addEventListener('click', function() {
+      tab.addEventListener('click', function () {
         const panelId = this.dataset.panel;
         document.querySelectorAll('.fitur-tab').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.fitur-panel').forEach(p => p.classList.remove('active'));
@@ -2535,7 +2871,7 @@
     });
 
     // ─── CTA Form submit ───
-    document.querySelector('.btn-cta').addEventListener('click', function() {
+    document.querySelector('.btn-cta').addEventListener('click', function () {
       const inputs = document.querySelectorAll('.cta-form .form-input');
       const nama = inputs[0].value.trim();
       const email = inputs[1].value.trim();
@@ -2549,14 +2885,14 @@
         }, 2000);
         return;
       }
-      
+
       localStorage.setItem('loggedIn', 'true');
       localStorage.setItem('user', JSON.stringify({ name: nama, email: email, role: 'admin' }));
-      
+
       this.textContent = '✓ Registrasi Berhasil! Mengarahkan ke Dashboard...';
       this.style.background = '#16a34a';
       this.disabled = true;
-      
+
       setTimeout(() => {
         window.location.href = 'index.html';
       }, 1500);
@@ -2657,10 +2993,10 @@
 
     function doLogin() {
       const email = document.getElementById('loginEmail').value.trim();
-      const pass  = document.getElementById('loginPass').value.trim();
+      const pass = document.getElementById('loginPass').value.trim();
       const errEl = document.getElementById('loginError');
       const errTxt = document.getElementById('loginErrorText');
-      const btn   = document.getElementById('loginBtn');
+      const btn = document.getElementById('loginBtn');
 
       // Clear errors
       errEl.classList.remove('show');
@@ -2704,7 +3040,7 @@
         const activeRoleBtn = document.querySelector('.role-btn.active');
         const role = activeRoleBtn ? activeRoleBtn.dataset.role : 'admin';
         const name = email.split('@')[0];
-        
+
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('user', JSON.stringify({ name: name, email: email, role: role }));
 
@@ -2738,7 +3074,7 @@
       const navActions = document.getElementById('navActions');
       const mobileMenu = document.getElementById('mobileMenu');
       const navCta = document.querySelector('.nav-cta');
-      
+
       if (loggedIn && user.name) {
         if (navActions) {
           navActions.innerHTML = `
@@ -2791,4 +3127,5 @@
     document.head.appendChild(styleEl);
   </script>
 </body>
+
 </html>
