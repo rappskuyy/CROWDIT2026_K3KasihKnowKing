@@ -76,14 +76,14 @@ function confirmLogout() {
       closeModal('confirmModal');
       localStorage.removeItem('loggedIn');
       localStorage.removeItem('user');
-      window.location.replace('../safeschool-landing.html');
+      window.location.replace('../../safeschool-landing.html');
     };
     openModal('confirmModal');
   } else {
     if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
       localStorage.removeItem('loggedIn');
       localStorage.removeItem('user');
-      window.location.replace('../safeschool-landing.html');
+      window.location.replace('../../safeschool-landing.html');
     }
   }
 }

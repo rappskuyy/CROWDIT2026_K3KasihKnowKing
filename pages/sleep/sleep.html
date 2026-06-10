@@ -37,7 +37,6 @@ tailwind.config = {
         'inverse-surface': 'var(--inverse-surface)',
         background: 'var(--background)',
       },
-      },
       fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
       boxShadow: {
         card: '0 10px 30px rgba(0,0,0,0.04)',
@@ -46,13 +45,12 @@ tailwind.config = {
     },
   },
 };
-</script>
-<link href="settings.css" rel="stylesheet"/>
-<link href="../css/responsive.css" rel="stylesheet"/>
-<script src="../js/lang.js"></script>
+</script><link href="sleep.css" rel="stylesheet"/>
+<link href="../../css/responsive.css" rel="stylesheet"/>
+<script src="../../js/lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
-      window.location.replace('../safeschool-landing.html');
+      window.location.replace('../../safeschool-landing.html');
     }
     document.addEventListener('DOMContentLoaded', () => {
       try {
@@ -84,14 +82,14 @@ tailwind.config = {
               document.getElementById('confirmModal').classList.remove('open');
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../safeschool-landing.html');
+              window.location.replace('../../safeschool-landing.html');
             };
             document.getElementById('confirmModal').classList.add('open');
           } else {
             if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../safeschool-landing.html');
+              window.location.replace('../../safeschool-landing.html');
             }
           }
         });
@@ -116,16 +114,16 @@ tailwind.config = {
 </div>
 <nav class="px-3 mt-2 flex flex-col gap-1 flex-grow overflow-y-auto" style="scrollbar-width: none; -ms-overflow-style: none;">
   <style>
-     nav::-webkit-scrollbar { display: none; }
+    nav::-webkit-scrollbar { display: none; }
   </style>
-  <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" data-route="overview" href="../../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
   <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
   <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
   <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
-  <a class="nav-link" data-route="sleep" href="../sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link active" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
   <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
   <a class="nav-link" data-route="counseling" href="../counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
-  <a class="nav-link active" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+  <a class="nav-link" data-route="settings" href="../settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
 <div class="mt-auto flex-shrink-0">
   <div class="px-3 pb-2 flex flex-col gap-1">
@@ -166,47 +164,121 @@ tailwind.config = {
 <!-- ============== MAIN CONTENT ============== -->
 <main class="main-content lg:ml-64 min-h-screen">
 <div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
-<!-- ==================== PAGE: SETTINGS ==================== -->
-<section class="page active" id="page-settings">
-<h1 class="text-3xl font-extrabold mb-5" data-i18n="settings">Settings</h1>
-<div class="card p-5 mb-5 flex items-center gap-4">
-<div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center font-extrabold text-xl" id="settingsAvatarCircle">AJ</div>
-<div class="flex-1">
-<div class="font-bold text-lg" id="settingsProfileName">Alex Johnson</div>
-<div class="text-sm text-on-surface-variant" id="settingsProfileGrade" data-i18n="userGrade">Grade 11-A</div>
+<!-- ==================== PAGE: SLEEP ==================== -->
+<section class="page active" id="page-sleep">
+<div class="max-w-2xl mx-auto">
+<!-- Header -->
+<div class="flex items-start justify-between mb-2">
+<div>
+<h1 class="text-3xl font-extrabold" data-i18n="nightlyInsights">Nightly Sleep Insights</h1>
+<p class="text-on-surface-variant mt-1 mb-4" data-i18n="sleepSubtitleID">Monitor ritme sirkadian dan tahap tidurmu untuk meningkatkan fokus akademis.</p>
 </div>
-<button class="btn-ghost text-sm" data-i18n="editProfile" onclick="openProfileEditModal()">Edit Profile</button>
 </div>
+<!-- Range tabs -->
+<div class="flex gap-2 mb-5" id="sleepRangeTabs">
+<button class="tab-btn active" data-sr="daily">Harian</button>
+<button class="tab-btn" data-sr="weekly">Mingguan</button>
+<button class="tab-btn" data-sr="monthly">Bulanan</button>
+</div>
+<!-- ===== LOG TIDUR MALAM INI ===== -->
 <div class="card p-5 mb-5">
-<h3 class="font-bold mb-3" data-i18n="notifications">Notifications</h3>
-<div class="flex flex-col gap-3" id="notifList"></div>
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold text-lg" data-i18n="catatTidur">Catat Tidur Malam Ini</div>
+<span class="text-xs text-on-surface-variant" id="sleepDateLabel"></span>
 </div>
+<div class="grid grid-cols-2 gap-3 mb-4">
+<div>
+<label class="text-xs text-on-surface-variant font-semibold">Jam Tidur</label>
+<input class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary" id="sleepStart" type="time" value="22:00"/>
+</div>
+<div>
+<label class="text-xs text-on-surface-variant font-semibold">Jam Bangun</label>
+<input class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary" id="sleepEnd" type="time" value="06:00"/>
+</div>
+</div>
+<div class="mb-4">
+<label class="text-xs text-on-surface-variant font-semibold block mb-2" data-i18n="sleepQuality">Kualitas Tidur</label>
+<div class="flex flex-wrap gap-2" id="sleepQualityBtns">
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="1" onclick="selectQuality(1)" data-i18n="sleepQVeryBad">Sangat Buruk</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="2" onclick="selectQuality(2)" data-i18n="sleepQBad">Buruk</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="3" onclick="selectQuality(3)" data-i18n="sleepQFair">Cukup</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="4" onclick="selectQuality(4)" data-i18n="sleepQGood">Baik</button>
+<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="5" onclick="selectQuality(5)" data-i18n="sleepQVeryGood">Sangat Baik</button>
+</div>
+<div class="text-xs text-center text-on-surface-variant mt-1.5" id="qualityLabel">Pilih kualitas tidur</div>
+</div>
+<div class="mb-4">
+<label class="text-xs text-on-surface-variant font-semibold block mb-2">Catatan (opsional)</label>
+<textarea class="w-full rounded-xl border border-outline-variant px-3 py-2 text-sm resize-none focus:outline-none focus:border-primary" id="sleepNote" placeholder="Mimpi, gangguan tidur, dll..." rows="2"></textarea>
+</div>
+<button class="btn-primary w-full" onclick="saveSleepLog()">
+<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">save</span><span data-i18n="simpanLog">Simpan Log Tidur</span></button>
+</div>
+<!-- ===== STAT GRID ===== -->
+<div class="grid grid-cols-2 gap-3 mb-5">
+<div class="card p-4">
+<div class="text-xs text-on-surface-variant" data-i18n="totalTidur">Total Tidur</div>
+<div class="text-2xl font-extrabold" id="statTotal">—</div>
+</div>
+<div class="card p-4">
+<div class="text-xs text-on-surface-variant" data-i18n="weeklyAverage">Rata-rata 7 Hari</div>
+<div class="text-2xl font-extrabold" id="statAvg">—</div>
+</div>
+</div>
+<!-- ===== WEEKLY CHART ===== -->
 <div class="card p-5 mb-5">
-<h3 class="font-bold mb-3" data-i18n="appearance">Appearance</h3>
-<div class="flex items-center justify-between mb-4">
-<span class="text-sm" data-i18n="theme">Theme</span>
-<div class="flex items-center gap-3">
-<span class="text-xs font-bold" data-i18n="themeLight" id="themeLabel">Light</span>
-<div class="toggle" id="themeSwitcher" onclick="toggleTheme()"></div>
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold">Tidur 7 Hari Terakhir</div>
+<span class="text-xs text-on-surface-variant" id="weekSleepAvgLabel"></span>
+</div>
+<svg class="w-full h-36" id="sleepWeekChart" viewbox="0 0 320 160"></svg>
+<div class="flex gap-3 mt-2 text-xs flex-wrap">
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-secondary"></span>Cukup (≥7j)</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block" style="background:#f59e0b"></span>Kurang (5–7j)</span>
+<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-error"></span>Sangat Kurang (&lt;5j)</span>
 </div>
 </div>
+<!-- ===== SMART ROUTINE ===== -->
+<div class="card p-5 mb-5 text-white" style="background:#0b1c30">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined">lightbulb</span>
+<div class="font-bold">Saran Rutinitas Cerdas</div>
 </div>
+<div class="text-sm opacity-90" id="smartRoutineText">Catat tidurmu hari ini untuk mendapatkan saran personal.</div>
+<button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" data-i18n="aturJadwal" onclick="openModal('scheduleModal')">Atur Jadwal Tidur</button>
+</div>
+
+<!-- ===== HISTORY ===== -->
 <div class="card p-5 mb-5">
-<h3 class="font-bold mb-3" data-i18n="privacy">Privacy &amp; Data</h3>
-<div class="flex flex-wrap gap-2">
-<button class="btn-ghost text-sm" data-i18n="downloadData" onclick="downloadData()">Download My Data</button>
-<button class="btn-ghost text-sm" data-i18n="clearMoodHistory" onclick="clearMoodHistory()">Clear Mood History</button>
+<div class="flex items-center justify-between mb-3">
+<div class="font-bold" data-i18n="riwayatTidur">Riwayat Tidur</div>
+<button class="text-xs text-error font-bold" onclick="clearSleepHistory()">Hapus Semua</button>
+</div>
+<div class="space-y-2 text-sm" id="sleepHistoryList">
+<div class="text-on-surface-variant text-xs">Belum ada riwayat.</div>
 </div>
 </div>
+<!-- ===== SMARTWATCH ===== -->
 <div class="card p-5 mb-5">
-<h3 class="font-bold mb-3" data-i18n="account">Account</h3>
-<button class="btn-ghost text-sm mr-2" data-i18n="changePassword" onclick="document.getElementById('pwForm').classList.toggle('hidden')">Change Password</button>
-<button class="btn-ghost text-sm" data-i18n="logout" onclick="confirmLogout()">Log Out</button>
-<form class="hidden mt-3 grid gap-2 max-w-sm" id="pwForm" onsubmit="event.preventDefault();this.reset();this.classList.add('hidden');showToast(I18N[getCurrentLang()]['passwordUpdated'],'success')">
-<input class="rounded-lg border border-outline-variant p-2 text-sm" data-placeholder="currentPassword" placeholder="Current password" type="password"/>
-<input class="rounded-lg border border-outline-variant p-2 text-sm" data-placeholder="newPassword" placeholder="New password" type="password"/>
-<button class="btn-primary text-sm" data-i18n="updatePassword">Update Password</button>
-</form>
+<div class="flex items-center justify-between mb-3">
+  <div>
+    <div class="font-bold">Smartwatch Pairing</div>
+    <div class="text-xs text-on-surface-variant">Connect sleep data from your wearable.</div>
+  </div>
+  <span class="text-xs text-secondary font-semibold">Bluetooth</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-center">
+  <div>
+    <div class="text-sm font-semibold">Device status</div>
+    <div class="text-on-surface-variant mt-1" id="watchStatus">No smartwatch connected.</div>
+  </div>
+  <button class="btn-primary" id="connectWatchBtn" onclick="toggleWatchConnection()">Connect</button>
+</div>
+<div class="text-xs text-on-surface-variant mt-4">Syncs dummy sleep metrics, heart rate, and rest periods for illustrative purposes.</div>
+</div>
+<div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
+  "Pelacakan tidurmu membantu konselor memberikan dukungan yang lebih baik. Data ini bersifat pribadi dan terenkripsi."
+</div>
 </div>
 </section>
 <!-- ==================== FOOTER ==================== -->
@@ -229,10 +301,10 @@ tailwind.config = {
 </main>
 <!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
-<div class="bn-item" data-route="overview" onclick="location.href='../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
-<div class="bn-item" data-route="gadget-time" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-item" data-route="overview" onclick="location.href='../../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item active" data-route="gadget-time" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
 <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
-<div class="bn-item active" data-route="settings" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
+<div class="bn-item" data-route="settings" onclick="location.href='../settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
 </nav>
 <!-- ============== MODALS ============== -->
 <div class="modal-backdrop" id="checkinModal">
@@ -249,6 +321,37 @@ tailwind.config = {
 <button class="btn-primary w-full" data-i18n="submitCheckin" onclick="submitCheckin()">Submit Check-in</button>
 </div>
 </div>
+<div class="modal-backdrop" id="breathCustomize">
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="customizeBreathing">Customize Breathing</h3><button onclick="closeModal('breathCustomize')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="grid gap-3" id="phaseControls"></div>
+<button class="btn-primary w-full mt-3" data-i18n="applyBtn" onclick="closeModal('breathCustomize');showToast('Breathing timings updated','success')">Apply</button>
+</div>
+</div>
+<div class="modal-backdrop" id="stretchModal">
+<div class="modal-card text-center">
+<div class="flex justify-end"><button onclick="closeModal('stretchModal');clearInterval(window._stretchSession)"><span class="material-symbols-outlined">close</span></button></div>
+<h3 class="font-extrabold text-lg mb-2" data-i18n="stretchSession">Stretch Session</h3>
+<div class="text-5xl font-extrabold tabular-nums my-4" id="stretchSessionTime" style="font-family:ui-monospace,monospace">05:00</div>
+<div class="text-sm text-on-surface-variant" data-i18n="stretchInstruction">Follow the seated twist on screen.</div>
+</div>
+</div>
+<div class="modal-backdrop" id="scheduleModal">
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="adjustSleepSchedule">Adjust Sleep Schedule</h3><button onclick="closeModal('scheduleModal')"><span class="material-symbols-outlined">close</span></button></div>
+<label class="text-sm" data-i18n="bedtime">Bedtime</label>
+<input class="w-full rounded-lg border border-outline-variant p-2 mb-3" type="time" value="22:30"/>
+<label class="text-sm" data-i18n="wakeTime">Wake time</label>
+<input class="w-full rounded-lg border border-outline-variant p-2 mb-3" type="time" value="06:30"/>
+<button class="btn-primary w-full" data-i18n="saveBtn" onclick="closeModal('scheduleModal');showToast('Schedule saved','success')">Save</button>
+</div>
+</div>
+<div class="modal-backdrop" id="reportDetail">
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="reportDetails">Report Details</h3><button onclick="closeModal('reportDetail')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="text-sm" id="reportDetailBody"></div>
+</div>
+</div>
 <div class="modal-backdrop" id="confirmModal">
 <div class="modal-card">
 <h3 class="font-extrabold text-lg mb-2" data-i18n="confirmBtn" id="confirmTitle">Confirm</h3>
@@ -256,6 +359,9 @@ tailwind.config = {
 <div class="flex gap-2 justify-end"><button class="btn-ghost" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button><button class="btn-primary" data-i18n="confirmBtn" id="confirmOk">Confirm</button></div>
 </div>
 </div>
+
+<script src="sleep.js"></script>
+
 <!-- Avatar Shop Modal -->
 <div class="modal-backdrop" id="avatarShopModal">
 <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
@@ -264,7 +370,7 @@ tailwind.config = {
     <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
     <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
   </div>
-  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,var(--surface-container-low),var(--surface-container-high)); border: 1px solid var(--outline-variant);">
     <div class="relative inline-block mb-2">
       <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
       <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
@@ -280,49 +386,17 @@ tailwind.config = {
   <div class="mb-2"><div class="font-bold text-sm mb-2">&#x1F6CD; Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
 </div>
 </div>
-<!-- Profile Edit Modal for Settings -->
-<div class="modal-backdrop" id="profileEditModal" onclick="if(event.target===this)closeProfileEditModal()">
-  <div class="modal-card" style="max-width:440px;">
-    <div class="flex justify-between items-center mb-5">
-      <h3 class="font-extrabold text-xl"><i class="fa-solid fa-user-pen"></i> Edit Profile</h3>
-      <button onclick="closeProfileEditModal()"><span class="material-symbols-outlined">close</span></button>
-    </div>
-    <div class="mb-4">
-      <label class="text-xs font-bold text-on-surface-variant mb-1 block">FULL NAME</label>
-      <input type="text" id="settingsNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Your name"/>
-    </div>
-    <div class="mb-4">
-      <label class="text-xs font-bold text-on-surface-variant mb-1 block">CLASS / GRADE</label>
-      <input type="text" id="settingsGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="e.g. Grade 11-A"/>
-    </div>
-    <div class="mb-5">
-      <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPTIONAL)</label>
-      <input type="email" id="settingsEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@school.ac.id"/>
-    </div>
-    <div class="flex gap-3">
-      <button class="btn-primary flex-1 justify-center" onclick="saveSettingsProfile()">Save Profile</button>
-      <button class="btn-ghost flex-1" onclick="closeProfileEditModal()">Cancel</button>
-    </div>
-  </div>
-</div>
-<script src="settings.js"></script>
-<script src="../profile.js"></script>
+<script src="../../js/profile.js"></script>
 <script>
-/* ===== SETTINGS PROFILE SYNC ===== */
-function loadSettingsProfile(){
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
-  const initials=name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-  const el=document.getElementById('settingsProfileName');if(el)el.textContent=name;
-  const el2=document.getElementById('settingsProfileGrade');if(el2)el2.textContent=grade;
-  const av=document.getElementById('settingsAvatarCircle');if(av)av.textContent=initials;
+/* ===== PROFILE SIDEBAR INIT ===== */
+(function(){
+  const name=localStorage.getItem('profileName')||'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
   const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
   const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
-  const mb=document.getElementById('mobileAvatarBadge');if(mb)mb.textContent=initials;
-}
-loadSettingsProfile();
+  const mb=document.getElementById('mobileAvatarBadge');
+  if(mb)mb.textContent=name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+})();
 </script>
 </body>
 </html>
-<script src="../js/avatar.js"></script>

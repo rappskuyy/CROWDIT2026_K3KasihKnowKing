@@ -48,11 +48,11 @@ tailwind.config = {
 };
 </script>
 <link href="hydration.css" rel="stylesheet"/>
-<link href="../css/responsive.css" rel="stylesheet"/>
-<script src="../js/lang.js"></script>
+<link href="../../css/responsive.css" rel="stylesheet"/>
+<script src="../../js/lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
-      window.location.replace('../safeschool-landing.html');
+      window.location.replace('../../safeschool-landing.html');
     }
     document.addEventListener('DOMContentLoaded', () => {
       try {
@@ -84,14 +84,14 @@ tailwind.config = {
               document.getElementById('confirmModal').classList.remove('open');
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../safeschool-landing.html');
+              window.location.replace('../../safeschool-landing.html');
             };
             document.getElementById('confirmModal').classList.add('open');
           } else {
             if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../safeschool-landing.html');
+              window.location.replace('../../safeschool-landing.html');
             }
           }
         });
@@ -117,7 +117,7 @@ tailwind.config = {
   <style>
     nav::-webkit-scrollbar { display: none; }
   </style>
-  <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" data-route="overview" href="../../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
   <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
   <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
   <a class="nav-link active" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
@@ -167,7 +167,7 @@ tailwind.config = {
 <div class="max-w-[680px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
 <!-- BREADCRUMB -->
 <div class="text-sm text-on-surface-variant mb-3 flex items-center gap-1">
-<a class="hover:text-primary cursor-pointer" data-i18n="navWellnessTracking" href="../index.html">Wellness Tracking</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="navWellnessTracking" href="../../index.html">Wellness Tracking</a>
 <span class="material-symbols-outlined" style="font-size:14px">chevron_right</span>
 <span class="text-on-surface font-semibold" data-i18n="hydTitle">Hydration Tracker</span>
 </div>
@@ -352,7 +352,7 @@ Mengonsumsi air yang cukup meningkatkan aliran oksigen ke otak, yang secara lang
 </main>
 <!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
-<div class="bn-item" onclick="location.href='../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item" onclick="location.href='../../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
 <div class="bn-item" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
 <div class="bn-fab" onclick="showToast('Check-in','info')"><span class="material-symbols-outlined">add</span></div>
 <div class="bn-item" onclick="location.href='../settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
@@ -404,7 +404,7 @@ Mengonsumsi air yang cukup meningkatkan aliran oksigen ke otak, yang secara lang
 </div>
 
 <script src="hydration.js"></script>
-<script src="../profile.js"></script>
+<script src="../../js/profile.js"></script>
 <script>
 /* ===== PROFILE SIDEBAR INIT ===== */
 (function(){

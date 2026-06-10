@@ -1,15 +1,15 @@
 /* ============== ROUTER ============== */
 const ROUTE_FILES={
   "overview": "index.html", 
-  "safety": "safety/safety.html", 
-  "gadget-time": "gadget-time/gadget-time.html", 
-  "hydration": "hydration/hydration.html", 
-  "sleep": "sleep/sleep.html", 
-  "breathing": "breathing/breathing.html", 
-  "reports": "reports/reports.html", 
-  "counseling": "counseling/counseling.html", 
-  "settings": "settings/settings.html",
-  "educational": "educational/educational.html"
+  "safety": "pages/safety/safety.html", 
+  "gadget-time": "pages/gadget-time/gadget-time.html", 
+  "hydration": "pages/hydration/hydration.html", 
+  "sleep": "pages/sleep/sleep.html", 
+  "breathing": "pages/breathing/breathing.html", 
+  "reports": "pages/reports/reports.html", 
+  "counseling": "pages/counseling/counseling.html", 
+  "settings": "pages/settings/settings.html",
+  "educational": "pages/educational/educational.html"
 };
 const CURRENT_ROUTE='overview';
 

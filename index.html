@@ -128,13 +128,13 @@ tailwind.config = {
     nav::-webkit-scrollbar { display: none; }
   </style>
   <a class="nav-link active" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
-  <a class="nav-link" href="educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
-  <a class="nav-link" data-route="gadget-time" href="gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
-  <a class="nav-link" data-route="hydration" href="hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
-  <a class="nav-link" data-route="sleep" href="sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
-  <a class="nav-link" data-route="breathing" href="breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
-  <a class="nav-link" data-route="counseling" href="counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
-  <a class="nav-link" data-route="settings" href="settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+  <a class="nav-link" href="pages/educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
+  <a class="nav-link" data-route="gadget-time" href="pages/gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link" data-route="hydration" href="pages/hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+  <a class="nav-link" data-route="sleep" href="pages/sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link" data-route="breathing" href="pages/breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link" data-route="counseling" href="pages/counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+  <a class="nav-link" data-route="settings" href="pages/settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
 <div class="mt-auto flex-shrink-0">
   <div class="px-3 pb-2 flex flex-col gap-1">
@@ -231,7 +231,7 @@ tailwind.config = {
 <div class="card p-5 lg:col-span-4">
 <div class="flex items-center justify-between mb-2">
 <h3 class="font-bold text-lg" data-i18n="navHydration">Hydration</h3>
-<a class="text-xs text-primary font-bold hover:underline" data-i18n="lihatDetail" href="hydration/hydration.html">Lihat Detail →</a>
+<a class="text-xs text-primary font-bold hover:underline" data-i18n="lihatDetail" href="pages/hydration/hydration.html">Lihat Detail →</a>
 </div>
 <div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">3</span> / 8 Glasses</div>
 <div class="flex gap-1 mb-3" id="hydSegments">
@@ -263,7 +263,7 @@ tailwind.config = {
 </div>
 <div class="font-bold" data-i18n="mulaiTracking" id="gtDashTitle">Mulai Tracking</div>
 <div class="text-sm text-on-surface-variant mb-3" id="gtDashMsg">Buka Gadget Time untuk mulai memantau screen time hari ini.</div>
-<button class="w-full py-2.5 rounded-full font-bold text-white" data-i18n="bukaGadgetTime" onclick="location.href='gadget-time/gadget-time.html'" style="background:#003151">Buka Gadget Time →</button>
+<button class="w-full py-2.5 rounded-full font-bold text-white" data-i18n="bukaGadgetTime" onclick="location.href='pages/gadget-time/gadget-time.html'" style="background:#003151">Buka Gadget Time →</button>
 </div>
 <div class="card p-5 lg:col-span-4 hidden lg:block">
 <h3 class="font-bold text-lg mb-3" data-i18n="weeklyScore">Weekly Score</h3>
@@ -290,9 +290,9 @@ tailwind.config = {
 </main>
 <nav class="bottom-nav">
 <div class="bn-item active" data-route="overview" onclick="location.href='index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
-<div class="bn-item" data-route="gadget-time" onclick="location.href='gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-item" data-route="gadget-time" onclick="location.href='pages/gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
 <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
-<div class="bn-item" data-route="settings" onclick="location.href='settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
+<div class="bn-item" data-route="settings" onclick="location.href='pages/settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
 </nav>
 <div class="modal-backdrop" id="checkinModal">
 <div class="modal-card">
@@ -399,7 +399,7 @@ tailwind.config = {
 </div>
 
 
-<script src="profile.js"></script>
+<script src="js/profile.js"></script>
 <script>
   // Menampilkan body dengan animasi halus setelah halaman dan Tailwind termuat
   window.addEventListener('load', function() {

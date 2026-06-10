@@ -44,11 +44,11 @@ tailwind.config = {
 };
 </script>
 <link href="breathing.css" rel="stylesheet"/>
-<link href="../css/responsive.css" rel="stylesheet"/>
-<script src="../js/lang.js"></script>
+<link href="../../css/responsive.css" rel="stylesheet"/>
+<script src="../../js/lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
-      window.location.replace('../safeschool-landing.html');
+      window.location.replace('../../safeschool-landing.html');
     }
     document.addEventListener('DOMContentLoaded', () => {
       try {
@@ -80,14 +80,14 @@ tailwind.config = {
               document.getElementById('confirmModal').classList.remove('open');
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../safeschool-landing.html');
+              window.location.replace('../../safeschool-landing.html');
             };
             document.getElementById('confirmModal').classList.add('open');
           } else {
             if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../safeschool-landing.html');
+              window.location.replace('../../safeschool-landing.html');
             }
           }
         });
@@ -114,7 +114,7 @@ tailwind.config = {
   <style>
     nav::-webkit-scrollbar { display: none; }
   </style>
-  <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" data-route="overview" href="../../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
   <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
   <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
   <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
@@ -312,7 +312,7 @@ tailwind.config = {
 
 <!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
-  <div class="bn-item" onclick="location.href='../index.html'"><span class="material-symbols-outlined">dashboard</span><span>Home</span></div>
+  <div class="bn-item" onclick="location.href='../../index.html'"><span class="material-symbols-outlined">dashboard</span><span>Home</span></div>
   <div class="bn-item" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span>Wellness</span></div>
   <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
   <div class="bn-item active"><span class="material-symbols-outlined icon-fill">self_improvement</span><span>Pernapasan</span></div>
@@ -377,7 +377,7 @@ tailwind.config = {
   <div class="mb-2"><div class="font-bold text-sm mb-2">&#x1F6CD; Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
 </div>
 </div>
-<script src="../profile.js"></script>
+<script src="../../js/profile.js"></script>
 <script>
 /* ===== PROFILE SIDEBAR INIT ===== */
 (function(){
@@ -391,4 +391,4 @@ tailwind.config = {
 </script>
 </body>
 </html>
-<script src="../js/avatar.js"></script>
+<script src="../../js/avatar.js"></script>
