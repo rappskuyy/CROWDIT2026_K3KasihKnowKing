@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  // Prevent flash of wrong theme
+  (function(){
+    var t = localStorage.getItem('appTheme') || 'light';
+    if (t === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.style.colorScheme = 'light';
+    }
+  })();
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SafeSchoolHub — Digital Counseling</title>
@@ -45,6 +57,7 @@ tailwind.config = {
 <link href="counseling.css" rel="stylesheet"/>
 <link href="../../css/responsive.css" rel="stylesheet"/>
 <script src="../../js/lang.js"></script>
+<script src="../../js/theme-lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
       window.location.replace('../../safeschool-landing.html');

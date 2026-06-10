@@ -1,21 +1,10 @@
-// Global Theme and Language Management System
-// Mengecek dan menerapkan tema setiap kali halaman apapun dimuat
-function applyGlobalTheme(theme) {
-  globalCurrentTheme = theme;
-  localStorage.setItem('appTheme', theme);
+// ============================================================
+// Global Theme & Language System — theme-lang.js
+// Included in every page. Apply theme before DOMContentLoaded
+// to avoid flash-of-wrong-theme (FOUT).
+// ============================================================
 
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark');
-    document.body.classList.add('dark-theme');
-    document.documentElement.style.colorScheme = 'dark';
-  } else {
-    document.documentElement.classList.remove('dark');
-    document.body.classList.remove('dark-theme');
-    document.documentElement.style.colorScheme = 'light';
-  }
-}
-// Jalankan langsung saat script di-load
-applyGlobalTheme();
+// ---------- I18N strings ----------
 const GLOBAL_I18N = {
   en: {
     brand: 'SafeSchoolHub', dashTitle: 'Student Wellness', settings: 'Settings',
@@ -41,153 +30,106 @@ const GLOBAL_I18N = {
   }
 };
 
-let globalCurrentTheme = 'light';
-
-function getGlobalLang() {
-  return 'id';
-}
-
-function getGlobalTheme() {
-  return localStorage.getItem('appTheme') || 'light';
-}
-
-function initGlobalTheme() {
-  globalCurrentTheme = getGlobalTheme();
-  applyGlobalTheme(globalCurrentTheme);
-}
-
-function applyGlobalTheme(theme) {
-  globalCurrentTheme = theme;
-  localStorage.setItem('appTheme', theme);
-
-  if (theme === 'dark') {
-    document.documentElement.style.colorScheme = 'dark';
-    document.body.style.backgroundColor = '#0f1419';
-    document.body.style.color = '#e3e7ee';
-    document.body.classList.add('dark-mode');
-    document.body.classList.remove('light-mode');
-
-    // Update all cards and elements
-    document.querySelectorAll('.card,.glass-card').forEach(el => {
-      el.style.backgroundColor = '#1a1f2e';
-      el.style.borderColor = '#3a4550';
-      el.style.color = '#e3e7ee';
-    });
-
-    document.querySelectorAll('.sidebar-desktop').forEach(el => {
-      el.style.backgroundColor = '#1a1f2e';
-      el.style.borderColor = '#3a4550';
-      el.style.color = '#e3e7ee';
-    });
-
-    document.querySelectorAll('.top-bar-mobile').forEach(el => {
-      el.style.backgroundColor = '#1a1f2e';
-      el.style.borderColor = '#3a4550';
-      el.style.color = '#e3e7ee';
-    });
-
-    document.querySelectorAll('select, input').forEach(el => {
-      el.style.backgroundColor = '#1a1f2e';
-      el.style.color = '#e3e7ee';
-      el.style.borderColor = '#3a4550';
-    });
-  } else {
-    document.documentElement.style.colorScheme = 'light';
-    document.body.style.backgroundColor = '#f8f9ff';
-    document.body.style.color = '#0b1c30';
-    document.body.classList.add('light-mode');
-    document.body.classList.remove('dark-mode');
-
-    // Reset styles
-    document.querySelectorAll('.card,.glass-card').forEach(el => {
-      el.style.backgroundColor = '';
-      el.style.borderColor = '';
-      el.style.color = '';
-    });
-
-    document.querySelectorAll('.sidebar-desktop').forEach(el => {
-      el.style.backgroundColor = '';
-      el.style.borderColor = '';
-      el.style.color = '';
-    });
-
-    document.querySelectorAll('.top-bar-mobile').forEach(el => {
-      el.style.backgroundColor = '';
-      el.style.borderColor = '';
-      el.style.color = '';
-    });
-
-    document.querySelectorAll('select, input').forEach(el => {
-      el.style.backgroundColor = '';
-      el.style.color = '';
-      el.style.borderColor = '';
-    });
-  }
-}
-
-function setGlobalLang(lang) {
-  localStorage.setItem('appLang', 'id');
-
-  // Update all data-i18n elements
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    const val = GLOBAL_I18N['id'][key];
-    if (val) el.textContent = val;
-  });
-
-  // Update placeholders
-  document.querySelectorAll('[data-placeholder]').forEach(el => {
-    const key = el.dataset.placeholder;
-    const val = GLOBAL_I18N['id'][key];
-    if (val) el.placeholder = val;
-  });
-
-  // Call page-specific language update if exists
-  if (typeof updatePageLanguage === 'function') {
-    updatePageLanguage('id');
-  }
-}
-
-// Initialize on page load
-document.addEventListener('DOMContentLoaded', () => {
-  initGlobalTheme();
-  setGlobalLang('id');
-});
 // ---------- Theme System ----------
 window.ThemeSystem = (function () {
   const THEME_KEY = 'appTheme';
-  let current = localStorage.getItem(THEME_KEY) || 'light';
+
+  function getTheme() {
+    return localStorage.getItem(THEME_KEY) || 'light';
+  }
+
   function apply(theme) {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    document.body.classList.toggle('dark-theme', theme === 'dark');
-    document.body.classList.toggle('light-theme', theme === 'light');
-    document.documentElement.style.colorScheme = theme;
+    const html = document.documentElement;
+    const body = document.body;
+
     if (theme === 'dark') {
-      document.body.style.backgroundColor = '#0f1419';
-      document.body.style.color = '#e3e7ee';
-    } else {
-      document.body.style.backgroundColor = '#f8f9ff';
-      document.body.style.color = '#0b1c30';
-    }
-    // Update UI elements
-    const elems = document.querySelectorAll('.card,.glass-card,.sidebar-desktop,.top-bar-mobile,select,input,textarea');
-    elems.forEach(el => {
-      if (theme === 'dark') {
-        el.style.backgroundColor = '#1a1f2e';
-        el.style.borderColor = '#3a4550';
-        el.style.color = '#e3e7ee';
-      } else {
-        el.style.backgroundColor = '';
-        el.style.borderColor = '';
-        el.style.color = '';
+      html.classList.add('dark');
+      html.setAttribute('data-theme', 'dark');
+      html.style.colorScheme = 'dark';
+      if (body) {
+        body.classList.add('dark-mode', 'dark-theme');
+        body.classList.remove('light-mode', 'light-theme');
       }
-    });
-    current = theme;
+    } else {
+      html.classList.remove('dark');
+      html.setAttribute('data-theme', 'light');
+      html.style.colorScheme = 'light';
+      if (body) {
+        body.classList.add('light-mode', 'light-theme');
+        body.classList.remove('dark-mode', 'dark-theme');
+      }
+    }
+
     localStorage.setItem(THEME_KEY, theme);
   }
-  function getTheme() { return localStorage.getItem(THEME_KEY) || 'light'; }
-  function setTheme(theme) { apply(theme); }
-  // Initialise on load
-  document.addEventListener('DOMContentLoaded', function () { apply(getTheme()); });
-  return { getTheme, setTheme, apply, getCurrent: () => current };
+
+  function setTheme(theme) {
+    apply(theme);
+    // Notify any page-specific theme handlers
+    if (typeof window.onThemeChange === 'function') {
+      window.onThemeChange(theme);
+    }
+  }
+
+  // Apply immediately (before DOMContentLoaded) to prevent flash
+  apply(getTheme());
+
+  // Re-apply after DOM loads to handle body classes
+  document.addEventListener('DOMContentLoaded', function () {
+    apply(getTheme());
+  });
+
+  return {
+    getTheme,
+    setTheme,
+    apply,
+    getCurrent: getTheme
+  };
 })();
+
+// ---------- Lang System ----------
+window.LangSystem = (function () {
+  const LANG_KEY = 'appLang';
+
+  function getLang() {
+    return localStorage.getItem(LANG_KEY) || 'id';
+  }
+
+  function applyLang(lang) {
+    const safelang = GLOBAL_I18N[lang] ? lang : 'id';
+    localStorage.setItem(LANG_KEY, safelang);
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      const val = GLOBAL_I18N[safelang][key];
+      if (val !== undefined) el.textContent = val;
+    });
+
+    document.querySelectorAll('[data-placeholder]').forEach(el => {
+      const key = el.dataset.placeholder;
+      const val = GLOBAL_I18N[safelang][key];
+      if (val !== undefined) el.placeholder = val;
+    });
+
+    if (typeof updatePageLanguage === 'function') {
+      updatePageLanguage(safelang);
+    }
+  }
+
+  function setLang(lang) {
+    applyLang(lang);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    applyLang(getLang());
+  });
+
+  return { getLang, setLang, applyLang };
+})();
+
+// ---------- Backwards-compat globals ----------
+function getGlobalTheme() { return ThemeSystem.getTheme(); }
+function getGlobalLang()  { return LangSystem.getLang(); }
+function initGlobalTheme() { ThemeSystem.apply(ThemeSystem.getTheme()); }
+function applyGlobalTheme(theme) { ThemeSystem.setTheme(theme); }
+function setGlobalLang(lang) { LangSystem.setLang(lang); }

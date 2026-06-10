@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  // Prevent flash of wrong theme
+  (function(){
+    var t = localStorage.getItem('appTheme') || 'light';
+    if (t === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.style.colorScheme = 'light';
+    }
+  })();
+</script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SafeSchoolHub — Educational Hub</title>
@@ -46,6 +58,7 @@ tailwind.config = {
 <link href="educational.css" rel="stylesheet"/>
 <link href="../../css/responsive.css" rel="stylesheet"/>
 <script src="../../js/lang.js"></script>
+<script src="../../js/theme-lang.js"></script>
 <style>
 /* Certificate overlay */
 #certificateOverlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;}

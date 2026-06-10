@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  // Prevent flash of wrong theme
+  (function(){
+    var t = localStorage.getItem('appTheme') || 'light';
+    if (t === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.style.colorScheme = 'light';
+    }
+  })();
+</script>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>SafeSchoolHub — Student Wellness Dashboard</title>
@@ -49,6 +61,7 @@ tailwind.config = {
 <link rel="stylesheet" href="gadget-time.css">
 <link href="../../css/responsive.css" rel="stylesheet"/>
 <script src="../../js/lang.js"></script>
+<script src="../../js/theme-lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
       window.location.replace('../../safeschool-landing.html');

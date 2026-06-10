@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+  // Prevent flash of wrong theme
+  (function(){
+    var t = localStorage.getItem('appTheme') || 'light';
+    if (t === 'dark') {
+      document.documentElement.classList.add('dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.style.colorScheme = 'light';
+    }
+  })();
+</script>
 <meta charset="utf-8"/>
 <meta http-equiv="refresh" content="0; url=pages/educational/educational.html#seminars"/>
 <title>Redirect ke Educational Hub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="js/theme-lang.js"></script>
 </head>
 <body>
 <script>

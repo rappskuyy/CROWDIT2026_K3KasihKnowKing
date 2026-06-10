@@ -26,6 +26,7 @@
 }
 
 /* ============== DARK MODE VARIABLES ============== */
+html.dark,
 html[style*="color-scheme: dark"] {
   --primary: #a5d8ff;
   --on-primary: #003151;
