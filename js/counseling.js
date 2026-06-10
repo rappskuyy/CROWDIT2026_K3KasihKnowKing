@@ -1,6 +1,6 @@
-/* ============== ROUTER ============== */
+﻿/* ============== ROUTER ============== */
 const ROUTE_FILES = {
-  "overview": "index.html",
+  "overview": "../dashboard/dashboard.html",
   "safety": "safety.html",
   "gadget-time": "gadget-time.html",
   "hydration": "hydration.html",
@@ -84,7 +84,7 @@ function confirmLogout() {
   document.getElementById('confirmMsg').textContent = 'You will be returned to the dashboard.';
   document.getElementById('confirmOk').onclick = () => {
     closeModal('confirmModal');
-    location.href = 'index.html';
+    location.href = '../dashboard/dashboard.html';
   };
   openModal('confirmModal');
 }

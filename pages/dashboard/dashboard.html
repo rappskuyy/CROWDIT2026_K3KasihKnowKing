@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+
 <html lang="en">
 <head>
 <script>
@@ -14,14 +15,19 @@
   })();
 </script>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SafeSchoolHub — Student Wellness Dashboard</title>
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>SafeSchoolHub — Student Wellness Dashboard</title>
+
+  <link rel="stylesheet" href="index.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
-<script>
+<script src="../../js/lang.js"></script>
+<script src="../../js/theme-lang.js"></script>
+<script>  
 tailwind.config = {
   theme: {
     extend: {
@@ -57,10 +63,17 @@ tailwind.config = {
     },
   },
 };
-</script><link href="sleep.css" rel="stylesheet"/>
+</script>
+<link href="../../css/index.css" rel="stylesheet"/>
 <link href="../../css/responsive.css" rel="stylesheet"/>
-<script src="../../js/lang.js"></script>
-<script src="../../js/theme-lang.js"></script>
+<style>
+  /* Menyembunyikan body sebelum semuanya siap */
+  body {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
       window.location.replace('../../index.html');
@@ -112,12 +125,10 @@ tailwind.config = {
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="min-h-screen">
-<!-- Toast container -->
 <div class="toast" id="toast"></div>
-<!-- ============== SIDEBAR (DESKTOP) ============== -->
 <aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
 <div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
-  <img src="../image/logo.svg" alt="SafeSchool Logo" class="w-10 h-10 object-contain">
+  <img src="../../image/logo.svg" alt="SafeSchool Logo" class="w-10 h-10 object-contain">
   <div>
     <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
     <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
@@ -127,11 +138,11 @@ tailwind.config = {
   <style>
     nav::-webkit-scrollbar { display: none; }
   </style>
-  <a class="nav-link" data-route="overview" href="../dashboard/dashboard.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link active" data-route="overview" href="dashboard.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
   <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
   <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
   <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
-  <a class="nav-link active" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link" data-route="sleep" href="../sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
   <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
   <a class="nav-link" data-route="counseling" href="../counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
   <a class="nav-link" data-route="settings" href="../settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
@@ -162,139 +173,117 @@ tailwind.config = {
   </div>
 </div>
 </aside>
-<!-- ============== MOBILE TOP BAR ============== -->
+
 <header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
 <div class="flex items-center gap-2">
-<img src="../image/logo.svg" alt="SafeSchool Logo" class="w-8 h-8 object-contain">
+<img src="../../image/logo.svg" alt="SafeSchool Logo" class="w-8 h-8 object-contain">
 <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
 </div>
 <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold cursor-pointer" id="mobileAvatarBadge" onclick="openProfileModal()">AJ</div>
 </header>
-<!-- ============== MAIN CONTENT ============== -->
 <main class="main-content lg:ml-64 min-h-screen">
 <div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
-<!-- ==================== PAGE: SLEEP ==================== -->
-<section class="page active" id="page-sleep">
-<div class="max-w-2xl mx-auto">
-<!-- Header -->
-<div class="flex items-start justify-between mb-2">
+<section class="page active" id="page-overview">
+<div class="flex flex-wrap items-start justify-between gap-4 mb-6">
 <div>
-<h1 class="text-3xl font-extrabold" data-i18n="nightlyInsights">Nightly Sleep Insights</h1>
-<p class="text-on-surface-variant mt-1 mb-4" data-i18n="sleepSubtitleID">Monitor ritme sirkadian dan tahap tidurmu untuk meningkatkan fokus akademis.</p>
+<h1 class="text-3xl lg:text-4xl font-extrabold" data-i18n="dashTitle">Student Wellness</h1>
+<p class="text-on-surface-variant mt-1" data-i18n="dashSubtitle">Hello, Naa. Let's take a look at your well-being journey this week.</p>
 </div>
+<button class="btn-primary flex items-center gap-2" onclick="openCheckin()">
+<span class="material-symbols-outlined" style="font-size:18px">add_circle</span><span data-i18n="checkinNow">Check-in Now</span></button>
 </div>
-<!-- Range tabs -->
-<div class="flex gap-2 mb-5" id="sleepRangeTabs">
-<button class="tab-btn active" data-sr="daily">Harian</button>
-<button class="tab-btn" data-sr="weekly">Mingguan</button>
-<button class="tab-btn" data-sr="monthly">Bulanan</button>
-</div>
-<!-- ===== LOG TIDUR MALAM INI ===== -->
-<div class="card p-5 mb-5">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+<div class="card p-5 lg:col-span-5">
 <div class="flex items-center justify-between mb-3">
-<div class="font-bold text-lg" data-i18n="catatTidur">Catat Tidur Malam Ini</div>
-<span class="text-xs text-on-surface-variant" id="sleepDateLabel"></span>
+<h3 class="font-bold text-lg" data-i18n="moodTracker">Mood Tracker</h3>
+<span class="text-xs text-on-surface-variant" data-i18n="thisWeek">This Week</span>
 </div>
-<div class="grid grid-cols-2 gap-3 mb-4">
-<div>
-<label class="text-xs text-on-surface-variant font-semibold">Jam Tidur</label>
-<input class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary" id="sleepStart" type="time" value="22:00"/>
+<div class="flex justify-between px-2 mb-8 mt-4" id="moodSelectors">
+<button class="mood-chip" data-mood="0">
+<span class="mood-icon"><i class="fa-solid fa-face-angry"></i></span>
+<span class="mood-text" data-i18n="moodStressed">Stressed</span>
+</button>
+<button class="mood-chip" data-mood="1">
+<span class="mood-icon"><i class="fa-solid fa-face-frown"></i></span>
+<span class="mood-text" data-i18n="moodLow">Low</span>
+</button>
+<button class="mood-chip selected" data-mood="2">
+<span class="mood-icon"><i class="fa-solid fa-face-meh"></i></span>
+<span class="mood-text" data-i18n="moodNeutral">Neutral</span>
+</button>
+<button class="mood-chip" data-mood="3">
+<span class="mood-icon"><i class="fa-solid fa-face-smile"></i></span>
+<span class="mood-text" data-i18n="moodGood">Good</span>
+</button>
+<button class="mood-chip" data-mood="4">
+<span class="mood-icon"><i class="fa-solid fa-face-laugh-beam"></i></span>
+<span class="mood-text" data-i18n="moodGreat">Great</span>
+</button>
 </div>
-<div>
-<label class="text-xs text-on-surface-variant font-semibold">Jam Bangun</label>
-<input class="w-full mt-1 rounded-xl border border-outline-variant px-3 py-2 text-sm font-bold focus:outline-none focus:border-primary" id="sleepEnd" type="time" value="06:00"/>
+<div class="relative" id="moodChart"></div>
 </div>
+<div class="card p-5 lg:col-span-4">
+<h3 class="font-bold text-lg mb-2" data-i18n="stressLevel">Stress Level</h3>
+<div class="text-secondary font-bold text-xl" data-i18n="stressLow">Low Stress</div>
+<div class="italic text-sm text-on-surface-variant mb-3">Reflecting 'Calm'</div>
+<div class="h-3 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full bg-secondary rounded-full transition-all duration-1000" id="stressBar" style="width:30%"></div>
 </div>
-<div class="mb-4">
-<label class="text-xs text-on-surface-variant font-semibold block mb-2" data-i18n="sleepQuality">Kualitas Tidur</label>
-<div class="flex flex-wrap gap-2" id="sleepQualityBtns">
-<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="1" onclick="selectQuality(1)" data-i18n="sleepQVeryBad">Sangat Buruk</button>
-<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="2" onclick="selectQuality(2)" data-i18n="sleepQBad">Buruk</button>
-<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="3" onclick="selectQuality(3)" data-i18n="sleepQFair">Cukup</button>
-<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="4" onclick="selectQuality(4)" data-i18n="sleepQGood">Baik</button>
-<button class="flex-1 min-w-[70px] py-2 px-1 rounded-xl border-2 border-outline-variant text-[11px] font-bold transition-all text-center" data-q="5" onclick="selectQuality(5)" data-i18n="sleepQVeryGood">Sangat Baik</button>
-</div>
-<div class="text-xs text-center text-on-surface-variant mt-1.5" id="qualityLabel">Pilih kualitas tidur</div>
-</div>
-<div class="mb-4">
-<label class="text-xs text-on-surface-variant font-semibold block mb-2">Catatan (opsional)</label>
-<textarea class="w-full rounded-xl border border-outline-variant px-3 py-2 text-sm resize-none focus:outline-none focus:border-primary" id="sleepNote" placeholder="Mimpi, gangguan tidur, dll..." rows="2"></textarea>
-</div>
-<button class="btn-primary w-full" onclick="saveSleepLog()">
-<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle">save</span><span data-i18n="simpanLog">Simpan Log Tidur</span></button>
-</div>
-<!-- ===== STAT GRID ===== -->
-<div class="grid grid-cols-2 gap-3 mb-5">
-<div class="card p-4">
-<div class="text-xs text-on-surface-variant" data-i18n="totalTidur">Total Tidur</div>
-<div class="text-2xl font-extrabold" id="statTotal">—</div>
-</div>
-<div class="card p-4">
-<div class="text-xs text-on-surface-variant" data-i18n="weeklyAverage">Rata-rata 7 Hari</div>
-<div class="text-2xl font-extrabold" id="statAvg">—</div>
-</div>
-</div>
-<!-- ===== WEEKLY CHART ===== -->
-<div class="card p-5 mb-5">
-<div class="flex items-center justify-between mb-3">
-<div class="font-bold">Tidur 7 Hari Terakhir</div>
-<span class="text-xs text-on-surface-variant" id="weekSleepAvgLabel"></span>
-</div>
-<svg class="w-full h-36" id="sleepWeekChart" viewbox="0 0 320 160"></svg>
-<div class="flex gap-3 mt-2 text-xs flex-wrap">
-<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-secondary"></span>Cukup (≥7j)</span>
-<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block" style="background:#f59e0b"></span>Kurang (5–7j)</span>
-<span class="flex items-center gap-1"><span class="w-3 h-3 rounded-sm inline-block bg-error"></span>Sangat Kurang (&lt;5j)</span>
+<div class="mt-4 p-3 rounded-2xl bg-surface-container-low flex items-start gap-3">
+<span class="material-symbols-outlined text-primary">self_improvement</span>
+<div class="flex-1">
+<div class="text-sm" data-i18n="meditationTip">Try a 5-minute guided meditation to maintain your calm streak.</div>
+<a class="text-primary text-sm font-bold cursor-pointer" data-i18n="startMeditation" onclick="navigate('breathing')">Start Meditation →</a>
 </div>
 </div>
-<!-- ===== SMART ROUTINE ===== -->
-<div class="card p-5 mb-5 text-white" style="background:#0b1c30">
-<div class="flex items-center gap-2 mb-2">
-<span class="material-symbols-outlined">lightbulb</span>
-<div class="font-bold">Saran Rutinitas Cerdas</div>
 </div>
-<div class="text-sm opacity-90" id="smartRoutineText">Catat tidurmu hari ini untuk mendapatkan saran personal.</div>
-<button class="mt-3 px-4 py-2 rounded-full border border-white/30 text-sm font-bold" data-i18n="aturJadwal" onclick="openModal('scheduleModal')">Atur Jadwal Tidur</button>
+<div class="card p-5 lg:col-span-4">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-bold text-lg" data-i18n="navHydration">Hydration</h3>
+<a class="text-xs text-primary font-bold hover:underline" data-i18n="lihatDetail" href="../hydration/hydration.html">Lihat Detail →</a>
 </div>
-
-<!-- ===== HISTORY ===== -->
-<div class="card p-5 mb-5">
-<div class="flex items-center justify-between mb-3">
-<div class="font-bold" data-i18n="riwayatTidur">Riwayat Tidur</div>
-<button class="text-xs text-error font-bold" onclick="clearSleepHistory()">Hapus Semua</button>
+<div class="text-3xl font-extrabold mb-3"><span id="hydDashCount">3</span> / 8 Glasses</div>
+<div class="flex gap-1 mb-3" id="hydSegments">
+<div class="h-2 flex-1 rounded-full bg-primary transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-primary transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-primary transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
+<div class="h-2 flex-1 rounded-full bg-surface-container transition-all"></div>
 </div>
-<div class="space-y-2 text-sm" id="sleepHistoryList">
-<div class="text-on-surface-variant text-xs">Belum ada riwayat.</div>
+<div class="flex items-center gap-2">
+<span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1" id="hydStatusPill">
+<span class="material-symbols-outlined" style="font-size:14px">water_drop</span>
+<span id="hydStatusText">On Track</span>
+</span>
 </div>
+<div class="mt-2 text-xs text-on-surface-variant" id="hydDashMsg">Kamu sudah minum cukup hari ini, pertahankan!</div>
 </div>
-<!-- ===== SMARTWATCH ===== -->
-<div class="card p-5 mb-5">
-<div class="flex items-center justify-between mb-3">
-  <div>
-    <div class="font-bold">Smartwatch Pairing</div>
-    <div class="text-xs text-on-surface-variant">Connect sleep data from your wearable.</div>
-  </div>
-  <span class="text-xs text-secondary font-semibold">Bluetooth</span>
+<div class="card p-5 lg:col-span-4">
+<div class="flex items-center justify-between mb-2">
+<h3 class="font-bold text-lg" data-i18n="gadgetTime">Gadget Time</h3>
+<span class="stat-pill-yellow pill px-2 py-1 text-xs font-bold" id="gtDashPill">—</span>
 </div>
-<div class="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-center">
-  <div>
-    <div class="text-sm font-semibold">Device status</div>
-    <div class="text-on-surface-variant mt-1" id="watchStatus">No smartwatch connected.</div>
-  </div>
-  <button class="btn-primary" id="connectWatchBtn" onclick="toggleWatchConnection()">Connect</button>
+<div class="text-3xl font-extrabold mb-2" id="gtDashTime">0h 00m</div>
+<div class="h-2 rounded-full bg-surface-container overflow-hidden mb-4">
+<div class="h-full rounded-full transition-all duration-700" id="gtDashBar" style="width:0%;background:#22c55e"></div>
 </div>
-<div class="text-xs text-on-surface-variant mt-4">Syncs dummy sleep metrics, heart rate, and rest periods for illustrative purposes.</div>
+<div class="font-bold" data-i18n="mulaiTracking" id="gtDashTitle">Mulai Tracking</div>
+<div class="text-sm text-on-surface-variant mb-3" id="gtDashMsg">Buka Gadget Time untuk mulai memantau screen time hari ini.</div>
+<button class="w-full py-2.5 rounded-full font-bold text-white" data-i18n="bukaGadgetTime" onclick="location.href='pages/gadget-time/gadget-time.html'" style="background:#003151">Buka Gadget Time →</button>
 </div>
-<div class="card p-4 mb-5 italic text-sm text-on-surface-variant" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
-  "Pelacakan tidurmu membantu konselor memberikan dukungan yang lebih baik. Data ini bersifat pribadi dan terenkripsi."
+<div class="card p-5 lg:col-span-4 hidden lg:block">
+<h3 class="font-bold text-lg mb-3" data-i18n="weeklyScore">Weekly Score</h3>
+<div class="flex items-center justify-center" id="donutWrap"></div>
 </div>
 </div>
 </section>
-<!-- ==================== FOOTER ==================== -->
 <footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
 <div class="flex flex-wrap items-start justify-between gap-4">
 <div>
-<div class="flex items-center gap-2 font-extrabold text-on-surface"><img src="../image/logo.svg" alt="SafeSchool Logo" class="w-5 h-5 object-contain inline-block mr-2" style="vertical-align: middle;"><span data-i18n="brand">SafeSchoolHub</span></div>
+<div class="flex items-center gap-2 font-extrabold text-on-surface"><img src="../../image/logo.svg" alt="SafeSchool Logo" class="w-5 h-5 object-contain inline-block mr-2" style="vertical-align: middle;"><span data-i18n="brand">SafeSchoolHub</span></div>
 <div class="mt-1 max-w-sm" data-i18n="footerTagline">Promoting digital well-being for the next generation of learners.</div>
 </div>
 <div class="flex flex-wrap gap-4">
@@ -308,23 +297,36 @@ tailwind.config = {
 </footer>
 </div>
 </main>
-<!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
-<div class="bn-item" data-route="overview" onclick="location.href='../dashboard/dashboard.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
-<div class="bn-item active" data-route="gadget-time" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-item active" data-route="overview" onclick="location.href='dashboard.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item" data-route="gadget-time" onclick="location.href='pages/gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
 <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
-<div class="bn-item" data-route="settings" onclick="location.href='../settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
+<div class="bn-item" data-route="settings" onclick="location.href='pages/settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
 </nav>
-<!-- ============== MODALS ============== -->
 <div class="modal-backdrop" id="checkinModal">
 <div class="modal-card">
 <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="checkinModalTitle">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
-<div class="flex justify-between gap-2 mb-3" id="checkinMoods">
-<button class="mood-chip" data-cmood="Stressed"><i class="fa-solid fa-face-angry"></i></button>
-<button class="mood-chip" data-cmood="Low"><i class="fa-solid fa-face-frown"></i></button>
-<button class="mood-chip" data-cmood="Neutral"><i class="fa-solid fa-face-meh"></i></button>
-<button class="mood-chip" data-cmood="Good"><i class="fa-solid fa-face-smile"></i></button>
-<button class="mood-chip" data-cmood="Great"><i class="fa-solid fa-face-laugh-beam"></i></button>
+<div class="flex justify-between px-2 mb-6 mt-4" id="checkinMoods">
+<button class="mood-chip" data-cmood="Stressed">
+<span class="mood-icon"><i class="fa-solid fa-face-angry"></i></span>
+<span class="mood-text" data-i18n="moodStressed">Stressed</span>
+</button>
+<button class="mood-chip" data-cmood="Low">
+<span class="mood-icon"><i class="fa-solid fa-face-frown"></i></span>
+<span class="mood-text" data-i18n="moodLow">Low</span>
+</button>
+<button class="mood-chip selected" data-cmood="Neutral">
+<span class="mood-icon"><i class="fa-solid fa-face-meh"></i></span>
+<span class="mood-text" data-i18n="moodNeutral">Neutral</span>
+</button>
+<button class="mood-chip" data-cmood="Good">
+<span class="mood-icon"><i class="fa-solid fa-face-smile"></i></span>
+<span class="mood-text" data-i18n="moodGood">Good</span>
+</button>
+<button class="mood-chip" data-cmood="Great">
+<span class="mood-icon"><i class="fa-solid fa-face-laugh-beam"></i></span>
+<span class="mood-text" data-i18n="moodGreat">Great</span>
+</button>
 </div>
 <textarea class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote" placeholder="Any thoughts you'd like to share?" rows="3"></textarea>
 <button class="btn-primary w-full" data-i18n="submitCheckin" onclick="submitCheckin()">Submit Check-in</button>
@@ -368,44 +370,51 @@ tailwind.config = {
 <div class="flex gap-2 justify-end"><button class="btn-ghost" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button><button class="btn-primary" data-i18n="confirmBtn" id="confirmOk">Confirm</button></div>
 </div>
 </div>
+<script src="dashboard.js"></script>
 
-<script src="sleep.js"></script>
+<!-- Profile Modal (shared across pages) -->
+<div class="modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
+  <div class="modal-card" style="max-width:440px;max-height:90vh;overflow-y:auto;">
+    <div class="flex justify-between items-center mb-5">
+      <div><h3 class="font-extrabold text-xl"><i class="fa-solid fa-user-pen"></i> Profil Saya</h3><div class="text-sm text-on-surface-variant mt-0.5">Edit nama dan informasimu</div></div>
+      <button onclick="closeProfileModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+      <div class="relative inline-block mb-2">
+        <div id="profileModalAvatar" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center font-extrabold text-3xl text-white"><i class="fa-solid fa-user"></i></div>
+        <div id="profileModalHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
+        <div id="profileModalGlassesBadge" class="absolute top-6 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+      </div>
+      <div class="font-extrabold text-on-surface mt-1" id="profileModalDisplayName">Naa</div>
+      <div class="text-sm text-on-surface-variant" id="profileModalDisplayGrade">Grade 11-A</div>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
+      <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Nama kamu"/>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">KELAS / GRADE</label>
+      <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Contoh: Grade 11-A"/>
+    </div>
+    <div class="mb-5">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPSIONAL)</label>
+      <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
+    </div>
+    <div class="flex gap-3">
+      <button class="btn-primary flex-1 justify-center" onclick="saveProfile()">Simpan Profil</button>
+      <button class="btn-ghost flex-1" onclick="closeProfileModal()">Batal</button>
+    </div>
+  </div>
+</div>
 
-<!-- Avatar Shop Modal -->
-<div class="modal-backdrop" id="avatarShopModal">
-<div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
-  <div class="flex justify-between items-center mb-4">
-    <div><h3 class="font-extrabold text-xl"><i class="fa-solid fa-palette"></i> Avatar &amp; Toko Aksesori</h3>
-    <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
-    <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
-  </div>
-  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,var(--surface-container-low),var(--surface-container-high)); border: 1px solid var(--outline-variant);">
-    <div class="relative inline-block mb-2">
-      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
-      <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
-      <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
-    </div>
-    <div class="font-bold text-on-surface mt-2">Naa</div>
-    <div class="flex items-center justify-center gap-2 mt-1">
-      <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
-      <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
-    </div>
-  </div>
-  <div class="mb-4"><div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div><div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div></div>
-  <div class="mb-2"><div class="font-bold text-sm mb-2">&#x1F6CD; Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
-</div>
-</div>
+
 <script src="../../js/profile.js"></script>
 <script>
-/* ===== PROFILE SIDEBAR INIT ===== */
-(function(){
-  const name=localStorage.getItem('profileName')||'Naa';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
-  const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
-  const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
-  const mb=document.getElementById('mobileAvatarBadge');
-  if(mb)mb.textContent=name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
-})();
+  // Menampilkan body dengan animasi halus setelah halaman dan Tailwind termuat
+  window.addEventListener('load', function() {
+    document.body.style.visibility = 'visible';
+    document.body.style.opacity = '1';
+  });
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* ===== TOAST ===== */
+﻿/* ===== TOAST ===== */
 /* ============== TOAST ============== */
 function showToast(msg, type='info') {
   const c = document.getElementById('toast');
@@ -59,7 +59,7 @@ function submitCheckin(){closeModal('checkinModal');showToast('Laporan dikirim'+
 document.getElementById('sidebar-logout').addEventListener('click',()=>{
   document.getElementById('confirmTitle').textContent='Keluar?';
   document.getElementById('confirmMsg').textContent='Apakah Anda yakin ingin keluar dari SafeSchool?';
-  document.getElementById('confirmOk').onclick=()=>{closeModal('confirmModal');location.href='../index.html';};
+  document.getElementById('confirmOk').onclick=()=>{closeModal('confirmModal');location.href='../dashboard/dashboard.html';};
   openModal('confirmModal');
 });
 

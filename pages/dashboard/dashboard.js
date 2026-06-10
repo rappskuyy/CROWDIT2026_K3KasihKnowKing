@@ -1,6 +1,6 @@
 ﻿/* ============== ROUTER ============== */
 const ROUTE_FILES={
-  "overview": "index.html", 
+  "overview": "dashboard.html", 
   "safety": "pages/safety/safety.html", 
   "gadget-time": "pages/gadget-time/gadget-time.html", 
   "hydration": "pages/hydration/hydration.html", 

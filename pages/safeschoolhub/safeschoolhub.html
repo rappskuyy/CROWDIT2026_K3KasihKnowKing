@@ -65,7 +65,7 @@ tailwind.config = {
 <script src="../../js/theme-lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
-      window.location.replace('../../safeschool-landing.html');
+      window.location.replace('../../index.html');
     }
     document.addEventListener('DOMContentLoaded', () => {
       try {
@@ -97,14 +97,14 @@ tailwind.config = {
               document.getElementById('confirmModal').classList.remove('open');
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../../safeschool-landing.html');
+              window.location.replace('../../index.html');
             };
             document.getElementById('confirmModal').classList.add('open');
           } else {
             if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('../../safeschool-landing.html');
+              window.location.replace('../../index.html');
             }
           }
         });
@@ -130,7 +130,7 @@ tailwind.config = {
   <style>
     nav::-webkit-scrollbar { display: none; }
   </style>
-  <a class="nav-link active" data-route="overview" href="../../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link active" data-route="overview" href="../dashboard/dashboard.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
   <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
   <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
   <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
@@ -703,7 +703,7 @@ tailwind.config = {
 </main>
 <!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
-<div class="bn-item active" data-route="overview" onclick="location.href='../../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item active" data-route="overview" onclick="location.href='../dashboard/dashboard.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
 <div class="bn-item" data-route="gadget-time" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
 <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
 <div class="bn-item" data-route="settings" onclick="location.href='../settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>

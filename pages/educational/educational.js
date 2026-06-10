@@ -1,4 +1,4 @@
-﻿/* ===== TOAST ===== */
+/* ===== TOAST ===== */
 /* ============== TOAST ============== */
 function showToast(msg, type='info') {
   const c = document.getElementById('toast');
@@ -238,7 +238,7 @@ const VIDEOS=[
   {id:'v3',title:'Pengaruh Makanan untuk Fungsi Otak',author:'Gizi Remaja Indonesia',duration:'14 min',durationSec:14*60,views:'63K',category:'health',ytId:'g_8wTzrKAT8',ytUrl:'https://youtu.be/g_8wTzrKAT8?si=kU5YIvgSbMVQxpt2',certEligible:true,xp:30},
   {id:'v4',title:'Cara Mengelola Screen Time dengan Bijak',author:'Into The Light Indonesia',duration:'10 min',durationSec:10*60,views:'112K',category:'digital',ytId:'t-sKFvNVqCI',ytUrl:'https://youtu.be/t-sKFvNVqCI?si=fgBAV1b9IidXvSIy',certEligible:true,xp:30},
   {id:'v5',title:'Solusi Mengatasi Stres dan Burnout',author:'Yayasan Pulih Indonesia',duration:'22 min',durationSec:22*60,views:'87K',category:'wellbeing',ytId:'_OSuM0ILOCg',ytUrl:'https://youtu.be/_OSuM0ILOCg?si=k7mKC6G-3GcA2wtt',certEligible:true,xp:30},
-  {id:'v6',title:'Cara Melindungi Diri dari Cyberbullying',author:'Kemendikbud RI',duration:'8 min',durationSec:8*60,views:'120K',category:'digital',ytId:'KsCKLIx5xQM',ytUrl:'https://www.youtube.com/watch?v=KsCKLIx5xQM',certEligible:true,xp:30},
+  {id:'v6',title:'Cara Melindungi Diri dari Cyberbullying',author:'Ruang Psikologi',duration:'6 min',durationSec:6*60,views:'524',category:'digital',ytId:'Jf_J-_848Y0',ytUrl:'https://youtu.be/Jf_J-_848Y0?si=FH4VOmu-ffSE_pru',certEligible:true,xp:30},
 ];
 const FEATURED={id:'featured',title:'Kesehatan Mental untuk Remaja',author:'Into The Light Indonesia',duration:'28 min',durationSec:28*60,views:'12.4K',ytId:'rEfNZtltY_M',ytUrl:'https://youtu.be/rEfNZtltY_M?si=LoWvsKEjbWWnrrQw',certEligible:true,xp:50};
 
@@ -698,7 +698,7 @@ document.getElementById('sidebar-logout').addEventListener('click',()=>{
   if(confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')){
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('user');
-    location.href='../safeschool-landing.html';
+    location.href='../index.html';
   }
 });
 

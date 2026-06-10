@@ -1,6 +1,6 @@
-/* ============== ROUTER ============== */
+﻿/* ============== ROUTER ============== */
 const ROUTE_FILES = {
-  "overview": "../../index.html",
+  "overview": "../dashboard/dashboard.html",
   "educational": "../educational/educational.html",
   "gadget-time": "../gadget-time/gadget-time.html",
   "hydration": "../hydration/hydration.html",
@@ -92,14 +92,14 @@ function confirmLogout() {
       closeModal('confirmModal');
       localStorage.removeItem('loggedIn');
       localStorage.removeItem('user');
-      window.location.replace('../../safeschool-landing.html');
+      window.location.replace('../../index.html');
     };
     openModal('confirmModal');
   } else {
     if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
       localStorage.removeItem('loggedIn');
       localStorage.removeItem('user');
-      window.location.replace('../../safeschool-landing.html');
+      window.location.replace('../../index.html');
     }
   }
 }

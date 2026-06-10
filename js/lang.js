@@ -1035,7 +1035,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </button>
         </div>
         <nav class="px-3 py-4 flex flex-col gap-1 overflow-y-auto flex-1">
-          <a class="nav-link ${activeRoute === 'overview' || activeRoute === 'index' ? 'active' : ''}" href="index.html" data-route="overview"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+          <a class="nav-link ${activeRoute === 'overview' || activeRoute === 'index' ? 'active' : ''}" href="../dashboard/dashboard.html" data-route="overview"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
           <a class="nav-link ${activeRoute === 'educational' ? 'active' : ''}" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
           <a class="nav-link ${activeRoute === 'gadget-time' ? 'active' : ''}" href="gadget-time.html" data-route="gadget-time"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellness">Wellness Tracking</span></a>
           <a class="nav-link ${activeRoute === 'hydration' ? 'active' : ''}" href="hydration.html" data-route="hydration"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
@@ -1075,7 +1075,7 @@ document.addEventListener('DOMContentLoaded', () => {
           // Fallback logout behavior
           localStorage.removeItem('loggedIn');
           localStorage.removeItem('user');
-          window.location.replace('safeschool-landing.html');
+          window.location.replace('index.html');
         }
       };
     }
