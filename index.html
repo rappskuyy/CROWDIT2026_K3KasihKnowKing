@@ -912,8 +912,9 @@ initPage();
 
 /* ===== PROFILE SIDEBAR INIT ===== */
 (function(){
-  const name=localStorage.getItem('profileName')||'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
   const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
   const mb=document.getElementById('mobileAvatarBadge');
@@ -954,8 +955,9 @@ initPage();
 
 <script>
 function openProfileModal(){
-  const name=localStorage.getItem('profileName')||'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const email=localStorage.getItem('profileEmail')||'';
   document.getElementById('profileNameInput').value=name;
   document.getElementById('profileGradeInput').value=grade;
@@ -971,6 +973,7 @@ function saveProfile(){
   const email=document.getElementById('profileEmailInput').value.trim();
   localStorage.setItem('profileName',name);localStorage.setItem('profileGrade',grade);
   if(email)localStorage.setItem('profileEmail',email);
+  try{let u=JSON.parse(localStorage.getItem('user')||'{}');u.name=name;u.email=email||u.email;u.role=grade;localStorage.setItem('user',JSON.stringify(u));}catch(e){}
   const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
   const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
   const mb=document.getElementById('mobileAvatarBadge');

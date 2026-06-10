@@ -675,8 +675,9 @@ initSettings();
 <script>
 /* ===== SETTINGS PROFILE SYNC ===== */
 function loadSettingsProfile(){
-  const name=localStorage.getItem('profileName')||'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const initials=name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
   const el=document.getElementById('settingsProfileName');if(el)el.textContent=name;
   const el2=document.getElementById('settingsProfileGrade');if(el2)el2.textContent=grade;
@@ -686,8 +687,9 @@ function loadSettingsProfile(){
   const mb=document.getElementById('mobileAvatarBadge');if(mb)mb.textContent=initials;
 }
 function openProfileEditModal(){
-  const name=localStorage.getItem('profileName')||'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const email=localStorage.getItem('profileEmail')||'';
   document.getElementById('settingsNameInput').value=name;
   document.getElementById('settingsGradeInput').value=grade;
@@ -702,6 +704,7 @@ function saveSettingsProfile(){
   localStorage.setItem('profileName',name);
   localStorage.setItem('profileGrade',grade);
   if(email)localStorage.setItem('profileEmail',email);
+  try{let u=JSON.parse(localStorage.getItem('user')||'{}');u.name=name;u.email=email||u.email;u.role=grade;localStorage.setItem('user',JSON.stringify(u));}catch(e){}
   loadSettingsProfile();
   closeProfileEditModal();
   showToast('✅ Profile saved!','success');

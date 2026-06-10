@@ -400,6 +400,47 @@ tailwind.config = {
       </div>
     </div>
   </div>
+  <!-- Profile Modal -->
+  <div class="modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
+    <div class="modal-card" style="max-width:440px;max-height:90vh;overflow-y:auto;">
+      <div class="flex justify-between items-center mb-5">
+        <div>
+          <h3 class="font-extrabold text-xl">👤 Profil Saya</h3>
+          <div class="text-sm text-on-surface-variant mt-0.5">Edit informasi dan avatar kamu</div>
+        </div>
+        <button onclick="closeProfileModal()"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="rounded-2xl p-5 mb-4 text-center" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
+        <div class="relative inline-block mb-2">
+          <div id="profileAvatarCircle" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:44px;">🧑</div>
+          <div id="profileHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
+        </div>
+        <div class="font-extrabold text-on-surface mt-2" id="profileDisplayName">Alex Johnson</div>
+        <div class="text-sm text-on-surface-variant" id="profileDisplayGrade">Grade 11-A</div>
+        <div class="flex items-center justify-center gap-2 mt-1">
+          <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+          <span class="font-extrabold text-primary" id="profileDisplayXP">320 XP</span>
+        </div>
+        <button class="mt-3 btn-ghost text-xs" onclick="closeProfileModal();openAvatarShop()">🎨 Ubah Avatar</button>
+      </div>
+      <div class="mb-4">
+        <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
+        <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Nama kamu" value="Alex Johnson"/>
+      </div>
+      <div class="mb-4">
+        <label class="text-xs font-bold text-on-surface-variant mb-1 block">KELAS / GRADE</label>
+        <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Contoh: Grade 11-A" value="Grade 11-A"/>
+      </div>
+      <div class="mb-5">
+        <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPSIONAL)</label>
+        <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn-primary flex-1 justify-center" onclick="saveProfile()">Simpan Profil</button>
+        <button class="btn-ghost flex-1" onclick="closeProfileModal()">Batal</button>
+      </div>
+    </div>
+  </div>
   <!-- Avatar Shop Modal -->
   <div class="modal-backdrop" id="avatarShopModal">
     <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
@@ -505,15 +546,61 @@ tailwind.config = {
   </script>
   <script src="profile.js"></script>
   <script>
+    /* ===== TOAST ===== */
+    function showToast(msg, type='info'){
+      let c = document.getElementById('toast');
+      if(!c) { c = document.createElement('div'); c.id = 'toast'; c.className = 'toast'; document.body.appendChild(c); }
+      const t = document.createElement('div'); t.className = 'toast-item ' + type;
+      t.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px">' + (type==='success'?'check_circle':type==='error'?'error':'info') + '</span>' + msg;
+      c.appendChild(t);
+      setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, 3200);
+    }
+
     /* ===== PROFILE SIDEBAR INIT ===== */
-    function openProfileModal() {
-      if (typeof openAvatarShop === 'function') {
-        openAvatarShop();
+    function openProfileModal(){
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const name = localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+      const grade = localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
+      const email = localStorage.getItem('profileEmail')||'';
+      document.getElementById('profileNameInput').value = name;
+      document.getElementById('profileGradeInput').value = grade;
+      document.getElementById('profileEmailInput').value = email;
+      document.getElementById('profileDisplayName').textContent = name;
+      document.getElementById('profileDisplayGrade').textContent = grade;
+      const xp = typeof loadXPLocal === 'function' ? loadXPLocal() : 320;
+      const xpEl = document.getElementById('profileDisplayXP'); if(xpEl) xpEl.textContent = xp + ' XP';
+      const circle = document.getElementById('profileAvatarCircle');
+      const hat = document.getElementById('profileHatBadge');
+      if(circle) circle.textContent = avatarState.base;
+      if(hat){
+        const acc = avatarState.hat ? ACCESSORIES.find(a => a.id === avatarState.hat) : null;
+        hat.textContent = acc ? acc.emoji : '';
+        hat.classList.toggle('hidden', !avatarState.hat);
       }
+      document.getElementById('profileModal').classList.add('open');
+    }
+    function closeProfileModal(){
+      document.getElementById('profileModal').classList.remove('open');
+    }
+    function saveProfile(){
+      const name = document.getElementById('profileNameInput').value.trim()||'Alex Johnson';
+      const grade = document.getElementById('profileGradeInput').value.trim()||'Grade 11-A';
+      const email = document.getElementById('profileEmailInput').value.trim();
+      localStorage.setItem('profileName', name);
+      localStorage.setItem('profileGrade', grade);
+      if(email) localStorage.setItem('profileEmail', email);
+      try{let u = JSON.parse(localStorage.getItem('user')||'{}'); u.name = name; u.email = email || u.email; u.role = grade; localStorage.setItem('user', JSON.stringify(u));}catch(e){}
+      const sName = document.getElementById('sidebarName'); if(sName) sName.textContent = name;
+      const sGrade = document.getElementById('sidebarGrade'); if(sGrade) sGrade.textContent = grade;
+      const mBadge = document.getElementById('mobileAvatarBadge');
+      if(mBadge) mBadge.textContent = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+      closeProfileModal();
+      if (typeof showToast !== 'undefined') showToast('✅ Profil berhasil disimpan!', 'success');
     }
     (function () {
-      const name = localStorage.getItem('profileName') || 'Alex Johnson';
-      const grade = localStorage.getItem('profileGrade') || 'Grade 11-A';
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const name = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+      const grade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
       const sn = document.getElementById('sidebarName'); if (sn) sn.textContent = name;
       const sg = document.getElementById('sidebarGrade'); if (sg) sg.textContent = grade;
       const mb = document.getElementById('mobileAvatarBadge');

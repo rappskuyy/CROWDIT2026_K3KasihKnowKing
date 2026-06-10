@@ -1282,8 +1282,9 @@ function retryQuiz(){startQuiz();}
 /* ===== PROFILE MODAL ===== */
 function openProfileModal(){
   // Load saved profile values
-  const name=localStorage.getItem('profileName')||'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const email=localStorage.getItem('profileEmail')||'';
   document.getElementById('profileNameInput').value=name;
   document.getElementById('profileGradeInput').value=grade;
@@ -1312,6 +1313,7 @@ function saveProfile(){
   localStorage.setItem('profileName',name);
   localStorage.setItem('profileGrade',grade);
   if(email) localStorage.setItem('profileEmail',email);
+  try{let u=JSON.parse(localStorage.getItem('user')||'{}');u.name=name;u.email=email||u.email;u.role=grade;localStorage.setItem('user',JSON.stringify(u));}catch(e){}
   // Update sidebar
   const sName=document.getElementById('sidebarName');if(sName)sName.textContent=name;
   const sGrade=document.getElementById('sidebarGrade');if(sGrade)sGrade.textContent=grade;
@@ -1407,8 +1409,9 @@ function toggleEquip(id){
 
 /* ===== INIT ===== */
 (function loadProfileInit(){
-  const name=localStorage.getItem('profileName')||'Alex Johnson';
-  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const sName=document.getElementById('sidebarName');if(sName)sName.textContent=name;
   const sGrade=document.getElementById('sidebarGrade');if(sGrade)sGrade.textContent=grade;
   const mBadge=document.getElementById('mobileAvatarBadge');

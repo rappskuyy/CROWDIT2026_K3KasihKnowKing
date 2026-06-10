@@ -150,3 +150,54 @@ html[style*="color-scheme: dark"] {
   to { opacity: 1; }
 }
 
+/* ── Buttons ── */
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border-radius: 9999px;
+  padding: .65rem 1.25rem;
+  font-weight: 600;
+  transition: all .2s;
+}
+.btn-primary:hover { background: #0d527e; }
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--outline-variant);
+  color: var(--on-surface);
+  border-radius: 9999px;
+  padding: .55rem 1.1rem;
+  font-weight: 600;
+  transition: all .2s;
+}
+.btn-ghost:hover { background: var(--surface-container); }
+
+/* ── Toast ── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  z-index: 9999;
+  pointer-events: none;
+}
+.toast-item {
+  background: #fff;
+  border-left: 4px solid var(--primary);
+  padding: .75rem 1rem;
+  border-radius: .75rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+  min-width: 240px;
+  animation: slideIn .3s ease;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.toast-item.success { border-color: var(--secondary); }
+.toast-item.error   { border-color: var(--error); }
+.toast-item.out     { animation: slideOut .3s ease forwards; }
+@keyframes slideIn  { from { transform: translateX(120%); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes slideOut { to   { transform: translateX(120%); opacity: 0; } }

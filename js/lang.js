@@ -53,7 +53,7 @@ const TRANSLATIONS = {
 
     /* ── DASHBOARD / INDEX ── */
     dashTitle:          'Student Wellness',
-    dashSubtitle:       "Hello, Alex. Let's take a look at your well-being journey this week.",
+    dashSubtitle:       "Hello, {name}. Let's take a look at your well-being journey this week.",
     checkinBtn:         'Check-in Now',
     moodTracker:        'Mood Tracker',
     thisWeek:           'This Week',
@@ -366,7 +366,7 @@ const TRANSLATIONS = {
 
     /* ── DASHBOARD / INDEX ── */
     dashTitle:          'Kesejahteraan Siswa',
-    dashSubtitle:       'Halo, Alex. Mari lihat perjalanan kesehatanmu minggu ini.',
+    dashSubtitle:       'Halo, {name}. Mari lihat perjalanan kesehatanmu minggu ini.',
     checkinBtn:         'Check-in Sekarang',
     moodTracker:        'Pelacak Suasana Hati',
     thisWeek:           'Minggu Ini',
@@ -671,24 +671,43 @@ const LangSystem = {
   _applyAll(lang) {
     const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
 
+    let firstName = 'Alex';
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const fullName = user.name || localStorage.getItem('profileName') || 'Alex';
+      firstName = fullName.split(' ')[0];
+    } catch(e) {}
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
-      const v = dict[el.dataset.i18n];
-      if (v !== undefined) el.textContent = v;
+      let v = dict[el.dataset.i18n];
+      if (v !== undefined) {
+        if (typeof v === 'string') v = v.replace(/{name}/g, firstName);
+        el.textContent = v;
+      }
     });
 
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const v = dict[el.dataset.i18nPlaceholder];
-      if (v !== undefined) el.placeholder = v;
+      let v = dict[el.dataset.i18nPlaceholder];
+      if (v !== undefined) {
+        if (typeof v === 'string') v = v.replace(/{name}/g, firstName);
+        el.placeholder = v;
+      }
     });
 
     document.querySelectorAll('[data-i18n-html]').forEach(el => {
-      const v = dict[el.dataset.i18nHtml];
-      if (v !== undefined) el.innerHTML = v;
+      let v = dict[el.dataset.i18nHtml];
+      if (v !== undefined) {
+        if (typeof v === 'string') v = v.replace(/{name}/g, firstName);
+        el.innerHTML = v;
+      }
     });
 
     document.querySelectorAll('[data-i18n-title]').forEach(el => {
-      const v = dict[el.dataset.i18nTitle];
-      if (v !== undefined) el.title = v;
+      let v = dict[el.dataset.i18nTitle];
+      if (v !== undefined) {
+        if (typeof v === 'string') v = v.replace(/{name}/g, firstName);
+        el.title = v;
+      }
     });
 
     document.documentElement.lang = lang;

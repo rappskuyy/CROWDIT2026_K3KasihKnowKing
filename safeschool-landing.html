@@ -2889,6 +2889,9 @@
 
       localStorage.setItem('loggedIn', 'true');
       localStorage.setItem('user', JSON.stringify({ name: nama, email: email, role: 'admin' }));
+      localStorage.setItem('profileName', nama);
+      localStorage.setItem('profileEmail', email);
+      localStorage.setItem('profileGrade', 'Admin');
 
       this.textContent = '✓ Registrasi Berhasil! Mengarahkan ke Dashboard...';
       this.style.background = '#16a34a';
@@ -3044,6 +3047,9 @@
 
         localStorage.setItem('loggedIn', 'true');
         localStorage.setItem('user', JSON.stringify({ name: name, email: email, role: role }));
+        localStorage.setItem('profileName', name);
+        localStorage.setItem('profileEmail', email);
+        localStorage.setItem('profileGrade', role.charAt(0).toUpperCase() + role.slice(1));
 
         document.getElementById('loginForm').style.display = 'none';
         document.getElementById('loginSuccess').classList.add('show');
