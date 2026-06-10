@@ -1,4 +1,4 @@
-/* ============== ROUTER ============== */
+﻿/* ============== ROUTER ============== */
 const ROUTE_FILES={
   "overview": "../../index.html",
   "educational": "../educational/educational.html",
@@ -565,7 +565,7 @@ function renderNotifs(){
   });
 }
 let moodHistory=[];
-function downloadData(){const blob=new Blob([JSON.stringify({profile:{name:'Alex Johnson',grade:'11-A'},cups,moodHistory,feelHistory,notifSettings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my_data.json';a.click();showToast('Data downloaded','success');}
+function downloadData(){const blob=new Blob([JSON.stringify({profile:{name:'Naa',grade:'11-A'},cups,moodHistory,feelHistory,notifSettings},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='my_data.json';a.click();showToast('Data downloaded','success');}
 function clearMoodHistory(){document.getElementById('confirmTitle').textContent='Clear mood history?';document.getElementById('confirmMsg').textContent='This cannot be undone.';document.getElementById('confirmOk').onclick=()=>{moodHistory=[];feelHistory=[];closeModal('confirmModal');showToast('Mood history cleared','success');};openModal('confirmModal');}
 
 const I18N={en:{brand:'SafeSchoolHub',dashTitle:'Student Wellness',settings:'Settings'},id:{brand:'SafeSchoolHub',dashTitle:'Kesejahteraan Siswa',settings:'Pengaturan'}};

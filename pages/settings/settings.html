@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <script>
@@ -154,7 +154,7 @@ tailwind.config = {
         <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
       </div>
       <div class="flex-1 min-w-0">
-        <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+        <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Naa</div>
         <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
         <div class="flex items-center gap-1 mt-0.5">
           <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
@@ -185,7 +185,7 @@ tailwind.config = {
 <div class="card p-5 mb-5 flex items-center gap-4">
 <div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center font-extrabold text-xl" id="settingsAvatarCircle">AJ</div>
 <div class="flex-1">
-<div class="font-bold text-lg" id="settingsProfileName">Alex Johnson</div>
+<div class="font-bold text-lg" id="settingsProfileName">Naa</div>
 <div class="text-sm text-on-surface-variant" id="settingsProfileGrade" data-i18n="userGrade">Grade 11-A</div>
 </div>
 <button class="btn-ghost text-sm" data-i18n="editProfile" onclick="openProfileEditModal()">Edit Profile</button>
@@ -283,7 +283,7 @@ tailwind.config = {
       <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
       <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
     </div>
-    <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
+    <div class="font-bold text-on-surface mt-2">Naa</div>
     <div class="flex items-center justify-center gap-2 mt-1">
       <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
       <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
@@ -324,7 +324,7 @@ tailwind.config = {
 /* ===== SETTINGS PROFILE SYNC ===== */
 function loadSettingsProfile(){
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const name=localStorage.getItem('profileName')|| user.name || 'Naa';
   const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const initials=name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
   const el=document.getElementById('settingsProfileName');if(el)el.textContent=name;

@@ -1,4 +1,4 @@
-// Centralized Profile, XP, and Avatar Synchronization System
+﻿// Centralized Profile, XP, and Avatar Synchronization System
 (function() {
   const BASE_AVATARS = ['🧑','👦','👧','🧒','👨','👩','🧔','👱','🙋','😊'];
   const ACCESSORIES = [
@@ -79,7 +79,7 @@
   function syncProfileUI() {
     // 1. Sync Name and Grade
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    const name = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+    const name = localStorage.getItem('profileName') || user.name || 'Naa';
     const rawGrade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
     const grade = rawGrade.charAt(0).toUpperCase() + rawGrade.slice(1);
     const initials = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
@@ -154,7 +154,7 @@
     
     if (!nameInp || !gradeInp) return;
     
-    const name = nameInp.value.trim() || 'Alex Johnson';
+    const name = nameInp.value.trim() || 'Naa';
     const grade = gradeInp.value.trim() || 'Grade 11-A';
     const email = emailInp ? emailInp.value.trim() : '';
     
@@ -289,7 +289,7 @@
     const modal = document.getElementById('profileModal');
     if (modal) {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const name = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+      const name = localStorage.getItem('profileName') || user.name || 'Naa';
       const grade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
       const email = localStorage.getItem('profileEmail') || '';
       

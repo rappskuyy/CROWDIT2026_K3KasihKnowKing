@@ -1,4 +1,4 @@
-/* ============== ROUTER ============== */
+﻿/* ============== ROUTER ============== */
 const ROUTE_FILES={
   "overview": "index.html", 
   "safety": "pages/safety/safety.html", 
@@ -570,7 +570,7 @@ function renderNotifs(){
 }
 function downloadData(){
   const blob=new Blob([JSON.stringify({
-    profile:{name:'Alex Johnson',grade:'11-A'},
+    profile:{name:'Naa',grade:'11-A'},
     hydration:{cups, date: getTodayKey()},
     mood:{today: MOOD_LABELS[currentMood], history: getMoodHistory()},
     notifSettings
@@ -605,7 +605,7 @@ initPage();
 /* ===== PROFILE SIDEBAR INIT ===== */
 (function(){
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const name=localStorage.getItem('profileName')|| user.name || 'Naa';
   const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
   const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;

@@ -1,4 +1,4 @@
-/* ===== TOAST ===== */
+﻿/* ===== TOAST ===== */
 /* ============== TOAST ============== */
 function showToast(msg, type='info') {
   const c = document.getElementById('toast');
@@ -73,7 +73,7 @@ function showCertificate(video){
   document.getElementById('certDate').textContent=certData.date;
   document.getElementById('certId').textContent=certData.certId;
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const currentName = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+  const currentName = localStorage.getItem('profileName') || user.name || 'Naa';
   const currentGrade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
   const nameEl = document.getElementById('certStudentName'); if (nameEl) nameEl.textContent = currentName;
   const gradeEl = document.getElementById('certStudentGrade'); if (gradeEl) gradeEl.textContent = currentGrade + ' · SafeSchoolHub';
@@ -84,7 +84,7 @@ function closeCertificate(){document.getElementById('certificateOverlay').classL
 function downloadCertificate(){
   const certId = document.getElementById('certId').textContent;
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const currentName = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+  const currentName = localStorage.getItem('profileName') || user.name || 'Naa';
   const currentGrade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
   const title = document.getElementById('certVideoTitle').textContent;
   const metaText = document.getElementById('certVideoMeta').textContent;

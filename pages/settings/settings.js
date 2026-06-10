@@ -1,4 +1,4 @@
-/* ============== ROUTER ============== */
+﻿/* ============== ROUTER ============== */
 const ROUTE_FILES = {
   "overview": "../../index.html",
   "educational": "../educational/educational.html",
@@ -140,7 +140,7 @@ let feelHistory = [];
 let cups = 0;
 
 function downloadData() {
-  const blob = new Blob([JSON.stringify({ profile: { name: 'Alex Johnson', grade: '11-A' }, cups, moodHistory, feelHistory, notifSettingsData }, null, 2)], { type: 'application/json' });
+  const blob = new Blob([JSON.stringify({ profile: { name: 'Naa', grade: '11-A' }, cups, moodHistory, feelHistory, notifSettingsData }, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = 'my_data.json';
@@ -233,7 +233,7 @@ function setLang(l) {
 /* ============== SETTINGS PROFILE SYNC ============== */
 function loadSettingsProfile() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const name = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+  const name = localStorage.getItem('profileName') || user.name || 'Naa';
   const grade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
   const initials = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
   const el = document.getElementById('settingsProfileName'); if (el) el.textContent = name;
@@ -246,7 +246,7 @@ function loadSettingsProfile() {
 
 function openProfileEditModal() {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const name = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+  const name = localStorage.getItem('profileName') || user.name || 'Naa';
   const grade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
   const email = localStorage.getItem('profileEmail') || '';
   document.getElementById('settingsNameInput').value = name;
@@ -258,7 +258,7 @@ function openProfileEditModal() {
 function closeProfileEditModal() { document.getElementById('profileEditModal').classList.remove('open'); }
 
 function saveSettingsProfile() {
-  const name = document.getElementById('settingsNameInput').value.trim() || 'Alex Johnson';
+  const name = document.getElementById('settingsNameInput').value.trim() || 'Naa';
   const grade = document.getElementById('settingsGradeInput').value.trim() || 'Grade 11-A';
   const email = document.getElementById('settingsEmailInput').value.trim();
   localStorage.setItem('profileName', name);

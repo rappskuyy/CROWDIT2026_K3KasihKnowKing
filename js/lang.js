@@ -1,4 +1,4 @@
-/**
+﻿/**
  * lang.js — SafeSchoolHub Centralized Translation, Theme, and Modal Injection System
  */
 
@@ -168,7 +168,7 @@ const TRANSLATIONS = {
     /* ── NAV ALIASES ── */
     navWellnessTracking:'Wellness Tracking',
     navHelpCenter:      'Help Center',
-    userName:           'Alex Johnson',
+    userName:           'Naa',
     userGrade:          'Grade 11-A',
     bnHome:             'Home',
     bnWellness:         'Wellness',
@@ -481,7 +481,7 @@ const TRANSLATIONS = {
     /* ── NAV ALIASES ── */
     navWellnessTracking:'Pemantauan Kesehatan',
     navHelpCenter:      'Pusat Bantuan',
-    userName:           'Alex Johnson',
+    userName:           'Naa',
     userGrade:          'Kelas 11-A',
     bnHome:             'Beranda',
     bnWellness:         'Kesehatan',
