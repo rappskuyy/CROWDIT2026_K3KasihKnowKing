@@ -642,34 +642,22 @@ const TRANSLATIONS = {
 
 const LangSystem = {
   getLang() {
-    return localStorage.getItem('appLang') || 'en';
+    return 'id';
   },
 
   setLang(lang) {
-    if (!TRANSLATIONS[lang]) return;
-    localStorage.setItem('appLang', lang);
-    this._applyAll(lang);
-
-    // Sync elements
-    const sel = document.getElementById('langSel');
-    if (sel) sel.value = lang;
-
-    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.langBtn === lang);
-    });
-
-    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
+    localStorage.setItem('appLang', 'id');
+    this._applyAll('id');
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang: 'id' } }));
   },
 
   t(key) {
-    const lang = this.getLang();
-    return (TRANSLATIONS[lang] && TRANSLATIONS[lang][key])
-      || (TRANSLATIONS['en'] && TRANSLATIONS['en'][key])
-      || key;
+    const lang = 'id';
+    return (TRANSLATIONS[lang] && TRANSLATIONS[lang][key]) || key;
   },
 
   _applyAll(lang) {
-    const dict = TRANSLATIONS[lang] || TRANSLATIONS['en'];
+    const dict = TRANSLATIONS['id'] || TRANSLATIONS['en'];
 
     let firstName = 'Alex';
     try {
@@ -710,23 +698,11 @@ const LangSystem = {
       }
     });
 
-    document.documentElement.lang = lang;
+    document.documentElement.lang = 'id';
   },
 
   init() {
-    const lang = this.getLang();
-    this._applyAll(lang);
-
-    const sel = document.getElementById('langSel');
-    if (sel) {
-      sel.value = lang;
-      sel.addEventListener('change', e => this.setLang(e.target.value));
-    }
-
-    document.querySelectorAll('[data-lang-btn]').forEach(btn => {
-      btn.classList.toggle('active', btn.dataset.langBtn === lang);
-      btn.addEventListener('click', () => this.setLang(btn.dataset.langBtn));
-    });
+    this._applyAll('id');
   }
 };
 

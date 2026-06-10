@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>SafeSchoolHub — Breathing & Mindfulness</title>
+<title>SafeSchoolHub — Pernapasan & Kesadaran Penuh</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -119,7 +119,7 @@ tailwind.config = {
   <a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
   <a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
   <a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
-  <a class="nav-link active" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link active" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Pernapasan</span></a>
   <a class="nav-link" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
   <a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
@@ -170,15 +170,15 @@ tailwind.config = {
     <div>
       <div class="flex items-center gap-2 mb-1">
         <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold" style="background:#e0f2fe;color:#0369a1;"><i class="fa-solid fa-wind"></i> Mindfulness</span>
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container"><i class="fa-solid fa-bolt"></i> Streak: <span id="streakCount">5</span> Days</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container"><i class="fa-solid fa-bolt"></i> Beruntun: <span id="streakCount">5</span> Hari</span>
       </div>
-      <h1 class="text-3xl lg:text-4xl font-extrabold text-on-surface">Breathing & Mindfulness</h1>
-      <p class="text-on-surface-variant mt-1">Take a moment to ground yourself and find your center.</p>
+      <h1 class="text-3xl lg:text-4xl font-extrabold text-on-surface">Pernapasan & Kesadaran Penuh</h1>
+      <p class="text-on-surface-variant mt-1">Luangkan waktu sejenak untuk menenangkan diri dan mencari ketenangan.</p>
     </div>
     <div class="flex items-center gap-2 bg-surface-container-lowest rounded-2xl px-4 py-2 shadow-card border border-outline-variant">
       <span class="material-symbols-outlined text-primary">self_improvement</span>
       <div>
-        <div class="text-xs text-on-surface-variant">Sessions Today</div>
+        <div class="text-xs text-on-surface-variant">Sesi Hari Ini</div>
         <div class="font-extrabold text-primary" id="sessionNum">1 / 5</div>
       </div>
     </div>
@@ -189,8 +189,8 @@ tailwind.config = {
 
     <!-- LEFT: Breathing Visualizer -->
     <div class="card p-6 flex flex-col items-center text-center">
-      <div class="text-xs font-bold tracking-widest text-primary mb-1" id="breathPhase">INHALE</div>
-      <div class="text-sm text-on-surface-variant mb-4" id="breathInstruction">Press start when you're ready.</div>
+      <div class="text-xs font-bold tracking-widest text-primary mb-1" id="breathPhase">TARIK NAPAS</div>
+      <div class="text-sm text-on-surface-variant mb-4" id="breathInstruction">Tekan mulai jika Anda sudah siap.</div>
 
       <!-- Circle — compact size -->
       <div class="flex items-center justify-center my-2" style="height:180px">
@@ -201,10 +201,10 @@ tailwind.config = {
       </div>
 
       <div class="flex gap-2 justify-center mt-2">
-        <button class="btn-primary" id="breathBtn" onclick="toggleBreath()">Start Session</button>
-        <button class="btn-ghost" onclick="openBreathCustomize()">Customize</button>
+        <button class="btn-primary" id="breathBtn" onclick="toggleBreath()">Mulai Sesi</button>
+        <button class="btn-ghost" onclick="openBreathCustomize()">Kustomisasi</button>
       </div>
-      <div class="text-xs text-on-surface-variant mt-3">Session <span id="sessionCounter">1</span> of 5</div>
+      <div class="text-xs text-on-surface-variant mt-3">Sesi <span id="sessionCounter">1</span> dari 5</div>
 
       <!-- Edukasi Pernapasan -->
       <div class="w-full mt-5 pt-5 border-t border-outline-variant text-left">
@@ -234,45 +234,45 @@ tailwind.config = {
 
       <!-- Daily Routines -->
       <div class="card p-5">
-        <div class="font-bold mb-3">Daily Routines <i class="fa-solid fa-wand-magic-sparkles"></i></div>
+        <div class="font-bold mb-3">Rutinitas Harian <i class="fa-solid fa-wand-magic-sparkles"></i></div>
         <div class="flex flex-col gap-3">
           <div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low">
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-primary">water_drop</span>
               <div>
-                <div class="font-bold text-sm">Deep Calm</div>
-                <div class="text-xs text-on-surface-variant">Slow, diaphragmatic breathing to lower heart rate.</div>
+                <div class="font-bold text-sm">Ketenangan Mendalam</div>
+                <div class="text-xs text-on-surface-variant">Pernapasan lambat menggunakan diafragma untuk menurunkan denyut jantung.</div>
               </div>
             </div>
             <div class="flex items-center gap-2 flex-shrink-0">
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">5 MIN</span>
-              <button class="btn-primary text-xs px-3 py-1.5" onclick="startRoutine(5)">Start →</button>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">5 MENIT</span>
+              <button class="btn-primary text-xs px-3 py-1.5" onclick="startRoutine(5)">Mulai →</button>
             </div>
           </div>
           <div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low">
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-primary">bolt</span>
               <div>
-                <div class="font-bold text-sm">Focus Breath</div>
-                <div class="text-xs text-on-surface-variant">Sharpen your mind for studying or exams.</div>
+                <div class="font-bold text-sm">Napas Fokus</div>
+                <div class="text-xs text-on-surface-variant">Pertajam pikiran Anda untuk belajar atau ujian.</div>
               </div>
             </div>
             <div class="flex items-center gap-2 flex-shrink-0">
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">3 MIN</span>
-              <button class="btn-primary text-xs px-3 py-1.5" onclick="startRoutine(3)">Start →</button>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">3 MENIT</span>
+              <button class="btn-primary text-xs px-3 py-1.5" onclick="startRoutine(3)">Mulai →</button>
             </div>
           </div>
           <div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low">
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-primary">crop_square</span>
               <div>
-                <div class="font-bold text-sm">Box Breathing</div>
-                <div class="text-xs text-on-surface-variant">Military-grade technique for instant composure.</div>
+                <div class="font-bold text-sm">Metode Box Breathing</div>
+                <div class="text-xs text-on-surface-variant">Teknik ala militer untuk ketenangan instan.</div>
               </div>
             </div>
             <div class="flex items-center gap-2 flex-shrink-0">
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">4 MIN</span>
-              <button class="btn-primary text-xs px-3 py-1.5" onclick="startRoutine(4)">Start →</button>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-secondary-container text-on-secondary-container">4 MENIT</span>
+              <button class="btn-primary text-xs px-3 py-1.5" onclick="startRoutine(4)">Mulai →</button>
             </div>
           </div>
         </div>
@@ -280,9 +280,9 @@ tailwind.config = {
 
       <!-- Weekly Mood Summary -->
       <div class="card p-5 text-white" style="background:#0b1c30">
-        <div class="font-bold mb-3">Weekly Mood Summary</div>
+        <div class="font-bold mb-3">Ringkasan Suasana Harian &amp; Pernapasan</div>
         <svg id="weeklyMoodChart" viewBox="0 0 310 140" class="w-full" style="height:120px"></svg>
-        <div class="text-xs opacity-80 mt-2" id="weeklyMoodDetails">Click a bar to see daily summary.</div>
+        <div class="text-xs opacity-80 mt-2" id="weeklyMoodDetails">Klik batang untuk melihat ringkasan harian.</div>
         <ul class="text-xs opacity-80 mt-3 space-y-1 list-disc list-inside">
           <li>Latihan teratur membantu menurunkan stres dan meningkatkan fokus.</li>
           <li>Lakukan napas perut 5 menit setiap hari untuk menenangkan sistem saraf.</li>
@@ -315,7 +315,7 @@ tailwind.config = {
   <div class="bn-item" onclick="location.href='index.html'"><span class="material-symbols-outlined">dashboard</span><span>Home</span></div>
   <div class="bn-item" onclick="location.href='gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span>Wellness</span></div>
   <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
-  <div class="bn-item active"><span class="material-symbols-outlined icon-fill">self_improvement</span><span>Breathing</span></div>
+  <div class="bn-item active"><span class="material-symbols-outlined icon-fill">self_improvement</span><span>Pernapasan</span></div>
   <div class="bn-item" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span><span>Settings</span></div>
 </nav>
 
@@ -335,19 +335,19 @@ tailwind.config = {
 
 <div class="modal-backdrop" id="breathCustomize">
   <div class="modal-card">
-    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Customize Breathing</h3><button onclick="closeModal('breathCustomize')"><span class="material-symbols-outlined">close</span></button></div>
+    <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">Kustomisasi Pernapasan</h3><button onclick="closeModal('breathCustomize')"><span class="material-symbols-outlined">close</span></button></div>
     <div class="grid gap-3" id="phaseControls"></div>
-    <button class="btn-primary w-full mt-3" onclick="closeModal('breathCustomize');showToast('Breathing timings updated','success')">Apply</button>
+    <button class="btn-primary w-full mt-3" onclick="closeModal('breathCustomize');showToast('Waktu pernapasan diperbarui','success')">Terapkan</button>
   </div>
 </div>
 
 <div class="modal-backdrop" id="confirmModal">
   <div class="modal-card">
-    <h3 class="font-extrabold text-lg mb-2" id="confirmTitle">Confirm</h3>
+    <h3 class="font-extrabold text-lg mb-2" id="confirmTitle">Konfirmasi</h3>
     <div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
     <div class="flex gap-2 justify-end">
-      <button class="btn-ghost" onclick="closeModal('confirmModal')">Cancel</button>
-      <button class="btn-primary" id="confirmOk">Confirm</button>
+      <button class="btn-ghost" onclick="closeModal('confirmModal')">Batal</button>
+      <button class="btn-primary" id="confirmOk">Konfirmasi</button>
     </div>
   </div>
 </div>
@@ -373,11 +373,11 @@ document.querySelectorAll('#checkinMoods button').forEach(b=>b.addEventListener(
   document.querySelectorAll('#checkinMoods button').forEach(x=>x.classList.remove('selected'));
   b.classList.add('selected');checkinMood=b.dataset.cmood;
 }));
-function submitCheckin(){closeModal('checkinModal');showToast('Check-in submitted'+(checkinMood?': '+checkinMood:''),'success');document.getElementById('checkinNote').value='';}
+function submitCheckin(){closeModal('checkinModal');showToast('Laporan dikirim'+(checkinMood?': '+checkinMood:''),'success');document.getElementById('checkinNote').value='';}
 
 document.getElementById('sidebar-logout').addEventListener('click',()=>{
-  document.getElementById('confirmTitle').textContent='Log out?';
-  document.getElementById('confirmMsg').textContent='You will be returned to the dashboard.';
+  document.getElementById('confirmTitle').textContent='Keluar?';
+  document.getElementById('confirmMsg').textContent='Apakah Anda yakin ingin keluar dari SafeSchool?';
   document.getElementById('confirmOk').onclick=()=>{closeModal('confirmModal');location.href='index.html';};
   openModal('confirmModal');
 });
@@ -386,10 +386,10 @@ document.getElementById('sidebar-logout').addEventListener('click',()=>{
 let breathTimings={Inhale:4,Hold1:2,Exhale:4,Hold2:2};
 let breathRunning=false,breathPhaseIdx=0,breathTimer=null,sessionN=1,streak=5,roundCount=0;
 const PHASES=[
-  {n:'INHALE',k:'Inhale',inst:s=>`Inhale for ${s} seconds`,size:170,bg:'radial-gradient(circle,#a5d8ff,#5a9bd5)'},
-  {n:'HOLD',k:'Hold1',inst:s=>`Hold for ${s} seconds`,size:170,bg:'radial-gradient(circle,#a5d8ff,#5a9bd5)'},
-  {n:'EXHALE',k:'Exhale',inst:s=>`Exhale for ${s} seconds`,size:110,bg:'radial-gradient(circle,#5a9bd5,#106399)'},
-  {n:'HOLD',k:'Hold2',inst:s=>`Hold for ${s} seconds`,size:110,bg:'radial-gradient(circle,#5a9bd5,#106399)'}
+  {n:'TARIK NAPAS',k:'Inhale',inst:s=>`Tarik napas selama ${s} detik`,size:170,bg:'radial-gradient(circle,#a5d8ff,#5a9bd5)'},
+  {n:'TAHAN NAPAS',k:'Hold1',inst:s=>`Tahan selama ${s} detik`,size:170,bg:'radial-gradient(circle,#a5d8ff,#5a9bd5)'},
+  {n:'HEMBUSKAN',k:'Exhale',inst:s=>`Hembuskan napas selama ${s} detik`,size:110,bg:'radial-gradient(circle,#5a9bd5,#106399)'},
+  {n:'TAHAN NAPAS',k:'Hold2',inst:s=>`Tahan selama ${s} detik`,size:110,bg:'radial-gradient(circle,#5a9bd5,#106399)'}
 ];
 function runBreathPhase(){
   if(!breathRunning)return;
@@ -401,36 +401,37 @@ function runBreathPhase(){
   c.style.width=p.size+'px';c.style.height=p.size+'px';c.style.background=p.bg;
   breathTimer=setTimeout(()=>{
     breathPhaseIdx=(breathPhaseIdx+1)%4;
-    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! <i class="fa-solid fa-award"></i>','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionCounter').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
+    if(breathPhaseIdx===0){roundCount++;showToast('Putaran selesai! <i class="fa-solid fa-award"></i>','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionCounter').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
     runBreathPhase();
   },dur*1000);
 }
 function toggleBreath(){
   breathRunning=!breathRunning;
-  document.getElementById('breathBtn').textContent=breathRunning?'Pause Session':'Resume Session';
+  document.getElementById('breathBtn').textContent=breathRunning?'Jeda Sesi':'Lanjutkan Sesi';
   if(breathRunning)runBreathPhase();else clearTimeout(breathTimer);
 }
 function openBreathCustomize(){
   const c=document.getElementById('phaseControls');c.innerHTML='';
   ['Inhale','Hold1','Exhale','Hold2'].forEach(k=>{
+    const labelIndo = k === 'Inhale' ? 'Tarik Napas' : k === 'Hold1' ? 'Tahan Napas (1)' : k === 'Exhale' ? 'Hembuskan' : 'Tahan Napas (2)';
     const row=document.createElement('div');row.className='flex items-center justify-between gap-2';
-    row.innerHTML=`<span class="font-semibold text-sm">${k.replace(/\d/,'')}</span><div class="flex items-center gap-2"><button class="btn-ghost text-sm px-3" onclick="changePhase('${k}',-1)">−</button><span id="ph-${k}" class="font-bold w-8 text-center">${breathTimings[k]}s</span><button class="btn-ghost text-sm px-3" onclick="changePhase('${k}',1)">+</button></div>`;
+    row.innerHTML=`<span class="font-semibold text-sm">${labelIndo}</span><div class="flex items-center gap-2"><button class="btn-ghost text-sm px-3" onclick="changePhase('${k}',-1)">−</button><span id="ph-${k}" class="font-bold w-8 text-center">${breathTimings[k]}detik</span><button class="btn-ghost text-sm px-3" onclick="changePhase('${k}',1)">+</button></div>`;
     c.appendChild(row);
   });
   openModal('breathCustomize');
 }
-function changePhase(k,d){breathTimings[k]=Math.max(1,Math.min(10,breathTimings[k]+d));document.getElementById('ph-'+k).textContent=breathTimings[k]+'s';}
-function startRoutine(min){if(!breathRunning){toggleBreath();}showToast('Routine started — '+min+' min','info');}
+function changePhase(k,d){breathTimings[k]=Math.max(1,Math.min(10,breathTimings[k]+d));document.getElementById('ph-'+k).textContent=breathTimings[k]+'detik';}
+function startRoutine(min){if(!breathRunning){toggleBreath();}showToast('Rutinitas dimulai — '+min+' menit','info');}
 
 /* ===== WEEKLY MOOD ===== */
 const weeklyMoodData=[
-  {day:'M',score:3,minutes:5,summary:'Light breathing after school.'},
-  {day:'T',score:4,minutes:7,summary:'Morning calm before classes.'},
-  {day:'W',score:3,minutes:6,summary:'Midday breathing to ease tension.'},
-  {day:'T',score:5,minutes:8,summary:'Focused session before exams.'},
-  {day:'F',score:4,minutes:6,summary:'Relaxed after a busy day.'},
-  {day:'S',score:6,minutes:10,summary:'Weekend stretch breath.'},
-  {day:'S',score:7,minutes:12,summary:'Evening wind-down.'}
+  {day:'S',score:3,minutes:5,summary:'Napas ringan setelah pulang sekolah.'},
+  {day:'S',score:4,minutes:7,summary:'Ketenangan pagi sebelum mulai kelas.'},
+  {day:'R',score:3,minutes:6,summary:'Pernapasan siang hari untuk meredakan ketegangan.'},
+  {day:'K',score:5,minutes:8,summary:'Sesi fokus sebelum melaksanakan ujian.'},
+  {day:'J',score:4,minutes:6,summary:'Kembali rileks setelah hari yang sibuk.'},
+  {day:'S',score:6,minutes:10,summary:'Napas peregangan di akhir pekan.'},
+  {day:'M',score:7,minutes:12,summary:'Relaksasi di malam hari.'}
 ];
 function drawWeeklyMood(){
   const maxM=Math.max(...weeklyMoodData.map(d=>d.minutes),1);
@@ -448,7 +449,7 @@ function drawWeeklyMood(){
 }
 function selectWeeklyMood(idx){
   const d=weeklyMoodData[idx];if(!d)return;
-  document.getElementById('weeklyMoodDetails').innerHTML=`<span class="font-semibold">${d.day}</span> — ${d.minutes} min · Mood ${d.score}/7 · ${d.summary}`;
+  document.getElementById('weeklyMoodDetails').innerHTML=`<span class="font-semibold">${d.day}</span> — ${d.minutes} menit · Suasana Hati ${d.score}/7 · ${d.summary}`;
   document.querySelectorAll('#weeklyMoodChart rect').forEach((r,i)=>{r.setAttribute('stroke-width',i===idx?2.5:1);r.setAttribute('stroke',i===idx?'#fff':'rgba(255,255,255,0.3)');});
 }
 

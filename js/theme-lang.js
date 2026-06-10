@@ -44,7 +44,7 @@ const GLOBAL_I18N={
 let globalCurrentTheme='light';
 
 function getGlobalLang(){
-  return localStorage.getItem('appLang')||'en';
+  return 'id';
 }
 
 function getGlobalTheme(){
@@ -126,38 +126,30 @@ function applyGlobalTheme(theme){
 }
 
 function setGlobalLang(lang){
-  localStorage.setItem('appLang',lang);
+  localStorage.setItem('appLang','id');
   
   // Update all data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const key=el.dataset.i18n;
-    const val=GLOBAL_I18N[lang][key];
+    const val=GLOBAL_I18N['id'][key];
     if(val)el.textContent=val;
   });
   
   // Update placeholders
   document.querySelectorAll('[data-placeholder]').forEach(el=>{
     const key=el.dataset.placeholder;
-    const val=GLOBAL_I18N[lang][key];
+    const val=GLOBAL_I18N['id'][key];
     if(val)el.placeholder=val;
   });
   
   // Call page-specific language update if exists
   if(typeof updatePageLanguage==='function'){
-    updatePageLanguage(lang);
+    updatePageLanguage('id');
   }
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded',()=>{
   initGlobalTheme();
-  
-  const lang=getGlobalLang();
-  setGlobalLang(lang);
-  
-  // Update language selector if it exists
-  const langSel=document.getElementById('langSel');
-  if(langSel){
-    langSel.value=lang;
-  }
+  setGlobalLang('id');
 });

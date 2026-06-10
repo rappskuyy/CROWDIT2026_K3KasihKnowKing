@@ -121,7 +121,7 @@ tailwind.config = {
   </style>
   <a class="nav-link" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
   <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
-  <a class="nav-link active" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link active" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Pemantauan Kesehatan</span></a>
   <a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
   <a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
   <a class="nav-link" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
@@ -173,13 +173,13 @@ tailwind.config = {
     <!-- ==================== PAGE: GADGET TIME ==================== -->
     <section id="page-gadget-time" class="page active">
       <div class="max-w-2xl mx-auto">
-        <span class="stat-pill-red pill px-3 py-1 text-xs font-bold inline-block mb-3">High Usage Alert</span>
-        <h1 class="text-3xl font-extrabold">Gadget Time & Posture Monitor</h1>
-        <p class="text-on-surface-variant mt-1 mb-6">Personalized insights to maintain your physical well-being.</p>
+        <span class="stat-pill-red pill px-3 py-1 text-xs font-bold inline-block mb-3">Peringatan Penggunaan Tinggi</span>
+        <h1 class="text-3xl font-extrabold">Pemantauan Waktu Layar & Postur</h1>
+        <p class="text-on-surface-variant mt-1 mb-6">Wawasan personal untuk menjaga kesehatan fisik Anda.</p>
 
         <div class="card p-5 mb-5">
-          <div class="text-sm font-semibold">Total Screen Time</div>
-          <div class="text-xs text-on-surface-variant">Active device monitoring for today</div>
+          <div class="text-sm font-semibold">Total Waktu Layar</div>
+          <div class="text-xs text-on-surface-variant">Pemantauan perangkat aktif untuk hari ini</div>
           <div class="flex items-end gap-3 mt-2">
             <div class="text-4xl font-extrabold" id="gtTotalTime" style="color:#41474f">0m</div>
             <span class="pill px-2 py-1 text-xs font-bold mb-1" id="gtChangePill" style="background:#e5eeff;color:#106399">Belum dimulai</span>
@@ -191,10 +191,10 @@ tailwind.config = {
               <div style="width:40%;background:#ef4444"></div>
             </div>
             <div class="absolute -top-5" id="gtCursorWrap" style="left:0%;transform:translateX(-50%)">
-              <div class="text-[10px] font-bold text-error">CURRENT</div>
+              <div class="text-[10px] font-bold text-error">SAAT INI</div>
               <div class="text-error text-center -mt-1">▼</div>
             </div>
-            <div class="flex justify-between text-[10px] text-on-surface-variant mt-2"><span>Safe (0-3h)</span><span>Moderate (3-5h)</span><span>High (5h+)</span></div>
+            <div class="flex justify-between text-[10px] text-on-surface-variant mt-2"><span>Aman (0-3 jam)</span><span>Sedang (3-5 jam)</span><span>Tinggi (5 jam+)</span></div>
           </div>
 
           <!-- Tambah waktu per perangkat -->
@@ -212,7 +212,7 @@ tailwind.config = {
               <button onclick="addDeviceTime(1)" class="flex items-center gap-2 p-3 rounded-xl border-2 border-outline-variant hover:border-primary hover:bg-surface-container-low transition-all text-left">
                 <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#5a9bd5"></span>
                 <div class="flex-1 min-w-0">
-                  <div class="text-xs font-bold">Mobile</div>
+                  <div class="text-xs font-bold">Ponsel</div>
                   <div class="text-[10px] text-on-surface-variant" id="dev-label-1">0m</div>
                 </div>
                 <span class="material-symbols-outlined text-primary" style="font-size:18px">add_circle</span>
@@ -228,7 +228,7 @@ tailwind.config = {
               <button onclick="addDeviceTime(3)" class="flex items-center gap-2 p-3 rounded-xl border-2 border-outline-variant hover:border-primary hover:bg-surface-container-low transition-all text-left">
                 <span class="w-3 h-3 rounded-full flex-shrink-0" style="background:#c4b5fd"></span>
                 <div class="flex-1 min-w-0">
-                  <div class="text-xs font-bold">Other</div>
+                  <div class="text-xs font-bold">Lainnya</div>
                   <div class="text-[10px] text-on-surface-variant" id="dev-label-3">0m</div>
                 </div>
                 <span class="material-symbols-outlined text-primary" style="font-size:18px">add_circle</span>
@@ -240,7 +240,7 @@ tailwind.config = {
           </div>
 
           <div class="flex items-center justify-between mb-2">
-            <div class="text-xs font-bold tracking-widest text-on-surface-variant">DEVICE BREAKDOWN</div>
+            <div class="text-xs font-bold tracking-widest text-on-surface-variant">RINCIAN PERANGKAT</div>
           </div>
           <div id="screenTimeChart" class="w-full"></div>
           <div class="mt-3 grid grid-cols-2 gap-2" id="deviceLegend"></div>
@@ -250,8 +250,8 @@ tailwind.config = {
           <div class="flex items-center gap-3 mb-3">
             <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-primary">accessibility_new</span></div>
             <div>
-              <div class="font-bold">Stretch Break</div>
-              <div class="text-xs text-on-surface-variant">Next stretch in 15 minutes</div>
+              <div class="font-bold">Waktu Peregangan</div>
+              <div class="text-xs text-on-surface-variant">Peregangan berikutnya dalam 15 menit</div>
             </div>
           </div>
           <div class="text-5xl font-extrabold text-center my-4 tabular-nums" id="stretchCountdown" style="font-family:ui-monospace,monospace">00:14:54</div>
@@ -267,7 +267,7 @@ tailwind.config = {
           <div class="flex items-start gap-3">
             <span class="material-symbols-outlined text-secondary">lightbulb</span>
             <div>
-              <div class="font-bold">Posture & Distance Guide</div>
+              <div class="font-bold">Panduan Postur & Jarak Layar</div>
               <div class="text-sm">Menjaga postur yang benar membantu mengurangi nyeri leher dan punggung saat belajar dan bermain gadget.</div>
               <ul class="text-sm text-on-surface-variant mt-3 space-y-2 list-disc list-inside">
                 <li>Jarak mata ke layar: 50–70 cm (sekitar 1 lengan).</li>
@@ -280,9 +280,9 @@ tailwind.config = {
         </div>
 
         <div class="grid grid-cols-3 gap-3">
-          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">visibility</span><div class="text-xs font-bold mt-1">Eye Strain Level</div><div class="text-xs text-on-surface-variant">Moderate Risk</div></div>
-          <div class="card p-4 text-center cursor-pointer" onclick="incStretch()"><span class="material-symbols-outlined text-primary">accessibility_new</span><div class="text-xs font-bold mt-1">Daily Stretches</div><div class="text-xs text-on-surface-variant"><span id="stretchCount">4</span> / 6 Completed</div></div>
-          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">history</span><div class="text-xs font-bold mt-1">Weekly Average</div><div class="text-xs text-on-surface-variant">5h 42m / day</div></div>
+          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">visibility</span><div class="text-xs font-bold mt-1">Tingkat Ketegangan Mata</div><div class="text-xs text-on-surface-variant">Risiko Sedang</div></div>
+          <div class="card p-4 text-center cursor-pointer" onclick="incStretch()"><span class="material-symbols-outlined text-primary">accessibility_new</span><div class="text-xs font-bold mt-1">Peregangan Harian</div><div class="text-xs text-on-surface-variant"><span id="stretchCount">4</span> / 6 Selesai</div></div>
+          <div class="card p-4 text-center"><span class="material-symbols-outlined text-primary">history</span><div class="text-xs font-bold mt-1">Rata-rata Mingguan</div><div class="text-xs text-on-surface-variant">5j 42m / hari</div></div>
         </div>
       </div>
     </section>
@@ -309,7 +309,7 @@ tailwind.config = {
 <!-- Bottom Nav (mobile) -->
 <nav class="bottom-nav">
   <div class="bn-item" data-route="overview" onclick="location.href='index.html'"><span class="material-symbols-outlined">dashboard</span>Home</div>
-  <div class="bn-item active" data-route="gadget-time" onclick="location.href='gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span>Wellness</div>
+  <div class="bn-item active" data-route="gadget-time" onclick="location.href='gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span>Kesehatan</div>
   <div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
   <div class="bn-item" data-route="settings" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span>Settings</div>
 </nav>
@@ -341,9 +341,9 @@ tailwind.config = {
 <div class="modal-backdrop" id="stretchModal">
   <div class="modal-card text-center">
     <div class="flex justify-end"><button onclick="closeModal('stretchModal');clearInterval(window._stretchSession)"><span class="material-symbols-outlined">close</span></button></div>
-    <h3 class="font-extrabold text-lg mb-2">Stretch Session</h3>
+    <h3 class="font-extrabold text-lg mb-2">Sesi Peregangan</h3>
     <div class="text-5xl font-extrabold tabular-nums my-4" id="stretchSessionTime" style="font-family:ui-monospace,monospace">05:00</div>
-    <div class="text-sm text-on-surface-variant">Follow the seated twist on screen.</div>
+    <div class="text-sm text-on-surface-variant">Ikuti gerakan seated twist di layar.</div>
   </div>
 </div>
 
@@ -435,7 +435,7 @@ document.querySelectorAll('#moodSelectors button').forEach(b=>b.addEventListener
 
 /* ============== DEVICE BREAKDOWN CHART (localStorage-aware) ============== */
 const DEVICE_COLORS=['#106399','#5a9bd5','#a5d8ff','#c4b5fd'];
-const DEVICE_LABELS=['Laptop','Mobile','Tablet','Other'];
+const DEVICE_LABELS=['Laptop','Ponsel','Tablet','Lainnya'];
 
 function gtDayKey(daysAgo=0){
   const d=new Date();d.setDate(d.getDate()-daysAgo);
@@ -712,14 +712,14 @@ function tickStretch(){
 }
 setInterval(tickStretch,1000);
 let stretchCount=4;
-function incStretch(){if(stretchCount<6){stretchCount++;document.getElementById('stretchCount').textContent=stretchCount;showToast('Stretch logged','success');}}
+function incStretch(){if(stretchCount<6){stretchCount++;document.getElementById('stretchCount').textContent=stretchCount;showToast('Peregangan dicatat','success');}}
 function startStretchSession(){
   openModal('stretchModal');
   let s=5*60;
   document.getElementById('stretchSessionTime').textContent='05:00';
   clearInterval(window._stretchSession);
   window._stretchSession=setInterval(()=>{
-    s--;if(s<=0){clearInterval(window._stretchSession);closeModal('stretchModal');showToast('Stretch session complete!','success');return;}
+    s--;if(s<=0){clearInterval(window._stretchSession);closeModal('stretchModal');showToast('Sesi peregangan selesai!','success');return;}
     const m=String(Math.floor(s/60)).padStart(2,'0'),ss=String(s%60).padStart(2,'0');
     document.getElementById('stretchSessionTime').textContent=`${m}:${ss}`;
   },1000);
