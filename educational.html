@@ -4,6 +4,7 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>SafeSchoolHub — Educational Hub</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -534,7 +535,7 @@ tailwind.config = {
           <div class="font-semibold text-sm font-mono" id="certId"></div>
         </div>
       </div>
-      <div class="flex gap-3">
+      <div class="flex gap-3" data-html2pdf-ignore>
         <button class="btn-primary flex-1" onclick="downloadCertificate()">⬇ Unduh Sertifikat</button>
         <button class="btn-ghost flex-1" onclick="closeCertificate()">Tutup</button>
       </div>
@@ -826,16 +827,18 @@ function showCertificate(video){
 }
 function closeCertificate(){document.getElementById('certificateOverlay').classList.remove('open');}
 function downloadCertificate(){
-  const title=document.getElementById('certVideoTitle').textContent;
-  const date=document.getElementById('certDate').textContent;
-  const certId=document.getElementById('certId').textContent;
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const currentName = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
-  const currentGrade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
-  const content=`SAFESCHOOLHUB — SERTIFIKAT KELULUSAN\n${'='.repeat(45)}\n\nDengan bangga diberikan kepada:\n${currentName} — ${currentGrade}\n\nTelah menyelesaikan video:\n"${title}"\n\nTanggal : ${date}\nID Sertifikat : ${certId}\n\n${'='.repeat(45)}\nSafeSchoolHub — Student Wellness Platform\nhttps://safeschoolhub.app`;
-  const blob=new Blob([content],{type:'text/plain'});
-  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
-  a.download='Sertifikat_'+certId+'.txt';a.click();
+  const element = document.getElementById('certCard');
+  const certId = document.getElementById('certId').textContent;
+  
+  const opt = {
+    margin:       10,
+    filename:     'Sertifikat_' + certId + '.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 3, useCORS: true, logging: false },
+    jsPDF:        { unit: 'mm', format: 'a5', orientation: 'landscape' }
+  };
+  
+  html2pdf().set(opt).from(element).save();
   showToast('Sertifikat berhasil diunduh!','success');
 }
 document.getElementById('certificateOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('certificateOverlay'))closeCertificate();});
