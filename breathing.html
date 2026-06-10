@@ -94,6 +94,7 @@ tailwind.config = {
       }
     });
   </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="min-h-screen">
 <div class="toast" id="toast"></div>
@@ -131,9 +132,9 @@ tailwind.config = {
     <div class="flex items-center gap-3">
       <div class="relative flex-shrink-0">
         <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
-          <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+          <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
         </div>
-        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
       </div>
       <div class="flex-1 min-w-0">
         <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
@@ -168,8 +169,8 @@ tailwind.config = {
   <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
     <div>
       <div class="flex items-center gap-2 mb-1">
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold" style="background:#e0f2fe;color:#0369a1;">🌬️ Mindfulness</span>
-        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container">⚡ Streak: <span id="streakCount">5</span> Days</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold" style="background:#e0f2fe;color:#0369a1;"><i class="fa-solid fa-wind"></i> Mindfulness</span>
+        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-secondary-container text-on-secondary-container"><i class="fa-solid fa-bolt"></i> Streak: <span id="streakCount">5</span> Days</span>
       </div>
       <h1 class="text-3xl lg:text-4xl font-extrabold text-on-surface">Breathing & Mindfulness</h1>
       <p class="text-on-surface-variant mt-1">Take a moment to ground yourself and find your center.</p>
@@ -233,7 +234,7 @@ tailwind.config = {
 
       <!-- Daily Routines -->
       <div class="card p-5">
-        <div class="font-bold mb-3">Daily Routines ✨</div>
+        <div class="font-bold mb-3">Daily Routines <i class="fa-solid fa-wand-magic-sparkles"></i></div>
         <div class="flex flex-col gap-3">
           <div class="flex items-center justify-between p-3 rounded-xl bg-surface-container-low">
             <div class="flex items-center gap-3">
@@ -323,9 +324,9 @@ tailwind.config = {
   <div class="modal-card">
     <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
     <div class="flex justify-between gap-2 mb-3" id="checkinMoods">
-      <button class="mood-chip" data-cmood="Stressed">😣</button><button class="mood-chip" data-cmood="Low">😟</button>
-      <button class="mood-chip" data-cmood="Neutral">😐</button><button class="mood-chip" data-cmood="Good">🙂</button>
-      <button class="mood-chip" data-cmood="Great">😄</button>
+      <button class="mood-chip" data-cmood="Stressed"><i class="fa-solid fa-face-angry"></i></button><button class="mood-chip" data-cmood="Low"><i class="fa-solid fa-face-frown"></i></button>
+      <button class="mood-chip" data-cmood="Neutral"><i class="fa-solid fa-face-meh"></i></button><button class="mood-chip" data-cmood="Good"><i class="fa-solid fa-face-smile"></i></button>
+      <button class="mood-chip" data-cmood="Great"><i class="fa-solid fa-face-laugh-beam"></i></button>
     </div>
     <textarea class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote" placeholder="Any thoughts you'd like to share?" rows="3"></textarea>
     <button class="btn-primary w-full" onclick="submitCheckin()">Submit Check-in</button>
@@ -400,7 +401,7 @@ function runBreathPhase(){
   c.style.width=p.size+'px';c.style.height=p.size+'px';c.style.background=p.bg;
   breathTimer=setTimeout(()=>{
     breathPhaseIdx=(breathPhaseIdx+1)%4;
-    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! 🎉','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionCounter').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
+    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! <i class="fa-solid fa-award"></i>','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionCounter').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
     runBreathPhase();
   },dur*1000);
 }
@@ -459,13 +460,13 @@ drawWeeklyMood();
 <div class="modal-backdrop" id="avatarShopModal">
 <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
   <div class="flex justify-between items-center mb-4">
-    <div><h3 class="font-extrabold text-xl">🎨 Avatar &amp; Toko Aksesori</h3>
+    <div><h3 class="font-extrabold text-xl"><i class="fa-solid fa-palette"></i> Avatar &amp; Toko Aksesori</h3>
     <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
     <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
   </div>
   <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
     <div class="relative inline-block mb-2">
-      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">&#x1F9D1;</div>
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
       <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
       <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
     </div>

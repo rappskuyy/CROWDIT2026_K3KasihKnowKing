@@ -47,6 +47,35 @@
     window.dispatchEvent(new Event('storage'));
   }
 
+  function renderAvatar(baseEl, hatEl, glassesEl, state) {
+    if (!baseEl) return;
+    
+    // Render base (always emoji in this turn)
+    baseEl.textContent = state.base || '🧑';
+    
+    // Render hat
+    if (hatEl) {
+      if (state.hat) {
+        const acc = ACCESSORIES.find(a => a.id === state.hat);
+        hatEl.textContent = acc ? acc.emoji : '';
+        hatEl.classList.remove('hidden');
+      } else {
+        hatEl.classList.add('hidden');
+      }
+    }
+    
+    // Render glasses
+    if (glassesEl) {
+      if (state.glasses) {
+        const acc = ACCESSORIES.find(a => a.id === state.glasses);
+        glassesEl.textContent = acc ? acc.emoji : '';
+        glassesEl.classList.remove('hidden');
+      } else {
+        glassesEl.classList.add('hidden');
+      }
+    }
+  }
+
   function syncProfileUI() {
     // 1. Sync Name and Grade
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -61,16 +90,34 @@
     const sp = document.getElementById('settingsProfileName'); if (sp) sp.textContent = name;
     const spg = document.getElementById('settingsProfileGrade'); if (spg) spg.textContent = grade;
     const sac = document.getElementById('settingsAvatarCircle'); if (sac) sac.textContent = initials;
+    
+    // Sync inside profile modals
+    const dispName = document.getElementById('profileModalDisplayName') || document.getElementById('profileDisplayName');
+    if (dispName) dispName.textContent = name;
+    
+    const dispGrade = document.getElementById('profileModalDisplayGrade') || document.getElementById('profileDisplayGrade');
+    if (dispGrade) dispGrade.textContent = grade;
+
+    const dp = document.getElementById('dashProfileNameAndGrade');
+    if (dp) dp.textContent = `${name} · ${grade}`;
 
     // 2. Sync XP
     const xp = readXP();
     const sx = document.getElementById('sidebarXP'); if (sx) sx.textContent = xp + ' XP';
     const ax = document.getElementById('avatarShopXP'); if (ax) ax.textContent = xp + ' XP';
     const dx = document.getElementById('xpDisplay'); if (dx) dx.textContent = xp + ' XP';
+    
+    const dispXp = document.getElementById('profileModalXP') || document.getElementById('profileDisplayXP');
+    if (dispXp) dispXp.textContent = xp + ' XP';
 
     // 3. Sync Avatar & Accessories
     const avatarState = loadAvatarState() || { base: '🧑', hat: null, glasses: null, badge: null };
-    const emojiEl = document.getElementById('sidebarAvatarEmoji'); if (emojiEl) emojiEl.textContent = avatarState.base;
+    
+    // Sync sidebar avatar
+    const sidebarBase = document.getElementById('sidebarAvatarEmoji');
+    const sidebarHat = document.getElementById('sidebarHatBadge');
+    const sidebarGlasses = document.getElementById('sidebarGlassesBadge');
+    renderAvatar(sidebarBase, sidebarHat, sidebarGlasses, avatarState);
     
     // Ensure the sidebar avatar circle matches the light blue background design
     const wrap = document.getElementById('sidebarAvatarWrap');
@@ -80,46 +127,61 @@
       wrap.style.borderColor = 'var(--primary)';
     }
 
-    const hatEl = document.getElementById('sidebarHatBadge');
-    if (hatEl) {
-      if (avatarState.hat) {
-        const acc = ACCESSORIES.find(a => a.id === avatarState.hat);
-        hatEl.textContent = acc ? acc.emoji : '';
-        hatEl.classList.remove('hidden');
-      } else {
-        hatEl.classList.add('hidden');
-      }
-    }
-    
-    const glassesEl = document.getElementById('sidebarGlassesBadge');
-    if (glassesEl) {
-      if (avatarState.glasses) {
-        const acc = ACCESSORIES.find(a => a.id === avatarState.glasses);
-        glassesEl.textContent = acc ? acc.emoji : '';
-        glassesEl.classList.remove('hidden');
-      } else {
-        glassesEl.classList.add('hidden');
-      }
+    // Sync profile modal avatar
+    const modalBase = document.getElementById('profileModalAvatar') || document.getElementById('profileAvatarCircle');
+    const modalHat = document.getElementById('profileModalHatBadge') || document.getElementById('profileHatBadge');
+    const modalGlasses = document.getElementById('profileModalGlassesBadge') || document.getElementById('profileGlassesBadge');
+    renderAvatar(modalBase, modalHat, modalGlasses, avatarState);
+
+    // Sync safeschoolhub dashboard avatar banner
+    const dashBase = document.getElementById('dashAvatarCircle');
+    if (dashBase) {
+      dashBase.textContent = avatarState.base || '🧑';
     }
 
     // Update Avatar Shop Preview if open/visible
     const circle = document.getElementById('avatarPreviewCircle');
-    if (circle) {
-      circle.textContent = avatarState.base;
-      const hatPrev = document.getElementById('avatarHatPreview');
-      if (hatPrev) {
-        const acc = avatarState.hat ? ACCESSORIES.find(a => a.id === avatarState.hat) : null;
-        hatPrev.textContent = acc ? acc.emoji : '';
-        hatPrev.classList.toggle('hidden', !avatarState.hat);
-      }
-      const glassesPrev = document.getElementById('avatarGlassesPreview');
-      if (glassesPrev) {
-        const acc = avatarState.glasses ? ACCESSORIES.find(a => a.id === avatarState.glasses) : null;
-        glassesPrev.textContent = acc ? acc.emoji : '';
-        glassesPrev.classList.toggle('hidden', !avatarState.glasses);
-      }
-    }
+    const hatPrev = document.getElementById('avatarHatPreview');
+    const glassesPrev = document.getElementById('avatarGlassesPreview');
+    renderAvatar(circle, hatPrev, glassesPrev, avatarState);
   }
+
+  // Centralized Save Profile
+  window.saveProfile = function() {
+    const nameInp = document.getElementById('profileNameInput');
+    const gradeInp = document.getElementById('profileGradeInput');
+    const emailInp = document.getElementById('profileEmailInput');
+    
+    if (!nameInp || !gradeInp) return;
+    
+    const name = nameInp.value.trim() || 'Alex Johnson';
+    const grade = gradeInp.value.trim() || 'Grade 11-A';
+    const email = emailInp ? emailInp.value.trim() : '';
+    
+    localStorage.setItem('profileName', name);
+    localStorage.setItem('profileGrade', grade);
+    if (email) localStorage.setItem('profileEmail', email);
+    
+    try {
+      let u = JSON.parse(localStorage.getItem('user') || '{}');
+      u.name = name;
+      u.email = email || u.email;
+      u.role = grade;
+      localStorage.setItem('user', JSON.stringify(u));
+    } catch(e) {}
+    
+    syncProfileUI();
+    
+    // Handle close for different potential modal structures
+    const modal = document.getElementById('profileModal') || document.getElementById('profileEditModal');
+    if (modal) modal.classList.remove('open');
+    if (window.closeProfileModal) window.closeProfileModal();
+    if (window.closeProfileEditModal) window.closeProfileEditModal();
+    
+    if (window.showToast) {
+      window.showToast('<i class="fa-solid fa-circle-check"></i> Profil berhasil disimpan!', 'success');
+    }
+  };
 
   // Shop management functions
   function openAvatarShop() {
@@ -141,12 +203,14 @@
         const owned = ownedAccessories.includes(acc.id);
         const equipped = avatarState[acc.slot] === acc.id;
         const canAfford = xp >= acc.cost;
+        const checkIcon = `<i class="fa-solid fa-circle-check"></i>`;
+        const coinIcon = `<i class="fa-solid fa-coins"></i>`;
         return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped ? 'border-primary bg-surface-container-low' : 'border-outline-variant bg-surface-container-lowest'}">
           <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div>
           <div class="flex-1 min-w-0">
             <div class="font-bold text-sm">${acc.name}</div>
             <div class="text-xs text-on-surface-variant">${acc.desc}</div>
-            ${owned ? `<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>` : `<div class="text-xs font-bold mt-0.5" style="color:${canAfford ? '#f59e0b' : '#ba1a1a'}">💰 ${acc.cost} XP</div>`}
+            ${owned ? `<div class="text-xs text-primary font-semibold mt-0.5">${checkIcon} Sudah dimiliki</div>` : `<div class="text-xs font-bold mt-0.5" style="color:${canAfford ? '#f59e0b' : '#ba1a1a'}">${coinIcon} ${acc.cost} XP</div>`}
           </div>
           <div>
             ${owned ? `<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${equipped ? 'bg-primary text-white' : 'border border-primary text-primary'}">${equipped ? 'Dipakai' : 'Pakai'}</button>` : `<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${canAfford ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>Beli</button>`}
@@ -189,7 +253,7 @@
     avatarState[acc.slot] = id;
     saveAvatarState(avatarState);
     
-    if (window.showToast) window.showToast('🎉 ' + acc.name + ' berhasil dibeli & dipakai!', 'success');
+    if (window.showToast) window.showToast('<i class="fa-solid fa-award"></i> ' + acc.name + ' berhasil dibeli & dipakai!', 'success');
     openAvatarShop();
   }
 
@@ -232,9 +296,13 @@
       const inpName = document.getElementById('profileNameInput'); if (inpName) inpName.value = name;
       const inpGrade = document.getElementById('profileGradeInput'); if (inpGrade) inpGrade.value = grade;
       const inpEmail = document.getElementById('profileEmailInput'); if (inpEmail) inpEmail.value = email;
-      const dispName = document.getElementById('profileModalDisplayName'); if (dispName) dispName.textContent = name;
-      const dispGrade = document.getElementById('profileModalDisplayGrade'); if (dispGrade) dispGrade.textContent = grade;
       
+      const dispName = document.getElementById('profileModalDisplayName') || document.getElementById('profileDisplayName');
+      if (dispName) dispName.textContent = name;
+      const dispGrade = document.getElementById('profileModalDisplayGrade') || document.getElementById('profileDisplayGrade');
+      if (dispGrade) dispGrade.textContent = grade;
+      
+      syncProfileUI();
       modal.classList.add('open');
     } else {
       openAvatarShop();

@@ -158,6 +158,7 @@ tailwind.config = {
       }
     });
   </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="min-h-screen">
 <!-- Toast container -->
@@ -196,9 +197,9 @@ tailwind.config = {
     <div class="flex items-center gap-3">
       <div class="relative flex-shrink-0">
         <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
-          <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+          <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
         </div>
-        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
       </div>
       <div class="flex-1 min-w-0">
         <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
@@ -219,7 +220,7 @@ tailwind.config = {
 <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
   <div class="flex justify-between items-center mb-4">
     <div>
-      <h3 class="font-extrabold text-xl">🎨 Avatar & Toko Aksesori</h3>
+      <h3 class="font-extrabold text-xl"><i class="fa-solid fa-palette"></i> Avatar & Toko Aksesori</h3>
       <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div>
     </div>
     <button onclick="closeModal('avatarShopModal')"><span class="material-symbols-outlined">close</span></button>
@@ -227,7 +228,7 @@ tailwind.config = {
   <!-- Current Avatar Preview -->
   <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
     <div class="relative inline-block mb-2">
-      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">🧑</div>
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
       <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
       <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
     </div>
@@ -246,7 +247,7 @@ tailwind.config = {
   </div>
   <!-- Accessories Shop -->
   <div class="mb-2">
-    <div class="font-bold text-sm mb-2">🛍️ Toko Aksesori</div>
+    <div class="font-bold text-sm mb-2"><i class="fa-solid fa-bag-shopping"></i> Toko Aksesori</div>
     <div class="grid grid-cols-1 gap-3" id="accessoryShopGrid">
       <!-- filled by JS -->
     </div>
@@ -279,9 +280,9 @@ tailwind.config = {
 <!-- XP & Avatar Banner -->
 <div class="card p-4 mb-5 flex flex-wrap items-center gap-4" style="background:linear-gradient(135deg,#003151,#106399);color:#fff;border-radius:20px;">
   <div class="flex items-center gap-3 flex-1 min-w-0">
-    <div id="dashAvatarCircle" style="width:52px;height:52px;border-radius:50%;background: var(--surface-container-high);border:2px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;cursor:pointer;" onclick="openProfileModal()">🧑</div>
+    <div id="dashAvatarCircle" style="width:52px;height:52px;border-radius:50%;background: var(--surface-container-high);border:2px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;cursor:pointer;" onclick="openProfileModal()"><i class="fa-solid fa-user"></i></div>
     <div>
-      <div class="font-bold">Alex Johnson · Grade 11-A</div>
+      <div class="font-bold" id="dashProfileNameAndGrade">Alex Johnson · Grade 11-A</div>
       <div style="display:flex;align-items:center;gap:.5rem;margin-top:.25rem;">
         <span class="material-symbols-outlined" style="font-size:16px;color:#fbbf24;">stars</span>
         <span style="font-weight:800;font-size:1.05rem;" id="dashXPDisplay">320 XP</span>
@@ -304,11 +305,11 @@ tailwind.config = {
 <span class="text-xs text-on-surface-variant" data-i18n="thisWeek">This Week</span>
 </div>
 <div class="flex justify-between gap-2 mb-4" id="moodSelectors">
-<button class="mood-chip" data-mood="0">😣 Stressed</button>
-<button class="mood-chip" data-mood="1">😟 Low</button>
-<button class="mood-chip selected" data-mood="2">😐 Neutral</button>
-<button class="mood-chip" data-mood="3">🙂 Good</button>
-<button class="mood-chip" data-mood="4">😄 Great</button>
+<button class="mood-chip" data-mood="0"><i class="fa-solid fa-face-angry"></i> Stressed</button>
+<button class="mood-chip" data-mood="1"><i class="fa-solid fa-face-frown"></i> Low</button>
+<button class="mood-chip selected" data-mood="2"><i class="fa-solid fa-face-meh"></i> Neutral</button>
+<button class="mood-chip" data-mood="3"><i class="fa-solid fa-face-smile"></i> Good</button>
+<button class="mood-chip" data-mood="4"><i class="fa-solid fa-face-laugh-beam"></i> Great</button>
 </div>
 <div class="relative" id="moodChart"></div>
 </div>
@@ -584,10 +585,10 @@ tailwind.config = {
 <div class="card p-5 mb-5">
 <div class="font-bold mb-3">How do you feel this morning?</div>
 <div class="grid grid-cols-2 gap-2" id="morningMoods">
-<button class="mood-chip" data-mm="Energized">⚡ Energized</button>
-<button class="mood-chip" data-mm="Calm">😊 Calm</button>
-<button class="mood-chip" data-mm="Sleepy">😪 Sleepy</button>
-<button class="mood-chip" data-mm="Anxious">😟 Anxious</button>
+<button class="mood-chip" data-mm="Energized"><i class="fa-solid fa-bolt"></i> Energized</button>
+<button class="mood-chip" data-mm="Calm"><i class="fa-solid fa-face-smile"></i> Calm</button>
+<button class="mood-chip" data-mm="Sleepy"><i class="fa-solid fa-face-tired"></i> Sleepy</button>
+<button class="mood-chip" data-mm="Anxious"><i class="fa-solid fa-face-frown"></i> Anxious</button>
 </div>
 <div class="text-xs text-on-surface-variant mt-2" id="morningMoodMsg"></div>
 </div>
@@ -613,7 +614,7 @@ tailwind.config = {
 <section class="page" id="page-breathing">
 <div class="max-w-2xl mx-auto">
 <div class="flex items-center justify-between mb-3">
-<span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1">⚡ Streak: <span id="streakCount">5</span> Days</span>
+<span class="stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1"><i class="fa-solid fa-bolt"></i> Streak: <span id="streakCount">5</span> Days</span>
 </div>
 <h1 class="text-3xl font-extrabold" data-i18n="breathTitle">Mindfulness &amp; Breathing</h1>
 <p class="text-on-surface-variant mt-1 mb-5" data-i18n="breathSubtitle">Take a moment to ground yourself and find your center.</p>
@@ -632,7 +633,7 @@ tailwind.config = {
 <div class="text-xs text-on-surface-variant mt-3">Session <span id="sessionNum">1</span> of 5</div>
 </div>
 <div class="mb-5">
-<div class="flex items-center gap-2 font-bold mb-3" data-i18n="dailyRoutines">Daily Routines ✨</div>
+<div class="flex items-center gap-2 font-bold mb-3" data-i18n="dailyRoutines">Daily Routines <i class="fa-solid fa-wand-magic-sparkles"></i></div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
 <div class="card p-4"><span class="material-symbols-outlined text-primary">water_drop</span><div class="flex items-center justify-between mt-1"><div class="font-bold" data-i18n="deepCalm">Deep Calm</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">5 MIN</span></div><div class="text-xs text-on-surface-variant mt-1" data-i18n="deepCalmDesc">Slow, diaphragmatic breathing to lower heart rate.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" data-i18n="startTimer" onclick="startRoutine(5)">Start Timer →</a></div>
 <div class="card p-4"><span class="material-symbols-outlined text-primary">bolt</span><div class="flex items-center justify-between mt-1"><div class="font-bold" data-i18n="focusBreath">Focus Breath</div><span class="text-[10px] stat-pill-green pill px-2 py-0.5 font-bold">3 MIN</span></div><div class="text-xs text-on-surface-variant mt-1" data-i18n="focusBreathDesc">Sharpen your mind for studying or exams.</div><a class="text-primary text-xs font-bold cursor-pointer mt-2 inline-block" data-i18n="startTimer" onclick="startRoutine(3)">Start Timer →</a></div>
@@ -677,12 +678,12 @@ tailwind.config = {
 </div>
 <div class="grid lg:grid-cols-2 gap-4 mb-5">
 <div class="card p-5 border-l-4 border-error">
-<div class="flex items-center gap-2 font-bold">🔴 High Risk — Anonymous Report</div>
+<div class="flex items-center gap-2 font-bold"><i class="fa-solid fa-circle text-red-500"></i> High Risk — Anonymous Report</div>
 <div class="text-sm text-on-surface-variant mt-1">A student reported feeling unsafe near the east corridor. Submitted 10 min ago.</div>
 <button class="btn-ghost mt-3 text-sm" data-i18n="viewDetails" onclick="showToast('Alert details opened','info')">View Details</button>
 </div>
 <div class="card p-5 border-l-4" style="border-color:#f59e0b">
-<div class="flex items-center gap-2 font-bold">🟡 Medium Risk — Bullying Report</div>
+<div class="flex items-center gap-2 font-bold"><i class="fa-solid fa-circle text-yellow-500"></i> Medium Risk — Bullying Report</div>
 <div class="text-sm text-on-surface-variant mt-1">Verbal altercation reported during lunch break. Submitted 1 hour ago.</div>
 <button class="btn-ghost mt-3 text-sm" data-i18n="viewDetails" onclick="showToast('Alert details opened','info')">View Details</button>
 </div>
@@ -814,11 +815,11 @@ tailwind.config = {
 <div class="modal-card">
 <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="checkinModalTitle">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
 <div class="flex justify-between gap-2 mb-3" id="checkinMoods">
-<button class="mood-chip" data-cmood="Stressed">😣</button>
-<button class="mood-chip" data-cmood="Low">😟</button>
-<button class="mood-chip" data-cmood="Neutral">😐</button>
-<button class="mood-chip" data-cmood="Good">🙂</button>
-<button class="mood-chip" data-cmood="Great">😄</button>
+<button class="mood-chip" data-cmood="Stressed"><i class="fa-solid fa-face-angry"></i></button>
+<button class="mood-chip" data-cmood="Low"><i class="fa-solid fa-face-frown"></i></button>
+<button class="mood-chip" data-cmood="Neutral"><i class="fa-solid fa-face-meh"></i></button>
+<button class="mood-chip" data-cmood="Good"><i class="fa-solid fa-face-smile"></i></button>
+<button class="mood-chip" data-cmood="Great"><i class="fa-solid fa-face-laugh-beam"></i></button>
 </div>
 <textarea class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote" placeholder="Any thoughts you'd like to share?" rows="3"></textarea>
 <button class="btn-primary w-full" data-i18n="submitCheckin" onclick="submitCheckin()">Submit Check-in</button>
@@ -1054,7 +1055,7 @@ function runBreathPhase(){
   c.style.width=p.size+'px';c.style.height=p.size+'px';c.style.background=p.bg;
   breathTimer=setTimeout(()=>{
     breathPhaseIdx=(breathPhaseIdx+1)%4;
-    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! 🎉','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionNum').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
+    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! <i class="fa-solid fa-award"></i>','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionNum').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
     runBreathPhase();
   },dur*1000);
 }
@@ -1144,16 +1145,16 @@ function updateSidebarXP(){
   if(shopEl) shopEl.textContent=mainXP+' XP';
 }
 
-const BASE_AVATARS=['🧑','👦','👧','🧒','👨','👩','🧔','👱','🙋','😊'];
+const BASE_AVATARS=['fa-solid fa-user','fa-solid fa-user-ninja','fa-solid fa-user-astronaut','fa-solid fa-child','fa-solid fa-user-tie','fa-solid fa-user-nurse','fa-solid fa-user-secret','fa-solid fa-user-doctor','fa-solid fa-hands-raised','fa-solid fa-face-smile'];
 const ACCESSORIES=[
-  {id:'hat_grad',emoji:'🎓',name:'Topi Wisuda',slot:'hat',cost:100,desc:'Tampil seperti lulusan terbaik!'},
-  {id:'hat_top',emoji:'🎩',name:'Top Hat',slot:'hat',cost:150,desc:'Gaya klasik yang elegan.'},
-  {id:'hat_crown',emoji:'👑',name:'Mahkota',slot:'hat',cost:300,desc:'Jadilah raja/ratu sekolah!'},
-  {id:'hat_party',emoji:'🥳',name:'Topi Pesta',slot:'hat',cost:80,desc:'Rayakan setiap pencapaian!'},
-  {id:'glasses_cool',emoji:'🕶️',name:'Kacamata Keren',slot:'glasses',cost:120,desc:'Penampilan super keren.'},
-  {id:'glasses_nerd',emoji:'🤓',name:'Kacamata Pelajar',slot:'glasses',cost:60,desc:'Tampil cerdas dan serius!'},
-  {id:'badge_star',emoji:'⭐',name:'Badge Bintang',slot:'badge',cost:200,desc:'Penghargaan pencapaian top.'},
-  {id:'badge_fire',emoji:'🔥',name:'Badge On Fire',slot:'badge',cost:180,desc:'Kamu sedang on fire!'},
+  {id:'hat_grad',emoji:'<i class="fa-solid fa-graduation-cap"></i>',name:'Topi Wisuda',slot:'hat',cost:100,desc:'Tampil seperti lulusan terbaik!'},
+  {id:'hat_top',emoji:'fa-solid fa-hat-cowboy',name:'Top Hat',slot:'hat',cost:150,desc:'Gaya klasik yang elegan.'},
+  {id:'hat_crown',emoji:'<i class="fa-solid fa-crown"></i>',name:'Mahkota',slot:'hat',cost:300,desc:'Jadilah raja/ratu sekolah!'},
+  {id:'hat_party',emoji:'<i class="fa-solid fa-gifts"></i>',name:'Topi Pesta',slot:'hat',cost:80,desc:'Rayakan setiap pencapaian!'},
+  {id:'glasses_cool',emoji:'<i class="fa-solid fa-glasses"></i>',name:'Kacamata Keren',slot:'glasses',cost:120,desc:'Penampilan super keren.'},
+  {id:'glasses_nerd',emoji:'<i class="fa-solid fa-glasses"></i>',name:'Kacamata Pelajar',slot:'glasses',cost:60,desc:'Tampil cerdas dan serius!'},
+  {id:'badge_star',emoji:'<i class="fa-solid fa-star"></i>',name:'Badge Bintang',slot:'badge',cost:200,desc:'Penghargaan pencapaian top.'},
+  {id:'badge_fire',emoji:'<i class="fa-solid fa-fire"></i>',name:'Badge On Fire',slot:'badge',cost:180,desc:'Kamu sedang on fire!'},
 ];
 
 function loadAvatarState(){
@@ -1163,7 +1164,7 @@ function saveAvatarState(s){try{localStorage.setItem('avatar_state',JSON.stringi
 function loadOwnedAccessories(){try{return JSON.parse(localStorage.getItem('owned_acc')||'[]');}catch(e){return[];}}
 function saveOwnedAccessories(a){try{localStorage.setItem('owned_acc',JSON.stringify(a));}catch(e){}}
 
-let avatarState = loadAvatarState() || {base:'🧑',hat:null,glasses:null,badge:null};
+let avatarState = loadAvatarState() || {base:'fa-solid fa-user',hat:null,glasses:null,badge:null};
 let ownedAccessories = loadOwnedAccessories();
 
 function applySidebarAvatar(){
@@ -1221,7 +1222,7 @@ function openAvatarShop(){
         <div class="flex-1 min-w-0">
           <div class="font-bold text-sm">${acc.name}</div>
           <div class="text-xs text-on-surface-variant">${acc.desc}</div>
-          ${owned?`<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>`:`<div class="text-xs font-bold mt-0.5" style="color:${canAfford?'#f59e0b':'#ba1a1a'}">💰 ${acc.cost} XP</div>`}
+          ${owned?`<div class="text-xs text-primary font-semibold mt-0.5"><i class="fa-solid fa-circle-check"></i> Sudah dimiliki</div>`:`<div class="text-xs font-bold mt-0.5" style="color:${canAfford?'#f59e0b':'#ba1a1a'}"><i class="fa-solid fa-coins"></i> ${acc.cost} XP</div>`}
         </div>
         <div>
           ${owned
@@ -1262,7 +1263,7 @@ function buyAccessory(id){
   saveAvatarState(avatarState);
   updateSidebarXP();
   applySidebarAvatar();
-  showToast('🎉 '+acc.name+' berhasil dibeli & dipakai!','success');
+  showToast('<i class="fa-solid fa-award"></i> '+acc.name+' berhasil dibeli & dipakai!','success');
   openAvatarShop(); // refresh
 }
 

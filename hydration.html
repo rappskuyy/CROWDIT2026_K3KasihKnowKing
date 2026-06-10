@@ -256,6 +256,7 @@ tailwind.config = {
       }
     });
   </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="min-h-screen">
 <div class="toast" id="toast"></div>
@@ -292,9 +293,9 @@ tailwind.config = {
     <div class="flex items-center gap-3">
       <div class="relative flex-shrink-0">
         <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
-          <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+          <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
         </div>
-        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
       </div>
       <div class="flex-1 min-w-0">
         <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
@@ -670,7 +671,7 @@ function changeCup(delta, silent=false){
 
   saveState(); // simpan ke localStorage
   renderHyd(delta);
-  if(!silent) showToast(delta > 0 ? '💧 Cup added!' : 'Cup removed', delta > 0 ? 'success' : 'info');
+  if(!silent) showToast(delta > 0 ? '<i class="fa-solid fa-droplet"></i> Cup added!' : 'Cup removed', delta > 0 ? 'success' : 'info');
 }
 
 function setCupsFromInput(){
@@ -722,7 +723,7 @@ function renderHyd(delta=1){
     if(!badge.dataset.fired){
       badge.dataset.fired = '1';
       triggerConfetti();
-      showToast('🎉 Daily goal reached! Amazing!', 'success');
+      showToast('<i class="fa-solid fa-award"></i> Daily goal reached! Amazing!', 'success');
     }
   } else {
     badge.classList.add('hidden');
@@ -821,7 +822,7 @@ function updateStatus(){
     icon='check_circle'; text='Almost there!'; cls='text-secondary';
     statusMsg=`You're doing great! Just ${TARGET-cups} more cup${TARGET-cups>1?'s':''} to reach your goal. Keep it up!`;
   } else {
-    icon='emoji_events'; text='Goal reached! 🏆'; cls='text-secondary';
+    icon='emoji_events'; text='Goal reached! <i class="fa-solid fa-trophy"></i>'; cls='text-secondary';
     statusMsg='Incredible! You\'ve hit your daily hydration goal. Your focus and energy are at their peak!';
   }
 
@@ -978,13 +979,13 @@ if(logTimes.length > 0) updateTimeLogged();
 <div class="modal-backdrop" id="avatarShopModal">
 <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
   <div class="flex justify-between items-center mb-4">
-    <div><h3 class="font-extrabold text-xl">🎨 Avatar &amp; Toko Aksesori</h3>
+    <div><h3 class="font-extrabold text-xl"><i class="fa-solid fa-palette"></i> Avatar &amp; Toko Aksesori</h3>
     <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
     <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
   </div>
   <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,var(--surface-container-low),var(--surface-container-high)); border: 1px solid var(--outline-variant);">
     <div class="relative inline-block mb-2">
-      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;">&#x1F9D1;</div>
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
       <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
       <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
     </div>

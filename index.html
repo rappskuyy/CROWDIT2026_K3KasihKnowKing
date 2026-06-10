@@ -109,6 +109,7 @@ tailwind.config = {
       }
     });
   </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="min-h-screen">
 <div class="toast" id="toast"></div>
@@ -144,9 +145,9 @@ tailwind.config = {
     <div class="flex items-center gap-3">
       <div class="relative flex-shrink-0">
         <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
-          <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+          <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
         </div>
-        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
       </div>
       <div class="flex-1 min-w-0">
         <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
@@ -190,23 +191,23 @@ tailwind.config = {
 </div>
 <div class="flex justify-between px-2 mb-8 mt-4" id="moodSelectors">
 <button class="mood-chip" data-mood="0">
-<span class="mood-icon">😠</span>
+<span class="mood-icon"><i class="fa-solid fa-face-angry"></i></span>
 <span class="mood-text" data-i18n="moodStressed">Stressed</span>
 </button>
 <button class="mood-chip" data-mood="1">
-<span class="mood-icon">😔</span>
+<span class="mood-icon"><i class="fa-solid fa-face-frown"></i></span>
 <span class="mood-text" data-i18n="moodLow">Low</span>
 </button>
 <button class="mood-chip selected" data-mood="2">
-<span class="mood-icon">😐</span>
+<span class="mood-icon"><i class="fa-solid fa-face-meh"></i></span>
 <span class="mood-text" data-i18n="moodNeutral">Neutral</span>
 </button>
 <button class="mood-chip" data-mood="3">
-<span class="mood-icon">🙂</span>
+<span class="mood-icon"><i class="fa-solid fa-face-smile"></i></span>
 <span class="mood-text" data-i18n="moodGood">Good</span>
 </button>
 <button class="mood-chip" data-mood="4">
-<span class="mood-icon">🤩</span>
+<span class="mood-icon"><i class="fa-solid fa-face-laugh-beam"></i></span>
 <span class="mood-text" data-i18n="moodGreat">Great</span>
 </button>
 </div>
@@ -298,23 +299,23 @@ tailwind.config = {
 <div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="checkinModalTitle">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
 <div class="flex justify-between px-2 mb-6 mt-4" id="checkinMoods">
 <button class="mood-chip" data-cmood="Stressed">
-<span class="mood-icon">😠</span>
+<span class="mood-icon"><i class="fa-solid fa-face-angry"></i></span>
 <span class="mood-text" data-i18n="moodStressed">Stressed</span>
 </button>
 <button class="mood-chip" data-cmood="Low">
-<span class="mood-icon">😔</span>
+<span class="mood-icon"><i class="fa-solid fa-face-frown"></i></span>
 <span class="mood-text" data-i18n="moodLow">Low</span>
 </button>
 <button class="mood-chip selected" data-cmood="Neutral">
-<span class="mood-icon">😐</span>
+<span class="mood-icon"><i class="fa-solid fa-face-meh"></i></span>
 <span class="mood-text" data-i18n="moodNeutral">Neutral</span>
 </button>
 <button class="mood-chip" data-cmood="Good">
-<span class="mood-icon">🙂</span>
+<span class="mood-icon"><i class="fa-solid fa-face-smile"></i></span>
 <span class="mood-text" data-i18n="moodGood">Good</span>
 </button>
 <button class="mood-chip" data-cmood="Great">
-<span class="mood-icon">🤩</span>
+<span class="mood-icon"><i class="fa-solid fa-face-laugh-beam"></i></span>
 <span class="mood-text" data-i18n="moodGreat">Great</span>
 </button>
 </div>
@@ -418,7 +419,8 @@ document.getElementById('sidebar-logout').addEventListener('click',confirmLogout
 
 /* ============== MOOD TRACKER (dengan localStorage) ============== */
 const MOOD_LABELS = ['Stressed','Low','Neutral','Good','Great'];
-const MOOD_ICONS  = ['😠','😔','😐','🙂','🤩'];
+const MOOD_ICONS  = ['<i class="fa-solid fa-face-angry"></i>','<i class="fa-solid fa-face-frown"></i>','<i class="fa-solid fa-face-meh"></i>','<i class="fa-solid fa-face-smile"></i>','<i class="fa-solid fa-face-laugh-beam"></i>'];
+const MOOD_UNICODES = ['\uf556', '\uf119', '\uf11a', '\uf118', '\uf59a'];
 const STRESS_LEVELS = [90, 65, 30, 15, 5]; // % stress bar per mood
 const STRESS_TEXTS  = ['High Stress','Moderate','Low Stress','Calm','Excellent'];
 const STRESS_COLORS = ['bg-error','bg-error','bg-secondary','bg-secondary','bg-secondary'];
@@ -523,7 +525,7 @@ function drawMoodChart(){
     if(hasMood){
       svg+=`<circle cx="${x}" cy="${y}" r="${isToday?6:4}" fill="${isToday?'#106399':'#5a9bd5'}" stroke="white" stroke-width="2"><title>${days[i]}: ${MOOD_LABELS[v]}</title></circle>`;
       if(isToday){
-        svg+=`<text x="${x}" y="${y-12}" text-anchor="middle" font-size="13">${MOOD_ICONS[v]}</text>`;
+        svg+=`<text x="${x}" y="${y-12}" text-anchor="middle" font-family="'Font Awesome 6 Free'" font-weight="900" font-size="13" fill="#106399">${MOOD_UNICODES[v]}</text>`;
       }
     } else {
       // Titik abu-abu jika belum ada data (hari mendatang atau belum log)
@@ -647,7 +649,7 @@ function renderHyd(){
   const msg = document.getElementById('hydDashMsg');
   if(cups >= 8){
     pill.className='stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1';
-    txt.textContent=`Goal tercapai! 🎉 (${cups}/8)`;
+    txt.textContent=`Goal tercapai! <i class="fa-solid fa-award"></i> (${cups}/8)`;
     if(msg) msg.textContent='Luar biasa! Kamu sudah mencapai target hidrasi hari ini.';
   } else if(cups >= 5){
     pill.className='stat-pill-green pill px-3 py-1 text-xs font-bold flex items-center gap-1';
@@ -693,7 +695,7 @@ function renderGadgetDash(){
       else if(totalSec>0){pillEl.textContent='BAIK';pillEl.className='stat-pill-green pill px-2 py-1 text-xs font-bold';}
       else{pillEl.textContent='—';pillEl.className='bg-surface-container text-on-surface-variant pill px-2 py-1 text-xs font-bold';}
     }
-    if(titleEl)titleEl.textContent=hours>=5?'⚠️ Perlu Istirahat':hours>=3?'Lakukan Peregangan':totalSec>0?'Tracking Aktif ✓':'Mulai Tracking';
+    if(titleEl)titleEl.textContent=hours>=5?'<i class="fa-solid fa-triangle-exclamation"></i> Perlu Istirahat':hours>=3?'Lakukan Peregangan':totalSec>0?'Tracking Aktif ✓':'Mulai Tracking';
     if(msgEl){
       if(totalSec===0)msgEl.textContent='Buka Gadget Time untuk mulai memantau screen time hari ini.';
       else if(hours>=5)msgEl.textContent=`${fmtHMGt(totalSec)} screen time hari ini. Istirahat sekarang!`;
@@ -813,7 +815,7 @@ function runBreathPhase(){
   c.style.width=p.size+'px';c.style.height=p.size+'px';c.style.background=p.bg;
   breathTimer=setTimeout(()=>{
     breathPhaseIdx=(breathPhaseIdx+1)%4;
-    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! 🎉','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionNum').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
+    if(breathPhaseIdx===0){roundCount++;showToast('Round complete! <i class="fa-solid fa-award"></i>','success');if(roundCount>=1){sessionN=Math.min(5,sessionN+1);document.getElementById('sessionNum').textContent=sessionN;streak++;document.getElementById('streakCount').textContent=streak;}}
     runBreathPhase();
   },dur*1000);
 }
@@ -932,11 +934,15 @@ initPage();
 <div class="modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
   <div class="modal-card" style="max-width:440px;max-height:90vh;overflow-y:auto;">
     <div class="flex justify-between items-center mb-5">
-      <div><h3 class="font-extrabold text-xl">👤 Profil Saya</h3><div class="text-sm text-on-surface-variant mt-0.5">Edit nama dan informasimu</div></div>
+      <div><h3 class="font-extrabold text-xl"><i class="fa-solid fa-user-pen"></i> Profil Saya</h3><div class="text-sm text-on-surface-variant mt-0.5">Edit nama dan informasimu</div></div>
       <button onclick="closeProfileModal()"><span class="material-symbols-outlined">close</span></button>
     </div>
     <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
-      <div class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center font-extrabold text-3xl text-white mb-2" id="profileModalAvatar">🧑</div>
+      <div class="relative inline-block mb-2">
+        <div id="profileModalAvatar" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center font-extrabold text-3xl text-white"><i class="fa-solid fa-user"></i></div>
+        <div id="profileModalHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
+        <div id="profileModalGlassesBadge" class="absolute top-6 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+      </div>
       <div class="font-extrabold text-on-surface mt-1" id="profileModalDisplayName">Alex Johnson</div>
       <div class="text-sm text-on-surface-variant" id="profileModalDisplayGrade">Grade 11-A</div>
     </div>
@@ -959,37 +965,7 @@ initPage();
   </div>
 </div>
 
-<script>
-function openProfileModal(){
-  const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const name=localStorage.getItem('profileName')|| user.name || 'Fedliansyah';
-  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
-  const email=localStorage.getItem('profileEmail')||'';
-  document.getElementById('profileNameInput').value=name;
-  document.getElementById('profileGradeInput').value=grade;
-  document.getElementById('profileEmailInput').value=email;
-  document.getElementById('profileModalDisplayName').textContent=name;
-  document.getElementById('profileModalDisplayGrade').textContent=grade;
-  document.getElementById('profileModal').classList.add('open');
-}
-function closeProfileModal(){document.getElementById('profileModal').classList.remove('open');}
-function saveProfile(){
-  const name=document.getElementById('profileNameInput').value.trim()||'Alex Johnson';
-  const grade=document.getElementById('profileGradeInput').value.trim()||'Grade 11-A';
-  const email=document.getElementById('profileEmailInput').value.trim();
-  localStorage.setItem('profileName',name);localStorage.setItem('profileGrade',grade);
-  if(email)localStorage.setItem('profileEmail',email);
-  try{let u=JSON.parse(localStorage.getItem('user')||'{}');u.name=name;u.email=email||u.email;u.role=grade;localStorage.setItem('user',JSON.stringify(u));}catch(e){}
-  const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
-  const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
-  const mb=document.getElementById('mobileAvatarBadge');
-  if(mb)mb.textContent=name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
-  document.getElementById('profileModalDisplayName').textContent=name;
-  document.getElementById('profileModalDisplayGrade').textContent=grade;
-  closeProfileModal();
-  showToast('✅ Profil berhasil disimpan!','success');
-}
-</script>
+
 <script src="profile.js"></script>
 <script>
   // Menampilkan body dengan animasi halus setelah halaman dan Tailwind termuat

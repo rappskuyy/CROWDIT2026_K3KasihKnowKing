@@ -95,6 +95,7 @@ tailwind.config = {
       }
     });
   </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body class="min-h-screen bg-background text-on-surface">
@@ -131,9 +132,9 @@ tailwind.config = {
         <div class="flex items-center gap-3">
           <div class="relative flex-shrink-0">
             <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
-              <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+              <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
             </div>
-            <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
+            <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
           </div>
           <div class="flex-1 min-w-0">
             <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
@@ -397,15 +398,18 @@ tailwind.config = {
     <div class="modal-card" style="max-width:440px;max-height:90vh;overflow-y:auto;">
       <div class="flex justify-between items-center mb-5">
         <div>
-          <h3 class="font-extrabold text-xl">👤 Profil Saya</h3>
+          <h3 class="font-extrabold text-xl"><i class="fa-solid fa-user-pen"></i> Profil Saya</h3>
           <div class="text-sm text-on-surface-variant mt-0.5">Edit informasi dan avatar kamu</div>
         </div>
         <button onclick="closeProfileModal()"><span class="material-symbols-outlined">close</span></button>
       </div>
       <div class="rounded-2xl p-5 mb-4 text-center" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
         <div class="relative inline-block mb-2">
-          <div id="profileAvatarCircle" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:44px;">🧑</div>
-          <div id="profileHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
+          <div class="relative inline-block mb-2">
+            <div id="profileAvatarCircle" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:44px;"><i class="fa-solid fa-user"></i></div>
+            <div id="profileHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
+            <div id="profileGlassesBadge" class="absolute top-6 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+          </div>
         </div>
         <div class="font-extrabold text-on-surface mt-2" id="profileDisplayName">Alex Johnson</div>
         <div class="text-sm text-on-surface-variant" id="profileDisplayGrade">Grade 11-A</div>
@@ -413,7 +417,7 @@ tailwind.config = {
           <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
           <span class="font-extrabold text-primary" id="profileDisplayXP">320 XP</span>
         </div>
-        <button class="mt-3 btn-ghost text-xs" onclick="closeProfileModal();openAvatarShop()">🎨 Ubah Avatar</button>
+        <button class="mt-3 btn-ghost text-xs" onclick="closeProfileModal();openAvatarShop()"><i class="fa-solid fa-palette"></i> Ubah Avatar</button>
       </div>
       <div class="mb-4">
         <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
@@ -438,7 +442,7 @@ tailwind.config = {
     <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
       <div class="flex justify-between items-center mb-4">
         <div>
-          <h3 class="font-extrabold text-xl">🎨 Avatar &amp; Toko Aksesori</h3>
+          <h3 class="font-extrabold text-xl"><i class="fa-solid fa-palette"></i> Avatar &amp; Toko Aksesori</h3>
           <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div>
         </div>
         <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span
@@ -448,7 +452,7 @@ tailwind.config = {
         <div class="relative inline-block mb-2">
           <div id="avatarPreviewCircle"
             class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center"
-            style="border:3px solid var(--primary);font-size:52px;">🧑</div>
+            style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
           <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
           <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
         </div>
@@ -463,7 +467,7 @@ tailwind.config = {
         <div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div>
       </div>
       <div class="mb-2">
-        <div class="font-bold text-sm mb-2">🛍️ Toko Aksesori</div>
+        <div class="font-bold text-sm mb-2"><i class="fa-solid fa-bag-shopping"></i> Toko Aksesori</div>
         <div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div>
       </div>
     </div>
@@ -471,16 +475,16 @@ tailwind.config = {
   <script src="js/counseling.js"></script>
   <script>
     /* ===== AVATAR SYSTEM ===== */
-    const BASE_AVATARS = ['🧑', '👦', '👧', '🧒', '👨', '👩', '🧔', '👱', '🙋', '😊'];
+    const BASE_AVATARS = ['fa-solid fa-user','fa-solid fa-user-ninja','fa-solid fa-user-astronaut','fa-solid fa-child','fa-solid fa-user-tie','fa-solid fa-user-nurse','fa-solid fa-user-secret','fa-solid fa-user-doctor','fa-solid fa-hands-raised','fa-solid fa-face-smile'];
     const ACCESSORIES = [
-      { id: 'hat_grad', emoji: '🎓', name: 'Topi Wisuda', slot: 'hat', cost: 100, desc: 'Tampil seperti lulusan terbaik!' },
-      { id: 'hat_top', emoji: '🎩', name: 'Top Hat', slot: 'hat', cost: 150, desc: 'Gaya klasik yang elegan.' },
-      { id: 'hat_crown', emoji: '👑', name: 'Mahkota', slot: 'hat', cost: 300, desc: 'Jadilah raja/ratu sekolah!' },
-      { id: 'hat_party', emoji: '🥳', name: 'Topi Pesta', slot: 'hat', cost: 80, desc: 'Rayakan setiap pencapaian!' },
-      { id: 'glasses_cool', emoji: '🕶️', name: 'Kacamata Keren', slot: 'glasses', cost: 120, desc: 'Penampilan super keren.' },
-      { id: 'glasses_nerd', emoji: '🤓', name: 'Kacamata Pelajar', slot: 'glasses', cost: 60, desc: 'Tampil cerdas dan serius!' },
-      { id: 'badge_star', emoji: '⭐', name: 'Badge Bintang', slot: 'badge', cost: 200, desc: 'Penghargaan pencapaian top.' },
-      { id: 'badge_fire', emoji: '🔥', name: 'Badge On Fire', slot: 'badge', cost: 180, desc: 'Kamu sedang on fire!' },
+      { id: 'hat_grad', emoji: '<i class="fa-solid fa-graduation-cap"></i>', name: 'Topi Wisuda', slot: 'hat', cost: 100, desc: 'Tampil seperti lulusan terbaik!' },
+      { id: 'hat_top', emoji: 'fa-solid fa-hat-cowboy', name: 'Top Hat', slot: 'hat', cost: 150, desc: 'Gaya klasik yang elegan.' },
+      { id: 'hat_crown', emoji: '<i class="fa-solid fa-crown"></i>', name: 'Mahkota', slot: 'hat', cost: 300, desc: 'Jadilah raja/ratu sekolah!' },
+      { id: 'hat_party', emoji: '<i class="fa-solid fa-gifts"></i>', name: 'Topi Pesta', slot: 'hat', cost: 80, desc: 'Rayakan setiap pencapaian!' },
+      { id: 'glasses_cool', emoji: '<i class="fa-solid fa-glasses"></i>', name: 'Kacamata Keren', slot: 'glasses', cost: 120, desc: 'Penampilan super keren.' },
+      { id: 'glasses_nerd', emoji: '<i class="fa-solid fa-glasses"></i>', name: 'Kacamata Pelajar', slot: 'glasses', cost: 60, desc: 'Tampil cerdas dan serius!' },
+      { id: 'badge_star', emoji: '<i class="fa-solid fa-star"></i>', name: 'Badge Bintang', slot: 'badge', cost: 200, desc: 'Penghargaan pencapaian top.' },
+      { id: 'badge_fire', emoji: '<i class="fa-solid fa-fire"></i>', name: 'Badge On Fire', slot: 'badge', cost: 180, desc: 'Kamu sedang on fire!' },
     ];
     function loadXPLocal() { try { return parseInt(localStorage.getItem('edu_xp') || '320', 10); } catch (e) { return 320; } }
     function saveXPLocal(v) { try { localStorage.setItem('edu_xp', String(v)); } catch (e) { } }
@@ -488,7 +492,7 @@ tailwind.config = {
     function saveAvatarState(s) { try { localStorage.setItem('avatar_state', JSON.stringify(s)); } catch (e) { } }
     function loadOwnedAccessories() { try { return JSON.parse(localStorage.getItem('owned_acc') || '[]'); } catch (e) { return []; } }
     function saveOwnedAccessories(a) { try { localStorage.setItem('owned_acc', JSON.stringify(a)); } catch (e) { } }
-    let avatarState = loadAvatarState() || { base: '🧑', hat: null, glasses: null, badge: null };
+    let avatarState = loadAvatarState() || { base: 'fa-solid fa-user', hat: null, glasses: null, badge: null };
     let ownedAccessories = loadOwnedAccessories();
     function applySidebarAvatar() {
       const e = document.getElementById('sidebarAvatarEmoji'), h = document.getElementById('sidebarHatBadge');
@@ -510,7 +514,7 @@ tailwind.config = {
       const sg = document.getElementById('accessoryShopGrid');
       if (sg) sg.innerHTML = ACCESSORIES.map(acc => {
         const owned = ownedAccessories.includes(acc.id), equipped = avatarState[acc.slot] === acc.id, canAfford = xp >= acc.cost;
-        return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped ? 'border-primary bg-surface-container-low' : 'border-outline-variant bg-surface-container-lowest'}"><div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div><div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned ? '<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>' : `<div class="text-xs font-bold mt-0.5" style="color:${canAfford ? '#f59e0b' : '#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div><div>${owned ? `<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${equipped ? 'bg-primary text-white' : 'border border-primary text-primary'}">${equipped ? 'Dipakai' : 'Pakai'}</button>` : `<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${canAfford ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>Beli</button>`}</div></div>`;
+        return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped ? 'border-primary bg-surface-container-low' : 'border-outline-variant bg-surface-container-lowest'}"><div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div><div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned ? '<div class="text-xs text-primary font-semibold mt-0.5"><i class="fa-solid fa-circle-check"></i> Sudah dimiliki</div>' : `<div class="text-xs font-bold mt-0.5" style="color:${canAfford ? '#f59e0b' : '#ba1a1a'}"><i class="fa-solid fa-coins"></i> ${acc.cost} XP</div>`}</div><div>${owned ? `<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${equipped ? 'bg-primary text-white' : 'border border-primary text-primary'}">${equipped ? 'Dipakai' : 'Pakai'}</button>` : `<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${canAfford ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>Beli</button>`}</div></div>`;
       }).join('');
       applyPreviewAvatar();
       document.getElementById('avatarShopModal').classList.add('open');
@@ -525,7 +529,7 @@ tailwind.config = {
       if (xp < acc.cost) { if (typeof showToast !== 'undefined') showToast('XP tidak cukup! Kunjungi Educational untuk mendapatkan XP.', 'error'); return; }
       xp -= acc.cost; saveXPLocal(xp); ownedAccessories.push(id); saveOwnedAccessories(ownedAccessories);
       avatarState[acc.slot] = id; saveAvatarState(avatarState); applySidebarAvatar();
-      if (typeof showToast !== 'undefined') showToast('🎉 ' + acc.name + ' berhasil dibeli & dipakai!', 'success');
+      if (typeof showToast !== 'undefined') showToast('<i class="fa-solid fa-award"></i> ' + acc.name + ' berhasil dibeli & dipakai!', 'success');
       openAvatarShop();
     }
     function toggleEquip(id) {
@@ -548,47 +552,6 @@ tailwind.config = {
       setTimeout(() => { t.classList.add('out'); setTimeout(() => t.remove(), 300); }, 3200);
     }
 
-    /* ===== PROFILE SIDEBAR INIT ===== */
-    function openProfileModal(){
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const name = localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
-      const grade = localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
-      const email = localStorage.getItem('profileEmail')||'';
-      document.getElementById('profileNameInput').value = name;
-      document.getElementById('profileGradeInput').value = grade;
-      document.getElementById('profileEmailInput').value = email;
-      document.getElementById('profileDisplayName').textContent = name;
-      document.getElementById('profileDisplayGrade').textContent = grade;
-      const xp = typeof loadXPLocal === 'function' ? loadXPLocal() : 320;
-      const xpEl = document.getElementById('profileDisplayXP'); if(xpEl) xpEl.textContent = xp + ' XP';
-      const circle = document.getElementById('profileAvatarCircle');
-      const hat = document.getElementById('profileHatBadge');
-      if(circle) circle.textContent = avatarState.base;
-      if(hat){
-        const acc = avatarState.hat ? ACCESSORIES.find(a => a.id === avatarState.hat) : null;
-        hat.textContent = acc ? acc.emoji : '';
-        hat.classList.toggle('hidden', !avatarState.hat);
-      }
-      document.getElementById('profileModal').classList.add('open');
-    }
-    function closeProfileModal(){
-      document.getElementById('profileModal').classList.remove('open');
-    }
-    function saveProfile(){
-      const name = document.getElementById('profileNameInput').value.trim()||'Alex Johnson';
-      const grade = document.getElementById('profileGradeInput').value.trim()||'Grade 11-A';
-      const email = document.getElementById('profileEmailInput').value.trim();
-      localStorage.setItem('profileName', name);
-      localStorage.setItem('profileGrade', grade);
-      if(email) localStorage.setItem('profileEmail', email);
-      try{let u = JSON.parse(localStorage.getItem('user')||'{}'); u.name = name; u.email = email || u.email; u.role = grade; localStorage.setItem('user', JSON.stringify(u));}catch(e){}
-      const sName = document.getElementById('sidebarName'); if(sName) sName.textContent = name;
-      const sGrade = document.getElementById('sidebarGrade'); if(sGrade) sGrade.textContent = grade;
-      const mBadge = document.getElementById('mobileAvatarBadge');
-      if(mBadge) mBadge.textContent = name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
-      closeProfileModal();
-      if (typeof showToast !== 'undefined') showToast('✅ Profil berhasil disimpan!', 'success');
-    }
     (function () {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
       const name = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
