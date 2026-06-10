@@ -386,3 +386,50 @@ renderHyd(0);
 drawHydWeek('current');
 updateNextReminder();
 if(logTimes.length > 0) updateTimeLogged();
+
+
+
+/* ============== TOAST ============== */
+function showToast(msg, type='info') {
+  const c = document.getElementById('toast');
+  if(!c) return;
+  
+  // Clean up HTML tags from message if any (like <i>)
+  const cleanMsg = msg.replace(/<[^>]*>/g, '');
+
+  const t = document.createElement('div');
+  t.className = 'toast-item ' + type;
+  
+  let title = 'Information';
+  let icon = 'info';
+  if (type === 'success') {
+    title = 'Success';
+    icon = 'check_circle';
+  } else if (type === 'error') {
+    title = 'Error';
+    icon = 'error';
+  } else if (type === 'warning') {
+    title = 'Warning';
+    icon = 'warning';
+  }
+  
+  t.innerHTML = `
+    <div class="toast-icon-container">
+      <span class="material-symbols-outlined">${icon}</span>
+    </div>
+    <div class="toast-content">
+      <div class="toast-title">${title}</div>
+      <div class="toast-message">${cleanMsg}</div>
+    </div>
+    <button class="toast-close-btn" onclick="this.parentElement.classList.add('out'); setTimeout(()=>this.parentElement.remove(), 300)">
+      <span class="material-symbols-outlined" style="font-size:16px;">close</span>
+    </button>
+  `;
+  c.appendChild(t);
+  setTimeout(() => {
+    if (t.parentNode) {
+      t.classList.add('out');
+      setTimeout(() => t.remove(), 300);
+    }
+  }, 4000);
+}
