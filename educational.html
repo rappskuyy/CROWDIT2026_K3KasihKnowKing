@@ -132,7 +132,10 @@ tailwind.config = {
     <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
   </div>
 </div>
-<nav class="px-3 mt-2 flex flex-col gap-1">
+<nav class="px-3 mt-2 flex flex-col gap-1 flex-grow overflow-y-auto" style="scrollbar-width: none; -ms-overflow-style: none;">
+  <style>
+    nav::-webkit-scrollbar { display: none; }
+  </style>
 <a class="nav-link" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
 <a class="nav-link active" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
 <a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
@@ -142,28 +145,29 @@ tailwind.config = {
 <a class="nav-link" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
 <a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
-<div class="flex-grow"></div>
-<div class="px-3 pb-2 flex flex-col gap-1">
-  <a class="nav-link" onclick="openHelpCenter()"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
-  <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
-</div>
-<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
-  <div class="flex items-center gap-3">
-    <div class="relative flex-shrink-0">
-      <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
-        <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+<div class="mt-auto flex-shrink-0">
+  <div class="px-3 pb-2 flex flex-col gap-1">
+    <a class="nav-link" onclick="openHelpCenter()"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+    <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+  </div>
+  <div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
+    <div class="flex items-center gap-3">
+      <div class="relative flex-shrink-0">
+        <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
+          <span id="sidebarAvatarEmoji" style="font-size:24px">🧑</span>
+        </div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
       </div>
-      <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
-    </div>
-    <div class="flex-1 min-w-0">
-      <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
-      <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
-      <div class="flex items-center gap-1 mt-0.5">
-        <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
-        <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+      <div class="flex-1 min-w-0">
+        <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+        <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
+        <div class="flex items-center gap-1 mt-0.5">
+          <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+          <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+        </div>
       </div>
+      <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
     </div>
-    <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
   </div>
 </div>
 </aside>
