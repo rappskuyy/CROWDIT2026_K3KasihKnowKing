@@ -112,9 +112,7 @@ tailwind.config = {
   <!-- SIDEBAR -->
   <aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
     <div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
-      <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
-        <span class="material-symbols-outlined icon-fill">shield</span>
-      </div>
+      <img src="../image/logo.svg" alt="SafeSchool Logo" class="w-10 h-10 object-contain">
       <div>
         <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
         <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
@@ -124,14 +122,16 @@ tailwind.config = {
       <style>
         nav::-webkit-scrollbar { display: none; }
       </style>
-      <a class="nav-link" data-route="overview" href="../../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+      <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
       <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
       <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
-      <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+        <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+
       <a class="nav-link" data-route="sleep" href="../sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
-      <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+        <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+
       <a class="nav-link active" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
-      <a class="nav-link" data-route="settings" href="../settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+        <a class="nav-link" data-route="settings" href="../settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
     </nav>
     <div class="mt-auto flex-shrink-0">
       <div class="px-3 pb-2 flex flex-col gap-1">
@@ -221,9 +221,9 @@ tailwind.config = {
             <div class="glass-card p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform cursor-pointer">
               <div class="flex items-start justify-between">
                 <div class="active-dot">
-                  <div class="w-16 h-16 rounded-xl bg-primary-container flex items-center justify-center">
-                    <span class="material-symbols-outlined text-on-primary-container text-4xl icon-fill">person</span>
-                  </div>
+                  <div class="w-16 h-16 rounded-xl overflow-hidden">
+                     <img src="../image/womanconselor.webp" alt="Dr. Sarah Jenkins" class="w-full h-full object-cover" />
+                </div>
                 </div>
                 <span class="bg-secondary-container/40 text-on-secondary-container px-3 py-1 rounded-full text-xs font-bold" data-i18n="onlineNow">Online Now</span>
               </div>
@@ -241,15 +241,16 @@ tailwind.config = {
             <!-- Card 2 -->
             <div class="glass-card p-5 rounded-2xl space-y-4 hover:scale-[1.01] transition-transform cursor-pointer">
               <div class="flex items-start justify-between">
-                <div class="relative">
-                  <div class="w-16 h-16 rounded-xl bg-secondary-container flex items-center justify-center">
-                    <span class="material-symbols-outlined text-on-secondary-container text-4xl icon-fill">person</span>
+               <div class="relative">
+                 <div class="w-16 h-16 rounded-xl overflow-hidden">
+                   <img src="../image/conselorpria.webp" alt="Mr. David Chen" class="w-full h-full object-cover" />
                   </div>
-                </div>
+                    </div>
+                
                 <span class="bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full text-xs font-bold">Available 2PM</span>
               </div>
               <div>
-                <h5 class="font-bold text-base">Mr. David Chen</h5>
+                <h5 class="font-bold text-base">Mr. Raffasya Javas Niscala</h5>
                 <p class="text-sm text-on-surface-variant">Academic Support &amp; Wellness</p>
               </div>
               <div class="flex flex-wrap gap-2">
