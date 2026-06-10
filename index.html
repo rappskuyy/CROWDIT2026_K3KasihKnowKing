@@ -112,32 +112,32 @@ tailwind.config = {
 </head>
 <body class="min-h-screen">
 <div class="toast" id="toast"></div>
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40">
-<div class="px-5 py-6 flex items-center gap-3">
-<div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
-<span class="material-symbols-outlined icon-fill">shield</span>
-</div>
-<div>
-<div class="font-extrabold text-on-surface leading-none" data-i18n="brand">SafeSchoolHub</div>
-<div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold" data-i18n="studentWellness">STUDENT WELLNESS</div>
-</div>
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
+  <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+    <span class="material-symbols-outlined icon-fill">shield</span>
+  </div>
+  <div>
+    <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
+    <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
+  </div>
 </div>
 <nav class="px-3 mt-2 flex flex-col gap-1">
-<a class="nav-link active" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
-    <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
-<a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
-<a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
-<a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
-<a class="nav-link" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
-<a class="nav-link" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
-<a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+  <a class="nav-link active" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
+  <a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+  <a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+  <a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
 <div class="flex-grow"></div>
 <div class="px-3 pb-2 flex flex-col gap-1">
-<a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
-<a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+  <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+  <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
 </div>
-<div class="m-3 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
+<div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
   <div class="flex items-center gap-3">
     <div class="relative flex-shrink-0">
       <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
@@ -146,13 +146,18 @@ tailwind.config = {
       <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden">🎩</div>
     </div>
     <div class="flex-1 min-w-0">
-      <div class="font-bold text-sm truncate" id="sidebarName">Alex Johnson</div>
-      <div class="text-xs text-on-surface-variant" id="sidebarGrade">Grade 11-A</div>
+      <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+      <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
+      <div class="flex items-center gap-1 mt-0.5">
+        <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+        <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+      </div>
     </div>
     <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
   </div>
 </div>
 </aside>
+
 <header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
 <div class="flex items-center gap-2">
 <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
@@ -253,9 +258,6 @@ tailwind.config = {
 </div>
 <div class="font-bold" data-i18n="mulaiTracking" id="gtDashTitle">Mulai Tracking</div>
 <div class="text-sm text-on-surface-variant mb-3" id="gtDashMsg">Buka Gadget Time untuk mulai memantau screen time hari ini.</div>
-<div class="h-24 rounded-xl mb-3 flex items-center justify-center" style="background:linear-gradient(135deg,#5eead4,#3b82f6)">
-<div class="text-white text-center"><div class="text-2xl">🧘</div><div class="text-xs font-bold mt-1">Seated Twist</div></div>
-</div>
 <button class="w-full py-2.5 rounded-full font-bold text-white" data-i18n="bukaGadgetTime" onclick="location.href='gadget-time.html'" style="background:#003151">Buka Gadget Time →</button>
 </div>
 <div class="card p-5 lg:col-span-4 hidden lg:block">

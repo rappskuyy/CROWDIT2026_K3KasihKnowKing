@@ -109,19 +109,21 @@ tailwind.config = {
     <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
   </div>
 </div>
-<nav class="px-3 flex flex-col gap-0.5 overflow-y-auto flex-1" style="scrollbar-width:thin;">
-  <a class="nav-link" href="index.html"><span class="material-symbols-outlined">dashboard</span><span>dashboard</span></a>
-  <a class="nav-link" href="educational.html"><span class="material-symbols-outlined">school</span><span>Educational</span></a>
-  <a class="nav-link" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span>Wellness Tracking</span></a>
-  <a class="nav-link" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span>Hydration</span></a>
-  <a class="nav-link" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span>Sleep</span></a>
-  <a class="nav-link active" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span>Breathing</span></a>
-  <a class="nav-link" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span>Digital Counseling</span></a>
-  <a class="nav-link" href="settings.html"><span class="material-symbols-outlined">settings</span><span>Settings</span></a>
-  <div style="flex:1;min-height:12px;"></div>
-  <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span>Help Center</span></a>
-  <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span>Log Out</span></a>
+<nav class="px-3 mt-2 flex flex-col gap-1">
+  <a class="nav-link" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
+  <a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+  <a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link active" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+  <a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
+<div class="flex-grow"></div>
+<div class="px-3 pb-2 flex flex-col gap-1">
+  <a class="nav-link"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+  <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+</div>
 <div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer flex-shrink-0" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
   <div class="flex items-center gap-3">
     <div class="relative flex-shrink-0">
