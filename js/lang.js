@@ -988,7 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = el.textContent.trim().toLowerCase();
     const i18n = el.getAttribute('data-i18n');
     
-    if (i18n === 'navHelp' || i18n === 'navHelpCenter' || text === 'help center' || text === 'pusat bantuan') {
+    if (i18n === 'navHelp' || i18n === 'navHelpCenter' || text === 'help center' || text === 'pusat bantuan' || el.querySelector('[data-i18n="navHelp"]') || el.querySelector('[data-i18n="navHelpCenter"]')) {
       el.onclick = (e) => { e.preventDefault(); openHelpCenter(); };
       el.style.cursor = 'pointer';
     } else if (i18n === 'footerPrivacy' || text === 'privacy policy' || text === 'kebijakan privasi') {
