@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SafeSchoolHub — Educational Hub</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        surface: 'var(--surface)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
+        background: 'var(--background)',
+      },
+      fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
+    },
+  },
+};
+</script>
+<link href="educational.css" rel="stylesheet"/>
+<link href="../css/responsive.css" rel="stylesheet"/>
+<script src="../js/lang.js"></script>
+<style>
+/* Certificate overlay */
+#certificateOverlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;}
+#certificateOverlay.open{display:flex;animation:fadeIn .3s ease;}
+#certCard{background: var(--surface-container-lowest);border-radius:24px;max-width:520px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.3);}
+.cert-header{background:linear-gradient(135deg,#003151,#106399);padding:2rem;text-align:center;color:#fff;}
+.cert-seal{width:72px;height:72px;border-radius:50%;background: var(--surface-container-high);border: 3px solid var(--outline-variant);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
+.cert-body{padding:1.5rem 2rem;}
+.cert-badge{display:inline-flex;align-items:center;gap:.35rem;border-radius:9999px;padding:.3rem .8rem;font-size:.75rem;font-weight:700;}
+@keyframes fadeIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:none;}}
+/* Video card thumbnail */
+.video-card{position:relative;cursor:pointer;border-radius:16px;overflow:hidden;background: var(--surface-container-lowest);box-shadow:0 10px 30px rgba(0,0,0,.04);transition:all .25s ease;}
+.video-card:hover{box-shadow:0 15px 40px rgba(0,0,0,.12);transform:translateY(-3px);}
+.video-thumb-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+.play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0);transition:background .2s;}
+.video-card:hover .play-overlay{background:rgba(0,0,0,.35);}
+.play-btn-yt{width:52px;height:52px;border-radius:50%;background: var(--surface-container-highest); color: var(--on-surface);display:flex;align-items:center;justify-content:center;transform:scale(0);transition:transform .2s;}
+.video-card:hover .play-btn-yt{transform:scale(1);}
+/* Duration badge */
+.dur-badge{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.75);color:#fff;font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:.4rem;}
+/* Long video indicator */
+.cert-eligible{position:absolute;top:8px;left:8px;background:linear-gradient(90deg,#106399,#1c6c3f);color:#fff;font-size:.65rem;font-weight:700;padding:.2rem .6rem;border-radius:9999px;display:flex;align-items:center;gap:.25rem;}
+</style>
+  <script>
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.replace('../safeschool-landing.html');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user && user.name) {
+          const sidebarName = document.getElementById('sidebarName') || document.querySelector('[data-i18n="userName"]');
+          if (sidebarName) sidebarName.textContent = user.name;
+          const sidebarGrade = document.getElementById('sidebarGrade') || document.querySelector('[data-i18n="userGrade"]');
+          if (sidebarGrade) {
+            sidebarGrade.textContent = user.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : 'Siswa';
+          }
+          const mobileAvatar = document.getElementById('mobileAvatarBadge');
+          if (mobileAvatar) {
+            mobileAvatar.textContent = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          }
+        }
+      } catch(e) {}
+
+      const logoutBtn = document.getElementById('sidebar-logout');
+      if (logoutBtn) {
+        const newLogoutBtn = logoutBtn.cloneNode(true);
+        logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+        newLogoutBtn.addEventListener('click', () => {
+          const confirmModal = document.getElementById('confirmModal');
+          if (confirmModal) {
+            document.getElementById('confirmTitle').textContent = 'Keluar?';
+            document.getElementById('confirmMsg').textContent = 'Apakah Anda yakin ingin keluar dari SafeSchool?';
+            document.getElementById('confirmOk').onclick = () => {
+              document.getElementById('confirmModal').classList.remove('open');
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('../safeschool-landing.html');
+            };
+            document.getElementById('confirmModal').classList.add('open');
+          } else {
+            if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('../safeschool-landing.html');
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen">
+<div class="toast" id="toast"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
+  <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+    <span class="material-symbols-outlined icon-fill">shield</span>
+  </div>
+  <div>
+    <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
+    <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
+  </div>
+</div>
+<nav class="px-3 mt-2 flex flex-col gap-1 flex-grow overflow-y-auto" style="scrollbar-width: none; -ms-overflow-style: none;">
+  <style>
+    nav::-webkit-scrollbar { display: none; }
+  </style>
+  <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link active" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span>Educational</a>
+  <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+  <a class="nav-link" data-route="sleep" href="../sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link" data-route="counseling" href="../counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+  <a class="nav-link" data-route="settings" href="../settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+</nav>
+<div class="mt-auto flex-shrink-0">
+  <div class="px-3 pb-2 flex flex-col gap-1">
+    <a class="nav-link" onclick="openHelpCenter()"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+    <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+  </div>
+  <div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
+    <div class="flex items-center gap-3">
+      <div class="relative flex-shrink-0">
+        <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
+          <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
+        </div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+        <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
+        <div class="flex items-center gap-1 mt-0.5">
+          <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+          <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+        </div>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
+    </div>
+  </div>
+</div>
+</aside>
+
+<!-- MOBILE TOP BAR -->
+<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+  <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+    <span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
+  </div>
+  <span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold cursor-pointer" id="mobileAvatarBadge" onclick="openProfileModal()">AJ</div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main class="main-content lg:ml-64 min-h-screen">
+  <div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
+
+    <!-- PAGE HEADER -->
+    <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+      <div>
+        <h1 class="text-3xl font-extrabold flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary icon-fill" style="font-size:32px">school</span>Pusat Edukasi &amp; Pengetahuan
+        </h1>
+        <p class="text-on-surface-variant mt-1">Pelajari kesehatan mental, keamanan internet, dan wellness untuk remaja.</p>
+      </div>
+      <div class="flex items-center gap-3 bg-surface-container-low border border-outline-variant px-4 py-2.5 rounded-2xl shadow-sm">
+        <span class="material-symbols-outlined text-primary icon-fill" style="font-size:20px">workspace_premium</span>
+        <div>
+          <div class="text-[10px] tracking-widest text-on-surface-variant font-bold leading-none">SERTIFIKAT SAYA</div>
+          <div class="font-extrabold text-sm mt-0.5" id="certCount">0 / 7</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="flex gap-2 overflow-x-auto no-scrollbar pb-3 mb-6 border-b border-outline-variant" id="sectionTabs">
+      <button class="section-tab active" data-tab="videos" onclick="switchTab('videos')"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined" style="font-size:18px">play_circle</span>Video Edukasi</span></button>
+      <button class="section-tab" data-tab="articles" onclick="switchTab('articles')"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined" style="font-size:18px">menu_book</span>Artikel Pilihan</span></button>
+      <button class="section-tab" data-tab="seminars" onclick="switchTab('seminars')"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined" style="font-size:18px">groups</span>Webinar BK</span></button>
+      <button class="section-tab" data-tab="quiz" onclick="switchTab('quiz')"><span class="flex items-center gap-1.5"><span class="material-symbols-outlined" style="font-size:18px">quiz</span>Kuis Kesehatan</span></button>
+    </div>
+
+    <!-- ==================== TAB: VIDEOS ==================== -->
+    <div class="tab-section hidden" id="tab-videos">
+      <!-- Featured Video -->
+      <div class="card overflow-hidden mb-6" style="border:1.5px solid var(--outline-variant);">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          <div class="lg:col-span-7 cursor-pointer" onclick="openVideo('featured')">
+            <div class="relative">
+              <img class="w-full aspect-video object-cover block"
+                src="https://img.youtube.com/vi/rEfNZtltY_M/maxresdefault.jpg"
+                onerror="this.src='https://img.youtube.com/vi/rEfNZtltY_M/mqdefault.jpg'"
+                alt="Featured Video" loading="lazy"/>
+              <div class="play-overlay">
+                <div class="play-btn"><span class="material-symbols-outlined icon-fill text-primary" style="font-size:36px">play_arrow</span></div>
+              </div>
+              <div class="dur-badge">28 min</div>
+              <div class="cert-eligible"><span class="material-symbols-outlined icon-fill" style="font-size:12px">workspace_premium</span>Eligible for Certificate</div>
+            </div>
+          </div>
+          <div class="p-6 lg:col-span-5 flex flex-col justify-between" style="background:var(--surface-container-lowest)">
+            <div>
+              <span class="seminar-badge" style="background:#ffdad6;color:#ba1a1a"><i class="fa-solid fa-star"></i> FEATURED</span>
+              <h2 class="font-extrabold text-xl lg:text-2xl mt-2 leading-tight">Kesehatan Mental untuk Remaja</h2>
+              <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">
+                Wawasan mendalam tentang pentingnya menjaga kesehatan mental bagi remaja, memahami emosi diri, serta cara menghadapi kecemasan atau stres dalam kehidupan sekolah sehari-hari.
+              </p>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-outline-variant mt-4">
+              <div class="text-xs font-semibold text-on-surface-variant">Into The Light Indonesia · 12.4K views</div>
+              <button class="btn-primary text-xs flex items-center gap-1.5" onclick="openVideo('featured')">
+                <span class="material-symbols-outlined icon-fill" style="font-size:16px;color:#fff">play_arrow</span>Tonton (+50 XP)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Video Grid -->
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h3 class="font-extrabold text-lg">Semua Video Edukasi</h3>
+        <div class="flex gap-1 bg-surface-container rounded-xl p-1" id="videoFilterBtns">
+          <button class="tab-btn active" data-vf="all" onclick="filterVideos('all')">Semua</button>
+          <button class="tab-btn" data-vf="wellbeing" onclick="filterVideos('wellbeing')">Wellness</button>
+          <button class="tab-btn" data-vf="health" onclick="filterVideos('health')">Fisik</button>
+          <button class="tab-btn" data-vf="digital" onclick="filterVideos('digital')">Internet</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" id="videoGrid"></div>
+    </div>
+
+    <!-- ==================== TAB: ARTICLES ==================== -->
+    <div class="tab-section hidden" id="tab-articles">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Featured Article (Left/Main) -->
+        <div class="lg:col-span-7 flex flex-col justify-between card p-6 border border-outline-variant cursor-pointer" onclick="openArticle(0)">
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-[#ffdad6] flex items-center justify-center mb-4">
+              <span class="material-symbols-outlined icon-fill text-[#ba1a1a]" style="font-size:28px">devices_off</span>
+            </div>
+            <span class="seminar-badge" style="background:#e0e7ff;color:#4338ca"><i class="fa-solid fa-circle-play"></i> POPULER</span>
+            <h2 class="font-extrabold text-2xl mt-3 leading-snug">5 Tanda Kamu Butuh Istirahat dari Gadget — dan Cara Mengatasinya</h2>
+            <p class="text-sm text-on-surface-variant mt-2 leading-relaxed">
+              Teknologi memang menunjang belajar, tetapi screen time berlebih bisa menurunkan konsentrasi dan mengganggu kesehatan. Kenali 5 tanda bahaya burnout digital pada dirimu sebelum terlambat.
+            </p>
+          </div>
+          <div class="flex items-center justify-between pt-4 border-t border-outline-variant mt-6">
+            <span class="text-xs font-semibold text-on-surface-variant">Tim SafeSchoolHub · 5 Jun 2026 · 6 min baca</span>
+            <span class="text-primary text-sm font-extrabold flex items-center gap-1">Baca Selengkapnya <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span></span>
+          </div>
+        </div>
+
+        <!-- Filter & Article List (Right) -->
+        <div class="lg:col-span-5">
+          <div class="mb-4">
+            <label class="text-xs font-bold text-on-surface-variant block mb-1">KATEGORI ARTIKEL</label>
+            <select id="articleFilter" onchange="renderArticles()" class="w-full border border-outline-variant rounded-xl p-3 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary">
+              <option value="all">Semua Kategori</option>
+              <option value="mental">Kesehatan Mental & Stres</option>
+              <option value="safety">Keamanan & Perundungan (Bullying)</option>
+              <option value="digital">Literasi Digital & Privasi</option>
+              <option value="nutrition">Nutrisi & Kesehatan Fisik</option>
+              <option value="sleep">Pola Tidur & Istirahat</option>
+              <option value="social">Hubungan & Sosial</option>
+            </select>
+          </div>
+          <div class="flex flex-col gap-3" id="articleList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB: WEBINAR BK ==================== -->
+    <div class="tab-section hidden" id="tab-seminars">
+      <!-- Highlight/Banner Webinar Mendatang -->
+      <div class="card p-6 mb-6 text-white" style="background:linear-gradient(135deg,#003151,#106399); border:none;">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
+          <div class="md:col-span-7">
+            <span class="bg-white/20 text-white text-[10px] tracking-wider font-extrabold px-3 py-1 rounded-full"><i class="fa-solid fa-bell"></i> WEBINAR BK MINGGU INI</span>
+            <h2 class="text-2xl md:text-3xl font-extrabold mt-3 leading-tight">Kesehatan Mental di Era Digital: Tantangan & Solusi Pelajar</h2>
+            <p class="text-sm opacity-90 mt-2 leading-relaxed">
+              Bagaimana media sosial memengaruhi kesehatan mental remaja? Ikuti diskusi interaktif bersama Dr. Elena Rodriguez dan tim konselor sekolah untuk membimbingmu mengelola stres digital.
+            </p>
+            <div class="flex flex-wrap gap-4 text-xs opacity-90 mt-4">
+              <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">calendar_month</span>24 Okt 2024</span>
+              <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">schedule</span>16.00 EST (90 menit)</span>
+              <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:14px">group</span>347 Siswa Terdaftar</span>
+            </div>
+          </div>
+          <div class="md:col-span-5 bg-white/10 p-5 rounded-2xl border border-white/10" id="mhdaRegFormWrap">
+            <h3 class="font-extrabold text-sm mb-3 text-center">Formulir Pendaftaran Webinar</h3>
+            <div class="mb-2.5">
+              <input type="text" id="mhdaRegName" placeholder="Nama lengkap kamu" class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 outline-none focus:border-white/50"/>
+            </div>
+            <div class="mb-2.5">
+              <input type="email" id="mhdaRegEmail" placeholder="Alamat email kamu" class="w-full bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-xs text-white placeholder-white/50 outline-none focus:border-white/50"/>
+            </div>
+            <div class="mb-3">
+              <select id="mhdaRegRole" class="w-full bg-[#106399] border border-white/20 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-white/50">
+                <option value="" style="color:#0b1c30">Peran Anda</option>
+                <option value="student" style="color:#0b1c30">Siswa</option>
+                <option value="parent" style="color:#0b1c30">Orang Tua / Wali</option>
+                <option value="teacher" style="color:#0b1c30">Guru / Pendidik</option>
+              </select>
+            </div>
+            <button class="w-full bg-[#5a9bd5] hover:bg-[#a5d8ff] text-[#003151] font-extrabold text-xs py-2 px-4 rounded-xl transition-all" onclick="submitMhdaReg()">
+              Daftar Webinar (+20 XP)
+            </button>
+            <div class="text-[10px] text-center text-white/70 mt-2"><span id="mhdaSpots">347</span> tempat tersedia. Pendaftaran gratis.</div>
+          </div>
+          <!-- Success State -->
+          <div class="md:col-span-5 bg-white/15 p-6 rounded-2xl text-center border border-white/10" id="mhdaRegSuccess" style="display:none;">
+            <div class="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center mx-auto mb-3">
+              <span class="material-symbols-outlined text-emerald-400 font-extrabold" style="font-size:28px">verified</span>
+            </div>
+            <h4 class="font-extrabold text-base">Pendaftaran Berhasil!</h4>
+            <p class="text-xs opacity-90 mt-1 mb-4">Sertifikat pendaftaran dan link akses dikirim ke email kamu.</p>
+            <button class="bg-white/20 hover:bg-white/30 text-white font-extrabold text-xs py-2 px-4 rounded-xl w-full" onclick="resetMhdaReg()">Daftarkan Teman</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Seminars List -->
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <h3 class="font-extrabold text-lg">Jadwal & Rekaman Seminar</h3>
+        <div class="flex gap-1 bg-surface-container rounded-xl p-1" id="seminarFilterBtns">
+          <button class="tab-btn active" data-sf="all" onclick="filterSeminars('all')">Semua</button>
+          <button class="tab-btn" data-sf="upcoming" onclick="filterSeminars('upcoming')">Mendatang</button>
+          <button class="tab-btn" data-sf="recorded" onclick="filterSeminars('recorded')">Rekaman Sesi</button>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="seminarGrid"></div>
+    </div>
+
+    <!-- ==================== TAB: QUIZ ==================== -->
+    <div class="tab-section hidden" id="tab-quiz">
+      <div class="max-w-xl mx-auto card overflow-hidden p-6 text-center border border-outline-variant" style="min-height:360px; display:flex; flex-direction:column; justify-content:center;">
+        <!-- Intro state -->
+        <div id="quizIntro">
+          <div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center text-4xl mx-auto mb-4" style="border:3px solid var(--primary);">
+            <span class="material-symbols-outlined text-primary icon-fill" style="font-size:36px">quiz</span>
+          </div>
+          <h2 class="text-2xl font-extrabold">Uji Pengetahuan Kesejahteraanmu</h2>
+          <p class="text-sm text-on-surface-variant mt-2 max-w-sm mx-auto">
+            Jawab 10 pertanyaan seputar kesehatan mental, hidrasi, postur, dan keamanan internet. Dapatkan 10 XP untuk setiap jawaban benar!
+          </p>
+          <button class="btn-primary mt-6 w-full max-w-xs" onclick="startQuiz()">Mulai Kuis Sekarang</button>
+        </div>
+
+        <!-- Active state -->
+        <div id="quizActive" class="hidden text-left">
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-xs font-bold text-primary">PERTANYAAN <span id="qNum">1</span> DARI 10</span>
+            <span class="text-xs font-bold text-error flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px">alarm</span><span id="qTimer">30</span> detik</span>
+          </div>
+          <div class="progress-bar-quiz mb-4">
+            <div class="progress-fill" id="qProgress" style="width:10%"></div>
+          </div>
+          <div id="qCategory" class="mb-3"></div>
+          <h3 class="font-extrabold text-lg leading-snug mb-5" id="qText">-</h3>
+          <div class="flex flex-col gap-2.5 mb-5" id="qOptions"></div>
+          <div class="p-3.5 rounded-xl bg-surface-container-low border border-outline-variant text-xs font-semibold leading-relaxed mb-4 hidden" id="qExplanation"></div>
+          <button class="btn-primary w-full justify-center hidden" id="qNextBtn" onclick="nextQuestion()">Lanjut →</button>
+        </div>
+
+        <!-- Result state -->
+        <div id="quizResult" class="hidden">
+          <svg class="w-24 h-24 mx-auto mb-4" viewBox="0 0 100 100" style="transform:rotate(-90deg);">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="var(--surface-container)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="var(--primary)" stroke-width="8" stroke-dasharray="251" stroke-dashoffset="0" id="resultRing" class="score-ring"/>
+            <text x="50" y="-45" transform="rotate(90)" text-anchor="middle" font-size="14" font-weight="800" fill="var(--on-surface)" id="resultScore">0/10</text>
+          </svg>
+          <h2 class="text-2xl font-extrabold" id="resultTitle">Luar Biasa!</h2>
+          <div class="text-3xl font-extrabold text-primary my-1" id="resultPct">0%</div>
+          <p class="text-sm text-on-surface-variant max-w-sm mx-auto" id="resultMsg">-</p>
+          <div class="flex justify-center gap-4 my-5 bg-surface-container-low border border-outline-variant p-3 rounded-2xl max-w-xs mx-auto">
+            <div><div class="text-xs text-on-surface-variant">XP diperoleh</div><div class="font-extrabold text-sm text-primary" id="resultXP">+0 XP</div></div>
+            <div style="border-left:1px solid var(--outline-variant);"></div>
+            <div><div class="text-xs text-on-surface-variant">Benar</div><div class="font-extrabold text-sm text-secondary" id="resultCorrect">0 Benar</div></div>
+          </div>
+          <div class="flex gap-2 max-w-sm mx-auto">
+            <button class="btn-primary flex-1" onclick="retryQuiz()">Coba Lagi</button>
+            <button class="btn-ghost flex-1" onclick="switchTab('videos')">Kembali</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 font-extrabold text-on-surface"><span class="material-symbols-outlined icon-fill text-primary">shield</span>SafeSchoolHub</div>
+          <div class="mt-1 max-w-sm">Promoting digital well-being for the next generation of learners.</div>
+        </div>
+        <div class="flex flex-wrap gap-4">
+          <a class="hover:text-primary cursor-pointer">Privacy Policy</a>
+          <a class="hover:text-primary cursor-pointer">Terms of Service</a>
+          <a class="hover:text-primary cursor-pointer">Accessibility</a>
+          <a class="hover:text-primary cursor-pointer">Contact Support</a>
+        </div>
+      </div>
+      <div class="mt-6 text-xs">© 2024 SafeSchoolHub. All rights reserved.</div>
+    </footer>
+  </div>
+</main>
+
+<!-- Bottom Nav (mobile) -->
+<nav class="bottom-nav">
+  <div class="bn-item" onclick="location.href='../index.html'"><span class="material-symbols-outlined">dashboard</span><span>Home</span></div>
+  <div class="bn-item active"><span class="material-symbols-outlined icon-fill">school</span><span>Learn</span></div>
+  <div class="bn-fab" onclick="switchTab('quiz')"><span class="material-symbols-outlined">quiz</span></div>
+  <div class="bn-item" onclick="location.href='../counseling/counseling.html'"><span class="material-symbols-outlined">support_agent</span><span>Counseling</span></div>
+  <div class="bn-item" onclick="location.href='../settings/settings.html'"><span class="material-symbols-outlined">settings</span><span>Settings</span></div>
+</nav>
+
+<!-- Certificate Overlay -->
+<div id="certificateOverlay">
+  <div id="certCard">
+    <div class="cert-header">
+      <div class="cert-seal"><span class="material-symbols-outlined icon-fill" style="font-size:36px;color:#fbbf24">workspace_premium</span></div>
+      <div class="text-xs tracking-widest opacity-70 mb-1">SAFESCHOOLHUB</div>
+      <div class="text-2xl font-extrabold">Sertifikat Kelulusan</div>
+      <div class="text-sm opacity-80 mt-1">Certificate of Completion</div>
+    </div>
+    <div class="cert-body">
+      <div class="text-center mb-4">
+        <div class="text-on-surface-variant text-sm mb-1">Dengan bangga diberikan kepada</div>
+        <div class="font-extrabold text-2xl text-on-surface" id="certStudentName">Alex Johnson</div>
+        <div class="text-on-surface-variant text-sm" id="certStudentGrade">Grade 11-A · SafeSchoolHub</div>
+      </div>
+      <div class="rounded-xl p-4 mb-4 text-center" style="background:#f0f9ff;border:1px solid #bae6fd;">
+        <div class="text-xs text-on-surface-variant mb-1">Telah menyelesaikan</div>
+        <div class="font-bold text-on-surface" id="certVideoTitle">Video Title</div>
+        <div class="text-xs text-on-surface-variant mt-1" id="certVideoMeta"></div>
+      </div>
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <div class="text-xs text-on-surface-variant">Tanggal</div>
+          <div class="font-semibold text-sm" id="certDate"></div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-on-surface-variant">ID Sertifikat</div>
+          <div class="font-semibold text-sm font-mono" id="certId"></div>
+        </div>
+      </div>
+      <div class="flex gap-3" data-html2pdf-ignore>
+        <button class="btn-primary flex-1" onclick="downloadCertificate()">⬇ Unduh Sertifikat</button>
+        <button class="btn-ghost flex-1" onclick="closeCertificate()">Tutup</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Article Full-Page Reader Modal -->
+<div id="articleModal" style="display:none;position:fixed;inset:0;z-index:2000;background:var(--background);overflow-y:auto;">
+  <!-- Article Reader Top Bar -->
+  <div style="position:sticky;top:0;z-index:10;background:var(--surface-container-lowest);opacity:0.98;backdrop-filter:blur(12px);border-bottom:1px solid var(--outline-variant);">
+    <div style="max-width:720px;margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
+      <button onclick="closeArticle()" style="width:40px;height:40px;border-radius:50%;border:1px solid var(--outline-variant);background: var(--surface-container-lowest);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <span class="material-symbols-outlined" style="font-size:20px">arrow_back</span>
+      </button>
+      <div style="flex:1;min-width:0;">
+        <div id="articleReaderTitle" style="font-weight:700;font-size:.85rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--on-surface);"></div>
+        <div style="display:flex;align-items:center;gap:.5rem;margin-top:2px;">
+          <div id="articleReadProgress" style="flex:1;height:4px;background:var(--outline-variant);border-radius:9999px;overflow:hidden;">
+            <div id="articleReadBar" style="height:100%;width:0%;background:var(--primary);transition:width .3s;border-radius:9999px;"></div>
+          </div>
+          <span id="articleReadPct" style="font-size:.7rem;font-weight:700;color:var(--primary);white-space:nowrap;">0%</span>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.35rem;background:var(--surface-container-low);border-radius:9999px;padding:.3rem .75rem;flex-shrink:0;">
+        <span class="material-symbols-outlined" style="font-size:14px;color:var(--primary)">stars</span>
+        <span style="font-size:.75rem;font-weight:700;color:var(--primary)" id="articleXpBadge">+15 XP</span>
+      </div>
+    </div>
+  </div>
+  <!-- Article Content -->
+  <div style="max-width:720px;margin:0 auto;padding:2rem 1rem 6rem;" id="articleContent"></div>
+  <!-- Floating Done Button -->
+  <div id="articleDoneBar" style="position:fixed;bottom:0;left:0;right:0;padding:1rem;background:var(--surface-container-lowest);opacity:0.98;border-top:1px solid var(--outline-variant);display:none;z-index:11;">
+    <div style="max-width:720px;margin:0 auto;">
+      <button id="articleDoneBtn" onclick="finishArticle()" style="width:100%;padding:.85rem;border-radius:9999px;background:var(--primary);color:#fff;font-weight:700;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;border:none;">
+        <span class="material-symbols-outlined">check_circle</span>
+        <span>Selesai Dibaca — Klaim +15 XP</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal-card">
+    <h3 class="font-extrabold text-lg mb-2" id="confirmTitle">Confirm</h3>
+    <div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
+    <div class="flex gap-2 justify-end">
+      <button class="btn-ghost" onclick="document.getElementById('confirmModal').classList.remove('open')">Batal</button>
+      <button class="btn-primary" id="confirmOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== SEMINAR REGISTRATION MODAL ===== -->
+<div class="modal-backdrop" id="seminarRegModal" onclick="if(event.target===this)closeSeminarRegModal()" style="align-items:flex-start;overflow-y:auto;padding:1.5rem 1rem;">
+  <div class="modal-card" style="max-width:640px;width:100%;margin:auto;">
+    <div class="flex justify-between items-start mb-5">
+      <div class="flex-1 pr-4">
+        <span id="semRegLiveBadge" class="inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full mb-2" style="background:#fff3e0;color:#e65100;border:1px solid #ffccbc;">
+          <span class="w-2 h-2 rounded-full bg-[#ffca28] animate-pulse inline-block"></span>Live Webinar
+        </span>
+        <h3 class="font-extrabold text-xl text-on-surface" id="semRegTitle">Seminar Registration</h3>
+        <div class="flex flex-wrap items-center gap-3 mt-2 text-sm text-on-surface-variant">
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;color:var(--primary)">calendar_today</span><span id="semRegDate">-</span></span>
+          <span class="flex items-center gap-1"><span class="material-symbols-outlined" style="font-size:16px;color:var(--primary)">schedule</span><span id="semRegTime">-</span></span>
+          <span class="flex items-center gap-1 font-semibold" style="color:var(--secondary)"><span class="material-symbols-outlined" style="font-size:16px">lock</span>Portal Online Aman</span>
+        </div>
+      </div>
+      <button onclick="closeSeminarRegModal()" class="flex-shrink-0"><span class="material-symbols-outlined">close</span></button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <!-- Left: details -->
+      <div>
+        <!-- About -->
+        <div class="mb-4">
+          <h4 class="font-bold text-base mb-2">Tentang Seminar</h4>
+          <p class="text-sm text-on-surface-variant leading-relaxed" id="semRegAbout"></p>
+        </div>
+        <!-- Objectives -->
+        <div class="mb-4">
+          <h4 class="font-bold text-base mb-2">Tujuan Pembelajaran</h4>
+          <div class="flex flex-col gap-1.5" id="semRegObjectives"></div>
+        </div>
+        <!-- Speaker -->
+        <div class="mb-4">
+          <h4 class="font-bold text-base mb-2">Pembicara</h4>
+          <div class="flex items-center gap-3 p-3 rounded-xl" style="background:linear-gradient(135deg,var(--surface-container-low),var(--surface-container));border:1px solid var(--outline-variant);">
+            <div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center text-2xl flex-shrink-0" style="border:2px solid var(--primary);" id="semRegSpeakerEmoji"><i class="fa-solid fa-user-doctor"></i></div>
+            <div>
+              <div class="font-extrabold text-sm" id="semRegSpeakerName">-</div>
+              <div class="text-xs font-semibold text-primary" id="semRegSpeakerRole">-</div>
+            </div>
+          </div>
+        </div>
+        <!-- Benefits -->
+        <div>
+          <h4 class="font-bold text-base mb-2">Yang Akan Didapat</h4>
+          <div class="grid grid-cols-2 gap-2">
+            <div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant"><span class="material-symbols-outlined text-primary icon-fill" style="font-size:18px">verified</span><span class="text-xs font-semibold">Sertifikat</span></div>
+            <div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant"><span class="material-symbols-outlined text-primary icon-fill" style="font-size:18px">picture_as_pdf</span><span class="text-xs font-semibold">Materi PDF</span></div>
+            <div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant"><span class="material-symbols-outlined text-primary icon-fill" style="font-size:18px">replay</span><span class="text-xs font-semibold">Rekaman Sesi</span></div>
+            <div class="flex items-center gap-2 p-2 rounded-xl bg-surface-container-low border border-outline-variant"><span class="material-symbols-outlined text-primary icon-fill" style="font-size:18px">forum</span><span class="text-xs font-semibold">Live Q&amp;A</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: registration form -->
+      <div>
+        <div class="rounded-2xl p-4" style="border:1.5px solid var(--outline-variant);background: var(--surface-container-lowest);">
+          <h4 class="font-extrabold text-base mb-4">Amankan Tempat Anda</h4>
+          <div id="semRegFormWrap">
+            <div class="mb-3">
+              <label class="text-xs font-bold text-on-surface-variant mb-1 block">Nama Lengkap</label>
+              <input type="text" id="semRegName" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary" placeholder="Masukkan nama lengkap"/>
+            </div>
+            <div class="mb-3">
+              <label class="text-xs font-bold text-on-surface-variant mb-1 block">Email</label>
+              <input type="email" id="semRegEmail" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@kamu.com"/>
+            </div>
+            <div class="mb-3">
+              <label class="text-xs font-bold text-on-surface-variant mb-1 block">Peran Anda</label>
+              <select id="semRegRole" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary">
+                <option value="">Pilih peran</option>
+                <option value="student">Siswa</option>
+                <option value="parent">Orang Tua / Wali</option>
+                <option value="teacher">Guru / Pendidik</option>
+                <option value="counselor">Konselor Sekolah</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label class="text-xs font-bold text-on-surface-variant mb-1 block">Pertanyaan untuk Pembicara (opsional)</label>
+              <textarea id="semRegQuestion" rows="2" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary resize-none" placeholder="Apa yang ingin Anda tanyakan?"></textarea>
+            </div>
+            <button class="btn-primary w-full justify-center" onclick="submitSeminarReg()">
+              Konfirmasi Pendaftaran <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
+            </button>
+            <p class="text-xs text-on-surface-variant text-center mt-2">Dengan mendaftar, kamu menyetujui Syarat &amp; Ketentuan kami.</p>
+          </div>
+          <!-- Success state -->
+          <div id="semRegSuccess" style="display:none;text-align:center;padding:1rem 0;">
+            <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center mx-auto mb-3">
+              <span class="material-symbols-outlined icon-fill text-secondary" style="font-size:32px">check_circle</span>
+            </div>
+            <h4 class="font-extrabold text-lg">Kamu Terdaftar! <i class="fa-solid fa-award"></i></h4>
+            <p class="text-sm text-on-surface-variant mt-1 mb-3">Konfirmasi dikirim ke emailmu. Sampai jumpa di seminar!</p>
+            <div class="p-3 rounded-xl bg-surface-container-low border border-outline-variant text-left mb-3">
+              <div class="text-xs font-semibold text-on-surface-variant mb-1">DETAIL ACARA</div>
+              <div class="font-bold text-sm" id="semRegSuccessTitle">-</div>
+              <div class="text-xs text-on-surface-variant mt-1" id="semRegSuccessDate">-</div>
+              <div class="text-xs font-bold text-primary mt-1" id="semRegSuccessName">-</div>
+            </div>
+            <button class="btn-ghost text-sm w-full" onclick="resetSeminarRegForm()">Daftarkan Orang Lain</button>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 mt-3 text-sm text-on-surface-variant px-1">
+          <span class="material-symbols-outlined" style="font-size:16px;color:#e65100">group</span>
+          <span><span class="font-bold text-on-surface" id="semRegSpots">47</span> tempat tersisa</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PROFILE MODAL ===== -->
+<div class="modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
+  <div class="modal-card" style="max-width:440px;max-height:90vh;overflow-y:auto;">
+    <div class="flex justify-between items-center mb-5">
+      <div>
+        <h3 class="font-extrabold text-xl"><i class="fa-solid fa-user-pen"></i> Profil Saya</h3>
+        <div class="text-sm text-on-surface-variant mt-0.5">Edit informasi dan avatar kamu</div>
+      </div>
+      <button onclick="closeProfileModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <!-- Avatar preview -->
+    <div class="rounded-2xl p-5 mb-4 text-center" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
+      <div class="relative inline-block mb-2">
+        <div id="profileAvatarCircle" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:44px;"><i class="fa-solid fa-user"></i></div>
+        <div id="profileHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
+        <div id="profileGlassesBadge" class="absolute top-6 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+      </div>
+      <div class="font-extrabold text-on-surface mt-2" id="profileDisplayName">Alex Johnson</div>
+      <div class="text-sm text-on-surface-variant" id="profileDisplayGrade">Grade 11-A</div>
+      <div class="flex items-center justify-center gap-2 mt-1">
+        <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+        <span class="font-extrabold text-primary" id="profileDisplayXP">320 XP</span>
+      </div>
+      <button class="mt-3 btn-ghost text-xs" onclick="closeProfileModal();openAvatarShop()"><i class="fa-solid fa-palette"></i> Ubah Avatar</button>
+    </div>
+    <!-- Edit form -->
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
+      <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Nama kamu" value="Alex Johnson"/>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">KELAS / GRADE</label>
+      <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Contoh: Grade 11-A" value="Grade 11-A"/>
+    </div>
+    <div class="mb-5">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPSIONAL)</label>
+      <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
+    </div>
+    <div class="flex gap-3">
+      <button class="btn-primary flex-1 justify-center" onclick="saveProfile()">Simpan Profil</button>
+      <button class="btn-ghost flex-1" onclick="closeProfileModal()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<!-- Avatar Shop Modal -->
+<div class="modal-backdrop" id="avatarShopModal">
+<div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
+  <div class="flex justify-between items-center mb-4">
+    <div>
+      <h3 class="font-extrabold text-xl"><i class="fa-solid fa-palette"></i> Avatar & Toko Aksesori</h3>
+      <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div>
+    </div>
+    <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="rounded-2xl p-5 mb-4 text-center" style="background: var(--surface-container-low); border: 1px solid var(--outline-variant);">
+    <div class="relative inline-block mb-2">
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
+      <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
+      <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+    </div>
+    <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
+    <div class="flex items-center justify-center gap-2 mt-1">
+      <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+      <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
+    </div>
+  </div>
+  <div class="mb-4">
+    <div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div>
+    <div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div>
+  </div>
+  <div class="mb-2">
+    <div class="font-bold text-sm mb-2"><i class="fa-solid fa-bag-shopping"></i> Toko Aksesori</div>
+    <div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div>
+  </div>
+</div>
+</div>
+
+<script src="educational.js"></script>
+<script src="../profile.js"></script>
+<script src="../js/avatar.js"></script>
+<script>
+/* ===== PROFILE SIDEBAR INIT ===== */
+(function(){
+  const name=localStorage.getItem('profileName')||'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
+  const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
+  const mb=document.getElementById('mobileAvatarBadge');
+  if(mb)mb.textContent=name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+})();
+</script>
+</body>
+</html>

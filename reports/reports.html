@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -47,13 +46,14 @@ tailwind.config = {
     },
   },
 };
-</script><link href="css/reports.css" rel="stylesheet"/>
-<link href="css/index.css" rel="stylesheet"/>
-<link href="css/responsive.css" rel="stylesheet"/>
-<script src="js/lang.js"></script>
+</script>
+<link href="reports.css" rel="stylesheet"/>
+<link href="../css/index.css" rel="stylesheet"/>
+<link href="../css/responsive.css" rel="stylesheet"/>
+<script src="../js/lang.js"></script>
   <script>
     if (localStorage.getItem('loggedIn') !== 'true') {
-      window.location.replace('safeschool-landing.html');
+      window.location.replace('../safeschool-landing.html');
     }
     document.addEventListener('DOMContentLoaded', () => {
       try {
@@ -85,14 +85,14 @@ tailwind.config = {
               document.getElementById('confirmModal').classList.remove('open');
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('safeschool-landing.html');
+              window.location.replace('../safeschool-landing.html');
             };
             document.getElementById('confirmModal').classList.add('open');
           } else {
             if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
               localStorage.removeItem('loggedIn');
               localStorage.removeItem('user');
-              window.location.replace('safeschool-landing.html');
+              window.location.replace('../safeschool-landing.html');
             }
           }
         });
@@ -117,14 +117,14 @@ tailwind.config = {
   <style>
     nav::-webkit-scrollbar { display: none; }
   </style>
-  <a class="nav-link" data-route="overview" href="index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
-  <a class="nav-link" href="educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
-  <a class="nav-link" data-route="gadget-time" href="gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
-  <a class="nav-link" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
-  <a class="nav-link" data-route="sleep" href="sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
-  <a class="nav-link" data-route="breathing" href="breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
-  <a class="nav-link" data-route="counseling" href="counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
-  <a class="nav-link" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+  <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
+  <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+  <a class="nav-link" data-route="sleep" href="../sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link" data-route="counseling" href="../counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+  <a class="nav-link" data-route="settings" href="../settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
 </nav>
 <div class="mt-auto flex-shrink-0">
   <div class="px-3 pb-2 flex flex-col gap-1">
@@ -305,7 +305,7 @@ tailwind.config = {
 </div>
 <div class="mt-4 flex justify-end"><span class="material-symbols-outlined text-primary icon-fill text-3xl">spa</span></div>
 </div>
-<div class="glass-card rounded-2xl p-5 text-center flex flex-col items-center justify-center hover:scale-[1.01] transition-transform cursor-pointer" onclick="location.href='counseling.html'">
+<div class="glass-card rounded-2xl p-5 text-center flex flex-col items-center justify-center hover:scale-[1.01] transition-transform cursor-pointer" onclick="location.href='../counseling/counseling.html'">
 <span class="material-symbols-outlined text-secondary icon-fill text-4xl mb-3">support_agent</span>
 <p class="font-bold" data-i18n="navCounseling">Digital Counseling</p>
 <p class="text-xs text-on-surface-variant mt-1">Talk to a counselor now</p>
@@ -320,11 +320,11 @@ tailwind.config = {
 </main>
 <!-- BOTTOM NAV -->
 <nav class="bottom-nav mobile-only">
-<div class="bn-item" onclick="location.href='index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
-<div class="bn-item" onclick="location.href='gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-item" onclick="location.href='../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
 <div class="bn-fab" onclick="location.href='reports.html'"><span class="material-symbols-outlined">report_problem</span></div>
-<div class="bn-item" onclick="location.href='counseling.html'"><span class="material-symbols-outlined">support_agent</span>Konseling</div>
-<div class="bn-item" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
+<div class="bn-item" onclick="location.href='../counseling/counseling.html'"><span class="material-symbols-outlined">support_agent</span>Konseling</div>
+<div class="bn-item" onclick="location.href='../settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
 </nav>
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
@@ -339,80 +339,6 @@ tailwind.config = {
 </div>
 </div>
 </div>
-<script>
-/* ====== TOAST ====== */
-function showToast(msg,type='info'){
-  const c=document.getElementById('toast');
-  const t=document.createElement('div');
-  t.className='toast-item '+type;
-  t.innerHTML='<span class="material-symbols-outlined" style="font-size:18px">'+(type==='success'?'check_circle':type==='error'?'error':'info')+'</span>'+msg;
-  c.appendChild(t);
-  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),300);},3000);
-}
-function openModal(id){document.getElementById(id).classList.add('open');}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal-backdrop.open').forEach(m=>m.classList.remove('open'));});
-document.querySelectorAll('.modal-backdrop').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
-
-/* ====== LOGOUT ====== */
-document.getElementById('sidebar-logout').addEventListener('click',()=>{
-  document.getElementById('confirmTitle').textContent='Log out?';
-  document.getElementById('confirmMsg').textContent='You will be returned to the dashboard.';
-  document.getElementById('confirmOk').onclick=()=>{closeModal('confirmModal');location.href='index.html';};
-  openModal('confirmModal');
-});
-
-/* ====== STEPS ====== */
-let currentStep=1;
-function selectCategory(category){
-  document.querySelectorAll('.category-btn').forEach(btn=>btn.classList.remove('bg-primary/10','border-primary'));
-  event.currentTarget.classList.add('bg-primary/10','border-primary');
-  setTimeout(()=>nextStep(2),300);
-}
-function nextStep(step){
-  document.getElementById('step-'+currentStep).classList.remove('active-step');
-  document.getElementById('step-'+currentStep).classList.add('hidden-step');
-  setTimeout(()=>{currentStep=step;document.getElementById('step-'+currentStep).classList.remove('hidden-step');document.getElementById('step-'+currentStep).classList.add('active-step');updateProgress();},300);
-}
-function prevStep(step){
-  document.getElementById('step-'+currentStep).classList.remove('active-step');
-  document.getElementById('step-'+currentStep).classList.add('hidden-step');
-  setTimeout(()=>{currentStep=step;document.getElementById('step-'+currentStep).classList.remove('hidden-step');document.getElementById('step-'+currentStep).classList.add('active-step');updateProgress();},300);
-}
-function updateProgress(){
-  for(let i=1;i<=3;i++){
-    const dot=document.getElementById('step-dot-'+i);
-    if(i<=currentStep){dot.classList.add('bg-primary','text-white');dot.classList.remove('bg-surface-container-highest','text-on-surface-variant');}
-    else{dot.classList.remove('bg-primary','text-white');dot.classList.add('bg-surface-container-highest','text-on-surface-variant');}
-  }
-  document.getElementById('progress-bar-1').style.width=currentStep>1?'100%':'0%';
-  document.getElementById('progress-bar-2').style.width=currentStep>2?'100%':'0%';
-}
-function submitReport(){
-  const btn=event.currentTarget;
-  btn.innerHTML='Submitting...';btn.disabled=true;
-  setTimeout(()=>{
-    const rid='#'+Math.floor(10000+Math.random()*90000);
-    document.getElementById('reportIdDisplay').textContent=rid;
-    showToast('Report '+rid+' submitted successfully!','success');
-    btn.innerHTML='Submit Report <span class="material-symbols-outlined">send</span>';
-    btn.disabled=false;
-    currentStep=1;
-    document.querySelectorAll('.step-transition').forEach(s=>{s.classList.remove('active-step');s.classList.add('hidden-step');});
-    document.getElementById('step-1').classList.remove('hidden-step');document.getElementById('step-1').classList.add('active-step');
-    updateProgress();
-  },1500);
-}
-
-/* Drop zone */
-window.addEventListener('DOMContentLoaded',()=>{
-  const dz=document.querySelector('.border-dashed');
-  if(dz){
-    ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('bg-primary/10','border-primary');}));
-    ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('bg-primary/10','border-primary');}));
-  }
-});
-</script>
 <!-- Avatar Shop Modal -->
 <div class="modal-backdrop" id="avatarShopModal">
 <div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
@@ -437,7 +363,8 @@ window.addEventListener('DOMContentLoaded',()=>{
   <div class="mb-2"><div class="font-bold text-sm mb-2">&#x1F6CD; Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
 </div>
 </div>
-<script src="profile.js"></script>
+<script src="reports.js"></script>
+<script src="../profile.js"></script>
 <script>
 /* ===== PROFILE SIDEBAR INIT ===== */
 (function(){
@@ -451,4 +378,4 @@ window.addEventListener('DOMContentLoaded',()=>{
 </script>
 </body>
 </html>
-
+<script src="../js/avatar.js"></script>

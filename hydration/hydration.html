@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SafeSchoolHub — Hydration Tracker</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        surface: 'var(--surface)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
+        background: 'var(--background)',
+      },
+      fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
+      boxShadow: {
+        card: '0 10px 30px rgba(0,0,0,0.04)',
+        'card-hover': '0 15px 40px rgba(0,0,0,0.08)',
+      },
+    },
+  },
+};
+</script>
+<link href="hydration.css" rel="stylesheet"/>
+<link href="../css/responsive.css" rel="stylesheet"/>
+<script src="../js/lang.js"></script>
+  <script>
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.replace('../safeschool-landing.html');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user && user.name) {
+          const sidebarName = document.getElementById('sidebarName') || document.querySelector('[data-i18n="userName"]');
+          if (sidebarName) sidebarName.textContent = user.name;
+          const sidebarGrade = document.getElementById('sidebarGrade') || document.querySelector('[data-i18n="userGrade"]');
+          if (sidebarGrade) {
+            sidebarGrade.textContent = user.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : 'Siswa';
+          }
+          const mobileAvatar = document.getElementById('mobileAvatarBadge');
+          if (mobileAvatar) {
+            mobileAvatar.textContent = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          }
+        }
+      } catch(e) {}
+
+      const logoutBtn = document.getElementById('sidebar-logout');
+      if (logoutBtn) {
+        const newLogoutBtn = logoutBtn.cloneNode(true);
+        logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+        newLogoutBtn.addEventListener('click', () => {
+          const confirmModal = document.getElementById('confirmModal');
+          if (confirmModal) {
+            document.getElementById('confirmTitle').textContent = 'Keluar?';
+            document.getElementById('confirmMsg').textContent = 'Apakah Anda yakin ingin keluar dari SafeSchool?';
+            document.getElementById('confirmOk').onclick = () => {
+              document.getElementById('confirmModal').classList.remove('open');
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('../safeschool-landing.html');
+            };
+            document.getElementById('confirmModal').classList.add('open');
+          } else {
+            if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('../safeschool-landing.html');
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen">
+<div class="toast" id="toast"></div>
+<!-- ===== SIDEBAR DESKTOP ===== -->
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
+  <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+    <span class="material-symbols-outlined icon-fill">shield</span>
+  </div>
+  <div>
+    <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
+    <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
+  </div>
+</div>
+<nav class="px-3 mt-2 flex flex-col gap-1 flex-grow overflow-y-auto" style="scrollbar-width: none; -ms-overflow-style: none;">
+  <style>
+    nav::-webkit-scrollbar { display: none; }
+  </style>
+  <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
+  <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link active" data-route="hydration" href="hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+  <a class="nav-link" data-route="sleep" href="../sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link" data-route="counseling" href="../counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+  <a class="nav-link" data-route="settings" href="../settings/settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+</nav>
+<div class="mt-auto flex-shrink-0">
+  <div class="px-3 pb-2 flex flex-col gap-1">
+    <a class="nav-link" onclick="openHelpCenter()"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+    <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+  </div>
+  <div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
+    <div class="flex items-center gap-3">
+      <div class="relative flex-shrink-0">
+        <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
+          <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
+        </div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+        <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
+        <div class="flex items-center gap-1 mt-0.5">
+          <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+          <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+        </div>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
+    </div>
+  </div>
+</div>
+</aside>
+<!-- ===== MOBILE TOP BAR ===== -->
+<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
+</div>
+<span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold cursor-pointer" id="mobileAvatarBadge" onclick="openProfileModal()">AJ</div>
+</header>
+<!-- ===== MAIN CONTENT ===== -->
+<main class="main-content lg:ml-64 min-h-screen">
+<div class="max-w-[680px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
+<!-- BREADCRUMB -->
+<div class="text-sm text-on-surface-variant mb-3 flex items-center gap-1">
+<a class="hover:text-primary cursor-pointer" data-i18n="navWellnessTracking" href="../index.html">Wellness Tracking</a>
+<span class="material-symbols-outlined" style="font-size:14px">chevron_right</span>
+<span class="text-on-surface font-semibold" data-i18n="hydTitle">Hydration Tracker</span>
+</div>
+<!-- ===== MAIN TRACKER CARD ===== -->
+<div class="card p-6 mb-5">
+<!-- Header row -->
+<div class="flex items-start justify-between mb-5">
+<div>
+<h2 class="text-xl font-extrabold flex items-center gap-2">
+<span class="material-symbols-outlined icon-fill text-primary">water_drop</span><span data-i18n="hydTitle">Hydration Tracker</span></h2>
+<p class="text-sm text-on-surface-variant mt-1" data-i18n="hydFact2">Maintaining proper hydration is key to focus and energy throughout the school day.</p>
+</div>
+<!-- Goal badge -->
+<div class="hidden ml-3 flex-shrink-0 flex items-center gap-1 bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1.5 rounded-full goal-badge" id="goalBadge">
+<span class="material-symbols-outlined icon-fill" style="font-size:16px">check_circle</span> Goal!
+        </div>
+</div>
+<!-- Big bottle visual + stats side by side -->
+<div class="flex gap-6 items-center mb-6">
+<!-- Animated Bottle -->
+<div class="flex-shrink-0 relative flex flex-col items-center">
+<svg class="w-20 h-36" id="bigBottle" style="overflow:visible;" viewbox="0 0 90 160">
+<defs>
+<clippath id="bottleClip"><rect height="136" rx="20" width="60" x="15" y="8"></rect></clippath>
+<lineargradient id="waterGrad" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0%" stop-color="#5a9bd5"></stop>
+<stop offset="100%" stop-color="#106399"></stop>
+</lineargradient>
+<lineargradient id="emptyGrad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#eff4ff"></stop>
+<stop offset="100%" stop-color="#e5eeff"></stop>
+</lineargradient>
+</defs>
+<!-- Bottle body -->
+<rect fill="url(#emptyGrad)" height="136" rx="20" stroke="#c1c7d1" stroke-width="1.5" width="60" x="15" y="8"></rect>
+<!-- Water fill (animated via JS) -->
+<g clip-path="url(#bottleClip)">
+<rect fill="url(#waterGrad)" height="0" id="bigWaterFill" width="60" x="15" y="144"></rect>
+<!-- Wave surface -->
+<path d="M15,144 Q45,144 75,144 L75,144 L15,144 Z" fill="#5a9bd5" id="bigWavePath" opacity="0.6"></path>
+</g>
+<!-- Shine overlay -->
+<rect fill="white" height="80" opacity="0.15" rx="5" width="10" x="20" y="14"></rect>
+<!-- Ripple element (appended by JS) -->
+<g id="rippleGroup"></g>
+<!-- Bottle cap -->
+<rect fill="#106399" height="10" rx="5" width="30" x="30" y="2"></rect>
+<!-- Measurement lines -->
+<line stroke="#c1c7d1" stroke-linecap="round" stroke-width="1.5" x1="65" x2="72" y1="55" y2="55"></line>
+<line stroke="#c1c7d1" stroke-linecap="round" stroke-width="1.5" x1="68" x2="72" y1="83" y2="83"></line>
+<line stroke="#c1c7d1" stroke-linecap="round" stroke-width="1.5" x1="65" x2="72" y1="111" y2="111"></line>
+</svg>
+<!-- Percentage label -->
+<div class="mt-1 text-lg font-extrabold text-primary" id="bottlePctLabel">0%</div>
+<div class="text-xs text-on-surface-variant font-semibold">of daily goal</div>
+</div>
+<!-- Right stats -->
+<div class="flex-1 flex flex-col gap-4">
+<!-- Cup counter -->
+<div class="bg-surface-container-low rounded-2xl p-4 text-center">
+<div class="text-4xl font-extrabold text-primary tabular-nums" id="cupCountBig">0</div>
+<div class="text-xs text-on-surface-variant font-semibold mt-1">cups of <span class="font-bold text-on-surface">8</span> target</div>
+</div>
+<!-- Volume info -->
+<div class="flex gap-2">
+<div class="flex-1 bg-surface-container-low rounded-xl p-3 text-center">
+<div class="text-sm font-extrabold text-on-surface" id="mlCount">0 ml</div>
+<div class="text-[10px] text-on-surface-variant font-semibold mt-0.5">consumed</div>
+</div>
+<div class="flex-1 bg-surface-container-low rounded-xl p-3 text-center">
+<div class="text-sm font-extrabold text-on-surface" id="mlRemain">2000 ml</div>
+<div class="text-[10px] text-on-surface-variant font-semibold mt-0.5">remaining</div>
+</div>
+</div>
+<!-- Progress bar -->
+<div>
+<div class="flex justify-between text-xs font-semibold mb-1">
+<span id="progressLabel">0%</span>
+<span class="text-on-surface-variant" data-i18n="dailyGoal2L">Daily Goal: 2L</span>
+</div>
+<div class="h-3 rounded-full bg-surface-container overflow-hidden">
+<div class="h-full rounded-full" id="cupBar" style="width:0%;background:linear-gradient(90deg,#5a9bd5,#106399)"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<div class="flex items-center justify-between mb-2">
+<span class="text-sm font-bold text-on-surface-variant">Adjust hydration intake</span>
+<span class="text-xs text-on-surface-variant" id="timeLogged"></span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] gap-3 items-center">
+<button class="btn-ghost flex items-center justify-center gap-2 text-sm" onclick="changeCup(-1)">
+<span class="material-symbols-outlined" style="font-size:18px">remove</span>
+</button>
+<input aria-label="Cups consumed" class="w-full rounded-xl border border-outline-variant p-3 text-center" id="cupInput" max="8" min="0" type="number" value="0"/>
+<button class="btn-primary flex items-center justify-center gap-2 text-sm" onclick="changeCup(1)">
+<span class="material-symbols-outlined" style="font-size:18px">add</span>
+</button>
+</div>
+<button class="btn-ghost mt-3 w-full text-sm" data-i18n="setExactCups" onclick="setCupsFromInput()">Set exact cups</button>
+</div>
+<!-- Reset -->
+<div class="flex justify-center mt-3">
+<button class="text-xs text-on-surface-variant hover:text-error font-semibold flex items-center gap-1 transition-colors" onclick="resetCups()">
+<span class="material-symbols-outlined" style="font-size:14px">restart_alt</span><span data-i18n="resetToday">Reset today</span></button>
+</div>
+</div>
+<!-- STATUS CARD -->
+<div class="card p-5 mb-5">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">water_drop</span>
+<div class="font-bold text-on-surface-variant flex items-center gap-1" id="statusBadge">
+<span class="material-symbols-outlined" style="font-size:18px">water_drop</span>
+<span id="statusText">Start hydrating!</span>
+</div>
+</div>
+<div class="text-sm mt-2 leading-relaxed" data-i18n="hydFirstCup" id="hydMsg">Drink your first cup of water to begin your hydration journey today.</div>
+<div class="text-xs text-on-surface-variant mt-2"><b data-i18n="proTip">Pro Tip:</b><span data-i18n="hydTip1">Drink 500ml before lunch for better concentration.</span></div>
+</div>
+<!-- NEXT REMINDER CARD -->
+<div class="card p-5 mb-5 text-white" style="background:#003151">
+<div class="flex items-center gap-2 text-sm opacity-80"><span class="material-symbols-outlined" style="font-size:18px">schedule</span>Next Reminder</div>
+<div class="text-3xl font-extrabold mt-1" id="nextReminder">10:45 AM</div>
+<div class="text-sm opacity-80" data-i18n="recessHydration">Recess Break Hydration</div>
+</div>
+<!-- WEEKLY CHART CARD -->
+<div class="card p-5 mb-5">
+<div class="flex items-center justify-between mb-3">
+<div class="flex gap-1" id="hydWeekTabs">
+<button class="tab-btn" data-i18n="lastWeek" data-w="last">Last Week</button>
+<button class="tab-btn active" data-w="current">Current</button>
+</div>
+<button class="btn-ghost text-xs" data-i18n="downloadReport" onclick="downloadReport()">Download Report</button>
+</div>
+<svg class="w-full h-36" id="hydWeekChart" viewbox="0 0 320 140"></svg>
+</div>
+<!-- ARTICLES -->
+<div class="card overflow-hidden mb-4">
+<div class="p-5" style="background:linear-gradient(135deg,#5eead4,#3b82f6)">
+<div class="font-bold text-white text-lg" data-i18n="waterCognitive">Pentingnya Minum Air Cukup</div>
+<div class="text-xs text-white opacity-90 mt-1" data-i18n="hydLearnDescShort">Pelajari bagaimana menjaga hidrasi berdampak pada kesehatan dan belajar.</div>
+</div>
+<div class="p-5 text-sm text-on-surface-variant" data-i18n="hydStudy2">
+Minum air yang cukup menjaga tubuh Anda tetap terhidrasi dengan baik, meningkatkan fokus dan tingkat konsentrasi, menambah energi, serta membantu mencegah sakit kepala atau kelelahan.
+</div>
+</div>
+
+<div class="card overflow-hidden mb-5">
+<div class="p-5" style="background:linear-gradient(135deg,#fb923c,#f59e0b)">
+<div class="font-bold text-white text-lg" data-i18n="peHydration">Hubungan Hidrasi & Performa Belajar Pelajar</div>
+<div class="text-xs text-white opacity-90 mt-1" data-i18n="peHydDescShort">Ketahui bagaimana konsumsi air yang cukup memengaruhi konsentrasi dan prestasi belajar Anda.</div>
+</div>
+<div class="p-5 text-sm text-on-surface-variant" data-i18n="peHydDetail">
+Mengonsumsi air yang cukup meningkatkan aliran oksigen ke otak, yang secara langsung meningkatkan konsentrasi, memperkuat daya ingat, mempermudah pemahaman materi pelajaran, serta mencegah kantuk dan kelelahan saat jam pelajaran berlangsung.
+</div>
+</div>
+<!-- FACT CARD -->
+<div class="card p-5 flex items-start gap-3 mb-5">
+<span class="material-symbols-outlined text-primary">lightbulb</span>
+<div class="flex-1">
+<div class="font-bold text-sm" data-i18n="hydFact1" id="factText">Just a 2% drop in hydration can cause significant fatigue and reduced alertness.</div>
+<button class="text-primary text-sm font-bold mt-2" onclick="cycleFact()">See More Facts →</button>
+</div>
+</div>
+<!-- FOOTER -->
+<footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
+<div class="flex flex-wrap items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 font-extrabold text-on-surface"><span class="material-symbols-outlined icon-fill text-primary">shield</span><span data-i18n="brand">SafeSchoolHub</span></div>
+<div class="mt-1 max-w-sm" data-i18n="footerTagline">Promoting digital well-being for the next generation of learners.</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<a class="hover:text-primary cursor-pointer" data-i18n="footerPrivacy">Privacy Policy</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerTerms">Terms of Service</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerContact">Contact Support</a>
+</div>
+</div>
+<div class="mt-6 text-xs" data-i18n="footerCopyright">© 2024 SafeSchoolHub. All rights reserved.</div>
+</footer>
+</div>
+</main>
+<!-- Bottom Nav (mobile) -->
+<nav class="bottom-nav">
+<div class="bn-item" onclick="location.href='../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-fab" onclick="showToast('Check-in','info')"><span class="material-symbols-outlined">add</span></div>
+<div class="bn-item" onclick="location.href='../settings/settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
+</nav>
+
+<div class="modal-backdrop" id="confirmModal">
+  <div class="modal-card">
+    <h3 class="font-extrabold text-lg mb-2" id="confirmTitle">Confirm</h3>
+    <div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
+    <div class="flex gap-2 justify-end">
+      <button class="btn-ghost" onclick="closeModal('confirmModal')">Cancel</button>
+      <button class="btn-primary" id="confirmOk">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="profileModal" onclick="if(event.target===this)closeProfileModal()">
+  <div class="modal-card" style="max-width:440px;max-height:90vh;overflow-y:auto;">
+    <div class="flex justify-between items-center mb-5">
+      <div><h3 class="font-extrabold text-xl"><i class="fa-solid fa-user-pen"></i> Profil Saya</h3><div class="text-sm text-on-surface-variant mt-0.5">Edit nama dan informasimu</div></div>
+      <button onclick="closeProfileModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+      <div class="relative inline-block mb-2">
+        <div id="profileModalAvatar" class="w-20 h-20 rounded-full bg-primary mx-auto flex items-center justify-center font-extrabold text-3xl text-white"><i class="fa-solid fa-user"></i></div>
+        <div id="profileModalHatBadge" class="absolute -top-3 left-1/2 -translate-x-1/2 text-3xl hidden"></div>
+        <div id="profileModalGlassesBadge" class="absolute top-6 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+      </div>
+      <div class="font-extrabold text-on-surface mt-1" id="profileModalDisplayName">Alex Johnson</div>
+      <div class="text-sm text-on-surface-variant" id="profileModalDisplayGrade">Grade 11-A</div>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
+      <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Nama kamu"/>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">KELAS / GRADE</label>
+      <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Contoh: Grade 11-A"/>
+    </div>
+    <div class="mb-5">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPSIONAL)</label>
+      <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
+    </div>
+    <div class="flex gap-3">
+      <button class="btn-primary flex-1 justify-center" onclick="saveProfile()">Simpan Profil</button>
+      <button class="btn-ghost flex-1" onclick="closeProfileModal()">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script src="hydration.js"></script>
+<script src="../profile.js"></script>
+<script>
+/* ===== PROFILE SIDEBAR INIT ===== */
+(function(){
+  const name=localStorage.getItem('profileName')||'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')||'Grade 11-A';
+  const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
+  const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
+  const mb=document.getElementById('mobileAvatarBadge');
+  if(mb)mb.textContent=name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+})();
+</script>
+</body>
+</html>

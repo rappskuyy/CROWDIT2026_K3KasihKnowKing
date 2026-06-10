@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SafeSchoolHub — Student Wellness Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet"/>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: 'var(--primary)',
+        'on-primary': 'var(--on-primary)',
+        'primary-container': 'var(--primary-container)',
+        'on-primary-container': 'var(--on-primary-container)',
+        secondary: 'var(--secondary)',
+        'on-secondary': 'var(--on-secondary)',
+        'secondary-container': 'var(--secondary-container)',
+        'on-secondary-container': 'var(--on-secondary-container)',
+        surface: 'var(--surface)',
+        'surface-container-lowest': 'var(--surface-container-lowest)',
+        'surface-container-low': 'var(--surface-container-low)',
+        'surface-container': 'var(--surface-container)',
+        'surface-container-high': 'var(--surface-container-high)',
+        'surface-container-highest': 'var(--surface-container-highest)',
+        'on-surface': 'var(--on-surface)',
+        'on-surface-variant': 'var(--on-surface-variant)',
+        outline: 'var(--outline)',
+        'outline-variant': 'var(--outline-variant)',
+        error: 'var(--error)',
+        'error-container': 'var(--error-container)',
+        'inverse-surface': 'var(--inverse-surface)',
+        background: 'var(--background)',
+      },
+      },
+      fontFamily: { sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'] },
+      boxShadow: {
+        card: '0 10px 30px rgba(0,0,0,0.04)',
+        'card-hover': '0 15px 40px rgba(0,0,0,0.08)',
+      },
+    },
+  },
+};
+</script>
+<link href="settings.css" rel="stylesheet"/>
+<link href="../css/responsive.css" rel="stylesheet"/>
+<script src="../js/lang.js"></script>
+  <script>
+    if (localStorage.getItem('loggedIn') !== 'true') {
+      window.location.replace('../safeschool-landing.html');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+        if (user && user.name) {
+          const sidebarName = document.getElementById('sidebarName') || document.querySelector('[data-i18n="userName"]');
+          if (sidebarName) sidebarName.textContent = user.name;
+          const sidebarGrade = document.getElementById('sidebarGrade') || document.querySelector('[data-i18n="userGrade"]');
+          if (sidebarGrade) {
+            sidebarGrade.textContent = user.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : 'Siswa';
+          }
+          const mobileAvatar = document.getElementById('mobileAvatarBadge');
+          if (mobileAvatar) {
+            mobileAvatar.textContent = user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+          }
+        }
+      } catch(e) {}
+
+      const logoutBtn = document.getElementById('sidebar-logout');
+      if (logoutBtn) {
+        const newLogoutBtn = logoutBtn.cloneNode(true);
+        logoutBtn.parentNode.replaceChild(newLogoutBtn, logoutBtn);
+        newLogoutBtn.addEventListener('click', () => {
+          const confirmModal = document.getElementById('confirmModal');
+          if (confirmModal) {
+            document.getElementById('confirmTitle').textContent = 'Keluar?';
+            document.getElementById('confirmMsg').textContent = 'Apakah Anda yakin ingin keluar dari SafeSchool?';
+            document.getElementById('confirmOk').onclick = () => {
+              document.getElementById('confirmModal').classList.remove('open');
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('../safeschool-landing.html');
+            };
+            document.getElementById('confirmModal').classList.add('open');
+          } else {
+            if (confirm('Apakah Anda yakin ingin keluar dari SafeSchool?')) {
+              localStorage.removeItem('loggedIn');
+              localStorage.removeItem('user');
+              window.location.replace('../safeschool-landing.html');
+            }
+          }
+        });
+      }
+    });
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="min-h-screen">
+<!-- Toast container -->
+<div class="toast" id="toast"></div>
+<!-- ============== SIDEBAR (DESKTOP) ============== -->
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
+  <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
+    <span class="material-symbols-outlined icon-fill">shield</span>
+  </div>
+  <div>
+    <div class="font-extrabold text-on-surface leading-none">SafeSchoolHub</div>
+    <div class="text-[10px] tracking-widest text-on-surface-variant mt-1 font-semibold">STUDENT WELLNESS</div>
+  </div>
+</div>
+<nav class="px-3 mt-2 flex flex-col gap-1 flex-grow overflow-y-auto" style="scrollbar-width: none; -ms-overflow-style: none;">
+  <style>
+     nav::-webkit-scrollbar { display: none; }
+  </style>
+  <a class="nav-link" data-route="overview" href="../index.html"><span class="material-symbols-outlined">dashboard</span><span data-i18n="navDashboard">Dashboard</span></a>
+  <a class="nav-link" href="../educational/educational.html" data-route="educational"><span class="material-symbols-outlined">school</span><span data-i18n="navEducational">Educational</span></a>
+  <a class="nav-link" data-route="gadget-time" href="../gadget-time/gadget-time.html"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="navWellnessTracking">Wellness Tracking</span></a>
+  <a class="nav-link" data-route="hydration" href="../hydration/hydration.html"><span class="material-symbols-outlined">water_drop</span><span data-i18n="navHydration">Hydration</span></a>
+  <a class="nav-link" data-route="sleep" href="../sleep/sleep.html"><span class="material-symbols-outlined">bedtime</span><span data-i18n="navSleep">Sleep</span></a>
+  <a class="nav-link" data-route="breathing" href="../breathing/breathing.html"><span class="material-symbols-outlined">self_improvement</span><span data-i18n="navBreathing">Breathing</span></a>
+  <a class="nav-link" data-route="counseling" href="../counseling/counseling.html"><span class="material-symbols-outlined">support_agent</span><span data-i18n="navCounseling">Digital Counseling</span></a>
+  <a class="nav-link active" data-route="settings" href="settings.html"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></a>
+</nav>
+<div class="mt-auto flex-shrink-0">
+  <div class="px-3 pb-2 flex flex-col gap-1">
+    <a class="nav-link" onclick="openHelpCenter()"><span class="material-symbols-outlined">help_outline</span><span data-i18n="navHelpCenter">Help Center</span></a>
+    <a class="nav-link" id="sidebar-logout"><span class="material-symbols-outlined">logout</span><span data-i18n="navLogout">Log Out</span></a>
+  </div>
+  <div class="m-3 mt-2 p-3 rounded-2xl bg-surface-container-low cursor-pointer" onclick="openProfileModal()" style="border:1px solid var(--outline-variant);">
+    <div class="flex items-center gap-3">
+      <div class="relative flex-shrink-0">
+        <div id="sidebarAvatarWrap" class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm overflow-hidden" style="border:2px solid var(--primary);">
+          <span id="sidebarAvatarEmoji" style="font-size:24px"><i class="fa-solid fa-user"></i></span>
+        </div>
+        <div id="sidebarHatBadge" class="absolute -top-2 -right-1 text-base hidden"><i class="fa-solid fa-hat-cowboy"></i></div>
+      </div>
+      <div class="flex-1 min-w-0">
+        <div class="font-bold text-sm truncate sidebar-profile-name" id="sidebarName">Alex Johnson</div>
+        <div class="text-xs text-on-surface-variant sidebar-profile-grade" id="sidebarGrade">Grade 11-A</div>
+        <div class="flex items-center gap-1 mt-0.5">
+          <span class="material-symbols-outlined text-primary" style="font-size:13px">stars</span>
+          <span class="text-xs font-bold text-primary" id="sidebarXP">320 XP</span>
+        </div>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant" style="font-size:18px">chevron_right</span>
+    </div>
+  </div>
+</div>
+</aside>
+<!-- ============== MOBILE TOP BAR ============== -->
+<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
+</div>
+<span class="font-extrabold" data-i18n="brand">SafeSchoolHub</span>
+</div>
+<div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center text-xs font-bold cursor-pointer" id="mobileAvatarBadge" onclick="openProfileModal()">AJ</div>
+</header>
+<!-- ============== MAIN CONTENT ============== -->
+<main class="main-content lg:ml-64 min-h-screen">
+<div class="max-w-[1280px] mx-auto px-4 lg:px-10 py-6 lg:py-10">
+<!-- ==================== PAGE: SETTINGS ==================== -->
+<section class="page active" id="page-settings">
+<h1 class="text-3xl font-extrabold mb-5" data-i18n="settings">Settings</h1>
+<div class="card p-5 mb-5 flex items-center gap-4">
+<div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center font-extrabold text-xl" id="settingsAvatarCircle">AJ</div>
+<div class="flex-1">
+<div class="font-bold text-lg" id="settingsProfileName">Alex Johnson</div>
+<div class="text-sm text-on-surface-variant" id="settingsProfileGrade" data-i18n="userGrade">Grade 11-A</div>
+</div>
+<button class="btn-ghost text-sm" data-i18n="editProfile" onclick="openProfileEditModal()">Edit Profile</button>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="notifications">Notifications</h3>
+<div class="flex flex-col gap-3" id="notifList"></div>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="appearance">Appearance</h3>
+<div class="flex items-center justify-between mb-4">
+<span class="text-sm" data-i18n="theme">Theme</span>
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold" data-i18n="themeLight" id="themeLabel">Light</span>
+<div class="toggle" id="themeSwitcher" onclick="toggleTheme()"></div>
+</div>
+</div>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="privacy">Privacy &amp; Data</h3>
+<div class="flex flex-wrap gap-2">
+<button class="btn-ghost text-sm" data-i18n="downloadData" onclick="downloadData()">Download My Data</button>
+<button class="btn-ghost text-sm" data-i18n="clearMoodHistory" onclick="clearMoodHistory()">Clear Mood History</button>
+</div>
+</div>
+<div class="card p-5 mb-5">
+<h3 class="font-bold mb-3" data-i18n="account">Account</h3>
+<button class="btn-ghost text-sm mr-2" data-i18n="changePassword" onclick="document.getElementById('pwForm').classList.toggle('hidden')">Change Password</button>
+<button class="btn-ghost text-sm" data-i18n="logout" onclick="confirmLogout()">Log Out</button>
+<form class="hidden mt-3 grid gap-2 max-w-sm" id="pwForm" onsubmit="event.preventDefault();this.reset();this.classList.add('hidden');showToast(I18N[getCurrentLang()]['passwordUpdated'],'success')">
+<input class="rounded-lg border border-outline-variant p-2 text-sm" data-placeholder="currentPassword" placeholder="Current password" type="password"/>
+<input class="rounded-lg border border-outline-variant p-2 text-sm" data-placeholder="newPassword" placeholder="New password" type="password"/>
+<button class="btn-primary text-sm" data-i18n="updatePassword">Update Password</button>
+</form>
+</div>
+</section>
+<!-- ==================== FOOTER ==================== -->
+<footer class="mt-12 pt-8 border-t border-outline-variant text-sm text-on-surface-variant">
+<div class="flex flex-wrap items-start justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 font-extrabold text-on-surface"><span class="material-symbols-outlined icon-fill text-primary">shield</span><span data-i18n="brand">SafeSchoolHub</span></div>
+<div class="mt-1 max-w-sm" data-i18n="footerTagline">Promoting digital well-being for the next generation of learners.</div>
+</div>
+<div class="flex flex-wrap gap-4">
+<a class="hover:text-primary cursor-pointer" data-i18n="footerPrivacy">Privacy Policy</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerTerms">Terms of Service</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerAccessibility">Accessibility</a>
+<a class="hover:text-primary cursor-pointer" data-i18n="footerContact">Contact Support</a>
+</div>
+</div>
+<div class="mt-6 text-xs" data-i18n="footerCopyright">© 2024 SafeSchoolHub. All rights reserved.</div>
+</footer>
+</div>
+</main>
+<!-- Bottom Nav (mobile) -->
+<nav class="bottom-nav">
+<div class="bn-item" data-route="overview" onclick="location.href='../index.html'"><span class="material-symbols-outlined">dashboard</span><span data-i18n="bnHome">Home</span></div>
+<div class="bn-item" data-route="gadget-time" onclick="location.href='../gadget-time/gadget-time.html'"><span class="material-symbols-outlined">monitor_heart</span><span data-i18n="bnWellness">Wellness</span></div>
+<div class="bn-fab" onclick="openCheckin()"><span class="material-symbols-outlined">add</span></div>
+<div class="bn-item active" data-route="settings" onclick="location.href='settings.html'"><span class="material-symbols-outlined">settings</span><span data-i18n="navSettings">Settings</span></div>
+</nav>
+<!-- ============== MODALS ============== -->
+<div class="modal-backdrop" id="checkinModal">
+<div class="modal-card">
+<div class="flex justify-between items-center mb-3"><h3 class="font-extrabold text-lg" data-i18n="checkinModalTitle">How are you feeling today?</h3><button onclick="closeModal('checkinModal')"><span class="material-symbols-outlined">close</span></button></div>
+<div class="flex justify-between gap-2 mb-3" id="checkinMoods">
+<button class="mood-chip" data-cmood="Stressed"><i class="fa-solid fa-face-angry"></i></button>
+<button class="mood-chip" data-cmood="Low"><i class="fa-solid fa-face-frown"></i></button>
+<button class="mood-chip" data-cmood="Neutral"><i class="fa-solid fa-face-meh"></i></button>
+<button class="mood-chip" data-cmood="Good"><i class="fa-solid fa-face-smile"></i></button>
+<button class="mood-chip" data-cmood="Great"><i class="fa-solid fa-face-laugh-beam"></i></button>
+</div>
+<textarea class="w-full rounded-lg border border-outline-variant p-3 mb-3" id="checkinNote" placeholder="Any thoughts you'd like to share?" rows="3"></textarea>
+<button class="btn-primary w-full" data-i18n="submitCheckin" onclick="submitCheckin()">Submit Check-in</button>
+</div>
+</div>
+<div class="modal-backdrop" id="confirmModal">
+<div class="modal-card">
+<h3 class="font-extrabold text-lg mb-2" data-i18n="confirmBtn" id="confirmTitle">Confirm</h3>
+<div class="text-sm text-on-surface-variant mb-4" id="confirmMsg"></div>
+<div class="flex gap-2 justify-end"><button class="btn-ghost" data-i18n="cancelBtn" onclick="closeModal('confirmModal')">Cancel</button><button class="btn-primary" data-i18n="confirmBtn" id="confirmOk">Confirm</button></div>
+</div>
+</div>
+<!-- Avatar Shop Modal -->
+<div class="modal-backdrop" id="avatarShopModal">
+<div class="modal-card" style="max-width:520px;max-height:90vh;overflow-y:auto;">
+  <div class="flex justify-between items-center mb-4">
+    <div><h3 class="font-extrabold text-xl"><i class="fa-solid fa-palette"></i> Avatar &amp; Toko Aksesori</h3>
+    <div class="text-sm text-on-surface-variant mt-0.5">Tukarkan XP untuk aksesori avatar kamu!</div></div>
+    <button onclick="document.getElementById('avatarShopModal').classList.remove('open')"><span class="material-symbols-outlined">close</span></button>
+  </div>
+  <div class="rounded-2xl p-5 mb-4 text-center" style="background:linear-gradient(135deg,#eff4ff,#dce9ff);">
+    <div class="relative inline-block mb-2">
+      <div id="avatarPreviewCircle" class="w-24 h-24 rounded-full bg-primary mx-auto flex items-center justify-center" style="border:3px solid var(--primary);font-size:52px;"><i class="fa-solid fa-user"></i></div>
+      <div id="avatarHatPreview" class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl hidden"></div>
+      <div id="avatarGlassesPreview" class="absolute top-8 left-1/2 -translate-x-1/2 text-2xl hidden"></div>
+    </div>
+    <div class="font-bold text-on-surface mt-2">Alex Johnson</div>
+    <div class="flex items-center justify-center gap-2 mt-1">
+      <span class="material-symbols-outlined text-primary" style="font-size:16px">stars</span>
+      <span class="font-extrabold text-primary" id="avatarShopXP">320 XP</span>
+    </div>
+  </div>
+  <div class="mb-4"><div class="font-bold text-sm mb-2">Pilih Avatar Dasar (Gratis)</div><div class="grid grid-cols-6 gap-2" id="baseAvatarGrid"></div></div>
+  <div class="mb-2"><div class="font-bold text-sm mb-2">&#x1F6CD; Toko Aksesori</div><div class="grid grid-cols-1 gap-3" id="accessoryShopGrid"></div></div>
+</div>
+</div>
+<!-- Profile Edit Modal for Settings -->
+<div class="modal-backdrop" id="profileEditModal" onclick="if(event.target===this)closeProfileEditModal()">
+  <div class="modal-card" style="max-width:440px;">
+    <div class="flex justify-between items-center mb-5">
+      <h3 class="font-extrabold text-xl"><i class="fa-solid fa-user-pen"></i> Edit Profile</h3>
+      <button onclick="closeProfileEditModal()"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">FULL NAME</label>
+      <input type="text" id="settingsNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Your name"/>
+    </div>
+    <div class="mb-4">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">CLASS / GRADE</label>
+      <input type="text" id="settingsGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="e.g. Grade 11-A"/>
+    </div>
+    <div class="mb-5">
+      <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPTIONAL)</label>
+      <input type="email" id="settingsEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@school.ac.id"/>
+    </div>
+    <div class="flex gap-3">
+      <button class="btn-primary flex-1 justify-center" onclick="saveSettingsProfile()">Save Profile</button>
+      <button class="btn-ghost flex-1" onclick="closeProfileEditModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+<script src="settings.js"></script>
+<script src="../profile.js"></script>
+<script>
+/* ===== SETTINGS PROFILE SYNC ===== */
+function loadSettingsProfile(){
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
+  const initials=name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+  const el=document.getElementById('settingsProfileName');if(el)el.textContent=name;
+  const el2=document.getElementById('settingsProfileGrade');if(el2)el2.textContent=grade;
+  const av=document.getElementById('settingsAvatarCircle');if(av)av.textContent=initials;
+  const sn=document.getElementById('sidebarName');if(sn)sn.textContent=name;
+  const sg=document.getElementById('sidebarGrade');if(sg)sg.textContent=grade;
+  const mb=document.getElementById('mobileAvatarBadge');if(mb)mb.textContent=initials;
+}
+loadSettingsProfile();
+</script>
+</body>
+</html>
+<script src="../js/avatar.js"></script>
