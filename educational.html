@@ -830,6 +830,67 @@ function downloadCertificate(){
   const element = document.getElementById('certCard');
   const certId = document.getElementById('certId').textContent;
   
+  // Clone element to prevent styling alterations on the live page
+  const clone = element.cloneNode(true);
+  
+  // Ensure the clone is styled with solid, absolute values to prevent CSS variable rendering issues in html2canvas
+  clone.style.position = 'absolute';
+  clone.style.left = '-9999px';
+  clone.style.top = '-9999px';
+  clone.style.width = '520px';
+  clone.style.height = 'auto';
+  clone.style.background = '#ffffff';
+  clone.style.color = '#0b1c30';
+  clone.style.display = 'block';
+  
+  const header = clone.querySelector('.cert-header');
+  if (header) {
+    header.style.background = 'linear-gradient(135deg, #003151, #106399)';
+    header.style.color = '#ffffff';
+    header.style.padding = '2rem';
+    header.style.textAlign = 'center';
+  }
+  
+  const seal = clone.querySelector('.cert-seal');
+  if (seal) {
+    seal.style.backgroundColor = '#e5eeff';
+    seal.style.borderColor = '#717880';
+    seal.style.width = '72px';
+    seal.style.height = '72px';
+    seal.style.borderRadius = '50%';
+    seal.style.display = 'flex';
+    seal.style.alignItems = 'center';
+    seal.style.justifyContent = 'center';
+    seal.style.margin = '0 auto 1rem';
+  }
+  
+  const body = clone.querySelector('.cert-body');
+  if (body) {
+    body.style.backgroundColor = '#ffffff';
+    body.style.padding = '1.5rem 2rem';
+  }
+  
+  // Apply direct colors to all text labels to prevent Tailwind color variable mapping issues
+  clone.querySelectorAll('.text-on-surface-variant').forEach(el => {
+    el.style.color = '#41474f';
+  });
+  clone.querySelectorAll('.text-on-surface').forEach(el => {
+    el.style.color = '#0b1c30';
+  });
+  const nameLabel = clone.querySelector('#certStudentName');
+  if (nameLabel) {
+    nameLabel.style.color = '#0b1c30';
+    nameLabel.style.fontWeight = '800';
+    nameLabel.style.fontSize = '1.5rem';
+  }
+  const titleLabel = clone.querySelector('#certVideoTitle');
+  if (titleLabel) {
+    titleLabel.style.color = '#0b1c30';
+    titleLabel.style.fontWeight = '700';
+  }
+
+  document.body.appendChild(clone);
+  
   const opt = {
     margin:       10,
     filename:     'Sertifikat_' + certId + '.pdf',
@@ -838,7 +899,15 @@ function downloadCertificate(){
     jsPDF:        { unit: 'mm', format: 'a5', orientation: 'landscape' }
   };
   
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(clone).save().then(() => {
+    document.body.removeChild(clone);
+  }).catch(err => {
+    console.error(err);
+    if (clone.parentNode) {
+      document.body.removeChild(clone);
+    }
+  });
+  
   showToast('Sertifikat berhasil diunduh!','success');
 }
 document.getElementById('certificateOverlay').addEventListener('click',e=>{if(e.target===document.getElementById('certificateOverlay'))closeCertificate();});
