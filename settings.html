@@ -585,6 +585,7 @@ function updateThemeUI(){
   }
   if(label){
     const lang=getCurrentLang();
+    label.setAttribute('data-i18n', currentTheme==='dark' ? 'darkTheme' : 'lightTheme');
     label.textContent=currentTheme==='dark'?I18N[lang].darkTheme:I18N[lang].lightTheme;
   }
 }
@@ -607,17 +608,22 @@ function setLang(l){
 /* ============== INIT ============== */
 function initSettings(){
   const lang=getCurrentLang();
-  document.getElementById('langSel').value=lang;
-  LangSystem._applyAll(lang);
-  renderHyd();
+  const langSel = document.getElementById('langSel');
+  if (langSel) {
+    langSel.value=lang;
+  }
+  if (window.LangSystem) {
+    LangSystem._applyAll(lang);
+  }
   renderNotifs();
   initTheme();
-  initPage();
 }
 
 function updatePageLanguage(lang){
   renderNotifs();
-  LangSystem._applyAll(lang);
+  if (window.LangSystem) {
+    LangSystem._applyAll(lang);
+  }
 }
 
 initSettings();
