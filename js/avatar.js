@@ -221,6 +221,31 @@
     syncProfileUI();
   });
 
+  window.openProfileModal = function() {
+    const modal = document.getElementById('profileModal');
+    if (modal) {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const name = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+      const grade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
+      const email = localStorage.getItem('profileEmail') || '';
+      
+      const inpName = document.getElementById('profileNameInput'); if (inpName) inpName.value = name;
+      const inpGrade = document.getElementById('profileGradeInput'); if (inpGrade) inpGrade.value = grade;
+      const inpEmail = document.getElementById('profileEmailInput'); if (inpEmail) inpEmail.value = email;
+      const dispName = document.getElementById('profileModalDisplayName'); if (dispName) dispName.textContent = name;
+      const dispGrade = document.getElementById('profileModalDisplayGrade'); if (dispGrade) dispGrade.textContent = grade;
+      
+      modal.classList.add('open');
+    } else {
+      openAvatarShop();
+    }
+  };
+
+  window.closeProfileModal = function() {
+    const modal = document.getElementById('profileModal');
+    if (modal) modal.classList.remove('open');
+  };
+
   window.openAvatarShop = openAvatarShop;
   window.selectBase = selectBase;
   window.buyAccessory = buyAccessory;
