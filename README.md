@@ -31,8 +31,6 @@ Kami menyediakan berbagai fitur interaktif untuk menunjang kesejahteraan siswa. 
 
 ## Informasi Teknis (Struktur File)
 
-## Informasi Teknis (Struktur File)
-
 Jika Bapak/Ibu Juri ingin meninjau kode sumber yang kami buat, setiap halaman pada website memiliki folder tersendiri yang berisi file HTML, CSS, dan JavaScript yang digunakan pada halaman tersebut.
 
 Struktur proyek dirancang agar lebih terorganisir dan mudah ditelusuri.
