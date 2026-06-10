@@ -210,7 +210,7 @@ tailwind.config = {
         <span class="material-symbols-outlined text-primary">workspace_premium</span>
         <div>
           <div class="text-xs text-on-surface-variant">Sertifikat</div>
-          <div class="font-extrabold text-primary" id="certCount">0 / 6</div>
+          <div class="font-extrabold text-primary" id="certCount">0 / 7</div>
         </div>
       </div>
     </div>
@@ -801,7 +801,7 @@ document.addEventListener('DOMContentLoaded',()=>{const el=document.getElementBy
 /* ===== CERTIFICATES ===== */
 let earnedCerts=[];
 try{earnedCerts=JSON.parse(localStorage.getItem('edu_certs')||'[]');}catch(e){}
-function updateCertCount(){document.getElementById('certCount').textContent=earnedCerts.length+' / 6';}
+function updateCertCount(){document.getElementById('certCount').textContent=earnedCerts.length+' / '+(VIDEOS.length+1);}
 updateCertCount();
 
 function showCertificate(video){
@@ -827,84 +827,136 @@ function showCertificate(video){
 }
 function closeCertificate(){document.getElementById('certificateOverlay').classList.remove('open');}
 function downloadCertificate(){
-  const element = document.getElementById('certCard');
   const certId = document.getElementById('certId').textContent;
+  const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const currentName = localStorage.getItem('profileName') || user.name || 'Alex Johnson';
+  const currentGrade = localStorage.getItem('profileGrade') || user.role || 'Grade 11-A';
+  const title = document.getElementById('certVideoTitle').textContent;
+  const metaText = document.getElementById('certVideoMeta').textContent;
+  const author = metaText.split(' · ')[0] || 'SafeSchoolHub';
+  const date = document.getElementById('certDate').textContent;
   
-  // Clone element to prevent styling alterations on the live page
-  const clone = element.cloneNode(true);
-  
-  // Ensure the clone is styled with solid, absolute values to prevent CSS variable rendering issues in html2canvas
-  clone.style.position = 'absolute';
-  clone.style.left = '-9999px';
-  clone.style.top = '-9999px';
-  clone.style.width = '520px';
-  clone.style.height = 'auto';
-  clone.style.background = '#ffffff';
-  clone.style.color = '#0b1c30';
-  clone.style.display = 'block';
-  
-  const header = clone.querySelector('.cert-header');
-  if (header) {
-    header.style.background = 'linear-gradient(135deg, #003151, #106399)';
-    header.style.color = '#ffffff';
-    header.style.padding = '2rem';
-    header.style.textAlign = 'center';
-  }
-  
-  const seal = clone.querySelector('.cert-seal');
-  if (seal) {
-    seal.style.backgroundColor = '#e5eeff';
-    seal.style.borderColor = '#717880';
-    seal.style.width = '72px';
-    seal.style.height = '72px';
-    seal.style.borderRadius = '50%';
-    seal.style.display = 'flex';
-    seal.style.alignItems = 'center';
-    seal.style.justifyContent = 'center';
-    seal.style.margin = '0 auto 1rem';
-  }
-  
-  const body = clone.querySelector('.cert-body');
-  if (body) {
-    body.style.backgroundColor = '#ffffff';
-    body.style.padding = '1.5rem 2rem';
-  }
-  
-  // Apply direct colors to all text labels to prevent Tailwind color variable mapping issues
-  clone.querySelectorAll('.text-on-surface-variant').forEach(el => {
-    el.style.color = '#41474f';
-  });
-  clone.querySelectorAll('.text-on-surface').forEach(el => {
-    el.style.color = '#0b1c30';
-  });
-  const nameLabel = clone.querySelector('#certStudentName');
-  if (nameLabel) {
-    nameLabel.style.color = '#0b1c30';
-    nameLabel.style.fontWeight = '800';
-    nameLabel.style.fontSize = '1.5rem';
-  }
-  const titleLabel = clone.querySelector('#certVideoTitle');
-  if (titleLabel) {
-    titleLabel.style.color = '#0b1c30';
-    titleLabel.style.fontWeight = '700';
-  }
+  // Buat kontainer sertifikat asli secara dinamis
+  const certContainer = document.createElement('div');
+  certContainer.style.position = 'absolute';
+  certContainer.style.left = '-9999px';
+  certContainer.style.top = '-9999px';
+  certContainer.style.width = '842px'; // A5 Landscape ratio (1.414) -> 842px x 595px
+  certContainer.style.height = '595px';
+  certContainer.style.boxSizing = 'border-box';
+  certContainer.style.padding = '50px';
+  certContainer.style.backgroundColor = '#ffffff';
+  certContainer.style.border = '16px double #106399';
+  certContainer.style.fontFamily = "'Plus Jakarta Sans', system-ui, sans-serif";
+  certContainer.style.color = '#0b1c30';
+  certContainer.style.display = 'flex';
+  certContainer.style.flexDirection = 'column';
+  certContainer.style.justifyContent = 'space-between';
+  certContainer.style.alignItems = 'center';
 
-  document.body.appendChild(clone);
+  certContainer.innerHTML = `
+    <!-- Bagian Atas / Header Sertifikat -->
+    <div style="text-align: center; width: 100%;">
+      <div style="font-size: 11px; letter-spacing: 5px; color: #106399; font-weight: 800; margin-bottom: 6px; text-transform: uppercase;">
+        SafeSchoolHub Student Wellness Academy
+      </div>
+      <div style="width: 120px; height: 3px; background-color: #106399; margin: 0 auto 16px;"></div>
+      <h1 style="font-family: Georgia, serif; font-size: 34px; font-weight: bold; color: #003151; margin: 0; letter-spacing: 1.5px; text-transform: uppercase;">
+        Sertifikat Kelulusan
+      </h1>
+      <div style="font-family: Georgia, serif; font-style: italic; font-size: 15px; color: #717880; margin-top: 4px;">
+        Certificate of Completion
+      </div>
+    </div>
+
+    <!-- Bagian Tengah / Penerima Sertifikat -->
+    <div style="text-align: center; width: 100%;">
+      <p style="font-size: 13px; color: #41474f; margin: 0; font-style: italic;">
+        Dengan bangga diberikan kepada siswa:
+      </p>
+      <h2 style="font-family: Georgia, serif; font-size: 30px; font-weight: 800; color: #106399; margin: 12px 0; border-bottom: 2px solid #bae6fd; display: inline-block; padding-bottom: 6px; min-width: 380px;">
+        ${currentName}
+      </h2>
+      <p style="font-size: 13px; color: #41474f; margin: 0; font-weight: 600;">
+        Kelas / Grade: ${currentGrade}
+      </p>
+    </div>
+
+    <!-- Bagian Keterangan / Deskripsi Kelulusan -->
+    <div style="text-align: center; max-width: 650px; width: 100%;">
+      <p style="font-size: 13px; line-height: 1.6; color: #41474f; margin: 0;">
+        Telah berhasil menyelesaikan dan memahami materi edukasi kesehatan mental dengan topik:
+      </p>
+      <p style="font-size: 17px; font-weight: 800; color: #0b1c30; margin: 10px 0; font-style: italic;">
+        "${title}"
+      </p>
+      <p style="font-size: 11px; color: #717880; margin: 0; line-height: 1.5;">
+        Sebagai wujud partisipasi aktif dalam membangun kesadaran kesehatan mental, empati, dan kesejahteraan diri di lingkungan sekolah digital.
+      </p>
+    </div>
+
+    <!-- Tanda Tangan & Seal -->
+    <div style="width: 100%; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 40px; box-sizing: border-box;">
+      <!-- Tanda Tangan Kiri (BK / Konselor) -->
+      <div style="text-align: center; width: 200px;">
+        <div style="font-family: 'Courier New', monospace; font-size: 15px; color: #106399; font-style: italic; font-weight: bold; margin-bottom: 4px; line-height: 1.2;">
+          SafeSchoolHub BK
+        </div>
+        <div style="border-top: 1px solid #717880; margin-top: 4px; padding-top: 4px;">
+          <div style="font-size: 12px; font-weight: bold; color: #0b1c30;">Tim Pembimbing BK</div>
+          <div style="font-size: 10px; color: #717880;">Konselor SafeSchoolHub</div>
+        </div>
+      </div>
+
+      <!-- Seal Emas Tengah (Menggunakan SVG langsung agar rendering stabil) -->
+      <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <div style="width: 68px; height: 68px; border-radius: 50%; background-color: #fef3c7; border: 3px double #d97706; display: flex; align-items: center; justify-content: center;">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="9" r="6" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+            <path d="M9 14.5L7 21L12 19L17 21L15 14.5" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 6L13.5 9L16.5 9.5L14.25 11.5L15 14.5L12 13L9 14.5L9.75 11.5L7.5 9.5L10.5 9L12 6Z" fill="#d97706"/>
+          </svg>
+        </div>
+        <div style="font-size: 9px; font-weight: bold; color: #d97706; margin-top: 6px; letter-spacing: 1px; font-family: monospace;">
+          SSH-SECURED
+        </div>
+      </div>
+
+      <!-- Tanda Tangan Kanan (Narasumber / Instansi) -->
+      <div style="text-align: center; width: 200px;">
+        <div style="font-family: 'Courier New', monospace; font-size: 15px; color: #106399; font-style: italic; font-weight: bold; margin-bottom: 4px; line-height: 1.2;">
+          ${author}
+        </div>
+        <div style="border-top: 1px solid #717880; margin-top: 4px; padding-top: 4px;">
+          <div style="font-size: 12px; font-weight: bold; color: #0b1c30;">Narasumber Materi</div>
+          <div style="font-size: 10px; color: #717880;">Penyedia Konten Edukasi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informasi Tambahan di Kaki Sertifikat -->
+    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 9px; color: #717880; margin-top: 10px; border-top: 1px solid #f1f5f9; padding-top: 8px; box-sizing: border-box;">
+      <div>TANGGAL TERBIT: ${date}</div>
+      <div style="font-weight: bold; font-family: monospace;">ID SERTIFIKAT: ${certId}</div>
+    </div>
+  `;
+
+  document.body.appendChild(certContainer);
   
   const opt = {
-    margin:       10,
+    margin:       0,
     filename:     'Sertifikat_' + certId + '.pdf',
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 3, useCORS: true, logging: false },
-    jsPDF:        { unit: 'mm', format: 'a5', orientation: 'landscape' }
+    image:        { type: 'jpeg', quality: 1.0 },
+    html2canvas:  { scale: 2.5, useCORS: true, logging: false },
+    jsPDF:        { unit: 'px', format: [842, 595], hotfixes: ['px_scaling'] }
   };
   
-  html2pdf().set(opt).from(clone).save().then(() => {
-    document.body.removeChild(clone);
+  html2pdf().set(opt).from(certContainer).save().then(() => {
+    document.body.removeChild(certContainer);
   }).catch(err => {
     console.error(err);
-    if (clone.parentNode) {
-      document.body.removeChild(clone);
+    if (certContainer.parentNode) {
+      document.body.removeChild(certContainer);
     }
   });
   
@@ -928,7 +980,7 @@ const VIDEOS=[
   {id:'v3',title:'Pengaruh Makanan untuk Fungsi Otak',author:'Gizi Remaja Indonesia',duration:'14 min',durationSec:14*60,views:'63K',category:'health',ytId:'g_8wTzrKAT8',ytUrl:'https://youtu.be/g_8wTzrKAT8?si=kU5YIvgSbMVQxpt2',certEligible:true,xp:30},
   {id:'v4',title:'Cara Mengelola Screen Time dengan Bijak',author:'Into The Light Indonesia',duration:'10 min',durationSec:10*60,views:'112K',category:'digital',ytId:'t-sKFvNVqCI',ytUrl:'https://youtu.be/t-sKFvNVqCI?si=fgBAV1b9IidXvSIy',certEligible:true,xp:30},
   {id:'v5',title:'Solusi Mengatasi Stres dan Burnout',author:'Yayasan Pulih Indonesia',duration:'22 min',durationSec:22*60,views:'87K',category:'wellbeing',ytId:'_OSuM0ILOCg',ytUrl:'https://youtu.be/_OSuM0ILOCg?si=k7mKC6G-3GcA2wtt',certEligible:true,xp:30},
-  {id:'v6',title:'Cara Melindungi Diri dari Cyberbullying',author:'Kemendikbud RI',duration:'8 min',durationSec:8*60,views:'120K',category:'digital',ytId:'KsCKLIx5xQM',ytUrl:'https://www.youtube.com/watch?v=KsCKLIx5xQM',certEligible:false,xp:20},
+  {id:'v6',title:'Cara Melindungi Diri dari Cyberbullying',author:'Kemendikbud RI',duration:'8 min',durationSec:8*60,views:'120K',category:'digital',ytId:'KsCKLIx5xQM',ytUrl:'https://www.youtube.com/watch?v=KsCKLIx5xQM',certEligible:true,xp:30},
 ];
 const FEATURED={id:'featured',title:'Kesehatan Mental untuk Remaja',author:'Into The Light Indonesia',duration:'28 min',durationSec:28*60,views:'12.4K',ytId:'rEfNZtltY_M',ytUrl:'https://youtu.be/rEfNZtltY_M?si=LoWvsKEjbWWnrrQw',certEligible:true,xp:50};
 
@@ -979,7 +1031,7 @@ function openVideo(id){
       const already=earnedCerts.find(c=>c.id===v.id);
       if(!already){
         // Show confirmation modal before giving cert
-        document.getElementById('confirmTitle').textContent='<i class="fa-solid fa-graduation-cap"></i> Sertifikat Tersedia!';
+        document.getElementById('confirmTitle').innerHTML='<i class="fa-solid fa-graduation-cap"></i> Sertifikat Tersedia!';
         document.getElementById('confirmMsg').textContent=`Video "${v.title}" berdurasi ${v.duration} (lebih dari 5 menit). Tandai sebagai selesai ditonton untuk mendapatkan sertifikat?`;
         document.getElementById('confirmOk').textContent='Ya, Saya Sudah Menonton!';
         document.getElementById('confirmOk').onclick=()=>{
