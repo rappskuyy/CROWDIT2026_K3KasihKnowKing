@@ -54,7 +54,7 @@ html[style*="color-scheme: dark"] {
   .page{display:none;animation:fadeIn .3s ease;}
   .page.active{display:block;}
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
-  .mood-chip{cursor:pointer;border-radius:9999px;padding:.5rem .9rem;background:var(--surface-container-low);font-weight:600;font-size:.85rem;transition:all .2s;border:2px solid transparent;}
+  .mood-chip{cursor:pointer;border-radius:9999px;padding:.5rem .9rem;background:var(--surface-container-low);font-weight:600;font-size:.85rem;transition:all .2s;border:2px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;flex:1;min-width:0;}
   .mood-chip:hover{background:var(--surface-container);}
   .mood-chip.selected{background:var(--surface-container-high);border-color:var(--primary);color:var(--primary);}
   .toast{position:fixed;bottom:24px;right:24px;display:flex;flex-direction:column;gap:.5rem;z-index:9999;pointer-events:none;}

@@ -1,4 +1,4 @@
-
+ 
   :root{
     --primary:#106399;--on-primary:#fff;--primary-container:#5a9bd5;--on-primary-container:#003151;
     --secondary:#1c6c3f;--secondary-container:#a5f4bb;--on-secondary-container:#247245;
@@ -67,6 +67,8 @@ html[style*="color-scheme: dark"] {
     gap: 0.6rem;
     padding: 0.5rem;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex: 1;
+    min-width: 0;
   }
   .mood-icon {
     font-size: 2.25rem;
