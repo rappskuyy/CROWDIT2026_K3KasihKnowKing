@@ -112,7 +112,7 @@ tailwind.config = {
 </head>
 <body class="min-h-screen">
 <div class="toast" id="toast"></div>
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40">
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40">
 <div class="px-5 py-6 flex items-center gap-3">
 <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
 <span class="material-symbols-outlined icon-fill">shield</span>
@@ -153,7 +153,7 @@ tailwind.config = {
   </div>
 </div>
 </aside>
-<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
 <div class="flex items-center gap-2">
 <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
 <span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
@@ -936,15 +936,15 @@ initPage();
     </div>
     <div class="mb-4">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
-      <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Nama kamu"/>
+      <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Nama kamu"/>
     </div>
     <div class="mb-4">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">KELAS / GRADE</label>
-      <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Contoh: Grade 11-A"/>
+      <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Contoh: Grade 11-A"/>
     </div>
     <div class="mb-5">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPSIONAL)</label>
-      <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
+      <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
     </div>
     <div class="flex gap-3">
       <button class="btn-primary flex-1 justify-center" onclick="saveProfile()">Simpan Profil</button>
@@ -956,7 +956,7 @@ initPage();
 <script>
 function openProfileModal(){
   const user = JSON.parse(localStorage.getItem('user') || '{}');
-  const name=localStorage.getItem('profileName')|| user.name || 'Alex Johnson';
+  const name=localStorage.getItem('profileName')|| user.name || 'Fedliansyah';
   const grade=localStorage.getItem('profileGrade')|| user.role || 'Grade 11-A';
   const email=localStorage.getItem('profileEmail')||'';
   document.getElementById('profileNameInput').value=name;

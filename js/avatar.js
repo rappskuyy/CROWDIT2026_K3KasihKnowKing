@@ -60,13 +60,13 @@
   function openAvatarShop(){
     updateSidebarXP();
     const grid=document.getElementById('baseAvatarGrid');
-    if(grid) grid.innerHTML=BASE_AVATARS.map(e=>`<button onclick="selectBase('${e}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base===e?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}" style="font-size:22px">${e}</button>`).join('');
+    if(grid) grid.innerHTML=BASE_AVATARS.map(e=>`<button onclick="selectBase('${e}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base===e?'border-primary bg-surface-container-high':'border-outline-variant bg-surface-container-lowest'}" style="font-size:22px">${e}</button>`).join('');
     const shopGrid=document.getElementById('accessoryShopGrid');
     if(shopGrid) shopGrid.innerHTML=ACCESSORIES.map(acc=>{
       const owned=ownedAccessories.includes(acc.id);
       const equipped=avatarState[acc.slot]===acc.id;
       const canAfford=readXP()>=acc.cost;
-      return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped?'border-primary bg-surface-container-low':'border-outline-variant bg-white'}">
+      return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped?'border-primary bg-surface-container-low':'border-outline-variant bg-surface-container-lowest'}">
         <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div>
         <div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned?`<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>`:`<div class="text-xs font-bold mt-0.5" style="color:${canAfford?'#f59e0b':'#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div>
         <div>${owned?`<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${equipped?'bg-primary text-white':'border border-primary text-primary'}">${equipped?'Dipakai':'Pakai'}</button>`:`<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${canAfford?'bg-primary text-white':'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford?'disabled':''}>Beli</button>`}</div>
@@ -76,7 +76,7 @@
     const modal = document.getElementById('avatarShopModal'); if(modal) modal.classList.add('open');
   }
 
-  function selectBase(emoji){ avatarState.base=emoji; saveAvatarState(avatarState); applySidebarAvatar(); applyPreviewAvatar(); document.querySelectorAll('#baseAvatarGrid button').forEach((btn,i)=>{const e=BASE_AVATARS[i];btn.className=`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e===emoji?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}`;btn.style.fontSize='22px';}); }
+  function selectBase(emoji){ avatarState.base=emoji; saveAvatarState(avatarState); applySidebarAvatar(); applyPreviewAvatar(); document.querySelectorAll('#baseAvatarGrid button').forEach((btn,i)=>{const e=BASE_AVATARS[i];btn.className=`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e===emoji?'border-primary bg-surface-container-high':'border-outline-variant bg-surface-container-lowest'}`;btn.style.fontSize='22px';}); }
 
   function buyAccessory(id){ const acc=ACCESSORIES.find(a=>a.id===id); if(!acc) return; let xp = readXP(); if(xp<acc.cost){ showToast && showToast('XP tidak cukup! Tonton video/artikel dulu.','error'); return; } xp-=acc.cost; writeXP(xp); ownedAccessories.push(id); saveOwnedAccessories(ownedAccessories); avatarState[acc.slot]=id; saveAvatarState(avatarState); const el=document.getElementById('xpDisplay'); if(el) el.textContent=xp+' XP'; updateSidebarXP(); applySidebarAvatar(); showToast && showToast('🎉 '+acc.name+' berhasil dibeli & dipakai!','success'); openAvatarShop(); }
 

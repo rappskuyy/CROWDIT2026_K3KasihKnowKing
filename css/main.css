@@ -21,6 +21,8 @@
   --error-container: #ffdad6;
   --inverse-surface: #213145;
   --background: #f8f9ff;
+  --tertiary: #8a6500;
+  --tertiary-container: #fff3c4;
 }
 
 /* ============== DARK MODE VARIABLES ============== */
@@ -46,12 +48,14 @@ html[style*="color-scheme: dark"] {
   --error-container: #930006;
   --inverse-surface: #e3e7ee;
   --background: #0f1419;
+  --tertiary: #ffca28;
+  --tertiary-container: #4d3900;
 }
 
 /* ============== BASE ============== */
 html, body {
   font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  background: #F8FAFC;
+  background: var(--background);
   color: var(--on-surface);
 }
 
@@ -66,7 +70,7 @@ html, body {
 
 /* ============== CARDS ============== */
 .card {
-  background: #fff;
+  background: var(--surface-container-lowest);
   border-radius: 16px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, .04);
   transition: all .25s ease;
@@ -145,7 +149,7 @@ html, body {
   left: 0;
   right: 0;
   height: 72px;
-  background: #fff;
+  background: var(--surface-container-lowest);
   border-top: 1px solid var(--outline-variant);
   justify-content: space-around;
   align-items: center;
@@ -229,7 +233,7 @@ html, body {
 }
 
 .toast-item {
-  background: #fff;
+  background: var(--surface-container-lowest);
   border-left: 4px solid var(--primary);
   padding: .75rem 1rem;
   border-radius: .75rem;
@@ -274,7 +278,7 @@ html, body {
 }
 
 .modal-card {
-  background: #fff;
+  background: var(--surface-container-lowest);
   border-radius: 24px;
   max-width: 480px;
   width: 100%;
@@ -308,7 +312,7 @@ html, body {
   left: 2px;
   width: 20px;
   height: 20px;
-  background: #fff;
+  background: var(--surface-container-lowest);
   border-radius: 50%;
   transition: transform .2s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
@@ -334,8 +338,8 @@ html, body {
 
 /* ============== STATUS PILLS ============== */
 .stat-pill-green { background: var(--secondary-container); color: var(--on-secondary-container); }
-.stat-pill-red { background: var(--error-container); color: #93000a; }
-.stat-pill-yellow { background: #fff3c4; color: #8a6500; }
+.stat-pill-red { background: var(--error-container); color: var(--error); }
+.stat-pill-yellow { background: var(--tertiary-container); color: var(--tertiary); }
 
 /* ============== SCROLLBAR ============== */
 ::-webkit-scrollbar { width: 8px; height: 8px; }

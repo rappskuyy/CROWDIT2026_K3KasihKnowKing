@@ -50,19 +50,19 @@ tailwind.config = {
 /* Certificate overlay */
 #certificateOverlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9999;display:none;align-items:center;justify-content:center;padding:1rem;}
 #certificateOverlay.open{display:flex;animation:fadeIn .3s ease;}
-#certCard{background:#fff;border-radius:24px;max-width:520px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.3);}
+#certCard{background: var(--surface-container-lowest);border-radius:24px;max-width:520px;width:100%;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.3);}
 .cert-header{background:linear-gradient(135deg,#003151,#106399);padding:2rem;text-align:center;color:#fff;}
-.cert-seal{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.15);border:3px solid rgba(255,255,255,0.5);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
+.cert-seal{width:72px;height:72px;border-radius:50%;background: var(--surface-container-high);border: 3px solid var(--outline-variant);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;}
 .cert-body{padding:1.5rem 2rem;}
 .cert-badge{display:inline-flex;align-items:center;gap:.35rem;border-radius:9999px;padding:.3rem .8rem;font-size:.75rem;font-weight:700;}
 @keyframes fadeIn{from{opacity:0;transform:scale(.95);}to{opacity:1;transform:none;}}
 /* Video card thumbnail */
-.video-card{position:relative;cursor:pointer;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 10px 30px rgba(0,0,0,.04);transition:all .25s ease;}
+.video-card{position:relative;cursor:pointer;border-radius:16px;overflow:hidden;background: var(--surface-container-lowest);box-shadow:0 10px 30px rgba(0,0,0,.04);transition:all .25s ease;}
 .video-card:hover{box-shadow:0 15px 40px rgba(0,0,0,.12);transform:translateY(-3px);}
 .video-thumb-img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
 .play-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0);transition:background .2s;}
 .video-card:hover .play-overlay{background:rgba(0,0,0,.35);}
-.play-btn-yt{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;transform:scale(0);transition:transform .2s;}
+.play-btn-yt{width:52px;height:52px;border-radius:50%;background: var(--surface-container-highest); color: var(--on-surface);display:flex;align-items:center;justify-content:center;transform:scale(0);transition:transform .2s;}
 .video-card:hover .play-btn-yt{transform:scale(1);}
 /* Duration badge */
 .dur-badge{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.75);color:#fff;font-size:.7rem;font-weight:700;padding:.2rem .5rem;border-radius:.4rem;}
@@ -122,7 +122,7 @@ tailwind.config = {
 <div class="toast" id="toast"></div>
 
 <!-- SIDEBAR -->
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
 <div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
   <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
     <span class="material-symbols-outlined icon-fill">shield</span>
@@ -167,7 +167,7 @@ tailwind.config = {
 </aside>
 
 <!-- MOBILE TOP BAR -->
-<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
 <div class="flex items-center gap-2">
   <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
     <span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
@@ -191,14 +191,14 @@ tailwind.config = {
       <p class="text-on-surface-variant mt-1">Videos, articles, seminars &amp; safety knowledge quiz.</p>
     </div>
     <div class="flex items-center gap-3">
-      <div class="flex items-center gap-2 bg-white rounded-2xl px-4 py-2 shadow-card border border-outline-variant">
+      <div class="flex items-center gap-2 bg-surface-container-lowest rounded-2xl px-4 py-2 shadow-card border border-outline-variant">
         <span class="material-symbols-outlined text-primary">emoji_events</span>
         <div>
           <div class="text-xs text-on-surface-variant">XP Points</div>
           <div class="font-extrabold text-primary" id="xpDisplay">320 XP</div>
         </div>
       </div>
-      <div class="flex items-center gap-2 bg-white rounded-2xl px-4 py-2 shadow-card border border-outline-variant">
+      <div class="flex items-center gap-2 bg-surface-container-lowest rounded-2xl px-4 py-2 shadow-card border border-outline-variant">
         <span class="material-symbols-outlined text-primary">workspace_premium</span>
         <div>
           <div class="text-xs text-on-surface-variant">Sertifikat</div>
@@ -272,7 +272,7 @@ tailwind.config = {
   <section class="tab-section hidden" id="tab-articles">
     <div class="flex items-center justify-between mb-4">
       <h2 class="font-extrabold text-xl">Artikel Terbaru</h2>
-      <select class="text-sm border border-outline-variant rounded-full px-3 py-1.5 font-semibold bg-white" id="articleFilter" onchange="renderArticles()">
+      <select class="text-sm border border-outline-variant rounded-full px-3 py-1.5 font-semibold bg-surface-container-lowest" id="articleFilter" onchange="renderArticles()">
         <option value="all">Semua Kategori</option>
         <option value="mental">Mental Health</option>
         <option value="safety">School Safety</option>
@@ -355,15 +355,15 @@ tailwind.config = {
               <h4 class="font-extrabold text-base mb-4">Secure Your Spot</h4>
               <div class="mb-3">
                 <label class="text-xs font-bold text-on-surface-variant mb-1 block">Full Name</label>
-                <input type="text" id="mhdaRegName" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary" placeholder="Enter your full name"/>
+                <input type="text" id="mhdaRegName" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary" placeholder="Enter your full name"/>
               </div>
               <div class="mb-3">
                 <label class="text-xs font-bold text-on-surface-variant mb-1 block">Email</label>
-                <input type="email" id="mhdaRegEmail" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary" placeholder="email@yourdomain.com"/>
+                <input type="email" id="mhdaRegEmail" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@yourdomain.com"/>
               </div>
               <div class="mb-3">
                 <label class="text-xs font-bold text-on-surface-variant mb-1 block">Your Role</label>
-                <select id="mhdaRegRole" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary">
+                <select id="mhdaRegRole" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary">
                   <option value="">Select your role</option>
                   <option value="student">Student</option>
                   <option value="parent">Parent / Guardian</option>
@@ -373,7 +373,7 @@ tailwind.config = {
               </div>
               <div class="mb-4">
                 <label class="text-xs font-bold text-on-surface-variant mb-1 block">Specific question for the speaker (optional)</label>
-                <textarea id="mhdaRegQuestion" rows="2" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary resize-none" placeholder="What would you like to ask?"></textarea>
+                <textarea id="mhdaRegQuestion" rows="2" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary resize-none" placeholder="What would you like to ask?"></textarea>
               </div>
               <div id="mhdaRegFormWrap">
                 <button class="btn-primary w-full justify-center" onclick="submitMhdaReg()">
@@ -412,7 +412,7 @@ tailwind.config = {
             <span class="flex items-center gap-1 opacity-90"><span class="material-symbols-outlined" style="font-size:16px">people</span>234 mendaftar</span>
           </div>
         </div>
-        <button class="btn-primary mt-2" onclick="openSeminarRegModal('s_featured');showToast('Membuka detail seminar...','info');" style="background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.5);color:#fff">Daftar Sekarang</button>
+        <button class="btn-primary mt-2" onclick="openSeminarRegModal('s_featured');showToast('Membuka detail seminar...','info');" style="background: var(--surface-container-high);border:2px solid rgba(255,255,255,0.5);color:#fff">Daftar Sekarang</button>
       </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-5" id="seminarGrid"></div>
@@ -541,7 +541,7 @@ tailwind.config = {
   <!-- Article Reader Top Bar -->
   <div style="position:sticky;top:0;z-index:10;background:rgba(248,249,255,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--outline-variant);">
     <div style="max-width:720px;margin:0 auto;padding:.75rem 1rem;display:flex;align-items:center;gap:.75rem;">
-      <button onclick="closeArticle()" style="width:40px;height:40px;border-radius:50%;border:1px solid var(--outline-variant);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+      <button onclick="closeArticle()" style="width:40px;height:40px;border-radius:50%;border:1px solid var(--outline-variant);background: var(--surface-container-lowest);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
         <span class="material-symbols-outlined" style="font-size:20px">arrow_back</span>
       </button>
       <div style="flex:1;min-width:0;">
@@ -590,7 +590,7 @@ tailwind.config = {
     <div class="flex justify-between items-start mb-5">
       <div class="flex-1 pr-4">
         <span id="semRegLiveBadge" class="inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full mb-2" style="background:#fff3e0;color:#e65100;border:1px solid #ffccbc;">
-          <span class="w-2 h-2 rounded-full bg-orange-500 animate-pulse inline-block"></span>Live Webinar
+          <span class="w-2 h-2 rounded-full bg-[#ffca28] animate-pulse inline-block"></span>Live Webinar
         </span>
         <h3 class="font-extrabold text-xl text-on-surface" id="semRegTitle">Seminar Registration</h3>
         <div class="flex flex-wrap items-center gap-3 mt-2 text-sm text-on-surface-variant">
@@ -640,20 +640,20 @@ tailwind.config = {
 
       <!-- Right: registration form -->
       <div>
-        <div class="rounded-2xl p-4" style="border:1.5px solid var(--outline-variant);background:#fff;">
+        <div class="rounded-2xl p-4" style="border:1.5px solid var(--outline-variant);background: var(--surface-container-lowest);">
           <h4 class="font-extrabold text-base mb-4">Amankan Tempat Anda</h4>
           <div id="semRegFormWrap">
             <div class="mb-3">
               <label class="text-xs font-bold text-on-surface-variant mb-1 block">Nama Lengkap</label>
-              <input type="text" id="semRegName" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary" placeholder="Masukkan nama lengkap"/>
+              <input type="text" id="semRegName" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary" placeholder="Masukkan nama lengkap"/>
             </div>
             <div class="mb-3">
               <label class="text-xs font-bold text-on-surface-variant mb-1 block">Email</label>
-              <input type="email" id="semRegEmail" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary" placeholder="email@kamu.com"/>
+              <input type="email" id="semRegEmail" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@kamu.com"/>
             </div>
             <div class="mb-3">
               <label class="text-xs font-bold text-on-surface-variant mb-1 block">Peran Anda</label>
-              <select id="semRegRole" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary">
+              <select id="semRegRole" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary">
                 <option value="">Pilih peran</option>
                 <option value="student">Siswa</option>
                 <option value="parent">Orang Tua / Wali</option>
@@ -663,7 +663,7 @@ tailwind.config = {
             </div>
             <div class="mb-4">
               <label class="text-xs font-bold text-on-surface-variant mb-1 block">Pertanyaan untuk Pembicara (opsional)</label>
-              <textarea id="semRegQuestion" rows="2" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary resize-none" placeholder="Apa yang ingin Anda tanyakan?"></textarea>
+              <textarea id="semRegQuestion" rows="2" class="w-full border border-outline-variant rounded-xl px-3 py-2 text-sm bg-surface-container-lowest outline-none focus:border-primary resize-none" placeholder="Apa yang ingin Anda tanyakan?"></textarea>
             </div>
             <button class="btn-primary w-full justify-center" onclick="submitSeminarReg()">
               Konfirmasi Pendaftaran <span class="material-symbols-outlined" style="font-size:16px">arrow_forward</span>
@@ -722,15 +722,15 @@ tailwind.config = {
     <!-- Edit form -->
     <div class="mb-4">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
-      <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Nama kamu" value="Alex Johnson"/>
+      <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Nama kamu" value="Alex Johnson"/>
     </div>
     <div class="mb-4">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">KELAS / GRADE</label>
-      <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Contoh: Grade 11-A" value="Grade 11-A"/>
+      <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Contoh: Grade 11-A" value="Grade 11-A"/>
     </div>
     <div class="mb-5">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPSIONAL)</label>
-      <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
+      <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
     </div>
     <div class="flex gap-3">
       <button class="btn-primary flex-1 justify-center" onclick="saveProfile()">Simpan Profil</button>
@@ -1044,7 +1044,7 @@ function renderSeminars(){
     return `<div class="card overflow-hidden" style="border:1px solid var(--outline-variant);">
       <!-- Card Header with color -->
       <div class="p-4 flex items-center gap-3" style="background:${bg};">
-        <div class="w-12 h-12 rounded-2xl bg-white flex items-center justify-center flex-shrink-0 shadow-sm">
+        <div class="w-12 h-12 rounded-2xl bg-surface-container-lowest flex items-center justify-center flex-shrink-0 shadow-sm">
           <span class="material-symbols-outlined icon-fill" style="color:${icColor};font-size:26px">${ic}</span>
         </div>
         <div class="flex-1 min-w-0">
@@ -1244,7 +1244,7 @@ function loadQuestion(){
   const q=QUIZ_QUESTIONS[quizIdx];quizAnswered=false;quizTimeLeft=30;
   document.getElementById('qNum').textContent=quizIdx+1;
   document.getElementById('qProgress').style.width=((quizIdx+1)/10*100)+'%';
-  document.getElementById('qCategory').innerHTML=`<span class="seminar-badge" style="background:#dce9ff;color:#106399;font-size:12px">${q.cat}</span>`;
+  document.getElementById('qCategory').innerHTML=`<span class="seminar-badge" style="background: var(--surface-container-high);color:#106399;font-size:12px">${q.cat}</span>`;
   document.getElementById('qText').textContent=q.q;
   document.getElementById('qNextBtn').classList.add('hidden');
   document.getElementById('qExplanation').classList.add('hidden');
@@ -1371,13 +1371,13 @@ function applyPreviewAvatar(){
 function openAvatarShop(){
   updateSidebarXP();
   const grid=document.getElementById('baseAvatarGrid');
-  if(grid) grid.innerHTML=BASE_AVATARS.map(e=>`<button onclick="selectBase('${e}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base===e?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}" style="font-size:22px">${e}</button>`).join('');
+  if(grid) grid.innerHTML=BASE_AVATARS.map(e=>`<button onclick="selectBase('${e}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base===e?'border-primary bg-surface-container-high':'border-outline-variant bg-surface-container-lowest'}" style="font-size:22px">${e}</button>`).join('');
   const shopGrid=document.getElementById('accessoryShopGrid');
   if(shopGrid) shopGrid.innerHTML=ACCESSORIES.map(acc=>{
     const owned=ownedAccessories.includes(acc.id);
     const equipped=avatarState[acc.slot]===acc.id;
     const canAfford=xp>=acc.cost;
-    return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped?'border-primary bg-surface-container-low':'border-outline-variant bg-white'}">
+    return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped?'border-primary bg-surface-container-low':'border-outline-variant bg-surface-container-lowest'}">
       <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div>
       <div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned?`<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>`:`<div class="text-xs font-bold mt-0.5" style="color:${canAfford?'#f59e0b':'#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div>
       <div>${owned?`<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${equipped?'bg-primary text-white':'border border-primary text-primary'}">${equipped?'Dipakai':'Pakai'}</button>`:`<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full transition-all ${canAfford?'bg-primary text-white':'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford?'disabled':''}">Beli</button>`}</div>
@@ -1388,7 +1388,7 @@ function openAvatarShop(){
 }
 function selectBase(emoji){
   avatarState.base=emoji;saveAvatarState(avatarState);applySidebarAvatar();applyPreviewAvatar();
-  document.querySelectorAll('#baseAvatarGrid button').forEach((btn,i)=>{const e=BASE_AVATARS[i];btn.className=`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e===emoji?'border-primary bg-surface-container-high':'border-outline-variant bg-white'}`;btn.style.fontSize='22px';});
+  document.querySelectorAll('#baseAvatarGrid button').forEach((btn,i)=>{const e=BASE_AVATARS[i];btn.className=`w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e===emoji?'border-primary bg-surface-container-high':'border-outline-variant bg-surface-container-lowest'}`;btn.style.fontSize='22px';});
 }
 function buyAccessory(id){
   const acc=ACCESSORIES.find(a=>a.id===id);if(!acc)return;

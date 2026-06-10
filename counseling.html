@@ -100,7 +100,7 @@ tailwind.config = {
 <body class="min-h-screen bg-background text-on-surface">
   <!-- SIDEBAR -->
   <aside
-    class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40"
+    class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40"
     style="overflow:hidden;">
     <div class="px-5 py-5 flex items-center gap-3 flex-shrink-0 border-b border-outline-variant">
       <div class="w-9 h-9 rounded-xl bg-primary flex items-center justify-center">
@@ -159,7 +159,7 @@ tailwind.config = {
   </aside>
   <!-- MOBILE TOP BAR -->
   <header
-    class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+    class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
     <div class="flex items-center gap-2">
       <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
         <span class="material-symbols-outlined text-white icon-fill" style="font-size:16px">security</span>
@@ -191,7 +191,7 @@ tailwind.config = {
           </div>
           <!-- Mobile search -->
           <div class="md:hidden flex gap-3">
-            <input class="flex-1 bg-white border border-outline-variant/30 rounded-xl px-4 py-3 text-sm"
+            <input class="flex-1 bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-4 py-3 text-sm"
               placeholder="Find a counselor..." type="text" />
             <button class="bg-surface-container-high text-primary p-3 rounded-xl">
               <span class="material-symbols-outlined">tune</span>
@@ -281,7 +281,7 @@ tailwind.config = {
           <!-- Chat Interface -->
           <div class="glass-card rounded-2xl overflow-hidden flex flex-col" style="height: 420px;">
             <!-- Chat Header -->
-            <div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-white/50">
+            <div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-lowest">
               <div class="flex items-center gap-3">
                 <div class="w-9 h-9 rounded-full bg-secondary-container flex items-center justify-center">
                   <span class="material-symbols-outlined text-on-secondary-container"
@@ -298,13 +298,13 @@ tailwind.config = {
               </button>
             </div>
             <!-- Messages -->
-            <div class="flex-1 p-4 space-y-4 overflow-y-auto bg-slate-50/50" id="chatMessages">
+            <div class="flex-1 p-4 space-y-4 overflow-y-auto bg-surface-container-low" id="chatMessages">
               <div class="flex items-start gap-2 max-w-[80%]">
                 <div class="w-7 h-7 rounded-full bg-primary-container shrink-0 flex items-center justify-center">
                   <span class="material-symbols-outlined text-on-primary-container icon-fill"
                     style="font-size:14px">support_agent</span>
                 </div>
-                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
+                <div class="bg-surface-container-lowest p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
                   <p class="text-sm" data-i18n="counselorGreeting">Hi there! How are you feeling today? I'm here if you
                     want to talk about anything on your mind.</p>
                   <span class="text-[10px] text-on-surface-variant mt-1 block">10:45 AM</span>
@@ -321,7 +321,7 @@ tailwind.config = {
                   <span class="material-symbols-outlined text-on-primary-container icon-fill"
                     style="font-size:14px">support_agent</span>
                 </div>
-                <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
+                <div class="bg-surface-container-lowest p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
                   <p class="text-sm">Absolutely. Exam stress is very common, but there are some great techniques we can
                     use to manage it together.</p>
                   <span class="text-[10px] text-on-surface-variant mt-1 block">10:47 AM</span>
@@ -329,7 +329,7 @@ tailwind.config = {
               </div>
             </div>
             <!-- Input -->
-            <div class="p-3 bg-white border-t border-outline-variant/30 flex gap-3">
+            <div class="p-3 bg-surface-container-lowest border-t border-outline-variant/30 flex gap-3">
               <input
                 class="flex-1 bg-surface-container border-none rounded-full px-4 text-sm focus:ring-1 focus:ring-primary"
                 id="chatInput" placeholder="Type your message..." type="text" />
@@ -351,7 +351,7 @@ tailwind.config = {
               <p class="text-sm opacity-90">Take 5 minutes to breathe. Research shows short breaks improve academic
                 performance significantly.</p>
               <button
-                class="mt-4 bg-white/20 hover:bg-white/30 px-4 py-2 rounded-xl text-sm font-bold transition-colors"
+                class="mt-4 bg-surface-container-lowest hover:bg-surface-container-lowest px-4 py-2 rounded-xl text-sm font-bold transition-colors"
                 data-i18n="startExercise" id="mindfulnessBtn">
                 Start Exercise
               </button>
@@ -425,15 +425,15 @@ tailwind.config = {
       </div>
       <div class="mb-4">
         <label class="text-xs font-bold text-on-surface-variant mb-1 block">NAMA LENGKAP</label>
-        <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Nama kamu" value="Alex Johnson"/>
+        <input type="text" id="profileNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Nama kamu" value="Alex Johnson"/>
       </div>
       <div class="mb-4">
         <label class="text-xs font-bold text-on-surface-variant mb-1 block">KELAS / GRADE</label>
-        <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Contoh: Grade 11-A" value="Grade 11-A"/>
+        <input type="text" id="profileGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Contoh: Grade 11-A" value="Grade 11-A"/>
       </div>
       <div class="mb-5">
         <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPSIONAL)</label>
-        <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
+        <input type="email" id="profileEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@sekolah.ac.id"/>
       </div>
       <div class="flex gap-3">
         <button class="btn-primary flex-1 justify-center" onclick="saveProfile()">Simpan Profil</button>
@@ -514,18 +514,18 @@ tailwind.config = {
       const xp = loadXPLocal();
       const xs = document.getElementById('avatarShopXP'); if (xs) xs.textContent = xp + ' XP';
       const grid = document.getElementById('baseAvatarGrid');
-      if (grid) grid.innerHTML = BASE_AVATARS.map(em => `<button onclick="selectBase('${em}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base === em ? 'border-primary bg-surface-container-high' : 'border-outline-variant bg-white'}" style="font-size:22px">${em}</button>`).join('');
+      if (grid) grid.innerHTML = BASE_AVATARS.map(em => `<button onclick="selectBase('${em}')" class="w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${avatarState.base === em ? 'border-primary bg-surface-container-high' : 'border-outline-variant bg-surface-container-lowest'}" style="font-size:22px">${em}</button>`).join('');
       const sg = document.getElementById('accessoryShopGrid');
       if (sg) sg.innerHTML = ACCESSORIES.map(acc => {
         const owned = ownedAccessories.includes(acc.id), equipped = avatarState[acc.slot] === acc.id, canAfford = xp >= acc.cost;
-        return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped ? 'border-primary bg-surface-container-low' : 'border-outline-variant bg-white'}"><div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div><div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned ? '<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>' : `<div class="text-xs font-bold mt-0.5" style="color:${canAfford ? '#f59e0b' : '#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div><div>${owned ? `<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${equipped ? 'bg-primary text-white' : 'border border-primary text-primary'}">${equipped ? 'Dipakai' : 'Pakai'}</button>` : `<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${canAfford ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>Beli</button>`}</div></div>`;
+        return `<div class="rounded-xl p-3 flex items-center gap-3 border ${equipped ? 'border-primary bg-surface-container-low' : 'border-outline-variant bg-surface-container-lowest'}"><div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center text-3xl flex-shrink-0">${acc.emoji}</div><div class="flex-1 min-w-0"><div class="font-bold text-sm">${acc.name}</div><div class="text-xs text-on-surface-variant">${acc.desc}</div>${owned ? '<div class="text-xs text-primary font-semibold mt-0.5">✅ Sudah dimiliki</div>' : `<div class="text-xs font-bold mt-0.5" style="color:${canAfford ? '#f59e0b' : '#ba1a1a'}">💰 ${acc.cost} XP</div>`}</div><div>${owned ? `<button onclick="toggleEquip('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${equipped ? 'bg-primary text-white' : 'border border-primary text-primary'}">${equipped ? 'Dipakai' : 'Pakai'}</button>` : `<button onclick="buyAccessory('${acc.id}')" class="text-xs font-bold px-3 py-1.5 rounded-full ${canAfford ? 'bg-primary text-white' : 'bg-surface-container text-on-surface-variant cursor-not-allowed'}" ${!canAfford ? 'disabled' : ''}>Beli</button>`}</div></div>`;
       }).join('');
       applyPreviewAvatar();
       document.getElementById('avatarShopModal').classList.add('open');
     }
     function selectBase(emoji) {
       avatarState.base = emoji; saveAvatarState(avatarState); applySidebarAvatar(); applyPreviewAvatar();
-      document.querySelectorAll('#baseAvatarGrid button').forEach((btn, i) => { const e = BASE_AVATARS[i]; btn.className = `w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e === emoji ? 'border-primary bg-surface-container-high' : 'border-outline-variant bg-white'}`; btn.style.fontSize = '22px'; });
+      document.querySelectorAll('#baseAvatarGrid button').forEach((btn, i) => { const e = BASE_AVATARS[i]; btn.className = `w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all ${e === emoji ? 'border-primary bg-surface-container-high' : 'border-outline-variant bg-surface-container-lowest'}`; btn.style.fontSize = '22px'; });
     }
     function buyAccessory(id) {
       const acc = ACCESSORIES.find(a => a.id === id); if (!acc) return;

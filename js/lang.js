@@ -845,7 +845,7 @@ document.addEventListener('DOMContentLoaded', () => {
     backdropContainer.innerHTML = `
       <!-- Help Center Modal -->
       <div class="modal-backdrop" id="helpCenterModal" onclick="if(event.target===this)closeHelpCenter()">
-        <div class="modal-card max-w-[500px] w-full bg-white rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
+        <div class="modal-card max-w-[500px] w-full bg-surface-container-lowest rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
           <div class="flex justify-between items-center mb-4 border-b pb-3 border-outline-variant">
             <h3 class="font-extrabold text-xl flex items-center gap-2 text-primary">
               <span class="material-symbols-outlined">help</span>
@@ -872,7 +872,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Privacy Policy Modal -->
       <div class="modal-backdrop" id="privacyPolicyModal" onclick="if(event.target===this)closePrivacyPolicy()">
-        <div class="modal-card max-w-[500px] w-full bg-white rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
+        <div class="modal-card max-w-[500px] w-full bg-surface-container-lowest rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
           <div class="flex justify-between items-center mb-4 border-b pb-3 border-outline-variant">
             <h3 class="font-extrabold text-xl flex items-center gap-2 text-primary">
               <span class="material-symbols-outlined">privacy_tip</span>
@@ -890,7 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Terms of Service Modal -->
       <div class="modal-backdrop" id="termsOfServiceModal" onclick="if(event.target===this)closeTermsOfService()">
-        <div class="modal-card max-w-[500px] w-full bg-white rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
+        <div class="modal-card max-w-[500px] w-full bg-surface-container-lowest rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
           <div class="flex justify-between items-center mb-4 border-b pb-3 border-outline-variant">
             <h3 class="font-extrabold text-xl flex items-center gap-2 text-primary">
               <span class="material-symbols-outlined">gavel</span>
@@ -908,7 +908,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Accessibility Modal -->
       <div class="modal-backdrop" id="accessibilityModal" onclick="if(event.target===this)closeAccessibility()">
-        <div class="modal-card max-w-[500px] w-full bg-white rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
+        <div class="modal-card max-w-[500px] w-full bg-surface-container-lowest rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
           <div class="flex justify-between items-center mb-4 border-b pb-3 border-outline-variant">
             <h3 class="font-extrabold text-xl flex items-center gap-2 text-primary">
               <span class="material-symbols-outlined">accessibility</span>
@@ -929,7 +929,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <!-- Contact Support Modal -->
       <div class="modal-backdrop" id="contactSupportModal" onclick="if(event.target===this)closeContactSupport()">
-        <div class="modal-card max-w-[420px] w-full bg-white rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
+        <div class="modal-card max-w-[420px] w-full bg-surface-container-lowest rounded-2xl p-6 shadow-2xl relative" onclick="event.stopPropagation()">
           <div class="flex justify-between items-center mb-4 border-b pb-3 border-outline-variant">
             <h3 class="font-extrabold text-xl flex items-center gap-2 text-primary">
               <span class="material-symbols-outlined">mail</span>
@@ -940,7 +940,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <form onsubmit="submitContactSupport(event)" class="space-y-4">
             <div>
               <label class="text-[10px] font-bold text-on-surface-variant mb-1 block">TOPIK / MASALAH</label>
-              <select class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" id="supportTopic">
+              <select class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" id="supportTopic">
                 <option>Pertanyaan Umum</option>
                 <option>Masalah Sistem / Bug</option>
                 <option>Saran Fitur</option>
@@ -948,7 +948,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div>
               <label class="text-[10px] font-bold text-on-surface-variant mb-1 block">PESAN ANDA</label>
-              <textarea required class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary h-24 resize-none" id="supportMessage" placeholder="Bagaimana kami bisa membantu Anda?"></textarea>
+              <textarea required class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary h-24 resize-none" id="supportMessage" placeholder="Bagaimana kami bisa membantu Anda?"></textarea>
             </div>
             <button type="submit" class="btn-primary w-full justify-center">Kirim Tiket Dukungan</button>
           </form>
@@ -1046,7 +1046,7 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarBackdrop.onclick = toggleMobileSidebar;
 
     sidebarBackdrop.innerHTML = `
-      <aside class="mobile-sidebar fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out" onclick="event.stopPropagation()">
+      <aside class="mobile-sidebar fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col transform -translate-x-full transition-transform duration-300 ease-in-out" onclick="event.stopPropagation()">
         <div class="px-5 py-5 flex items-center justify-between border-b border-outline-variant flex-shrink-0">
           <div class="flex items-center gap-2">
             <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">

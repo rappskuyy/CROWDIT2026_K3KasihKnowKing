@@ -104,7 +104,7 @@ tailwind.config = {
 <!-- Toast container -->
 <div class="toast" id="toast"></div>
 <!-- ============== SIDEBAR (DESKTOP) ============== -->
-<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-white border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
+<aside class="sidebar-desktop fixed top-0 left-0 h-screen w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-40" style="overflow:hidden;">
 <div class="px-5 py-5 flex items-center gap-3 flex-shrink-0">
   <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white">
     <span class="material-symbols-outlined icon-fill">shield</span>
@@ -148,7 +148,7 @@ tailwind.config = {
 </div>
 </aside>
 <!-- ============== MOBILE TOP BAR ============== -->
-<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-white border-b border-outline-variant px-4 py-3 flex items-center justify-between">
+<header class="top-bar-mobile mobile-only sticky top-0 z-30 bg-surface-container-lowest border-b border-outline-variant px-4 py-3 flex items-center justify-between">
 <div class="flex items-center gap-2">
 <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-white">
 <span class="material-symbols-outlined icon-fill" style="font-size:18px">shield</span>
@@ -655,15 +655,15 @@ initSettings();
     </div>
     <div class="mb-4">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">FULL NAME</label>
-      <input type="text" id="settingsNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="Your name"/>
+      <input type="text" id="settingsNameInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="Your name"/>
     </div>
     <div class="mb-4">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">CLASS / GRADE</label>
-      <input type="text" id="settingsGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="e.g. Grade 11-A"/>
+      <input type="text" id="settingsGradeInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="e.g. Grade 11-A"/>
     </div>
     <div class="mb-5">
       <label class="text-xs font-bold text-on-surface-variant mb-1 block">EMAIL (OPTIONAL)</label>
-      <input type="email" id="settingsEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-white outline-none focus:border-primary" placeholder="email@school.ac.id"/>
+      <input type="email" id="settingsEmailInput" class="w-full border border-outline-variant rounded-xl px-4 py-2.5 text-sm font-semibold bg-surface-container-lowest outline-none focus:border-primary" placeholder="email@school.ac.id"/>
     </div>
     <div class="flex gap-3">
       <button class="btn-primary flex-1 justify-center" onclick="saveSettingsProfile()">Save Profile</button>

@@ -105,7 +105,7 @@ window.addEventListener('DOMContentLoaded', () => {
         <div class="w-7 h-7 rounded-full bg-primary-container shrink-0 flex items-center justify-center">
           <span class="material-symbols-outlined text-on-primary-container icon-fill" style="font-size:14px">support_agent</span>
         </div>
-        <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10 text-xs italic text-on-surface-variant flex items-center gap-1">
+        <div class="bg-surface-container-lowest p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10 text-xs italic text-on-surface-variant flex items-center gap-1">
           Typing<span class="animate-pulse">...</span>
         </div>`;
       
@@ -126,7 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
             <div class="w-7 h-7 rounded-full bg-primary-container shrink-0 flex items-center justify-center">
               <span class="material-symbols-outlined text-on-primary-container icon-fill" style="font-size:14px">support_agent</span>
             </div>
-            <div class="bg-white p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
+            <div class="bg-surface-container-lowest p-3 rounded-2xl rounded-tl-none shadow-sm border border-outline-variant/10">
               <p class="text-sm">${replyText}</p>
               <span class="text-[10px] text-on-surface-variant mt-1 block">Just now</span>
             </div>`;
