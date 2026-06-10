@@ -802,7 +802,6 @@ document.addEventListener('DOMContentLoaded',()=>{const el=document.getElementBy
 let earnedCerts=[];
 try{earnedCerts=JSON.parse(localStorage.getItem('edu_certs')||'[]');}catch(e){}
 function updateCertCount(){document.getElementById('certCount').textContent=earnedCerts.length+' / '+(VIDEOS.length+1);}
-updateCertCount();
 
 function showCertificate(video){
   const already=earnedCerts.find(c=>c.id===video.id);
@@ -969,6 +968,7 @@ function switchTab(tab){
   document.querySelectorAll('.tab-section').forEach(s=>s.classList.add('hidden'));
   document.querySelectorAll('.section-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
   document.getElementById('tab-'+tab).classList.remove('hidden');
+  if(tab==='videos')renderVideos();
   if(tab==='articles')renderArticles();
   if(tab==='seminars'){renderSeminars();prefillMhdaForm();}
 }
@@ -1429,8 +1429,10 @@ document.getElementById('sidebar-logout').addEventListener('click',()=>{if(confi
 
 
 // Auto-switch tab if redirected from seminar.html
-const gotoTab=localStorage.getItem('edu_goto_tab');
-if(gotoTab){localStorage.removeItem('edu_goto_tab');switchTab(gotoTab);}
+const gotoTab=localStorage.getItem('edu_goto_tab') || 'videos';
+localStorage.removeItem('edu_goto_tab');
+updateCertCount();
+switchTab(gotoTab);
   </script>
   <script src="js/avatar.js"></script>
 </body>
