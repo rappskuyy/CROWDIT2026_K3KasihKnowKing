@@ -1,6 +1,14 @@
-﻿/**
+/**
  * lang.js — SafeSchoolHub Centralized Translation, Theme, and Modal Injection System
  */
+
+// Prevent flash of untranslated text (FOUT) by hiding body initially
+if (!document.getElementById('preventLangFlickerStyle')) {
+  const hideBodyStyle = document.createElement('style');
+  hideBodyStyle.id = 'preventLangFlickerStyle';
+  hideBodyStyle.textContent = 'body { visibility: hidden; opacity: 0; transition: opacity 0.25s ease-in-out; }';
+  document.documentElement.appendChild(hideBodyStyle);
+}
 
 // ── THEME RETRIEVAL & INITIALIZATION (RUNS IMMEDIATELY) ──
 const initialTheme = localStorage.getItem('appTheme') || 'light';
@@ -1089,6 +1097,16 @@ document.addEventListener('DOMContentLoaded', () => {
       };
     }
   }
+
+  // Fade in body once translation/setup is complete
+  setTimeout(() => {
+    if (document.body) {
+      document.body.style.visibility = 'visible';
+      document.body.style.opacity = '1';
+    }
+    const styleEl = document.getElementById('preventLangFlickerStyle');
+    if (styleEl) styleEl.remove();
+  }, 50);
 });
 
 // ── GLOBAL UTILITY FUNCTIONS FOR MODAL TOGGLES ──

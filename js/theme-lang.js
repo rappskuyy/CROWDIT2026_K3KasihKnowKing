@@ -4,6 +4,14 @@
 // to avoid flash-of-wrong-theme (FOUT).
 // ============================================================
 
+// Prevent flash of untranslated text (FOUT) by hiding body initially
+if (!document.getElementById('preventLangFlickerStyle')) {
+  const hideBodyStyle = document.createElement('style');
+  hideBodyStyle.id = 'preventLangFlickerStyle';
+  hideBodyStyle.textContent = 'body { visibility: hidden; opacity: 0; transition: opacity 0.25s ease-in-out; }';
+  document.documentElement.appendChild(hideBodyStyle);
+}
+
 // ---------- I18N strings ----------
 const GLOBAL_I18N = {
   en: {
@@ -122,6 +130,15 @@ window.LangSystem = (function () {
 
   document.addEventListener('DOMContentLoaded', function () {
     applyLang(getLang());
+    // Fade in body once translation/setup is complete
+    setTimeout(() => {
+      if (document.body) {
+        document.body.style.visibility = 'visible';
+        document.body.style.opacity = '1';
+      }
+      const styleEl = document.getElementById('preventLangFlickerStyle');
+      if (styleEl) styleEl.remove();
+    }, 50);
   });
 
   return { getLang, setLang, applyLang };

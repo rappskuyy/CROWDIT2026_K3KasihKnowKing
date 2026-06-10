@@ -1,4 +1,4 @@
-﻿/* ============== ROUTER ============== */
+/* ============== ROUTER ============== */
 const ROUTE_FILES={
   "overview": "dashboard.html", 
   "safety": "pages/safety/safety.html", 
